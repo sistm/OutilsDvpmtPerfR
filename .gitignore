@@ -5,6 +5,5 @@
 .Rhistory
 temp.Rmd
 *.tex
-*.html
 *_cache
 *_bookdown_files

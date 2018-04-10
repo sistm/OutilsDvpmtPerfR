@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>_main.utf8</title>
+  <meta name="description" content="Outils de développement et de performance">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+
+  <meta property="og:title" content="_main.utf8" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Outils de développement et de performance" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="_main.utf8" />
+  
+  <meta name="twitter:description" content="Outils de développement et de performance" />
+  
+
+<meta name="author" content="Robin Genuer et Boris Hejblum">
+
+
+<meta name="date" content="2018-04-10">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="rcpp-ou-comment-integrer-facilement-du-code-cdans-un-package-r.html">
+<link rel="next" href="miscelanees.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; position: absolute; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource a.sourceLine:empty
+  { position: absolute; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Formation R avancée : Outils de développement et de performance </a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Présentation de la formation</a></li>
+<li class="chapter" data-level="1" data-path="construire-un-package-r.html"><a href="construire-un-package-r.html"><i class="fa fa-check"></i><b>1</b> Construire un package <code>R</code></a><ul>
+<li class="chapter" data-level="1.1" data-path="construire-un-package-r.html"><a href="construire-un-package-r.html#initialiser-un-package"><i class="fa fa-check"></i><b>1.1</b> Initialiser un package</a></li>
+<li class="chapter" data-level="1.2" data-path="construire-un-package-r.html"><a href="construire-un-package-r.html#ajouter-une-fonction-exemple-fil-rouge"><i class="fa fa-check"></i><b>1.2</b> Ajouter une fonction : exemple fil rouge</a></li>
+<li class="chapter" data-level="1.3" data-path="construire-un-package-r.html"><a href="construire-un-package-r.html#documenter-une-fonction"><i class="fa fa-check"></i><b>1.3</b> Documenter une fonction</a></li>
+<li class="chapter" data-level="1.4" data-path="construire-un-package-r.html"><a href="construire-un-package-r.html#tester-le-package-de-maniere-interactive"><i class="fa fa-check"></i><b>1.4</b> Tester le package de manière <em>intéractive</em></a></li>
+<li class="chapter" data-level="1.5" data-path="construire-un-package-r.html"><a href="construire-un-package-r.html#tester-le-package-de-maniere-automatique"><i class="fa fa-check"></i><b>1.5</b> Tester le package de manière <em>automatique</em></a></li>
+<li class="chapter" data-level="1.6" data-path="construire-un-package-r.html"><a href="construire-un-package-r.html#faire-un-check-du-package"><i class="fa fa-check"></i><b>1.6</b> Faire un <em>check</em> du package</a></li>
+<li class="chapter" data-level="1.7" data-path="construire-un-package-r.html"><a href="construire-un-package-r.html#installer-le-package"><i class="fa fa-check"></i><b>1.7</b> Installer le package</a></li>
+<li class="chapter" data-level="1.8" data-path="construire-un-package-r.html"><a href="construire-un-package-r.html#annexe-1.1-ajouter-dune-methode-s3"><i class="fa fa-check"></i><b>1.8</b> Annexe 1.1 : ajouter d’une méthode S3</a></li>
+<li class="chapter" data-level="1.9" data-path="construire-un-package-r.html"><a href="construire-un-package-r.html#annexe-1.2-soumettre-son-package-au-cran"><i class="fa fa-check"></i><b>1.9</b> Annexe 1.2 : soumettre son package au CRAN</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="controle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="controle-de-version-avec-git-et-github-hitorique-de-changement.html"><i class="fa fa-check"></i><b>2</b> Contrôle de version avec <code>git</code> et GitHub : hitorique de changement,</a><ul>
+<li class="chapter" data-level="2.1" data-path="controle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="controle-de-version-avec-git-et-github-hitorique-de-changement.html#principe-du-controle-de-version"><i class="fa fa-check"></i><b>2.1</b> Principe du contrôle de version</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="controle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="controle-de-version-avec-git-et-github-hitorique-de-changement.html#git"><i class="fa fa-check"></i><b>2.1.1</b> <code>git</code></a></li>
+<li class="chapter" data-level="2.1.2" data-path="controle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="controle-de-version-avec-git-et-github-hitorique-de-changement.html#subversion"><i class="fa fa-check"></i><b>2.1.2</b> <code>subversion</code></a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="controle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="controle-de-version-avec-git-et-github-hitorique-de-changement.html#utiliser-git-localement-depuis-rstudio"><i class="fa fa-check"></i><b>2.2</b> Utiliser <code>git</code> localement depuis RStudio</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="controle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="controle-de-version-avec-git-et-github-hitorique-de-changement.html#bonnes-pratiques-du-commit"><i class="fa fa-check"></i><b>2.2.1</b> Bonnes pratiques du <em>commit</em></a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="controle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="controle-de-version-avec-git-et-github-hitorique-de-changement.html#github"><i class="fa fa-check"></i><b>2.3</b> GitHub</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="controle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="controle-de-version-avec-git-et-github-hitorique-de-changement.html#mettre-son-package-r-sur-github"><i class="fa fa-check"></i><b>2.3.1</b> Mettre son package <code>R</code> sur GitHub</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="controle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="controle-de-version-avec-git-et-github-hitorique-de-changement.html#collaboration-pour-la-production-du-code"><i class="fa fa-check"></i><b>2.4</b> Collaboration pour la production du code</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="controle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="controle-de-version-avec-git-et-github-hitorique-de-changement.html#branches"><i class="fa fa-check"></i><b>2.4.1</b> <em>Branches</em></a></li>
+<li class="chapter" data-level="2.4.2" data-path="controle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="controle-de-version-avec-git-et-github-hitorique-de-changement.html#merge"><i class="fa fa-check"></i><b>2.4.2</b> <em>Merge</em></a></li>
+<li class="chapter" data-level="2.4.3" data-path="controle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="controle-de-version-avec-git-et-github-hitorique-de-changement.html#les-conflits"><i class="fa fa-check"></i><b>2.4.3</b> Les conflits</a></li>
+<li class="chapter" data-level="2.4.4" data-path="controle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="controle-de-version-avec-git-et-github-hitorique-de-changement.html#fork"><i class="fa fa-check"></i><b>2.4.4</b> <em>Fork</em></a></li>
+<li class="chapter" data-level="2.4.5" data-path="controle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="controle-de-version-avec-git-et-github-hitorique-de-changement.html#pull-request"><i class="fa fa-check"></i><b>2.4.5</b> <em>Pull request</em></a></li>
+<li class="chapter" data-level="2.4.6" data-path="controle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="controle-de-version-avec-git-et-github-hitorique-de-changement.html#issues"><i class="fa fa-check"></i><b>2.4.6</b> <em>Issues</em></a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="controle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="controle-de-version-avec-git-et-github-hitorique-de-changement.html#integration-continue"><i class="fa fa-check"></i><b>2.5</b> Intégration continue</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="controle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="controle-de-version-avec-git-et-github-hitorique-de-changement.html#travis-ci"><i class="fa fa-check"></i><b>2.5.1</b> Travis CI</a></li>
+<li class="chapter" data-level="2.5.2" data-path="controle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="controle-de-version-avec-git-et-github-hitorique-de-changement.html#appveyor"><i class="fa fa-check"></i><b>2.5.2</b> Appveyor</a></li>
+<li class="chapter" data-level="2.5.3" data-path="controle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="controle-de-version-avec-git-et-github-hitorique-de-changement.html#r-hub"><i class="fa fa-check"></i><b>2.5.3</b> R-hub</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="controle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="controle-de-version-avec-git-et-github-hitorique-de-changement.html#annexe-2.1-couverture-du-code"><i class="fa fa-check"></i><b>2.6</b> Annexe 2.1 : couverture du code</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="mesurer-et-comparer-des-temps-dexecution.html"><a href="mesurer-et-comparer-des-temps-dexecution.html"><i class="fa fa-check"></i><b>3</b> Mesurer et comparer des temps d’exécution</a><ul>
+<li class="chapter" data-level="3.1" data-path="mesurer-et-comparer-des-temps-dexecution.html"><a href="mesurer-et-comparer-des-temps-dexecution.html#mesurer-des-temps-dexecution-avec-system.time"><i class="fa fa-check"></i><b>3.1</b> Mesurer des temps d’exécution avec <code>system.time()</code></a></li>
+<li class="chapter" data-level="3.2" data-path="mesurer-et-comparer-des-temps-dexecution.html"><a href="mesurer-et-comparer-des-temps-dexecution.html#comparer-des-temps-dexecution-avec-microbenchmark"><i class="fa fa-check"></i><b>3.2</b> Comparer des temps d’exécution avec <code>microbenchmark()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="profiler-son-code.html"><a href="profiler-son-code.html"><i class="fa fa-check"></i><b>4</b> <em>Profiler</em> son code</a><ul>
+<li class="chapter" data-level="4.1" data-path="profiler-son-code.html"><a href="profiler-son-code.html#comparaison-avec-une-version-plus-habile-de-mnvpdf"><i class="fa fa-check"></i><b>4.1</b> Comparaison avec une version plus habile de <code>mnvpdf()</code></a></li>
+<li class="chapter" data-level="4.2" data-path="profiler-son-code.html"><a href="profiler-son-code.html#comparaison-avec-une-version-optimisee-dans-r"><i class="fa fa-check"></i><b>4.2</b> Comparaison avec une version optimisée dans R</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="rcpp-ou-comment-integrer-facilement-du-code-cdans-un-package-r.html"><a href="rcpp-ou-comment-integrer-facilement-du-code-cdans-un-package-r.html"><i class="fa fa-check"></i><b>5</b> <code>Rcpp</code> ou comment intégrer facilement du code <code>C++</code>dans un package <code>R</code></a><ul>
+<li class="chapter" data-level="5.1" data-path="rcpp-ou-comment-integrer-facilement-du-code-cdans-un-package-r.html"><a href="rcpp-ou-comment-integrer-facilement-du-code-cdans-un-package-r.html#premiere-fonction-en-rcpp"><i class="fa fa-check"></i><b>5.1</b> Première fonction en Rcpp</a></li>
+<li class="chapter" data-level="5.2" data-path="rcpp-ou-comment-integrer-facilement-du-code-cdans-un-package-r.html"><a href="rcpp-ou-comment-integrer-facilement-du-code-cdans-un-package-r.html#optimisation-grace-a-c"><i class="fa fa-check"></i><b>5.2</b> Optimisation grâce à <code>C++</code></a></li>
+<li class="chapter" data-level="5.3" data-path="rcpp-ou-comment-integrer-facilement-du-code-cdans-un-package-r.html"><a href="rcpp-ou-comment-integrer-facilement-du-code-cdans-un-package-r.html#annexe-6.1-loptimisation-prematuree-nest-pas-une-bonne-idee"><i class="fa fa-check"></i><b>5.3</b> Annexe 6.1 : l’optimisation prématurée n’est pas une bonne idée</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="parallelisation-du-code-r.html"><a href="parallelisation-du-code-r.html"><i class="fa fa-check"></i><b>6</b> Parallélisation du code <code>R</code></a><ul>
+<li class="chapter" data-level="6.1" data-path="parallelisation-du-code-r.html"><a href="parallelisation-du-code-r.html#introduction-a-lexecution-parallele-sous-r"><i class="fa fa-check"></i><b>6.1</b> Introduction à l’execution parallèle sous <code>R</code></a></li>
+<li class="chapter" data-level="6.2" data-path="parallelisation-du-code-r.html"><a href="parallelisation-du-code-r.html#premiere-fonction-parallele-en-r"><i class="fa fa-check"></i><b>6.2</b> Première fonction parallèle en <code>R</code></a></li>
+<li class="chapter" data-level="6.3" data-path="parallelisation-du-code-r.html"><a href="parallelisation-du-code-r.html#parallelisation-efficace"><i class="fa fa-check"></i><b>6.3</b> Parallélisation efficace</a></li>
+<li class="chapter" data-level="6.4" data-path="parallelisation-du-code-r.html"><a href="parallelisation-du-code-r.html#parallelisation-dans-notre-exemple-fil-rouge"><i class="fa fa-check"></i><b>6.4</b> Parallélisation dans notre exemple fil rouge</a></li>
+<li class="chapter" data-level="6.5" data-path="parallelisation-du-code-r.html"><a href="parallelisation-du-code-r.html#conclusion"><i class="fa fa-check"></i><b>6.5</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="miscelanees.html"><a href="miscelanees.html"><i class="fa fa-check"></i><b>7</b> Miscélanées</a><ul>
+<li class="chapter" data-level="7.1" data-path="miscelanees.html"><a href="miscelanees.html#debugging-avec-browser"><i class="fa fa-check"></i><b>7.1</b> Debugging avec <code>browser()</code></a></li>
+<li class="chapter" data-level="7.2" data-path="miscelanees.html"><a href="miscelanees.html#attach"><i class="fa fa-check"></i><b>7.2</b> <code>attach</code></a></li>
+<li class="chapter" data-level="7.3" data-path="miscelanees.html"><a href="miscelanees.html#gestion-memoire"><i class="fa fa-check"></i><b>7.3</b> gestion mémoire</a></li>
+<li class="chapter" data-level="7.4" data-path="miscelanees.html"><a href="miscelanees.html#copies-et-variables-localesglobales-dans-les-fonctions"><i class="fa fa-check"></i><b>7.4</b> copies et variables locales/globales dans les fonctions</a></li>
+<li class="chapter" data-level="7.5" data-path="miscelanees.html"><a href="miscelanees.html#naming"><i class="fa fa-check"></i><b>7.5</b> naming</a></li>
+<li class="chapter" data-level="7.6" data-path="miscelanees.html"><a href="miscelanees.html#gpplot2"><i class="fa fa-check"></i><b>7.6</b> <code>gpplot2</code></a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="take-home-message.html"><a href="take-home-message.html"><i class="fa fa-check"></i><b>8</b> <em>Take Home message</em></a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>Références</a></li>
+<li class="chapter" data-level="" data-path="references-1.html"><a href="references-1.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="9" data-path="les-themes-a-aborder.html"><a href="les-themes-a-aborder.html"><i class="fa fa-check"></i><b>9</b> Les thèmes à aborder</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"><div class="line-block">Formation R avancée :<br />
+<em>Outils de développement et de performance</em></div></a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="parallelisation-du-code-r" class="section level1">
+<h1><span class="header-section-number">6</span> Parallélisation du code <code>R</code></h1>
+<div id="introduction-a-lexecution-parallele-sous-r" class="section level2">
+<h2><span class="header-section-number">6.1</span> Introduction à l’execution parallèle sous <code>R</code></h2>
+<p>En dehors de l’optimisation du code et des algorithmes, une autre façon d’obtenir
+un code performant est de tirer profit des architectures parallèles des ordinateurs
+modernes. Il s’agit alors de <strong>paralléliser</strong> son code afin de faire des opérations
+simultanées sur des parties distinctes d’un même problèmes, en utilisant différent
+cœurs de calcul. On ne réduit pas le temps de calcul total nécessaire, mais l’ensemble
+des opérations s’exécute plus rapidement.</p>
+<p>Il existe un nombre non négligeable d’algorithmes qui sont d’un “parallélisme embarrassant”,
+c’est-à-dire dont les calculs peuvent se décomposer en plusieurs sous-calculs indépendants.
+En statistique, il est ainsi souvent facile et direct de paralléliser selon les différentes
+observations ou selon les différentes dimensions. Typiquement, il s’agit d’opérations que l’on
+peut écrire sous la forme de boucle dont les opérations sont indépendantes d’une itération de la
+boucle à l’autre.</p>
+<p><strong>Les opérations nécessaires pour l’établissement d’un code parallèle sont les suivantes :</strong></p>
+<ol style="list-style-type: decimal">
+<li><p>Démarrer <span class="math inline">\(m\)</span> processus “travailleurs” (i.e. cœurs de calcul) et les initialiser</p></li>
+<li><p>Envoyer les fonctions et données nécessaires pour chaque tache aux travailleurs</p></li>
+<li><p>Séparer les taches en <span class="math inline">\(m\)</span> opérations d’envergure similaire et les envoyer aux travailleurs</p></li>
+<li><p>Attendre que tous les travailleurs aient terminer leurs calculs et obtenir leurs résultats</p></li>
+<li><p>Rassembler les résultats des différents travailleurs</p></li>
+<li><p>Arrêter les processus travailleurs</p></li>
+</ol>
+<p>Selon les plateformes, plusieurs protocoles de communications sont disponibles
+entre les cœurs. Sous les systèmes UNIX, le protocole <em>Fork</em> est le plus utilisé,
+mais il n’est pas disponible sous Windows où on utilise préférentiellement le protocole
+<em>PSOCK</em>. Enfin, pour les architecture de calcul distribuée où les cœurs ne se trouvent
+pas nécessairement sur le même processeur physique, on utilise généralement le protocole
+<em>MPI</em>. L’avantage des packages <code>parallel</code> et <code>doParallel</code> est que la même syntaxe permettra
+d’exécuter du code en parallèle quelque soit le protocole de communication retenu.</p>
+<p>Il existe un nombre important de packages et d’initiatives permettant de faire du calcul en R.
+Depuis <code>R 2.14.0</code>, le package <a href="https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf"><code>parallel</code></a>
+est inclus directement dans <code>R</code> et permet de démarrer et d’arrêter un “cluster”
+de plusieurs processus travailleur (étape 1). En plus du package <code>parallel</code>, on va
+donc utiliser le package <code>doParallel</code> qui permet de gérer les processus travailleurs
+et la communication (étapes 1) et l’articulation avec le package <code>foreach</code>qui permet
+lui de gérer le dialogue avec les travailleurs (envois, réception et rassemblement
+des résultats - étapes 2, 3, 4 et 5).</p>
+</div>
+<div id="premiere-fonction-parallele-en-r" class="section level2">
+<h2><span class="header-section-number">6.2</span> Première fonction parallèle en <code>R</code></h2>
+<blockquote>
+<p><strong><em>À vous de jouer !</em></strong></p>
+<p>On va commencer par écrire une fonction simple qui calcule le logarithme <span class="math inline">\(n\)</span> nombres:</p>
+<ol style="list-style-type: decimal">
+<li><p>Déterminez combien de coeurs sont disponibles sur votre marchine grâce à la fonction
+<code>parallel::detectCores()</code>.</p></li>
+<li><p>À l’aide de la fonction <code>parallel::makeCluster()</code>, créez un cluster de coeur
+(en prenant garde à <strong>laisser un coeur disponible</strong> pour traiter les autres processus) et
+déclarer ce cluser via la fonction <code>doParallel::registerDoParallel()</code>.</p></li>
+<li><p>À l’aide de l’opérateur <code>%dopar%</code> du package <code>foreach</code>, calculez le log des <span class="math inline">\(n\)</span> nombres en
+parallèle et concaténer les résultats dans un vecteur.</p></li>
+<li><p>Fermez enfin les connections de votre cluster via la fonction <code>parallel::stopCluster(cl)</code>.</p></li>
+<li><p>Comparez le temps d’éxecution avec celui d’une fonction séquentielle
+sur les 100 premiers entiers, grâce à la commande :<br />
+<code>microbenchmark(log_par(1:100), log_seq(1:100), times=10)</code></p></li>
+</ol>
+</blockquote>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1"><span class="kw">library</span>(microbenchmark)</a>
+<a class="sourceLine" id="cb36-2" data-line-number="2"><span class="kw">library</span>(parallel)</a>
+<a class="sourceLine" id="cb36-3" data-line-number="3"><span class="kw">library</span>(foreach)</a>
+<a class="sourceLine" id="cb36-4" data-line-number="4"><span class="kw">library</span>(doParallel)</a>
+<a class="sourceLine" id="cb36-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb36-6" data-line-number="6">log_par &lt;-<span class="st"> </span><span class="cf">function</span>(x){</a>
+<a class="sourceLine" id="cb36-7" data-line-number="7">  </a>
+<a class="sourceLine" id="cb36-8" data-line-number="8">  Ncpus &lt;-<span class="st"> </span>parallel<span class="op">::</span><span class="kw">detectCores</span>() <span class="op">-</span><span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb36-9" data-line-number="9">  </a>
+<a class="sourceLine" id="cb36-10" data-line-number="10">  cl &lt;-<span class="st"> </span>parallel<span class="op">::</span><span class="kw">makeCluster</span>(Ncpus)</a>
+<a class="sourceLine" id="cb36-11" data-line-number="11">  </a>
+<a class="sourceLine" id="cb36-12" data-line-number="12">  doParallel<span class="op">::</span><span class="kw">registerDoParallel</span>(cl)</a>
+<a class="sourceLine" id="cb36-13" data-line-number="13">  </a>
+<a class="sourceLine" id="cb36-14" data-line-number="14">  res &lt;-<span class="st"> </span><span class="kw">foreach</span>(<span class="dt">i=</span><span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(x), <span class="dt">.combine=</span><span class="st">&#39;c&#39;</span>) <span class="op">%dopar%</span><span class="st"> </span>{</a>
+<a class="sourceLine" id="cb36-15" data-line-number="15">    <span class="kw">log</span>(x[i])</a>
+<a class="sourceLine" id="cb36-16" data-line-number="16">  }</a>
+<a class="sourceLine" id="cb36-17" data-line-number="17">  </a>
+<a class="sourceLine" id="cb36-18" data-line-number="18">  parallel<span class="op">::</span><span class="kw">stopCluster</span>(cl)</a>
+<a class="sourceLine" id="cb36-19" data-line-number="19">  </a>
+<a class="sourceLine" id="cb36-20" data-line-number="20">  <span class="kw">return</span>(res)</a>
+<a class="sourceLine" id="cb36-21" data-line-number="21">}</a>
+<a class="sourceLine" id="cb36-22" data-line-number="22"></a>
+<a class="sourceLine" id="cb36-23" data-line-number="23">log_seq &lt;-<span class="st"> </span><span class="cf">function</span>(x){</a>
+<a class="sourceLine" id="cb36-24" data-line-number="24">  <span class="co"># res &lt;- numeric(length(x))</span></a>
+<a class="sourceLine" id="cb36-25" data-line-number="25">  <span class="co"># </span></a>
+<a class="sourceLine" id="cb36-26" data-line-number="26">  <span class="co"># for(i in 1:length(x)){</span></a>
+<a class="sourceLine" id="cb36-27" data-line-number="27">  <span class="co">#   res[i] &lt;- log(x[i])</span></a>
+<a class="sourceLine" id="cb36-28" data-line-number="28">  <span class="co"># }</span></a>
+<a class="sourceLine" id="cb36-29" data-line-number="29">  <span class="co"># </span></a>
+<a class="sourceLine" id="cb36-30" data-line-number="30">  <span class="co"># return(res)</span></a>
+<a class="sourceLine" id="cb36-31" data-line-number="31">  <span class="kw">return</span>(<span class="kw">log</span>(x))</a>
+<a class="sourceLine" id="cb36-32" data-line-number="32">}</a>
+<a class="sourceLine" id="cb36-33" data-line-number="33"></a>
+<a class="sourceLine" id="cb36-34" data-line-number="34">mb &lt;-<span class="st"> </span><span class="kw">microbenchmark</span>(<span class="kw">log_par</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">100</span>), <span class="kw">log_seq</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">100</span>), <span class="dt">times=</span><span class="dv">50</span>)</a></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-39-1.png" width="672" /></p>
+<p>La version parallèle tourne beaucoup plus lentement… Car en fait, si les tâches individuelles
+sont trop rapides, <code>R</code> va passer plus de temps à communiquer avec les cœurs,
+qu’à faire les calculs effectifs.</p>
+<p><strong>Il faut qu’une itération de la boucle soit relativement longue pour
+que le calcul parallèle apporte un gain en temps de calcul !</strong></p>
+<p>En augmentant <span class="math inline">\(n\)</span>, on observe une réduction de la différence entre les 2 implémentations
+(le temps de calcul en parallèle augmente très lentement comparé à l’augmentation de celui de la
+fonction séquentielle).</p>
+<p><strong>NB : </strong> les itérateurs d’<code>itertools</code> sont très performants mais ne peuvent servir
+que lorsque le code à l’intérieur du foreach est vectorisé (il est toujours
+possible de vectoriser le code à l’intérieur, par exemple avec une fonction de type
+<code>apply</code>). Ils minimisent le nombre de communication entre les coeurs.</p>
+</div>
+<div id="parallelisation-efficace" class="section level2">
+<h2><span class="header-section-number">6.3</span> Parallélisation efficace</h2>
+<p>On va maintenant se pencher sur un autre cas d’utilisation. Imaginons que l’on
+ait un grand tableau de données de taille comportant 10 observations pour 100 000
+variables (e.g. des mesures de génomique), et que l’on veuille calculer
+la médiane pour chacune de ces variables.</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(<span class="fl">1e6</span>), <span class="dt">nrow=</span><span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb37-2" data-line-number="2"><span class="kw">dim</span>(x)</a></code></pre></div>
+<pre><code>## [1]     10 100000</code></pre>
+<p>Pour un utilisateur averti de <code>R</code>, une telle opération se programme facilement
+à l’aide de la fonction <code>apply</code> :</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1">colmedian_apply &lt;-<span class="st"> </span><span class="cf">function</span>(x){</a>
+<a class="sourceLine" id="cb39-2" data-line-number="2">  <span class="kw">return</span>(<span class="kw">apply</span>(x, <span class="dv">2</span>, median))</a>
+<a class="sourceLine" id="cb39-3" data-line-number="3">}</a>
+<a class="sourceLine" id="cb39-4" data-line-number="4"><span class="kw">system.time</span>(<span class="kw">colmedian_apply</span>(x))</a></code></pre></div>
+<pre><code>##    user  system elapsed 
+##   3.122   0.011   3.141</code></pre>
+<p>En réalité, une boucle <code>for</code> n’est pas plus lente à condition d’être bien programmée :</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1">colmedian_for &lt;-<span class="st"> </span><span class="cf">function</span>(x){</a>
+<a class="sourceLine" id="cb41-2" data-line-number="2">  ans &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, <span class="kw">ncol</span>(x)) </a>
+<a class="sourceLine" id="cb41-3" data-line-number="3">  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(x)) {</a>
+<a class="sourceLine" id="cb41-4" data-line-number="4">    ans[i] &lt;-<span class="st"> </span><span class="kw">median</span>(x[,i]) </a>
+<a class="sourceLine" id="cb41-5" data-line-number="5">  }</a>
+<a class="sourceLine" id="cb41-6" data-line-number="6">}</a>
+<a class="sourceLine" id="cb41-7" data-line-number="7"><span class="kw">system.time</span>(<span class="kw">colmedian_for</span>(x))</a></code></pre></div>
+<pre><code>##    user  system elapsed 
+##   3.042   0.022   3.075</code></pre>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1"><span class="kw">microbenchmark</span>(<span class="kw">colmedian_apply</span>(x), <span class="kw">colmedian_for</span>(x), <span class="dt">times=</span><span class="dv">20</span>)</a></code></pre></div>
+<pre><code>## Unit: seconds
+##                expr      min       lq     mean   median       uq      max
+##  colmedian_apply(x) 2.966504 3.013562 3.122514 3.104066 3.230563 3.329821
+##    colmedian_for(x) 2.837081 2.962834 3.051233 3.004698 3.100376 3.717733
+##  neval cld
+##     20   a
+##     20   a</code></pre>
+<blockquote>
+<p><strong><em>À vous de jouer !</em></strong><br />
+Essayons d’améliorer encore ce temps de calcul en parallélisant :</p>
+<p>1 . Parallélisez le calcul de la médiane de chacune des 100 000 variables.
+Observe-t-on un gain en temps de calcul ?</p>
+<ol start="2" style="list-style-type: decimal">
+<li>Proposez une implémentation alternative grâce à la fonction
+<code>itertools::isplitIndices()</code> qui permet de séparer vos données (les <span class="math inline">\(n\)</span> nombres)
+en autant de groupes que vous avez de coeurs. Comparez à nouveau les temps de
+calcul.</li>
+</ol>
+</blockquote>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1">colmedian_par &lt;-<span class="st"> </span><span class="cf">function</span>(x){</a>
+<a class="sourceLine" id="cb45-2" data-line-number="2">  </a>
+<a class="sourceLine" id="cb45-3" data-line-number="3">  Ncpus &lt;-<span class="st"> </span>parallel<span class="op">::</span><span class="kw">detectCores</span>() <span class="op">-</span><span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb45-4" data-line-number="4">  cl &lt;-<span class="st"> </span>parallel<span class="op">::</span><span class="kw">makeCluster</span>(Ncpus)</a>
+<a class="sourceLine" id="cb45-5" data-line-number="5">  doParallel<span class="op">::</span><span class="kw">registerDoParallel</span>(cl)</a>
+<a class="sourceLine" id="cb45-6" data-line-number="6">  </a>
+<a class="sourceLine" id="cb45-7" data-line-number="7">  res &lt;-<span class="st"> </span>foreach<span class="op">::</span><span class="kw">foreach</span>(<span class="dt">i=</span><span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(x), <span class="dt">.combine=</span><span class="st">&#39;c&#39;</span>)<span class="op">%dopar%</span>{</a>
+<a class="sourceLine" id="cb45-8" data-line-number="8">          <span class="kw">return</span>(<span class="kw">median</span>(x[,i]))</a>
+<a class="sourceLine" id="cb45-9" data-line-number="9">  }</a>
+<a class="sourceLine" id="cb45-10" data-line-number="10">  </a>
+<a class="sourceLine" id="cb45-11" data-line-number="11">  parallel<span class="op">::</span><span class="kw">stopCluster</span>(cl)</a>
+<a class="sourceLine" id="cb45-12" data-line-number="12">  <span class="kw">return</span>(res)</a>
+<a class="sourceLine" id="cb45-13" data-line-number="13">}</a>
+<a class="sourceLine" id="cb45-14" data-line-number="14"><span class="kw">system.time</span>(<span class="kw">colmedian_par</span>(x))</a></code></pre></div>
+<pre><code>##    user  system elapsed 
+##  30.103   3.435  38.438</code></pre>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1"><span class="kw">library</span>(itertools)</a>
+<a class="sourceLine" id="cb47-2" data-line-number="2">colmedian_parIter &lt;-<span class="st"> </span><span class="cf">function</span>(x){</a>
+<a class="sourceLine" id="cb47-3" data-line-number="3">  </a>
+<a class="sourceLine" id="cb47-4" data-line-number="4">  Ncpus &lt;-<span class="st"> </span>parallel<span class="op">::</span><span class="kw">detectCores</span>() <span class="op">-</span><span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb47-5" data-line-number="5">  cl &lt;-<span class="st"> </span>parallel<span class="op">::</span><span class="kw">makeCluster</span>(Ncpus)</a>
+<a class="sourceLine" id="cb47-6" data-line-number="6">  doParallel<span class="op">::</span><span class="kw">registerDoParallel</span>(cl)</a>
+<a class="sourceLine" id="cb47-7" data-line-number="7">  </a>
+<a class="sourceLine" id="cb47-8" data-line-number="8">  iter &lt;-<span class="st"> </span>itertools<span class="op">::</span><span class="kw">isplitIndices</span>(<span class="dt">n=</span><span class="kw">ncol</span>(x), <span class="dt">chunks =</span> Ncpus)</a>
+<a class="sourceLine" id="cb47-9" data-line-number="9">  res &lt;-<span class="st"> </span>foreach<span class="op">::</span><span class="kw">foreach</span>(<span class="dt">i=</span>iter, <span class="dt">.combine=</span><span class="st">&#39;c&#39;</span>)<span class="op">%dopar%</span>{</a>
+<a class="sourceLine" id="cb47-10" data-line-number="10">          <span class="kw">return</span>(<span class="kw">apply</span>(x[, i], <span class="dv">2</span>, median))</a>
+<a class="sourceLine" id="cb47-11" data-line-number="11">  }</a>
+<a class="sourceLine" id="cb47-12" data-line-number="12">  </a>
+<a class="sourceLine" id="cb47-13" data-line-number="13">  parallel<span class="op">::</span><span class="kw">stopCluster</span>(cl)</a>
+<a class="sourceLine" id="cb47-14" data-line-number="14">  <span class="kw">return</span>(res)</a>
+<a class="sourceLine" id="cb47-15" data-line-number="15">}</a>
+<a class="sourceLine" id="cb47-16" data-line-number="16"><span class="kw">system.time</span>(<span class="kw">colmedian_parIter</span>(x))</a></code></pre></div>
+<pre><code>##    user  system elapsed 
+##   0.090   0.038   3.224</code></pre>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1">colmedian_parIterFor &lt;-<span class="st"> </span><span class="cf">function</span>(x){</a>
+<a class="sourceLine" id="cb49-2" data-line-number="2">  </a>
+<a class="sourceLine" id="cb49-3" data-line-number="3">  Ncpus &lt;-<span class="st"> </span>parallel<span class="op">::</span><span class="kw">detectCores</span>() <span class="op">-</span><span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb49-4" data-line-number="4">  cl &lt;-<span class="st"> </span>parallel<span class="op">::</span><span class="kw">makeCluster</span>(Ncpus)</a>
+<a class="sourceLine" id="cb49-5" data-line-number="5">  doParallel<span class="op">::</span><span class="kw">registerDoParallel</span>(cl)</a>
+<a class="sourceLine" id="cb49-6" data-line-number="6">  </a>
+<a class="sourceLine" id="cb49-7" data-line-number="7">  iter &lt;-<span class="st"> </span>itertools<span class="op">::</span><span class="kw">isplitIndices</span>(<span class="dt">n=</span><span class="kw">ncol</span>(x), <span class="dt">chunks =</span> Ncpus)</a>
+<a class="sourceLine" id="cb49-8" data-line-number="8">  res &lt;-<span class="st"> </span><span class="kw">foreach</span>(<span class="dt">i=</span>iter, <span class="dt">.combine=</span><span class="st">&#39;c&#39;</span>) <span class="op">%dopar%</span><span class="st"> </span>{</a>
+<a class="sourceLine" id="cb49-9" data-line-number="9">    xtemp &lt;-<span class="st"> </span>x[,i]</a>
+<a class="sourceLine" id="cb49-10" data-line-number="10">    ans &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, <span class="kw">ncol</span>(xtemp)) </a>
+<a class="sourceLine" id="cb49-11" data-line-number="11">    <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(xtemp)) {</a>
+<a class="sourceLine" id="cb49-12" data-line-number="12">      ans[j] &lt;-<span class="st"> </span><span class="kw">median</span>(xtemp[,j]) </a>
+<a class="sourceLine" id="cb49-13" data-line-number="13">    }</a>
+<a class="sourceLine" id="cb49-14" data-line-number="14">    <span class="kw">return</span>(ans)</a>
+<a class="sourceLine" id="cb49-15" data-line-number="15">  }</a>
+<a class="sourceLine" id="cb49-16" data-line-number="16">  </a>
+<a class="sourceLine" id="cb49-17" data-line-number="17">  parallel<span class="op">::</span><span class="kw">stopCluster</span>(cl)</a>
+<a class="sourceLine" id="cb49-18" data-line-number="18">  <span class="kw">return</span>(res)</a>
+<a class="sourceLine" id="cb49-19" data-line-number="19">}</a>
+<a class="sourceLine" id="cb49-20" data-line-number="20"><span class="kw">system.time</span>(<span class="kw">colmedian_parIterFor</span>(x))</a></code></pre></div>
+<pre><code>##    user  system elapsed 
+##   0.114   0.037   2.960</code></pre>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1">mb &lt;-<span class="st"> </span><span class="kw">microbenchmark</span>(<span class="kw">colmedian_apply</span>(x), </a>
+<a class="sourceLine" id="cb51-2" data-line-number="2">                     <span class="kw">colmedian_for</span>(x), </a>
+<a class="sourceLine" id="cb51-3" data-line-number="3">                     <span class="kw">colmedian_parIter</span>(x),</a>
+<a class="sourceLine" id="cb51-4" data-line-number="4">                     <span class="kw">colmedian_parIterFor</span>(x), <span class="dt">times=</span><span class="dv">20</span>)</a>
+<a class="sourceLine" id="cb51-5" data-line-number="5">mb</a></code></pre></div>
+<pre><code>## Unit: seconds
+##                     expr      min       lq     mean   median       uq
+##       colmedian_apply(x) 4.027784 4.147781 4.233079 4.218699 4.320457
+##         colmedian_for(x) 3.710367 3.971151 4.062987 4.072850 4.179043
+##     colmedian_parIter(x) 2.836065 2.894177 3.003529 2.981065 3.090516
+##  colmedian_parIterFor(x) 2.828139 2.926794 3.003792 2.978373 3.077293
+##       max neval cld
+##  4.472898    20   c
+##  4.310880    20  b 
+##  3.238889    20 a  
+##  3.263685    20 a</code></pre>
+<p><img src="_main_files/figure-html/unnamed-chunk-44-1.png" width="672" /></p>
+<p>Le package <code>itertools</code> permet de séparer facilement des données ou des
+taches (étape 3) tout en minimisant les communiquations avec les différents
+travailleurs. Il s’appuie sur une implémentation des itérateurs en <code>R</code>.
+Son utilisation nécessite néanmoins de vectoriser le code à l’intérieur du
+<code>foreach</code>. Expérimentez avec le petit code ci-dessous :</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1">myiter &lt;-<span class="st"> </span>itertools<span class="op">::</span><span class="kw">isplitIndices</span>(<span class="dt">n=</span><span class="dv">30</span>, <span class="dt">chunks =</span> <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb53-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb53-3" data-line-number="3"><span class="co"># Une première fois</span></a>
+<a class="sourceLine" id="cb53-4" data-line-number="4">iterators<span class="op">::</span><span class="kw">nextElem</span>(myiter)</a></code></pre></div>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1"><span class="co"># Une deuxième fois... Oh ?!</span></a>
+<a class="sourceLine" id="cb55-2" data-line-number="2">iterators<span class="op">::</span><span class="kw">nextElem</span>(myiter)</a></code></pre></div>
+<pre><code>##  [1] 11 12 13 14 15 16 17 18 19 20</code></pre>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" data-line-number="1"><span class="co"># Encore !</span></a>
+<a class="sourceLine" id="cb57-2" data-line-number="2">iterators<span class="op">::</span><span class="kw">nextElem</span>(myiter)</a></code></pre></div>
+<pre><code>##  [1] 21 22 23 24 25 26 27 28 29 30</code></pre>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" data-line-number="1"><span class="co"># Encore ?</span></a>
+<a class="sourceLine" id="cb59-2" data-line-number="2">iterators<span class="op">::</span><span class="kw">nextElem</span>(myiter)</a></code></pre></div>
+<pre><code>## Error: StopIteration</code></pre>
+</div>
+<div id="parallelisation-dans-notre-exemple-fil-rouge" class="section level2">
+<h2><span class="header-section-number">6.4</span> Parallélisation dans notre exemple fil rouge</h2>
+<blockquote>
+<p><strong><em>À vous de jouer !</em></strong></p>
+<p>1 . À partir de la fonction <code>mvnpdfoptim()</code> et/ou <code>mvnpdfsmart()</code>, proposez
+une implémentation parallélisant les calculs sur les observations (colonnes de <span class="math inline">\(x\)</span>)</p>
+<ol start="2" style="list-style-type: decimal">
+<li>Comparez les temps de calcul sur 10 000 observations</li>
+</ol>
+</blockquote>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb61-1" data-line-number="1">n &lt;-<span class="st"> </span><span class="dv">10000</span></a>
+<a class="sourceLine" id="cb61-2" data-line-number="2">mb &lt;-<span class="st"> </span>microbenchmark<span class="op">::</span><span class="kw">microbenchmark</span>(mvtnorm<span class="op">::</span><span class="kw">dmvnorm</span>(<span class="kw">matrix</span>(<span class="fl">1.96</span>, <span class="dt">nrow =</span> n, <span class="dt">ncol =</span> <span class="dv">2</span>)),</a>
+<a class="sourceLine" id="cb61-3" data-line-number="3">                                     <span class="kw">mvnpdfoptim</span>(<span class="dt">x=</span><span class="kw">matrix</span>(<span class="fl">1.96</span>, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">ncol =</span> n), <span class="dt">Log=</span><span class="ot">FALSE</span>),</a>
+<a class="sourceLine" id="cb61-4" data-line-number="4">                                     <span class="kw">mvnpdfoptim_par</span>(<span class="dt">x=</span><span class="kw">matrix</span>(<span class="fl">1.96</span>, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">ncol =</span> n), <span class="dt">Log=</span><span class="ot">FALSE</span>),</a>
+<a class="sourceLine" id="cb61-5" data-line-number="5">                                     <span class="dt">times=</span>10L)</a>
+<a class="sourceLine" id="cb61-6" data-line-number="6">mb</a></code></pre></div>
+<pre><code>## Unit: microseconds
+##                                                                expr
+##                  mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))
+##      mvnpdfoptim(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE)
+##  mvnpdfoptim_par(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE)
+##          min          lq         mean      median          uq         max
+##      443.198     560.508     854.3374     659.925     773.123    2246.804
+##    34436.486   38398.004   45217.7459   43615.181   47579.994   69125.662
+##  1749067.160 1777838.736 1808239.9556 1805602.064 1855518.366 1861082.604
+##  neval cld
+##     10 a  
+##     10  b 
+##     10   c</code></pre>
+<p><img src="_main_files/figure-html/unnamed-chunk-47-1.png" width="672" /></p>
+</div>
+<div id="conclusion" class="section level2">
+<h2><span class="header-section-number">6.5</span> Conclusion</h2>
+<p>La parallélisation permet de gagner du temps, mais il faut d’abord bien optimiser
+son code. Quand on parallélise un code, le gain sur la durée d’exécution dépend avant tout du ratio
+entre le temps de communication et le temps de calcul effectif pour chaque tache.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="rcpp-ou-comment-integrer-facilement-du-code-cdans-un-package-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="miscelanees.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/sistm/OutilsDvpmtPerf/edit/master/07-parallelisation.Rmd",
+"text": "Edit"
+},
+"download": ["_main.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
