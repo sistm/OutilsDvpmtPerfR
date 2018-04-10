@@ -1,0 +1,302 @@
+
+# Construire un package `R`
+
+Nous présentons ici comment construire un package efficacement à l'aide d'outils
+graphiques présents dans Rstudio et du package `devtools`.
+
+Le site de référence sur ce sujet est le site
+[R packages](http://r-pkgs.had.co.nz/) d'Hadley Wickham.
+
+## Initialiser un package
+
+Une manière simple, et intégrée à Rstudio, pour **initialiser un package** est :
+
+  1. de créer un nouveau projet (menu déroulant en haut à droite dans Rstudio)
+  
+  2. choisir "New Directory"
+  
+  3. choisir "R package using devtools" (s'il n'est pas disponible, choisir "R
+  package", différence étant qu'avec "R package", il faudra supprimé des
+  fichiers créés automatiquement mais non utiles)
+  
+  4. donner un nom au package, par exemple `mypkgr`
+  
+  
+On récupère la structure **minimale pour un package R**, à savoir :
+
+  - un fichier `DESCRIPTION` dont les parties `Title`, `Version`, `Authors@R` et
+  `Description` sont à éditer (d'autres parties pourront être éditer voire
+  même ajouter de manière automatique, voir plus loin)
+  
+  - un fichier `NAMESPACE` qui sera éditer automatiquement plus loin
+  
+  - un dossier `R` dans lequel on va ajouter des fichiers de scripts R
+  
+  
+Rstudio ajoute également trois **fichiers facultatifs** :
+
+  - `.gitignore`, relatif à `git`, outils de contrôle de version que nous verrons en détails 
+  dans la partie sur GitHub
+  
+  - `mypkgr.Rproj` qui est un fichier spécifique de Rstudio, et permet de définir
+  les caractéristiques et préférences du projet que nous venons de créer
+  
+  - `.Rbuildignore` qui permet d'ignorer certains fichiers au moment où on
+  construira le package un peu plus loin (par exemple, le fichier `mypkgr.Rproj`
+  ne doit pas être inclus dans le package)
+  
+
+## Ajouter une fonction : exemple fil rouge
+
+Nous vous proposons de coder la fonction suivante, que nous reprendrons tout au
+long de la formation :
+
+Nous souhaitons calculer la valeur de la densité d'une loi normale multivariée
+sur $\mathbb{R}^p$ en $n$ points. Notre fonction doit pouvoir s'appliquer pour
+n'importe quelle loi normale multivariée (vecteur de moyennes dans
+$\mathbb{R}^p$ et matrice de variance-covariance d'ordre de $p$ quelconques),
+et on souhaite pouvoir calculer toutes les valeurs de la densité évaluées
+sur les $n$ points en un seul appel de la fonction.
+
+Vous devez donc créer une fonction `mvnpdf()` dans un fichier nommé `mvnpdf.R`
+dans le dossier `R` du package, qui :
+
+  - prend en arguments :
+  
+      - `x` une matrice, à $n$ colonnes (les observations) et $p$ lignes
+      
+      - `mean` un vecteur de moyennes
+      
+      - `varcovM` une matrice de variance-covariance
+      
+      - `Log` un paramètre logique valant `TRUE` par défaut
+      
+  - renvoie une liste contenant la matrice `x` ainsi qu'un vecteur des images
+  des points de `x` par la fonction de densité de la variable aléatoire de loi
+  normale multivariée considérée.
+
+> ***A vous de jouer !***  
+
+**ATTENTION ! Si vous cliquez trop vite sur le lien ci-dessous, cela
+invalidera votre participation à la formation !**
+
+Voici une proposition de fonction que vous pouvez télécharger
+[ici](https://plmbox.math.cnrs.fr/f/ed48609a35f24dda8a2a/?dl=1).
+
+Pour des conseils lors de la rédaction de code, voir la page 
+[R code](http://r-pkgs.had.co.nz/r.html) du site d'Hadley.
+
+
+
+## Documenter une fonction
+
+Il est important de bien documenter votre code. Tout projet a au moins 2 
+développeurs :
+
+  - vous
+    
+  - vous dans 6 mois
+  
+Par égard à votre futur moi, soyez sympas et prenez le temps de documenter 
+votre code !
+
+
+Nous vous conseillons vivement d'utiliser le package `roxygen2` pour documenter
+vos packages. L'avantage principale étant d'avoir l'aide d'une fonction dans
+le même fichier que le code définissant cette fonction.
+
+> ***A vous de jouer !***  
+>
+  1. Commencer par insérer le squelette de l'aide grâce à "Insert Roxygen
+  Skeleton" situé dans le menu "Code" ou le sous-menu *Baguette magique*
+>  
+  2. Compléter la documentation en renseignant :
+> 
+      - le titre de la fonction (première ligne)
+>      
+      - la description de ce que fait la fonction (deuxième paragraphe)
+>      
+      - si vous renseignez un troisième paragraphe, cette partie ira dans
+      la section "Details" de la page d'aide
+ >     
+      - la signification des paramètres
+ >     
+      - la sortie, après la balise `@return`
+ >     
+  3. Générer la documentation à l'aide de "Document" dans le menu "More" de
+  l'onglet "Build" (ou Ctrl+Shift+D ou `devtools::document()`). L'effet de
+  cette commande est multiple :
+>
+    - un dossier `man` a été créé et à l'intérieur, un fichier `mvnpdf.Rd`
+      a été créé et contient les informations de l'aide de la fonction
+>      
+    - le fichier `NAMESPACE` a été modifié
+      
+**En cas de bug ou par curiosité ET une fois que vous avez terminé** vous
+pouvez consulter cette
+[proposition](https://plmbox.math.cnrs.fr/f/4cefe1d4d27c4a349cee/?dl=1).
+      
+Pour plus de détails sur la documentation de package et les balises
+`roxygen2`, voir la page
+[Object documentation](http://r-pkgs.had.co.nz/man.html) du site d'Hadley.
+
+Finissons par évoquer une fonction du package `devtools` qui initialise une
+page d'aide pour le package dans son ensemble :
+
+```{r, eval=FALSE}
+devtools::use_package_doc()
+```
+
+La page d'aide générée sera alors accessible, une fois le package installé,
+via :
+
+```{r, eval=FALSE}
+?mypkgr
+```
+
+## Tester le package de manière *intéractive*
+
+Pour tester le package, vous devez le charger dans R à l'aide de :
+dans l'onglet "Build", le menu "More" puis "Load All" (ou Ctrl+Shift+L ou
+`devtools::load_all()`).
+
+Vous pouvez alors utiliser votre package directement dans R : consulter
+l'aide de la fonction avec `?mvnpdf` et par exemple exécuter les commandes renseignées dans la section exemple de cette page d'aide.
+
+```{r, eval=FALSE}
+?mvndpf
+```
+
+Ainsi, lors du développement, vous pouvez :
+
+  - Ajouter/Modifier le code R
+  
+  - Re-charger le package Ctrl+Shift+L
+  
+  - Essayer dans la console
+  
+  - Et ainsi de suite...
+  
+## Tester le package de manière *automatique*
+
+Pour initialiser la fonctionnalité de tests automatiques dans le package,
+utiliser :
+
+```{r, eval=FALSE}
+devtools::use_testthat()
+```
+
+Cette commande induit la création d'un dossier `tests` qui comprend un
+fichier `testthat.R`  - à ne pas modifier  - et un dossier `testthat` dans lequel on
+va insérer nos tests. Cet outils s'appuie sur la théorie des *tests unitaires*.
+
+Voici par exemple, le contenu d'un fichier qu'on appellera `test-univariate.R`
+à mettre dans le dossier `testthat` :
+
+```{r, eval=FALSE}
+context("Univariate gaussian test")
+
+test_that("correct result for univariate gaussian", {
+  expect_equal(mvnpdf(x=matrix(1.96), Log=FALSE)$y, dnorm(1.96))
+  expect_equal(mvnpdf(x=matrix(c(1.96, -0.5), ncol = 2), Log=FALSE)$y,
+               dnorm(c(1.96, -0.5)))
+})
+```
+
+Et un deuxième, appelé `test-bivariate.R` :
+
+```{r, eval=FALSE}
+context("Bivariate gaussian test")
+
+test_that("correct results for bivariate gaussian", {
+  expect_equal(mvnpdf(x=matrix(rep(1.96,2), nrow=2, ncol=1), Log=FALSE)$y,
+               mvtnorm::dmvnorm(rep(1.96, 2)))
+})
+```
+
+Pour exécuter ces tests, on peut utiliser dans l'onglet "Build", le menu
+"More", "Test package" (ou `devtools::test()` ou Ctrl+Shift+T).
+
+L'avantage de ces tests automatiques est qu'ils vont
+s'exécuter à chaque fois qu'on effectuera un *check* du package.
+
+Une bonne pratique est d'ajouter un test unitaire à chaque fois qu'un bug est identifier et résolu,
+afin de pouvoir immédiatement identifier et prévenir qu’une erreur identique ne se reproduise dans 
+le futur.
+
+
+## Faire un *check* du package
+
+Faire un *check* signifie vérifier que tout est correct dans le package.
+Il est **nécessaire** de "passer" le *check* pour pouvoir déposer le package
+sur le CRAN.
+
+Pour exécuter celui-ci, utiliser "Check" dans l'onglet "Build" (`devtools::check()` ou Ctrl+Shift+E).
+
+Lors du *check*, les tests que nous avons mis au point précédemment sont
+exécutées. C'est justement l'avantage d'avoir fait ces tests, nous n'avons
+plus besoin de s'en préoccuper, mais juste de réagir en cas d'erreurs
+renvoyées.
+
+## Installer le package
+
+Pour le moment, le package n'existe que dans l'environnement associé au projet
+Rstudio qu'on a créé. Pour pouvoir l'utiliser dans R de manière générale,
+il faut l'installer (comme un package du CRAN par exemple).
+
+Pour faire ça, utiliser "Install and Restart" dans l'onglet "Build" (`devtools::install()` ou Ctrl+Shift+B).
+
+Et enfin, vous pouvez configurer le comportement de Rstudio pour qu'au moment
+de l'installation, il documente en même temps le package : aller dans
+l'onglet "Build", le menu "More" puis "Configure Build Tools". Cliquer ensuite
+sur "Configure" puis cocher la case en bas "Build and Reload".
+
+
+
+
+## Annexe 1.1 : ajouter d'une méthode S3
+
+Dans la plupart des packages on est amenés à implémenter des méthodes S3,
+très souvent pour qu'à partir d'un objet résultat `res`, on puisse exécuter
+`print(res)`, `summary(res)`, `plot(res)`...
+
+Voici un exemple de méthode `plot()` qu'on peut ajouter dans notre package :
+
+```{r, eval=FALSE}
+#' Plot of the mvnpdf function
+#'
+#' @param x an object of class \code{mvnpdf} resulting from a call of
+#' \code{mnvpdf()} function.
+#' @param ... graphical parameters passed to \code{plot()} function.
+#'
+#' @return Nothing is returned, only a plot is given.
+#' @export
+#'
+#' @examples
+#' pdfvalues <- mvnpdf(x=matrix(seq(-3, 3, by = 0.1), nrow = 1), Log=FALSE)
+#' plot(pdfvalues)
+plot.mvnpdf <- function(x, ...) {
+  plot(x$x, x$y, type = "l", ...)
+}
+```
+
+*Attention !* Pour que cette méthode fasse bien ce qu'on veut quand on
+l'applique au résultat de notre fonction `mvnpdf()`, il faut déclarer que
+ce résultat est de classe `mvnpdf`.
+
+Tester cette fonction, en exécutant l'exemple.\
+*N'oubliez pas de re-charger le package (Ctrl+Shift+L), et de re-documenter le
+package (Ctrl+Shift+D).*
+
+Consulter le contenu du dossier `man` et les modifications qui ont été
+apportées au fichier `NAMESPACE`.
+
+*Voici une proposition de solution* : le
+[fichier](https://plmbox.math.cnrs.fr/f/e58b0bd8ccd9409c9886/?dl=1)
+contient le code complet
+de la fonction `mvnpdf()` et de la méthode `plot()` associée.
+
+
+## Annexe 1.2 : soumettre son package au CRAN
+
+`devtools::check_cran()` puis `devtools::submit_cran()`

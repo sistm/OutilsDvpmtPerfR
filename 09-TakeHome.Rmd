@@ -1,0 +1,9 @@
+
+# *Take Home message*
+
+ 1. **FAITES DES PACKAGES**
+ 
+ 2. utilisez `git`, au moins pour vous en local
+ 
+ 3. **si besoin** (i.e. après optimisation du code `R` lui même), n'ayez pas peur de vous tourner vers `Rcpp` et/ou la 
+ parallélisation de votre code

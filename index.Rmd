@@ -1,0 +1,67 @@
+--- 
+title: | 
+       | Formation R avancée :
+       | *Outils de développement et de performance*
+author: "Robin Genuer et Boris Hejblum"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+description: "Outils de développement et de performance"
+---
+
+# Présentation de la formation {-}
+
+Le but principal de cette formation est de vous donner des outils pour
+faciliter le développement de code (performant) avec `R`. L'aspect "performance"
+arrivera dans un deuxième temps, et les premiers outils présentés sont
+également très utiles dans des situations ne faisant pas intervenir de temps
+de calculs importants.
+
+Nous allons centrer la présentation de ces outils de développement autour
+de la notion de package. Vous connaissez déjà cette notion, car vous avez
+déjà installer des packages depuis le CRAN par exemple. Vous savez également
+que c'est le moyen le plus standard dans `R` pour mettre à disposition du code.
+Nous allons vous montrer que le package est également un excellent outil pour
+développer le code.
+
+
+Nous allons adopter le plan suivant :
+
+1. Construire un package
+
+2. Tracer les changements, partager son code, développement collaboratif et automatiser les tests dans un package
+
+3. Mesurer le temps de calcul
+
+4. *Profiler* le code
+
+5. Utiliser *Rcpp* pour optimiser ce qui doit l'être
+
+6. Paralléliser facilement le code
+
+Vous pouvez télécharger le contenu de cette formation [ici](https://plmbox.math.cnrs.fr/f/fb7fd12a6b6d439abbb3/?dl=1) (ouvrir
+alors le fichier `index.html`)
+
+Afin de suivre cette formation, il est nécessaire de disposer des logiciels suivants :  
+
+  - la dernière version de *R* (v3.4.3 - https://cloud.r-project.org/)
+
+  - la dernière version de *RStudio* (v1.1.423 - https://www.rstudio.com/products/rstudio/download/#download)
+
+  - un *compilateur `C++`* (tel que `gcc` ou `clang` - natif sous les système UNIX, 
+	pour les utilisateurs Windows nous recommandons l’installation de 
+	[Rtools](https://cran.r-project.org/bin/windows/Rtools/), pour les 
+	utilisateurs Mac il peut être nécessaire d'installer les outils de 
+	développement Apple comme suggéré 
+	[ici](http://thecoatlessprofessor.com/programming/r-compiler-tools-for-rcpp-on-os-x/))
+
+  - les packages `R` suivants : *devtools*, *doParallel*, *itertools*, 
+	*microbenchmark*, *profvis*, *Rcpp*, *RcppArmadillo*, *roxygen2*, *testthat*, 
+	*mvtnorm*  
+
+  - le client [*GitHub Desktop*](https://desktop.github.com/)
+
+  - le logiciel [*git*](https://git-scm.com/)

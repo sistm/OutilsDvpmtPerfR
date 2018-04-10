@@ -1,0 +1,398 @@
+
+# Contrôle de version avec `git` et GitHub : hitorique de changement, 
+développement collaboratif et intégration continue.
+
+Nous nous intéressons ici aux solutions proposées par RStudio et GitHub pour 
+l'hébergement et le contrôle de version de projets.
+
+## Principe du contrôle de version
+
+Le principe du contrôle de version est d'enregistrer les changements 
+successifs apportés à des fichiers (notamment des fichiers R).
+
+RStudio propose 2 solutions intégrées pour le contrôle de version :
+
+  - `git`
+  
+  - `svn`
+
+
+
+
+### `git`
+
+`git` est un logiciel de contrôle de version (c'est-à-dire un outils qui va 
+enregistrer l'histoire des changements successifs de votre code et permettre de 
+partager ces changements avec d'autres personnes). `git` est un logiciel en 
+ligne de commande, et sa prise en main n'est pas nécessairement intuitive. 
+
+`git` fonctionne de la façon suivante : sur un serveur dans le 'cloud', 
+une version **à jour** du code est disponible. À tout moment il est possible 
+d’accéder à cette version du code en ligne. Chaque contributeur peut télécharger 
+cette dernière version **à jour** (dans une action que l'on dénomme *pull*), 
+avant de l'éditer localement. Une fois ses changements effectués, le 
+contributeur peut alors mettre à jour la version en ligne du code afin que ses 
+changements soient disponibles pour tout le monde (dans une action que l'on 
+dénomme *push*)
+
+**NB** :  `git` a été pensé pour des fichiers légers (comme par exemple des 
+fichiers texte) et est loin d'être optimisé pour des fichiers trop lourds et/où 
+compressés.
+
+
+### `subversion`
+
+`subversion` est l'autre solution disponible dans RStudio. Elle fonctionne de 
+manière similaire à git, mais avec des fonctionnalités un peu plus réduites
+que nous détaillons pas ici (la différence majeure est que tout les 
+contributeurs travaillent simultanément sur la même version du code).
+
+
+## Utiliser `git` localement depuis RStudio
+
+> ***A vous de jouer !***  
+>
+  1. Commencez par activer `git` depuis l'onglet "Git/SVN" de "Project Options" 
+  situé dans le menu "Tools" et suivre les instructions.
+>  
+  2. À partir de l'onglet "Git" maintenant apparu à côté de l'onglet "Build", 
+  enregistrer l'état actuel de votre package en réalisant votre premier "commit"
+>  
+  3. à partir de l'onglet "Git" maintenant apparu à côté de l'onglet "Build", 
+  enregistrer l'état actuel de votre package en réalisant votre premier "commit" :
+ >     
+      - 3a. sélectionner les fichiers à suivre (ne pas sélectionner le fichier .Rpoj)
+ >     
+      - 3b. écrire un message informatif (pour vos collaborateurs - ce qui inclut votre futur vous)
+ >     
+      - 3c. cliquer sur "Commit"
+>     
+  4. ajouter une ligne "*.Rproj" au fichier ".gitignore" et effectuez un nouveau commit
+>  
+  5. visualiser les changements et leur historique à l'aide des outils de visualisation 
+  "Diff" et "History" accessible depuis l'onglet "Git"
+  
+  
+### Bonnes pratiques du *commit*
+
+Idéalement, chaque commit ne devrait régler qu'un seul problème. Il devrait le régler dans 
+son intégralité (être **complet**) et ne contenir des changements relatifs qu'uniquement à 
+ce problème (être **minimal**). Il est alors important d'écrire des message de commit 
+**informatifs** (pensez à vos collaborateur, qui incluent votre **futur vous**).
+Il faut également être concis, et décrire les raisons des changements plutôt que 
+les changements eux-mêmes (visibles dans le *Diff*). Il est parfois difficile de 
+respecter ces directives à la lettre, et celles-ci ne sont qu'un guide et ne 
+doivent pas vous empêcher d'effectuer des *commits* réguliers. 
+
+Par ailleurs, la tentation d'avoir un historique de changements "propre" et bien
+ordonné est naturelle, mais se révèle une source de problèmes inutiles. Elle 
+entre en contradiction avec l'objectif de traçabilité du contrôle de version. 
+Le développement de code étant généralement un processus intellectuel complexe 
+et non linéaire, il est normal que l'enregistrement des changements reflète ce 
+cheminement. En pratique, votre futur-vous sera le premier utilisateur de votre 
+historique de changements et la priorité est donc de vous faciliter la tache 
+dans le futur lors de la résolution de bug où l'extension de fonctionnalités.
+
+
+
+
+## GitHub
+
+[GitHub](https://github.com/) est un site internet proposant une solution 
+d'hébergement de code en ligne, et s'appuyant sur `git`. Il existe de nombreux 
+sites web et services (gitlab, bitbucket, ...) permettant d'héberger du code et 
+s'appuyant sur `git`. GitHub est très populaire dans la communauté des 
+développeurs `R`, et est relativement facile à utiliser, même pour un 
+utilisateur novice.
+
+Les avantages d'utiliser GitHub :
+ 
+  - une interface graphique simple pour suivre l'historique des changements de votre code
+  
+  - la dernière version de développement de votre code est disponible en ligne et vous pouvez la 
+  référencer (on peut même référencer un numéro de commit précis pour geler une version spécifique
+  du code)
+  
+  - les utilisateurs disposent d'un canal clair et transparent pour signaler les bugs/difficultés
+  
+  - cela facilite grandement le développement collaboratif
+  
+  
+### Mettre son package `R` sur GitHub
+
+> ***A vous de jouer !***  
+>
+  1. rendez vous sur le site [https://github.com/](https://github.com/) et créez vous un compte
+  GitHub (si vous hésitez, une convention courante est d'utiliser *prénomnom* comme nom d'utilisateur)
+>  
+  2. ouvrez le client "GitHub desktop" sur votre machine et connectez vous à votre compte 
+  GitHub.
+>  
+  3. ajouter un nouveau projet local en cliquant sur l'icone "+" en haut à gauche de 
+  la fenêtre du client, puis en choississant "Add" et en rentrant le chemin du dossier 
+  où se trouve le code de votre package.
+>  
+  4. une fois le repertoire créer en local, publiez le sur GitHub en cliquant sur "Publish"
+  en haut à droite de la fenêtre du client. Vérifiez sur le site de GitHub que votre 
+  code à bien été *uploadé* avec les 2 commits précédents.
+>  
+  5. Ajouter un fichier "README.Rmd" à votre package afin de disposer d'une belle page 
+  d'accueil sur GitHub :
+>  
+    - 5a. dans RStudio, executez la commande `devtools::use_readme_rmd()`
+>  
+    - 5b. à l'aide de l'outilds "Diff" de l'onglet "Git" de RStudio, étudier
+    les changements opérer par la commande précédente
+ >   
+    - 5c. éditez le fichier "README.Rmd" créé, puis créer le fichier README.md 
+    correspondant en executant `knitr` (cliquer su la pelotte de laine "Knit" 
+    en haut à gauche dans Rstudio), avant d'effectuer un 3^e^ commit contenant ces 
+    changements
+>    
+    - 5d. à ce stade, si vous visitez la page de votre répertoire sur GitHub,
+    votre 3^e^ commit n'apparait pour l'instant pas. Il faut synchroniser
+    le répertoire GitHub en ligne avec votre dossier local. Pour cela, vous 
+    avez 2 solutions : soit utiliser le bouton "Sync" en haut à droit de la 
+    fenêtre du client GitHub desktop ; soit directement depuis RStudio en cliquant
+    sur "Push" depuis l'onglet "Git". Maintenant, les changement du 3^e^ commit sont 
+    visibles en ligne dur GitHub.
+      
+    
+    
+
+## Collaboration pour la production du code
+
+`git` et GitHub sont particulièrement efficaces lorsque plusieurs personnes collabore pour 
+développer un code. En effet, chacun peut effectuer des *pull* et *push* successifs pour
+apporter des changements au code, de manière simultanée et en étant sûr de toujours travailler
+sur la dernière version. Nous allons voir différents concepts utiles dans le cas d'un tel travail
+collaboratif.
+
+> ***A vous de jouer !***  
+>
+  1. En formant des groupes de 2, vous allez chacun ajouter votre binome comme "collaborator" 
+  à votre repertoire GitHub à partir de l'onglet "Settings" (sur GitHub).
+>
+  2. Quelques instants plus tard le collaborateur ainsi ajouté reçoit un email l'invitant à 
+  accepter l'ajout. Cliquer sur le lien et accepter.
+>
+  3. Dans le client "GitHub desktop", ajouter le répertoire de votre binôme en cliquant sur 
+  l'icone "+" en haut à gauche et en selectionnant "Clone", ce qui fait apparaitre la liste 
+  des repertoires associés à votre compte GitHub non liés à  un dossier local. 
+  Sélectionner le projet de votre binome.
+
+  
+### *Branches*
+
+Une des fonctionnalités assez utile de git est les *branches*. Cela permet d'opérer des changements 
+importants dans le code sans perturber le fonctionnement actuel. C’est notamment utile pour explorer 
+une piste de développement dont on ne sait pas si elle sera concluante au final.
+
+D'ailleurs, vous utilisez déjà les branches depuis le depuis de cette partie. En effet, la branche
+par défaut est appelé "master".
+
+Grâce à ce système de branches, on obtient un arbre des différents *commits* au cours du temps (où
+les nœuds correspondent à la séparations des branches).
+
+
+### *Merge*
+  
+Un *pull* se décompose en 2 actions de la part de `git` : 
+  
+  1. tout d'abord un *fetch*, qui correspond au téléchargement du code en ligne
+  
+  2. suivi d'un *merge* qui fusionne la version locale avec les changements.
+  
+Après avoir conduit un développement expérimental dans une branche, on peut vouloir *merger* ces 
+changements dans la branche "master" par exemple, après que l'expérience se soit révélée 
+concluante."
+  
+Si un les changements concernent des parties distinctes du code, alors le *merge* peut 
+s'effectuer sans problème. En revanche si les 2 versions à *merger* comportent des changements 
+depuis leur dernier "commit* commun qui concerne les mêmes lignes de codes, alors on va rencontrer 
+un (ou des ) conflit(s), qu'il va falloir résoudre.
+  
+
+### Les conflits
+
+Prenons l'exemple suivant : le développeur $D_1$ et le développeur $D_2$ on tous les 2 *pullé* la 
+version v0.1 du code à l'instant $t$ sur leur machine respective. Ils travaillent chacun 
+indépendamment pour apporter des changements au code. Au moment de *pusher* ses changements, 
+le développeur $D_2$ reçoit un message d'erreur : 
+
+"Sync Error.  
+Please resolve all conflicted files, commit, then try syncing again."
+
+Chaque fichier étant source de conflit a alors été automatiquement édité comme suit :
+```{git, eval = FALSE}
+<<<<<<< HEAD
+code dans votre version local
+=======
+code en ligne
+>>>>>>> remote
+```
+
+Pour résoudre le conflit, il faut alors éditer chaque fichier un à un en choisissant s'il faut 
+conserver la version locale ou bien celle en ligne, avant de pouvoir *commiter* à nouveau et enfin 
+de *pusher* vos changements avec succès.
+
+> ***A vous de jouer !***  
+>
+  1. Modifiez le fichier `README.Rmd` de votre binome, puis *commitez* votre changement et *pushez*
+  le.
+>
+  2. une fois que votre binôme a modifié votre `README.Rmd`, modifiez à votre tour le fichier
+  à la même ligne, **SANS** *puller* les changements de votre binôme au préalable ! *Commitez* et 
+  essayez de *pusher* ces changements.
+>
+  3. Résolvez le conflit.
+
+
+### *Fork*
+
+L'action *fork* permet de créer une copie qui vous appartient à partir d'un code disponible. Ainsi 
+le code original ne sera pas impacté par vos changements. Cela revient à créer une branche, et la
+séparer de l'arbre pour pouvoir en assumer la propriété.
+
+Cette action est principalement utile dans le cadre des *pull requests*.
+
+
+### *Pull request*
+
+Il s’agit du moyen le plus facile de proposer des changements dans un code dont vous n'êtes pas 
+collaborateur. GitHub propose une interface graphique facilitant leur traitement.
+
+> ***A vous de jouer !***  
+>
+  1. Modifiez le `README.Rmd` de votre voisin qui n'est pas votre binôme après avoir *forké* son 
+  package.
+>
+  2. Proposez votre changement sous la forme d'une *pull request*.
+>
+  3. Acceptez la *pull request* sur le site de GitHub et faire le *merge*.
+
+### *Issues*
+
+Pour n'importe quel répertoire GitHub, vous pouvez poster un commentaire sous forme d'*issue* 
+afin d'alerter les développeurs sur un éventuel bug, ou une question sur l'utilisation du package,
+ou encore demander une fonctionnalité supplémentaire...
+
+L'idéal est de proposer vous-même une *pull request* qui résout votre *issue* lorsque vous 
+le pouvez (i.e. en avez les capacités et le temps).
+
+> ***A vous de jouer !***  
+>
+  1. Utilisez `devtools::use_github_links()` afin d'ajouter les 2 lignes suivantes au fichier `DESCRIPTION` de votre package  
+`URL: http://github.com/*prenom.nom*/mypkg`  
+`BugReports: http://github.com/*prenom.nom*/mypkg/issues`  
+>grâce à la fonction `devtools::use_github_links()`
+>
+  2. Visualisez les nouveau changements, puis *commitez* les.
+>
+  3. Créez une *issue* sur le projet de votre binome
+
+## Intégration continue
+
+À chaque changement, à chaque *commit* donc, il y a la possibilité d'introduire 1 (ou plusieurs)
+bugs qui vont empêcher le package de passer le *CRAN check*. Si l'on accumule trop de ces bugs,
+au moment de soumettre la nouvelle version, il peut y avoir beaucoup de corrections à apporter. 
+C'est d'autant plus frustrant si le package passait le *CRAN check* auparavant... 
+
+
+Les services d'intégration continue permettent de *checker* votre package **automatiquement** après 
+chaque *commit* ! En cas d'échec, vous recevez un mail qui vous en informe. Un certain nombre de ces 
+services proposent une offre limitée gratuite pour les projets open-source. 
+
+Une autre raison d'utiliser l'intégration continue est qu'elle permet de tester votre package sur 
+des infrastructures différentes de la votre (e.g. Windows, Ubuntu, Mac OS) et pour différentes 
+versions de `R` (*current*, *devel*...)
+
+### Travis CI
+
+Travis est un service d'intégration continue (*Continuous Integration*), qui permet de *checker*
+votre package à chaque *commit* sous Ubuntu. La commande `devtools::use_travis()` initialise 
+le fichier de configuration `.travis.yml` nécessaire.
+
+> ***A vous de jouer !***  
+>
+  1. Rendez vous sur le site [https://travis-ci.org/](https://travis-ci.org/) et créez vous un compte
+  associé à votre GitHub en cliquant sur le bouton "SignIn with GitHub" en haut à droite.
+>
+  2. Activez votre repertoire `mypkg` sur Travis 
+>
+  3. executez la commande `devtools::use_travis()` et *commitez* les changements et regardez ce 
+  qu'il se passe sur votre page Travis
+> 
+  4. ajouter un joli badge à votre README.md grâce au code suivant (obtenu dans la console R) :  
+`[![Travis-CI Build Status](https://travis-ci.org/*prenomnom*/mypkgr.svg?branch=master)](https://travis-ci.org/*prenomnom*/mypkgr)`  
+et *commitez les changements*
+
+Travis permet également de tester votre package sous Mac OS (même si ce service est parfois moins 
+stable).  
+
+> 
+  5. Ajoutez les lignes suivantes dans le fichier de configuration `.travis.yml` :  
+```{r eval=FALSE}
+r: 
+ - release
+ - devel
+os:
+ - linux
+ - osx
+```
+
+N'hésitez pas à aller visiter les pages de packages connus sur GitHub pour observer comment ils
+configurent leur fichier `.travis.yml`.
+
+
+### Appveyor
+
+Appveyor est l'analogue de Travis CI mais pour Windows.
+
+> ***A vous de jouer !***  
+>
+  1. Rendez vous sur le site [https://ci.appveyor.com/](https://ci.appveyor.com/) et créez vous un compte
+  associé à votre GitHub en cliquant sur le bouton "GitHub" pour le *Login*
+>
+  2. Ajoutez votre repertoire `mypkg` sur Appveyor en cliquant sur "+ New project" en haut à gauche,
+  puis en selectionnant GitHub et mypkg dans le menu.
+>
+  3. Executez la commande `devtools::use_appveyor()` et *commitez* les changements et regardez ce 
+  qu'il se passe sur votre page Appveyor
+> 
+  4. ajouter un joli badge à votre README.md grâce au code suivant (obtenu dans la console R) :  
+`[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/*prenomnom*/mypkgr?branch=master&svg=true)](https://ci.appveyor.com/project/*prenomnom*/mypkgr)`
+et *commitez les changements*
+
+
+
+### R-hub
+
+Le *R consortium* met à disposition le [R-hub builder](https://www.r-consortium.org/blog/2016/06/06/first-public-version-of-the-r-hub-builder),
+et a pour ambition de bientôt proposer un service d'intégration continue spécialement dédié aux packages `R`.
+
+
+
+## Annexe 2.1 : couverture du code
+
+Le package `covr` propose une solution pour mesurer la couverture des tests unitaires associés à un 
+package. La couverture de test détermine la proportion du code source qui est effectivement utilisée
+lors de l’exécution des tests unitaires. La mesure de la couverture du code renforce la fiabilité
+d'un code et donne confiance à ses utilisateurs potentiels.
+
+> ***A vous de jouer !***  
+>
+  1. Executez la commande `devtools::use_appveyor()`,  ajouter un joli badge à votre README.md grâce
+  au code suivant (obtenu dans la console R) :  
+  `[![Coverage Status](https://img.shields.io/codecov/c/github/*prenomnom*/mypkgr/master.svg)](https://codecov.io/github/*prenomnom*/mypkgr?branch=master)`  
+  Et ajouter au fichier `.travis.yml`:
+```{r eval=FALSE}
+after_success:
+  - Rscript -e 'covr::codecov()'
+```
+
+>  
+  2. *Commitez* ces changements.
+
+Pour plus d'information n'hésitez pas à consulter la [vignette](https://cran.r-project.org/web/packages/covr/vignettes/how_it_works.html) de `covr`.
+

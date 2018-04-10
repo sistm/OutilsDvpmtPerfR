@@ -1,0 +1,16 @@
+
+# Miscélanées
+
+## Debugging avec `browser()`
+
+## `attach`
+
+## gestion mémoire
+
+## copies et variables locales/globales dans les fonctions
+
+## naming
+
+## `gpplot2`
+
+

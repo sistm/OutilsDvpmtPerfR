@@ -1,0 +1,21 @@
+
+# Références {-}
+
+  - Les livres en ligne d'Hadley Wickham sont vraiment excellents et contiennent
+  beaucoup de compléments par rapport à tous ce qu'on a traité dans cette
+  formation.
+  
+    - le site sur la construction de package [*R packages*](http://r-pkgs.had.co.nz/).
+    
+    - le site [*Advanced R*](http://adv-r.had.co.nz/) pour tout ce qui est
+    optimisation, Rcpp, calcul parallèle.
+    
+    - le site [*R for Data Science*](http://r4ds.had.co.nz/) est également très
+    complet et comprend des chapitres sur la gestion des structures de données
+    dans R, mais aussi la modélisation et des éléments sur les graphiques et
+    Rmarkdown.
+    
+  - le livre en ligne [Rcpp for everyone](https://teuder.github.io/rcpp4everyone_en/) de 
+    Masaki E. Tsuda est également très bien fait 
+
+

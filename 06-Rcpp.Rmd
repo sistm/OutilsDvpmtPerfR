@@ -1,0 +1,170 @@
+
+# `Rcpp` ou comment intégrer facilement du code `C++`dans un package `R` 
+
+```{r, echo=FALSE}
+library(mypkgr)
+library(microbenchmark)
+library(ggplot2)
+```
+
+`Rcpp` (R-C-Plus-Plus) est un package qui facilite l'interface entre `C++` et `R`. `R` est un langage
+interprété, ce qui facilite un certain nombre de choses (notamment nous donne accès à la console 
+dans laquelle on peut évaluer du code à la volée). Néanmoins, cette facilité d'utilisation se 
+compense entre autre par des temps de calcul supérieurs à ceux de langages de plus bas niveau,
+tels que `C`, `Fortran` et `C++` (mais qui nécessitent eux une compilation).
+
+On dirigera le lecteur curieux vers le livre en ligne 
+[*Rcpp for everyone*](https://teuder.github.io/rcpp4everyone_en/) de Masaki E. Tsuda, qui
+constitue une ressource très complète pour comprendre l'utilisation de Rcpp en plus de 
+l'introduction que l'on peut trouver dans le livre [*Advanced R*](http://adv-r.had.co.nz/) d'Hadley 
+Wickham.
+
+## Première fonction en Rcpp
+
+> ***A vous de jouer !***  
+>
+  1. Afin de rendre votre package prêt pour l'utilisation avec Rcpp, commencez par executer la commande
+suivante :
+```{r, eval=FALSE}
+devtools::use_rcpp()
+```
+>
+  2. Constatez les changements apportés 
+>
+  3. il faut également ajouter les 2 commentaires roxygen suivants dans la page d’aide du
+package dans son ensemble :
+```{r, eval=FALSE}
+#' @useDynLib mypkgr
+#' @importFrom Rcpp sourceCpp, .registration = TRUE
+NULL
+```
+
+Nous allons maintenant créer une première fonction en `Rcpp` permettant d'inverser une matrice.
+Pour cela, nous allons nous appuyer sur la [library C++ `Armadillo`](http://arma.sourceforge.net/docs.html).
+Il s'agit d'une *library* d'algèbre linéaire moderne et simple, hautement optimisée, et interfacée 
+avec `R` via le package `RcppArmadillo`.
+
+`C++` n'est pas un langage très différent de `R`. Les principales différences qui nous concernent :
+  
+  - `C++`est très efficaces pour le boucles *for* (y compris les boucles for emboîtées). Attention : 
+  il y a souvent un sens qui est plus rapide que l'autre (ceci est dû à la manière dont C++ attribue
+  et parcours la mémoire).
+  
+  - Chaque commande doit se terminer par un point virgule ';'
+  
+  - `C++`est un langage typé : il faut déclarer le type de chaque variable avant de pouvoir 
+  l'utiliser.
+
+
+> ***A vous de jouer !***  
+>
+  1. Créez un nouveau fichier `C++` depuis RStudio (via le menu `File` > `New File` > `C++ File`), 
+  et enregistrez le dans le dossier `src`. Prenez le temps de le lire et essayez de comprendre 
+  chaque ligne.
+>
+  2. Compilez et chargez votre package (via le bouton "Install and Restart") et essayez d'utiliser 
+  la fonction `timesTwo()` depuis la console.
+>
+  3. Installez le package RcppArmadillo, et n'oubliez pas de faire les ajouts nécessaires dans 
+  `DESCRIPTION` (cf. Rcpp précédement - vous pouvez expérimentez avec la fonction 
+  `RcppArmadillo::RcppArmadillo.package.skeleton()` qui a le désavantage de créer beaucoup de fichiers 
+  inutiles)
+>
+  4. À l'aide de la documentation des [packages Rcpp](http://adv-r.had.co.nz/Rcpp.html#rcpp-intro) 
+  et [RcppArmadillo](http://gallery.rcpp.org/articles/armadillo-eigenvalues/à) de celle de la 
+  library [Armadillo](http://arma.sourceforge.net/docs.html), tentez d'écrire une courte fonction 
+  `invC` en `C++` calculant l'inverse d'une matrice.
+> 
+  5. Lorsque vous avez réussi à compiler votre fonction `invC` et qu'elle est accèssible depuis `R`
+  créer une fonction `mvnpdf_invC()` à partir de l'implémentation de `mvnpdfsmart` en remplaçant 
+  uniquement les calculs d'inverse matriciel par un appel à `invC`.
+> 
+  5. Evaluer le gain en performance de cette nouvelle implémentation `mvnpdf_invC`
+
+```{r, echo=TRUE, eval=TRUE}
+n <- 1000
+mb <- microbenchmark(mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2)),
+                     mvnpdf(x=matrix(1.96, nrow = 2, ncol = n), Log=FALSE),
+                     mvnpdfsmart(x=matrix(1.96, nrow = 2, ncol = n), Log=FALSE),
+                     mvnpdfoptim(x=matrix(1.96, nrow = 2, ncol = n), Log=FALSE),
+                     mvnpdf_invC(x=matrix(1.96, nrow = 2, ncol = n), Log=FALSE),
+                     times=100L)
+mb
+```
+
+```{r, echo=FALSE, eval =TRUE}
+data2plot <- cbind.data.frame("Time" = mb$time/10^6, "Expression" = mb$expr)
+levels(data2plot$Expression) <- gsub("mvtnorm::", "", sapply(strsplit(levels(data2plot$Expression), "(", fixed=T), "[", 1))
+ggplot(data2plot) + geom_violin(aes(x=Expression, y=Time, fill=Expression), alpha=0.8)  +
+  scale_fill_manual(guide=FALSE, values=viridis::viridis(6)[1:5]) + 
+  scale_y_log10(minor_breaks=c(seq(from=1, to=10, by=1), seq(from=10, to=100, by=10))) + 
+  ylab("Temps de calcul (milli-sec)") +
+  xlab("Expression évaluée") +
+  theme_bw()
+```
+
+```{r, eval=FALSE, echo = TRUE, error = TRUE}
+profvis::profvis(mvnpdfoptim(x=matrix(1.96, 
+    nrow = 2, ncol = 1000), Log=FALSE))
+profvis::profvis(mvnpdfoptim(x=matrix(1.96, 
+    nrow = 100, ncol = 1000), Log=FALSE))
+```
+
+## Optimisation grâce à `C++`
+
+En règle générale, on ne gagne pas beaucoup en temps de calcul en remplaçant une fonction `R` 
+optimisée par une fonction en `C++`. En effet, la plupart des fonctions de base de `R` s'appuie en 
+réalité déjà sur des routines `C` ou `Fortran` bien optimisée. Le gain se limite alors simplement
+à la suppression des vérifications des arguments et de la gestion des différents types.
+
+> ***A vous de jouer !***  
+>
+  1. À partir de `mvnpdfsmart`, proposez une implémentation completement en `C++` du calcul
+  de densité de la loi Normale multivariée `mvnpdfC()`.
+> 
+  2. Evaluer le gain en performance de cette nouvelle implémentation `mvnpdf_invC`
+
+
+
+Vous pouvez télécharger notre proposition de `mvnpdfC.cpp` [ici](https://plmbox.math.cnrs.fr/f/7ca13cfa18e64e6a8133/?dl=1).
+
+```{r, echo=TRUE, eval=TRUE}
+n <- 1000
+mb <- microbenchmark(mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2)),
+                     mvnpdf(x=matrix(1.96, nrow = 2, ncol = n), Log=FALSE),
+                     mvnpdfsmart(x=matrix(1.96, nrow = 2, ncol = n), Log=FALSE),
+                     mvnpdfoptim(x=matrix(1.96, nrow = 2, ncol = n), Log=FALSE),
+                     mvnpdf_invC(x=matrix(1.96, nrow = 2, ncol = n), Log=FALSE),
+                     mvnpdfC(x=matrix(1.96, nrow = 2, ncol = n), mean = rep(0, 2), varcovM = diag(2), Log=FALSE),
+                     times=100L)
+mb
+```
+
+```{r, echo=FALSE, eval=TRUE}
+data2plot <- cbind.data.frame("Time" = mb$time/10^6, "Expression" = mb$expr)
+levels(data2plot$Expression) <- gsub("mvtnorm::", "", sapply(strsplit(levels(data2plot$Expression), "(", fixed=T), "[", 1))
+rangeTime <- c(floor(log10(min(data2plot$Time))):ceiling(log10(max(data2plot$Time))))
+brk <- NULL
+for(i in rangeTime){
+    brk <- c(brk, seq(from = 10^i, to = 10^(i+1), by=10^i))
+}
+ggplot(data2plot) + geom_violin(aes(x=Expression, y=Time, fill=Expression), alpha=0.8)  +
+  viridis::scale_fill_viridis(guide=FALSE, discrete=TRUE) + 
+  scale_y_log10(minor_breaks=brk) + 
+  ylab("Log-temps de calcul (milli-sec)") +
+  xlab("Expression évaluée") +
+  theme_bw()
+```
+
+À noter que vous pouvez utiliser des fonctions Rcpp en dehors de l'architecture 
+d'un package grâce à la fonction `Rcpp::sourceCpp()`. Mais comme nous avons 
+qu'il est préférable de gérer tous ces code sous la forme de package, il est 
+peu probable que vous en ayez besoin !
+
+## Annexe 6.1 : l'optimisation prématurée n'est pas une bonne idée
+
+Chambers, *Software for Data Analysis: Programming with R*, Springer, 2008 :
+
+> *Including additional C code is a serious step, with **some added dangers**
+and often a **substantial amount of programming and debugging** required. 
+**You should have a good reason.***

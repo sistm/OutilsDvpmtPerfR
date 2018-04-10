@@ -1,0 +1,10 @@
+.Rproj.user
+.Rhistory
+.RData
+.Rproj.user
+.Rhistory
+temp.Rmd
+*.tex
+*.html
+*_cache
+*_bookdown_files
