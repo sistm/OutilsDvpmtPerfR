@@ -2,7 +2,7 @@
 title: | 
        | Formation R avancée :
        | *Outils de développement et de performance*
-author: "Robin Genuer et Boris Hejblum"
+author: "[Robin Genuer](robin.genuer.fr) et [Boris Hejblum](http://www.borishejblum.science/)"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 documentclass: book
@@ -42,8 +42,6 @@ Nous allons adopter le plan suivant :
 
 6. Paralléliser facilement le code
 
-Vous pouvez télécharger le contenu de cette formation [ici](https://plmbox.math.cnrs.fr/f/fb7fd12a6b6d439abbb3/?dl=1) (ouvrir
-alors le fichier `index.html`)
 
 Afin de suivre cette formation, il est nécessaire de disposer des logiciels suivants :  
 
