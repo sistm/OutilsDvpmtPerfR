@@ -243,17 +243,17 @@ mb &lt;-<span class="st"> </span><span class="kw">microbenchmark</span>(mvtnorm<
 mb</code></pre></div>
 <pre><code>## Unit: microseconds
 ##                                                            expr      min
-##              mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))   77.399
-##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 4293.765
-##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3195.559
-##  mvnpdfoptim(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 1258.256
-##  mvnpdf_invC(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 1244.464
-##        lq      mean   median       uq       max neval
-##   107.096  133.5138  135.492  151.307   300.984   100
-##  4382.377 4852.5562 4463.086 4830.923  9152.354   100
-##  3311.630 3714.1222 3446.757 3665.570  6208.780   100
-##  1333.867 1549.5014 1379.724 1489.132  4245.936   100
-##  1323.434 1821.2524 1365.767 1458.572 36861.170   100</code></pre>
+##              mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))   79.187
+##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 4353.587
+##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3223.950
+##  mvnpdfoptim(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 1242.116
+##  mvnpdf_invC(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 1244.486
+##         lq      mean    median        uq       max neval
+##   103.0285  129.1816  129.0925  146.6245   267.774   100
+##  4457.5415 4969.8833 4568.7775 4973.2560 11061.729   100
+##  3334.4180 3621.3341 3391.1520 3598.6400  8469.587   100
+##  1335.5710 1628.9835 1390.1495 1489.0610  3898.981   100
+##  1307.9185 1809.2935 1357.8275 1448.0065 38757.535   100</code></pre>
 <p><img src="_main_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">profvis<span class="op">::</span><span class="kw">profvis</span>(<span class="kw">mvnpdfoptim</span>(<span class="dt">x=</span><span class="kw">matrix</span>(<span class="fl">1.96</span>, 
     <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">ncol =</span> <span class="dv">1000</span>), <span class="dt">Log=</span><span class="ot">FALSE</span>))
@@ -289,12 +289,12 @@ mb</code></pre></div>
 ##                                        mvnpdf_invC(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE)
 ##  mvnpdfC(x = matrix(1.96, nrow = 2, ncol = n), mean = rep(0, 2),      varcovM = diag(2), Log = FALSE)
 ##       min        lq       mean    median        uq       max neval
-##    77.095  109.0305  132.84416  130.8915  147.8440   276.367   100
-##  4238.833 4335.2370 5148.46268 4425.2210 4716.8785 55008.997   100
-##  3164.541 3260.8330 3606.02926 3392.5070 3627.4275  5580.721   100
-##  1246.136 1305.3325 1465.24332 1354.3770 1432.3135  2905.406   100
-##  1236.695 1300.4875 1412.78794 1347.1150 1416.0120  3076.496   100
-##    44.904   53.5995   62.89447   58.9630   65.7895   150.738   100</code></pre>
+##    78.716  103.7940  129.67487  126.6450  142.6805   344.250   100
+##  4263.042 4338.3270 4643.32698 4424.5575 4638.3320  7278.506   100
+##  3184.230 3295.9165 4114.52636 3379.9475 3610.5150 54066.330   100
+##  1231.914 1305.6265 1481.88345 1355.1715 1476.9485  3254.648   100
+##  1232.999 1300.9715 1440.85355 1335.0870 1431.8680  2983.793   100
+##    45.297   53.0495   60.44706   59.3745   63.8215   213.994   100</code></pre>
 <p><img src="_main_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
 <p>À noter que vous pouvez utiliser des fonctions Rcpp en dehors de l’architecture d’un package grâce à la fonction <code>Rcpp::sourceCpp()</code>. Mais comme nous avons qu’il est préférable de gérer tous ces code sous la forme de package, il est peu probable que vous en ayez besoin !</p>
 </div>

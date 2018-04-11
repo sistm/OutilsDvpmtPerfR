@@ -215,11 +215,11 @@ mb &lt;-<span class="st"> </span><span class="kw">microbenchmark</span>(<span cl
 mb</code></pre></div>
 <pre><code>## Unit: milliseconds
 ##                                                            expr      min
-##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 4.234940
-##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3.166575
-##        lq     mean   median       uq      max neval
-##  4.484463 5.438930 5.727308 5.841347  6.89530   100
-##  3.242761 3.431077 3.286528 3.340969 11.10335   100</code></pre>
+##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 4.305636
+##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3.215160
+##        lq     mean   median       uq       max neval
+##  4.509546 5.539325 5.747893 5.851304  9.929363   100
+##  3.264508 3.498326 3.303858 3.357147 11.397897   100</code></pre>
 <p><img src="_main_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
 <p>Et on peut également voir si on devient compétitif avec <code>dmvnorm()</code> :</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n &lt;-<span class="st"> </span><span class="dv">1000</span>
@@ -230,13 +230,13 @@ mb &lt;-<span class="st"> </span><span class="kw">microbenchmark</span>(mvtnorm<
 mb</code></pre></div>
 <pre><code>## Unit: microseconds
 ##                                                            expr      min
-##              mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))   73.788
-##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 4219.309
-##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3144.078
+##              mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))   75.876
+##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 4257.821
+##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3174.439
 ##        lq      mean   median       uq       max neval
-##    93.015  145.9967  128.396  154.493  1207.157   100
-##  4777.683 5706.6848 5398.917 5518.104 52073.737   100
-##  3220.677 3339.9658 3257.794 3329.741  4286.818   100</code></pre>
+##    95.986  138.6996  130.798  156.174  1171.693   100
+##  4722.040 5698.7832 5401.791 5548.773 53273.038   100
+##  3248.737 3389.4342 3282.441 3379.405  4969.761   100</code></pre>
 <p><img src="_main_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
 <p>Il y a encore du travail…</p>
 </div>
@@ -256,15 +256,15 @@ mb &lt;-<span class="st"> </span><span class="kw">microbenchmark</span>(mvtnorm<
 mb</code></pre></div>
 <pre><code>## Unit: microseconds
 ##                                                            expr      min
-##              mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))   77.081
-##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 4234.489
-##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3179.372
-##  mvnpdfoptim(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 1251.950
-##        lq      mean    median       uq       max neval
-##   102.379  153.3357  129.4445  151.029  1598.125   100
-##  4455.510 5765.1916 5567.6495 5731.848 54632.705   100
-##  3249.500 3396.0858 3304.2965 3380.258  4671.971   100
-##  1314.129 1510.8708 1351.7060 1385.206  8261.101   100</code></pre>
+##              mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))   75.919
+##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 4307.016
+##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3208.311
+##  mvnpdfoptim(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 1252.783
+##        lq     mean    median       uq       max neval
+##   105.340  207.590  132.5025  158.093  2662.284   100
+##  4459.740 5830.168 5559.6650 5786.163 54582.521   100
+##  3267.444 3393.336 3307.1385 3371.430  4867.864   100
+##  1307.263 1445.821 1348.0175 1372.050  8234.109   100</code></pre>
 <p><img src="_main_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
 <p>Pour finir on peut profiler la fonction <code>dmvnorm()</code> :</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n &lt;-<span class="st"> </span><span class="fl">10e5</span>
