@@ -6,4 +6,6 @@
 temp.Rmd
 *.tex
 *_cache
-*_bookdown_files
+*_bookdown_files/
+FormationRavancee_dev_perf_files/figure-epub*
+FormationRavancee_dev_perf_files/figure-latex

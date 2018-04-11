@@ -50,41 +50,69 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; position: absolute; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource a.sourceLine:empty
+  { position: absolute; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -194,80 +222,93 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="profiler-son-code" class="section level1">
 <h1><span class="header-section-number">4</span> <em>Profiler</em> son code</h1>
-<p>On parle de <em>profiling</em> en anglais. Il s’agit de déterminer ce qui prend du temps dans un code. Le but étant une fois trouvé le bloc de code qui prend le plus de temps dans l’exécution d’optimiser uniquement cette brique.</p>
-<p>Pour obtenir un <em>profiling</em> du code ci-dessous, sélectionner les lignes de code d’intérêt et aller dans le menu “Profile” puis “Profile Selected Lines” (ou Ctrl+Alt+Shift P).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n &lt;-<span class="st"> </span><span class="fl">10e4</span>
-pdfval &lt;-<span class="st"> </span><span class="kw">mvnpdf</span>(<span class="dt">x=</span><span class="kw">matrix</span>(<span class="fl">1.96</span>, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">ncol =</span> n), <span class="dt">Log=</span><span class="ot">FALSE</span>)</code></pre></div>
-<p><em>OK, we get it !</em> Concaténer un vecteur au fur et à mesure dans une boucle n’est vraiment pas une bonne idée.</p>
+<p>On parle de <em>profiling</em> en anglais. Il s’agit de déterminer ce qui prend
+du temps dans un code. Le but étant une fois trouvé le bloc de code qui prend
+le plus de temps dans l’exécution d’optimiser uniquement cette brique.</p>
+<p>Pour obtenir un <em>profiling</em> du code ci-dessous, sélectionner les lignes de code
+d’intérêt et aller dans le menu “Profile” puis “Profile Selected Lines” (ou
+Ctrl+Alt+Shift P).</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1">n &lt;-<span class="st"> </span><span class="fl">10e4</span></a>
+<a class="sourceLine" id="cb19-2" data-line-number="2">pdfval &lt;-<span class="st"> </span><span class="kw">mvnpdf</span>(<span class="dt">x=</span><span class="kw">matrix</span>(<span class="fl">1.96</span>, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">ncol =</span> n), <span class="dt">Log=</span><span class="ot">FALSE</span>)</a></code></pre></div>
+<p><em>OK, we get it !</em> Concaténer un vecteur au fur et à mesure dans une boucle
+n’est vraiment pas une bonne idée.</p>
 <div id="comparaison-avec-une-version-plus-habile-de-mnvpdf" class="section level2">
 <h2><span class="header-section-number">4.1</span> Comparaison avec une version plus habile de <code>mnvpdf()</code></h2>
-<p>Considérons une nouvelle version de <code>mvnpdf()</code>, appelée <code>mvnpdfsmart()</code>. Télécharger le <a href="https://plmbox.math.cnrs.fr/f/9c8ee1d23aa84ebdb9a7/?dl=1">fichier</a> puis l’inclure dans le package.</p>
+<p>Considérons une nouvelle version de <code>mvnpdf()</code>, appelée <code>mvnpdfsmart()</code>.
+Télécharger le
+<a href="https://plmbox.math.cnrs.fr/f/9c8ee1d23aa84ebdb9a7/?dl=1">fichier</a> puis
+l’inclure dans le package.</p>
 <p>Profiler la commande suivante :</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n &lt;-<span class="st"> </span><span class="fl">10e4</span>
-pdfval &lt;-<span class="st"> </span><span class="kw">mvnpdfsmart</span>(<span class="dt">x=</span><span class="kw">matrix</span>(<span class="fl">1.96</span>, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">ncol =</span> n), <span class="dt">Log=</span><span class="ot">FALSE</span>)</code></pre></div>
-<p>On a effectivement résolu le problème et on apprend maintenant de manière plus fine ce qui prend du temps dans notre fonction.</p>
-<p>Pour confirmer que <code>mvnpdfsmart()</code> est effectivement bien plus rapide que <code>mvnpdf()</code> on peut re-faire une comparaison avec <code>microbenchmark()</code> :</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n &lt;-<span class="st"> </span><span class="dv">1000</span>
-mb &lt;-<span class="st"> </span><span class="kw">microbenchmark</span>(<span class="kw">mvnpdf</span>(<span class="dt">x=</span><span class="kw">matrix</span>(<span class="fl">1.96</span>, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">ncol =</span> n), <span class="dt">Log=</span><span class="ot">FALSE</span>),
-                     <span class="kw">mvnpdfsmart</span>(<span class="dt">x=</span><span class="kw">matrix</span>(<span class="fl">1.96</span>, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">ncol =</span> n), <span class="dt">Log=</span><span class="ot">FALSE</span>),
-                     <span class="dt">times=</span>100L)
-mb</code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1">n &lt;-<span class="st"> </span><span class="fl">10e4</span></a>
+<a class="sourceLine" id="cb20-2" data-line-number="2">pdfval &lt;-<span class="st"> </span><span class="kw">mvnpdfsmart</span>(<span class="dt">x=</span><span class="kw">matrix</span>(<span class="fl">1.96</span>, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">ncol =</span> n), <span class="dt">Log=</span><span class="ot">FALSE</span>)</a></code></pre></div>
+<p>On a effectivement résolu le problème et on apprend maintenant de manière plus
+fine ce qui prend du temps dans notre fonction.</p>
+<p>Pour confirmer que <code>mvnpdfsmart()</code> est effectivement bien plus rapide que
+<code>mvnpdf()</code> on peut re-faire une comparaison avec <code>microbenchmark()</code> :</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1">n &lt;-<span class="st"> </span><span class="dv">1000</span></a>
+<a class="sourceLine" id="cb21-2" data-line-number="2">mb &lt;-<span class="st"> </span><span class="kw">microbenchmark</span>(<span class="kw">mvnpdf</span>(<span class="dt">x=</span><span class="kw">matrix</span>(<span class="fl">1.96</span>, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">ncol =</span> n), <span class="dt">Log=</span><span class="ot">FALSE</span>),</a>
+<a class="sourceLine" id="cb21-3" data-line-number="3">                     <span class="kw">mvnpdfsmart</span>(<span class="dt">x=</span><span class="kw">matrix</span>(<span class="fl">1.96</span>, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">ncol =</span> n), <span class="dt">Log=</span><span class="ot">FALSE</span>),</a>
+<a class="sourceLine" id="cb21-4" data-line-number="4">                     <span class="dt">times=</span>100L)</a>
+<a class="sourceLine" id="cb21-5" data-line-number="5">mb</a></code></pre></div>
 <pre><code>## Unit: milliseconds
 ##                                                            expr      min
-##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 4.272422
-##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3.205948
-##        lq     mean   median       uq       max neval
-##  4.673746 5.609702 5.867266 6.013831  7.827174   100
-##  3.294764 3.556449 3.356483 3.436682 11.661349   100</code></pre>
-<p><img src="_main_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 4.714338
+##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3.438583
+##        lq     mean   median       uq       max neval cld
+##  5.169110 7.542057 5.936719 7.373328 111.61973   100   b
+##  3.614031 4.074797 3.735893 4.052331  12.91687   100  a</code></pre>
+<p><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
 <p>Et on peut également voir si on devient compétitif avec <code>dmvnorm()</code> :</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n &lt;-<span class="st"> </span><span class="dv">1000</span>
-mb &lt;-<span class="st"> </span><span class="kw">microbenchmark</span>(mvtnorm<span class="op">::</span><span class="kw">dmvnorm</span>(<span class="kw">matrix</span>(<span class="fl">1.96</span>, <span class="dt">nrow =</span> n, <span class="dt">ncol =</span> <span class="dv">2</span>)),
-                     <span class="kw">mvnpdf</span>(<span class="dt">x=</span><span class="kw">matrix</span>(<span class="fl">1.96</span>, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">ncol =</span> n), <span class="dt">Log=</span><span class="ot">FALSE</span>),
-                     <span class="kw">mvnpdfsmart</span>(<span class="dt">x=</span><span class="kw">matrix</span>(<span class="fl">1.96</span>, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">ncol =</span> n), <span class="dt">Log=</span><span class="ot">FALSE</span>),
-                     <span class="dt">times=</span>100L)
-mb</code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1">n &lt;-<span class="st"> </span><span class="dv">1000</span></a>
+<a class="sourceLine" id="cb23-2" data-line-number="2">mb &lt;-<span class="st"> </span><span class="kw">microbenchmark</span>(mvtnorm<span class="op">::</span><span class="kw">dmvnorm</span>(<span class="kw">matrix</span>(<span class="fl">1.96</span>, <span class="dt">nrow =</span> n, <span class="dt">ncol =</span> <span class="dv">2</span>)),</a>
+<a class="sourceLine" id="cb23-3" data-line-number="3">                     <span class="kw">mvnpdf</span>(<span class="dt">x=</span><span class="kw">matrix</span>(<span class="fl">1.96</span>, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">ncol =</span> n), <span class="dt">Log=</span><span class="ot">FALSE</span>),</a>
+<a class="sourceLine" id="cb23-4" data-line-number="4">                     <span class="kw">mvnpdfsmart</span>(<span class="dt">x=</span><span class="kw">matrix</span>(<span class="fl">1.96</span>, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">ncol =</span> n), <span class="dt">Log=</span><span class="ot">FALSE</span>),</a>
+<a class="sourceLine" id="cb23-5" data-line-number="5">                     <span class="dt">times=</span>100L)</a>
+<a class="sourceLine" id="cb23-6" data-line-number="6">mb</a></code></pre></div>
 <pre><code>## Unit: microseconds
 ##                                                            expr      min
-##              mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))   74.865
-##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 4254.736
-##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3159.560
-##        lq      mean    median       uq       max neval
-##    92.298  159.2387  136.3625  159.815  1198.118   100
-##  4622.349 5820.5562 5490.6405 5629.426 53676.639   100
-##  3247.691 3358.0277 3301.4995 3373.916  4616.023   100</code></pre>
-<p><img src="_main_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
+##              mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))  138.573
+##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 4605.217
+##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3364.748
+##         lq      mean   median       uq       max neval cld
+##   181.9905  226.1777  217.475  254.667   398.457   100 a  
+##  5016.7535 5958.1557 5690.693 6486.368 10263.486   100   c
+##  3553.8085 3851.5965 3677.943 3880.256  6546.543   100  b</code></pre>
+<p><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
 <p>Il y a encore du travail…</p>
 </div>
 <div id="comparaison-avec-une-version-optimisee-dans-r" class="section level2">
 <h2><span class="header-section-number">4.2</span> Comparaison avec une version optimisée dans R</h2>
-<p>Boris est arrivée après plusieurs recherches et tests à une <a href="https://plmbox.math.cnrs.fr/f/d961ab1677784af78d4f/?dl=1">version optimisée</a> avec les outils de R.</p>
-<p>Inclure la fonction <code>mvnpdfoptim()</code> dans le package, puis profiler cette fonction :</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n &lt;-<span class="st"> </span><span class="fl">10e4</span>
-pdfval &lt;-<span class="st"> </span><span class="kw">mvnpdfoptim</span>(<span class="dt">x=</span><span class="kw">matrix</span>(<span class="fl">1.96</span>, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">ncol =</span> n), <span class="dt">Log=</span><span class="ot">FALSE</span>)</code></pre></div>
+<p>Boris est arrivée après plusieurs recherches et tests à une
+<a href="https://plmbox.math.cnrs.fr/f/d961ab1677784af78d4f/?dl=1">version optimisée</a>
+avec les outils de R.</p>
+<p>Inclure la fonction <code>mvnpdfoptim()</code> dans le package, puis profiler cette
+fonction :</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1">n &lt;-<span class="st"> </span><span class="fl">10e4</span></a>
+<a class="sourceLine" id="cb25-2" data-line-number="2">pdfval &lt;-<span class="st"> </span><span class="kw">mvnpdfoptim</span>(<span class="dt">x=</span><span class="kw">matrix</span>(<span class="fl">1.96</span>, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">ncol =</span> n), <span class="dt">Log=</span><span class="ot">FALSE</span>)</a></code></pre></div>
 <p>Et un petit <code>microbenchmark()</code> :</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n &lt;-<span class="st"> </span><span class="dv">1000</span>
-mb &lt;-<span class="st"> </span><span class="kw">microbenchmark</span>(mvtnorm<span class="op">::</span><span class="kw">dmvnorm</span>(<span class="kw">matrix</span>(<span class="fl">1.96</span>, <span class="dt">nrow =</span> n, <span class="dt">ncol =</span> <span class="dv">2</span>)),
-                     <span class="kw">mvnpdf</span>(<span class="dt">x=</span><span class="kw">matrix</span>(<span class="fl">1.96</span>, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">ncol =</span> n), <span class="dt">Log=</span><span class="ot">FALSE</span>),
-                     <span class="kw">mvnpdfsmart</span>(<span class="dt">x=</span><span class="kw">matrix</span>(<span class="fl">1.96</span>, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">ncol =</span> n), <span class="dt">Log=</span><span class="ot">FALSE</span>),
-                     <span class="kw">mvnpdfoptim</span>(<span class="dt">x=</span><span class="kw">matrix</span>(<span class="fl">1.96</span>, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">ncol =</span> n), <span class="dt">Log=</span><span class="ot">FALSE</span>),
-                     <span class="dt">times=</span>100L)
-mb</code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1">n &lt;-<span class="st"> </span><span class="dv">1000</span></a>
+<a class="sourceLine" id="cb26-2" data-line-number="2">mb &lt;-<span class="st"> </span><span class="kw">microbenchmark</span>(mvtnorm<span class="op">::</span><span class="kw">dmvnorm</span>(<span class="kw">matrix</span>(<span class="fl">1.96</span>, <span class="dt">nrow =</span> n, <span class="dt">ncol =</span> <span class="dv">2</span>)),</a>
+<a class="sourceLine" id="cb26-3" data-line-number="3">                     <span class="kw">mvnpdf</span>(<span class="dt">x=</span><span class="kw">matrix</span>(<span class="fl">1.96</span>, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">ncol =</span> n), <span class="dt">Log=</span><span class="ot">FALSE</span>),</a>
+<a class="sourceLine" id="cb26-4" data-line-number="4">                     <span class="kw">mvnpdfsmart</span>(<span class="dt">x=</span><span class="kw">matrix</span>(<span class="fl">1.96</span>, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">ncol =</span> n), <span class="dt">Log=</span><span class="ot">FALSE</span>),</a>
+<a class="sourceLine" id="cb26-5" data-line-number="5">                     <span class="kw">mvnpdfoptim</span>(<span class="dt">x=</span><span class="kw">matrix</span>(<span class="fl">1.96</span>, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">ncol =</span> n), <span class="dt">Log=</span><span class="ot">FALSE</span>),</a>
+<a class="sourceLine" id="cb26-6" data-line-number="6">                     <span class="dt">times=</span>100L)</a>
+<a class="sourceLine" id="cb26-7" data-line-number="7">mb</a></code></pre></div>
 <pre><code>## Unit: microseconds
 ##                                                            expr      min
-##              mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))   74.003
-##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 4248.901
-##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3137.125
-##  mvnpdfoptim(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 1246.205
-##         lq      mean   median       uq       max neval
-##    96.2295  130.9313  127.354  162.921   267.537   100
-##  4461.3940 5906.1418 5570.766 5883.340 54393.622   100
-##  3271.6400 3495.1396 3336.419 3471.472  5297.640   100
-##  1320.1805 1480.8744 1345.163 1409.999  8731.673   100</code></pre>
-<p><img src="_main_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
+##              mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))  143.328
+##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 4687.132
+##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3466.670
+##  mvnpdfoptim(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 2994.003
+##         lq      mean    median        uq       max neval cld
+##   170.0825  216.1961  218.6255  249.8455   322.854   100 a  
+##  4930.6490 6030.6230 5681.8050 6781.0910  9495.731   100   c
+##  3571.4620 3852.3990 3648.4030 3830.4895  6914.914   100  b 
+##  3148.4075 3558.0556 3293.7530 3496.0250 13916.217   100  b</code></pre>
+<p><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
 <p>Pour finir on peut profiler la fonction <code>dmvnorm()</code> :</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n &lt;-<span class="st"> </span><span class="fl">10e5</span>
-pdfval &lt;-<span class="st"> </span>mvtnorm<span class="op">::</span><span class="kw">dmvnorm</span>(<span class="kw">matrix</span>(<span class="fl">1.96</span>, <span class="dt">nrow =</span> n, <span class="dt">ncol =</span> <span class="dv">2</span>))</code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1">n &lt;-<span class="st"> </span><span class="fl">10e5</span></a>
+<a class="sourceLine" id="cb28-2" data-line-number="2">pdfval &lt;-<span class="st"> </span>mvtnorm<span class="op">::</span><span class="kw">dmvnorm</span>(<span class="kw">matrix</span>(<span class="fl">1.96</span>, <span class="dt">nrow =</span> n, <span class="dt">ncol =</span> <span class="dv">2</span>))</a></code></pre></div>
 
 </div>
 </div>
@@ -310,7 +351,7 @@ gitbook.start({
 "link": "https://github.com/sistm/OutilsDvpmtPerf/edit/master/05-profiling.Rmd",
 "text": "Edit"
 },
-"download": ["_main.pdf", "_main.epub"],
+"download": ["FormationRavancee_dev_perf.pdf", "FormationRavancee_dev_perf.epub"],
 "toc": {
 "collapse": "subsection"
 }
@@ -323,7 +364,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
+    var src = "true";
     if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');
