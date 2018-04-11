@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title></title>
+  <title>Formation R avancée</title>
   <meta name="description" content="Outils de développement et de performance">
   <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
 
-  <meta property="og:title" content="" />
+  <meta property="og:title" content="Formation R avancée" />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="" />
+  <meta name="twitter:title" content="Formation R avancée" />
   
   <meta name="twitter:description" content="Outils de développement et de performance" />
   
@@ -184,8 +184,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"><div style="white-space: pre-line;">Formation R avancée :
-<em>Outils de développement et de performance</em></div></a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Formation R avancée</a>
           </h1>
         </div>
 
@@ -201,12 +200,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>Pour mesure le temps d’exécution d’une commande R, on peut utiliser la fonction <code>system.time()</code> comme ceci :</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>(<span class="kw">mvnpdf</span>(<span class="dt">x=</span><span class="kw">matrix</span>(<span class="kw">rep</span>(<span class="fl">1.96</span>, <span class="dv">2</span>), <span class="dt">nrow=</span><span class="dv">2</span>, <span class="dt">ncol=</span><span class="dv">1</span>), <span class="dt">Log=</span><span class="ot">FALSE</span>))</code></pre></div>
 <pre><code>##    user  system elapsed 
-##   0.002   0.000   0.001</code></pre>
+##   0.002   0.000   0.002</code></pre>
 <p>Le problème qui apparaît sur cet exemple est que l’exécution est tellement rapide que <code>system.time()</code> affiche <code>0</code> (ou une valeur très proche). De plus, on voit qu’il y a une certaine variabilité quand on relance plusieurs fois la commande.</p>
 <p>Ainsi si on souhaite comparer notre code avec la fonction <code>mvtnorm::dmvnorm()</code>, on ne peut pas utiliser <code>system.time()</code> :</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>(mvtnorm<span class="op">::</span><span class="kw">dmvnorm</span>(<span class="kw">rep</span>(<span class="fl">1.96</span>, <span class="dv">2</span>)))</code></pre></div>
 <pre><code>##    user  system elapsed 
-##   0.004   0.000   0.003</code></pre>
+##   0.004   0.000   0.004</code></pre>
 <p>On pourrait se dire qu’il faut augmenter la complexité de notre calcul, mais il y a mieux : utiliser le package <code>microbenchmark</code> !</p>
 </div>
 <div id="comparer-des-temps-dexecution-avec-microbenchmark" class="section level2">
@@ -218,12 +217,12 @@ mb &lt;-<span class="st"> </span><span class="kw">microbenchmark</span>(mvtnorm<
                      <span class="dt">times=</span>1000L)
 mb</code></pre></div>
 <pre><code>## Unit: microseconds
-##                                           expr    min      lq     mean
-##                 mvtnorm::dmvnorm(rep(1.96, 2)) 35.967 39.6875 56.75975
-##  mvnpdf(x = matrix(rep(1.96, 2)), Log = FALSE) 28.213 31.3205 44.27528
-##   median      uq       max neval
-##  41.4055 43.6135 13194.837  1000
-##  32.8175 34.6130  8036.898  1000</code></pre>
+##                                           expr    min     lq     mean
+##                 mvtnorm::dmvnorm(rep(1.96, 2)) 36.455 40.223 58.94536
+##  mvnpdf(x = matrix(rep(1.96, 2)), Log = FALSE) 28.197 31.177 43.47682
+##  median      uq       max neval
+##  41.919 44.3010 13168.888  1000
+##  32.841 34.9535  8138.618  1000</code></pre>
 <p><img src="_main_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
 <p>Les deux fonctions <code>mvnpdf()</code> et <code>dmnvorm()</code> étant capables de prendre en entrée une matrice, on peut également comparer leurs comportements dans ce cas :</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n &lt;-<span class="st"> </span><span class="dv">100</span>
@@ -233,11 +232,11 @@ mb &lt;-<span class="st"> </span><span class="kw">microbenchmark</span>(mvtnorm<
 mb</code></pre></div>
 <pre><code>## Unit: microseconds
 ##                                                       expr     min
-##         mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))  43.613
-##  mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 372.841
-##        lq      mean   median       uq      max neval
-##   48.5155  60.14509  53.0855  58.2160  281.222   100
-##  390.3315 433.60979 400.3145 417.5865 2362.699   100</code></pre>
+##         mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))  43.001
+##  mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 373.855
+##        lq      mean   median      uq      max neval
+##   47.4135  59.08513  53.1825  58.627  323.920   100
+##  387.7460 451.13240 401.5170 469.728 2043.951   100</code></pre>
 <p><img src="_main_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
 <p>Il s’est passé un quelque chose… Et on va diagnostiquer ce problème dans la suite.</p>
 

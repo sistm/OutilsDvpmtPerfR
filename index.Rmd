@@ -1,7 +1,6 @@
 --- 
-title: | 
-       | Formation R avancée :
-       | *Outils de développement et de performance*
+title: 'Formation R avancée'
+subtitle: '*Outils de développement et de performance*'
 author: "[Robin Genuer](https://robin.genuer.fr/) et [Boris Hejblum](http://www.borishejblum.science/)"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site

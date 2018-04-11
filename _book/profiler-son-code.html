@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title></title>
+  <title>Formation R avancée</title>
   <meta name="description" content="Outils de développement et de performance">
   <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
 
-  <meta property="og:title" content="" />
+  <meta property="og:title" content="Formation R avancée" />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="" />
+  <meta name="twitter:title" content="Formation R avancée" />
   
   <meta name="twitter:description" content="Outils de développement et de performance" />
   
@@ -184,8 +184,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"><div style="white-space: pre-line;">Formation R avancée :
-<em>Outils de développement et de performance</em></div></a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Formation R avancée</a>
           </h1>
         </div>
 
@@ -215,11 +214,11 @@ mb &lt;-<span class="st"> </span><span class="kw">microbenchmark</span>(<span cl
 mb</code></pre></div>
 <pre><code>## Unit: milliseconds
 ##                                                            expr      min
-##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 4.305636
-##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3.215160
+##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 4.272422
+##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3.205948
 ##        lq     mean   median       uq       max neval
-##  4.509546 5.539325 5.747893 5.851304  9.929363   100
-##  3.264508 3.498326 3.303858 3.357147 11.397897   100</code></pre>
+##  4.673746 5.609702 5.867266 6.013831  7.827174   100
+##  3.294764 3.556449 3.356483 3.436682 11.661349   100</code></pre>
 <p><img src="_main_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
 <p>Et on peut également voir si on devient compétitif avec <code>dmvnorm()</code> :</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n &lt;-<span class="st"> </span><span class="dv">1000</span>
@@ -230,13 +229,13 @@ mb &lt;-<span class="st"> </span><span class="kw">microbenchmark</span>(mvtnorm<
 mb</code></pre></div>
 <pre><code>## Unit: microseconds
 ##                                                            expr      min
-##              mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))   75.876
-##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 4257.821
-##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3174.439
-##        lq      mean   median       uq       max neval
-##    95.986  138.6996  130.798  156.174  1171.693   100
-##  4722.040 5698.7832 5401.791 5548.773 53273.038   100
-##  3248.737 3389.4342 3282.441 3379.405  4969.761   100</code></pre>
+##              mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))   74.865
+##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 4254.736
+##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3159.560
+##        lq      mean    median       uq       max neval
+##    92.298  159.2387  136.3625  159.815  1198.118   100
+##  4622.349 5820.5562 5490.6405 5629.426 53676.639   100
+##  3247.691 3358.0277 3301.4995 3373.916  4616.023   100</code></pre>
 <p><img src="_main_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
 <p>Il y a encore du travail…</p>
 </div>
@@ -256,15 +255,15 @@ mb &lt;-<span class="st"> </span><span class="kw">microbenchmark</span>(mvtnorm<
 mb</code></pre></div>
 <pre><code>## Unit: microseconds
 ##                                                            expr      min
-##              mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))   75.919
-##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 4307.016
-##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3208.311
-##  mvnpdfoptim(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 1252.783
-##        lq     mean    median       uq       max neval
-##   105.340  207.590  132.5025  158.093  2662.284   100
-##  4459.740 5830.168 5559.6650 5786.163 54582.521   100
-##  3267.444 3393.336 3307.1385 3371.430  4867.864   100
-##  1307.263 1445.821 1348.0175 1372.050  8234.109   100</code></pre>
+##              mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))   74.003
+##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 4248.901
+##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3137.125
+##  mvnpdfoptim(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 1246.205
+##         lq      mean   median       uq       max neval
+##    96.2295  130.9313  127.354  162.921   267.537   100
+##  4461.3940 5906.1418 5570.766 5883.340 54393.622   100
+##  3271.6400 3495.1396 3336.419 3471.472  5297.640   100
+##  1320.1805 1480.8744 1345.163 1409.999  8731.673   100</code></pre>
 <p><img src="_main_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
 <p>Pour finir on peut profiler la fonction <code>dmvnorm()</code> :</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n &lt;-<span class="st"> </span><span class="fl">10e5</span>

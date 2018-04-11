@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title></title>
+  <title>Formation R avancée</title>
   <meta name="description" content="Outils de développement et de performance">
   <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
 
-  <meta property="og:title" content="" />
+  <meta property="og:title" content="Formation R avancée" />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="" />
+  <meta name="twitter:title" content="Formation R avancée" />
   
   <meta name="twitter:description" content="Outils de développement et de performance" />
   
@@ -184,8 +184,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"><div style="white-space: pre-line;">Formation R avancée :
-<em>Outils de développement et de performance</em></div></a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Formation R avancée</a>
           </h1>
         </div>
 
@@ -277,7 +276,7 @@ mb &lt;-<span class="st"> </span><span class="kw">microbenchmark</span>(<span cl
 }
 <span class="kw">system.time</span>(<span class="kw">colmedian_apply</span>(x))</code></pre></div>
 <pre><code>##    user  system elapsed 
-##   2.609   0.000   2.609</code></pre>
+##   2.612   0.000   2.629</code></pre>
 <p>En réalité, une boucle <code>for</code> n’est pas plus lente à condition d’être bien programmée :</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">colmedian_for &lt;-<span class="st"> </span><span class="cf">function</span>(x){
   ans &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, <span class="kw">ncol</span>(x)) 
