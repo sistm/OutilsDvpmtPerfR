@@ -230,7 +230,7 @@ afin de pouvoir comparer les temps d’exécution entre différente implémentat
 fonction <code>system.time()</code> comme ceci :</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw">system.time</span>(<span class="kw">mvnpdf</span>(<span class="dt">x=</span><span class="kw">matrix</span>(<span class="kw">rep</span>(<span class="fl">1.96</span>, <span class="dv">2</span>), <span class="dt">nrow=</span><span class="dv">2</span>, <span class="dt">ncol=</span><span class="dv">1</span>), <span class="dt">Log=</span><span class="ot">FALSE</span>))</a></code></pre></div>
 <pre><code>##    user  system elapsed 
-##   0.002   0.001   0.003</code></pre>
+##   0.001   0.000   0.006</code></pre>
 <p>Le problème qui apparaît sur cet exemple est que l’exécution est tellement
 rapide que <code>system.time()</code> affiche <code>0</code> (ou une valeur très proche).
 De plus, on voit qu’il y a une certaine variabilité quand on relance plusieurs
@@ -239,7 +239,7 @@ fois la commande.</p>
 on ne peut pas utiliser <code>system.time()</code> :</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw">system.time</span>(mvtnorm<span class="op">::</span><span class="kw">dmvnorm</span>(<span class="kw">rep</span>(<span class="fl">1.96</span>, <span class="dv">2</span>)))</a></code></pre></div>
 <pre><code>##    user  system elapsed 
-##   0.003   0.001   0.008</code></pre>
+##   0.004   0.002   0.039</code></pre>
 <p>On pourrait se dire qu’il faut augmenter la complexité de notre calcul, mais
 il y a mieux : utiliser le package <code>microbenchmark</code> !</p>
 </div>
@@ -255,12 +255,12 @@ commandes et donc va stabiliser le résultat.</p>
 <a class="sourceLine" id="cb15-4" data-line-number="4">                     <span class="dt">times=</span>1000L)</a>
 <a class="sourceLine" id="cb15-5" data-line-number="5">mb</a></code></pre></div>
 <pre><code>## Unit: microseconds
-##                                           expr    min      lq     mean
-##                 mvtnorm::dmvnorm(rep(1.96, 2)) 41.676 48.0455 76.80588
-##  mvnpdf(x = matrix(rep(1.96, 2)), Log = FALSE) 33.907 38.6360 59.57605
-##   median      uq      max neval cld
-##  51.6655 56.8940 17043.16  1000   a
-##  41.4850 46.7975 14083.86  1000   a</code></pre>
+##                                           expr    min     lq     mean
+##                 mvtnorm::dmvnorm(rep(1.96, 2)) 42.673 49.493 83.15416
+##  mvnpdf(x = matrix(rep(1.96, 2)), Log = FALSE) 33.298 39.368 57.39664
+##   median     uq       max neval cld
+##  53.3835 65.626 19510.378  1000   a
+##  42.7540 51.851  8367.773  1000   a</code></pre>
 <p><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
 <p>Les deux fonctions <code>mvnpdf()</code> et <code>dmnvorm()</code> étant capables de prendre en
 entrée une matrice, on peut également comparer leurs comportements dans ce
@@ -272,11 +272,11 @@ cas :</p>
 <a class="sourceLine" id="cb17-5" data-line-number="5">mb</a></code></pre></div>
 <pre><code>## Unit: microseconds
 ##                                                       expr     min
-##         mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))  65.080
-##  mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 411.093
-##        lq      mean   median       uq      max neval cld
-##   75.3425  98.90646  94.0685 109.3745  217.848   100  a 
-##  490.2675 571.50217 515.2585 700.7995 1144.585   100   b</code></pre>
+##         mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))  66.941
+##  mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 424.186
+##        lq      mean  median       uq     max neval cld
+##   79.4800  99.03293  94.230 107.9615 181.127   100  a 
+##  480.3235 562.98505 520.459 660.6130 815.835   100   b</code></pre>
 <p><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
 <p>Il s’est passé un quelque chose… Et on va diagnostiquer ce problème dans la suite.</p>
 

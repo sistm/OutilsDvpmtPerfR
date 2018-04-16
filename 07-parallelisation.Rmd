@@ -78,29 +78,22 @@ library(foreach)
 library(doParallel)
 
 log_par <- function(x){
-  
   Ncpus <- parallel::detectCores() - 1
-  
   cl <- parallel::makeCluster(Ncpus)
-  
   doParallel::registerDoParallel(cl)
-  
   res <- foreach(i=1:length(x), .combine='c') %dopar% {
     log(x[i])
   }
-  
   parallel::stopCluster(cl)
-  
   return(res)
 }
 
 log_seq <- function(x){
+  # try this yourself (spoiler alert: it is quite long...):
   # res <- numeric(length(x))
-  # 
   # for(i in 1:length(x)){
   #   res[i] <- log(x[i])
   # }
-  # 
   # return(res)
   return(log(x))
 }
@@ -111,15 +104,10 @@ mb <- microbenchmark(log_par(1:100), log_seq(1:100), times=50)
 
 ```{r, echo=FALSE, eval =FALSE}
 log_par_iter <- function(x){
-  
   Ncpus <- parallel::detectCores() - 1
-  
   cl <- parallel::makeCluster(Ncpus)
-  
   doParallel::registerDoParallel(cl)
-  
   iter <- itertools::isplitIndices(n=length(x), chunks=Ncpus)
-  
   res <- foreach(i=iter, .combine='c') %dopar% {
     log(x[i])
   }
@@ -213,7 +201,6 @@ calcul.
 
 ```{r, error=TRUE, cache=TRUE}
 colmedian_par <- function(x){
-  
   Ncpus <- parallel::detectCores() - 1
   cl <- parallel::makeCluster(Ncpus)
   doParallel::registerDoParallel(cl)
@@ -229,7 +216,6 @@ system.time(colmedian_par(x))
 
 library(itertools)
 colmedian_parIter <- function(x){
-  
   Ncpus <- parallel::detectCores() - 1
   cl <- parallel::makeCluster(Ncpus)
   doParallel::registerDoParallel(cl)

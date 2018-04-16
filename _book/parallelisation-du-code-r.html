@@ -286,34 +286,27 @@ sur les 100 premiers entiers, grâce à la commande :<br />
 <a class="sourceLine" id="cb36-4" data-line-number="4"><span class="kw">library</span>(doParallel)</a>
 <a class="sourceLine" id="cb36-5" data-line-number="5"></a>
 <a class="sourceLine" id="cb36-6" data-line-number="6">log_par &lt;-<span class="st"> </span><span class="cf">function</span>(x){</a>
-<a class="sourceLine" id="cb36-7" data-line-number="7">  </a>
-<a class="sourceLine" id="cb36-8" data-line-number="8">  Ncpus &lt;-<span class="st"> </span>parallel<span class="op">::</span><span class="kw">detectCores</span>() <span class="op">-</span><span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb36-9" data-line-number="9">  </a>
-<a class="sourceLine" id="cb36-10" data-line-number="10">  cl &lt;-<span class="st"> </span>parallel<span class="op">::</span><span class="kw">makeCluster</span>(Ncpus)</a>
-<a class="sourceLine" id="cb36-11" data-line-number="11">  </a>
-<a class="sourceLine" id="cb36-12" data-line-number="12">  doParallel<span class="op">::</span><span class="kw">registerDoParallel</span>(cl)</a>
-<a class="sourceLine" id="cb36-13" data-line-number="13">  </a>
-<a class="sourceLine" id="cb36-14" data-line-number="14">  res &lt;-<span class="st"> </span><span class="kw">foreach</span>(<span class="dt">i=</span><span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(x), <span class="dt">.combine=</span><span class="st">&#39;c&#39;</span>) <span class="op">%dopar%</span><span class="st"> </span>{</a>
-<a class="sourceLine" id="cb36-15" data-line-number="15">    <span class="kw">log</span>(x[i])</a>
-<a class="sourceLine" id="cb36-16" data-line-number="16">  }</a>
-<a class="sourceLine" id="cb36-17" data-line-number="17">  </a>
-<a class="sourceLine" id="cb36-18" data-line-number="18">  parallel<span class="op">::</span><span class="kw">stopCluster</span>(cl)</a>
-<a class="sourceLine" id="cb36-19" data-line-number="19">  </a>
-<a class="sourceLine" id="cb36-20" data-line-number="20">  <span class="kw">return</span>(res)</a>
-<a class="sourceLine" id="cb36-21" data-line-number="21">}</a>
-<a class="sourceLine" id="cb36-22" data-line-number="22"></a>
-<a class="sourceLine" id="cb36-23" data-line-number="23">log_seq &lt;-<span class="st"> </span><span class="cf">function</span>(x){</a>
-<a class="sourceLine" id="cb36-24" data-line-number="24">  <span class="co"># res &lt;- numeric(length(x))</span></a>
-<a class="sourceLine" id="cb36-25" data-line-number="25">  <span class="co"># </span></a>
-<a class="sourceLine" id="cb36-26" data-line-number="26">  <span class="co"># for(i in 1:length(x)){</span></a>
-<a class="sourceLine" id="cb36-27" data-line-number="27">  <span class="co">#   res[i] &lt;- log(x[i])</span></a>
-<a class="sourceLine" id="cb36-28" data-line-number="28">  <span class="co"># }</span></a>
-<a class="sourceLine" id="cb36-29" data-line-number="29">  <span class="co"># </span></a>
-<a class="sourceLine" id="cb36-30" data-line-number="30">  <span class="co"># return(res)</span></a>
-<a class="sourceLine" id="cb36-31" data-line-number="31">  <span class="kw">return</span>(<span class="kw">log</span>(x))</a>
-<a class="sourceLine" id="cb36-32" data-line-number="32">}</a>
-<a class="sourceLine" id="cb36-33" data-line-number="33"></a>
-<a class="sourceLine" id="cb36-34" data-line-number="34">mb &lt;-<span class="st"> </span><span class="kw">microbenchmark</span>(<span class="kw">log_par</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">100</span>), <span class="kw">log_seq</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">100</span>), <span class="dt">times=</span><span class="dv">50</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb36-7" data-line-number="7">  Ncpus &lt;-<span class="st"> </span>parallel<span class="op">::</span><span class="kw">detectCores</span>() <span class="op">-</span><span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb36-8" data-line-number="8">  cl &lt;-<span class="st"> </span>parallel<span class="op">::</span><span class="kw">makeCluster</span>(Ncpus)</a>
+<a class="sourceLine" id="cb36-9" data-line-number="9">  doParallel<span class="op">::</span><span class="kw">registerDoParallel</span>(cl)</a>
+<a class="sourceLine" id="cb36-10" data-line-number="10">  res &lt;-<span class="st"> </span><span class="kw">foreach</span>(<span class="dt">i=</span><span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(x), <span class="dt">.combine=</span><span class="st">&#39;c&#39;</span>) <span class="op">%dopar%</span><span class="st"> </span>{</a>
+<a class="sourceLine" id="cb36-11" data-line-number="11">    <span class="kw">log</span>(x[i])</a>
+<a class="sourceLine" id="cb36-12" data-line-number="12">  }</a>
+<a class="sourceLine" id="cb36-13" data-line-number="13">  parallel<span class="op">::</span><span class="kw">stopCluster</span>(cl)</a>
+<a class="sourceLine" id="cb36-14" data-line-number="14">  <span class="kw">return</span>(res)</a>
+<a class="sourceLine" id="cb36-15" data-line-number="15">}</a>
+<a class="sourceLine" id="cb36-16" data-line-number="16"></a>
+<a class="sourceLine" id="cb36-17" data-line-number="17">log_seq &lt;-<span class="st"> </span><span class="cf">function</span>(x){</a>
+<a class="sourceLine" id="cb36-18" data-line-number="18">  <span class="co"># try this yourself (spoiler alert: it is quite long...):</span></a>
+<a class="sourceLine" id="cb36-19" data-line-number="19">  <span class="co"># res &lt;- numeric(length(x))</span></a>
+<a class="sourceLine" id="cb36-20" data-line-number="20">  <span class="co"># for(i in 1:length(x)){</span></a>
+<a class="sourceLine" id="cb36-21" data-line-number="21">  <span class="co">#   res[i] &lt;- log(x[i])</span></a>
+<a class="sourceLine" id="cb36-22" data-line-number="22">  <span class="co"># }</span></a>
+<a class="sourceLine" id="cb36-23" data-line-number="23">  <span class="co"># return(res)</span></a>
+<a class="sourceLine" id="cb36-24" data-line-number="24">  <span class="kw">return</span>(<span class="kw">log</span>(x))</a>
+<a class="sourceLine" id="cb36-25" data-line-number="25">}</a>
+<a class="sourceLine" id="cb36-26" data-line-number="26"></a>
+<a class="sourceLine" id="cb36-27" data-line-number="27">mb &lt;-<span class="st"> </span><span class="kw">microbenchmark</span>(<span class="kw">log_par</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">100</span>), <span class="kw">log_seq</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">100</span>), <span class="dt">times=</span><span class="dv">50</span>)</a></code></pre></div>
 <p><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-39-1.png" width="672" /></p>
 <p>La version parallèle tourne beaucoup plus lentement… Car en fait, si les tâches individuelles
 sont trop rapides, <code>R</code> va passer plus de temps à communiquer avec les cœurs,
@@ -344,7 +337,7 @@ la médiane pour chacune de ces variables.</p>
 <a class="sourceLine" id="cb39-3" data-line-number="3">}</a>
 <a class="sourceLine" id="cb39-4" data-line-number="4"><span class="kw">system.time</span>(<span class="kw">colmedian_apply</span>(x))</a></code></pre></div>
 <pre><code>##    user  system elapsed 
-##   3.178   0.013   3.198</code></pre>
+##   2.978   0.012   2.996</code></pre>
 <p>En réalité, une boucle <code>for</code> n’est pas plus lente à condition d’être bien programmée :</p>
 <div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1">colmedian_for &lt;-<span class="st"> </span><span class="cf">function</span>(x){</a>
 <a class="sourceLine" id="cb41-2" data-line-number="2">  ans &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, <span class="kw">ncol</span>(x)) </a>
@@ -376,39 +369,37 @@ calcul.</li>
 </ol>
 </blockquote>
 <div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1">colmedian_par &lt;-<span class="st"> </span><span class="cf">function</span>(x){</a>
-<a class="sourceLine" id="cb45-2" data-line-number="2">  </a>
-<a class="sourceLine" id="cb45-3" data-line-number="3">  Ncpus &lt;-<span class="st"> </span>parallel<span class="op">::</span><span class="kw">detectCores</span>() <span class="op">-</span><span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb45-4" data-line-number="4">  cl &lt;-<span class="st"> </span>parallel<span class="op">::</span><span class="kw">makeCluster</span>(Ncpus)</a>
-<a class="sourceLine" id="cb45-5" data-line-number="5">  doParallel<span class="op">::</span><span class="kw">registerDoParallel</span>(cl)</a>
-<a class="sourceLine" id="cb45-6" data-line-number="6">  </a>
-<a class="sourceLine" id="cb45-7" data-line-number="7">  res &lt;-<span class="st"> </span>foreach<span class="op">::</span><span class="kw">foreach</span>(<span class="dt">i=</span><span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(x), <span class="dt">.combine=</span><span class="st">&#39;c&#39;</span>)<span class="op">%dopar%</span>{</a>
-<a class="sourceLine" id="cb45-8" data-line-number="8">          <span class="kw">return</span>(<span class="kw">median</span>(x[,i]))</a>
-<a class="sourceLine" id="cb45-9" data-line-number="9">  }</a>
-<a class="sourceLine" id="cb45-10" data-line-number="10">  </a>
-<a class="sourceLine" id="cb45-11" data-line-number="11">  parallel<span class="op">::</span><span class="kw">stopCluster</span>(cl)</a>
-<a class="sourceLine" id="cb45-12" data-line-number="12">  <span class="kw">return</span>(res)</a>
-<a class="sourceLine" id="cb45-13" data-line-number="13">}</a>
-<a class="sourceLine" id="cb45-14" data-line-number="14"><span class="kw">system.time</span>(<span class="kw">colmedian_par</span>(x))</a></code></pre></div>
+<a class="sourceLine" id="cb45-2" data-line-number="2">  Ncpus &lt;-<span class="st"> </span>parallel<span class="op">::</span><span class="kw">detectCores</span>() <span class="op">-</span><span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb45-3" data-line-number="3">  cl &lt;-<span class="st"> </span>parallel<span class="op">::</span><span class="kw">makeCluster</span>(Ncpus)</a>
+<a class="sourceLine" id="cb45-4" data-line-number="4">  doParallel<span class="op">::</span><span class="kw">registerDoParallel</span>(cl)</a>
+<a class="sourceLine" id="cb45-5" data-line-number="5">  </a>
+<a class="sourceLine" id="cb45-6" data-line-number="6">  res &lt;-<span class="st"> </span>foreach<span class="op">::</span><span class="kw">foreach</span>(<span class="dt">i=</span><span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(x), <span class="dt">.combine=</span><span class="st">&#39;c&#39;</span>)<span class="op">%dopar%</span>{</a>
+<a class="sourceLine" id="cb45-7" data-line-number="7">          <span class="kw">return</span>(<span class="kw">median</span>(x[,i]))</a>
+<a class="sourceLine" id="cb45-8" data-line-number="8">  }</a>
+<a class="sourceLine" id="cb45-9" data-line-number="9">  </a>
+<a class="sourceLine" id="cb45-10" data-line-number="10">  parallel<span class="op">::</span><span class="kw">stopCluster</span>(cl)</a>
+<a class="sourceLine" id="cb45-11" data-line-number="11">  <span class="kw">return</span>(res)</a>
+<a class="sourceLine" id="cb45-12" data-line-number="12">}</a>
+<a class="sourceLine" id="cb45-13" data-line-number="13"><span class="kw">system.time</span>(<span class="kw">colmedian_par</span>(x))</a></code></pre></div>
 <pre><code>##    user  system elapsed 
-##  26.633   2.606  31.199</code></pre>
+##  27.246   2.839  32.006</code></pre>
 <div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1"><span class="kw">library</span>(itertools)</a>
 <a class="sourceLine" id="cb47-2" data-line-number="2">colmedian_parIter &lt;-<span class="st"> </span><span class="cf">function</span>(x){</a>
-<a class="sourceLine" id="cb47-3" data-line-number="3">  </a>
-<a class="sourceLine" id="cb47-4" data-line-number="4">  Ncpus &lt;-<span class="st"> </span>parallel<span class="op">::</span><span class="kw">detectCores</span>() <span class="op">-</span><span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb47-5" data-line-number="5">  cl &lt;-<span class="st"> </span>parallel<span class="op">::</span><span class="kw">makeCluster</span>(Ncpus)</a>
-<a class="sourceLine" id="cb47-6" data-line-number="6">  doParallel<span class="op">::</span><span class="kw">registerDoParallel</span>(cl)</a>
-<a class="sourceLine" id="cb47-7" data-line-number="7">  </a>
-<a class="sourceLine" id="cb47-8" data-line-number="8">  iter &lt;-<span class="st"> </span>itertools<span class="op">::</span><span class="kw">isplitIndices</span>(<span class="dt">n=</span><span class="kw">ncol</span>(x), <span class="dt">chunks =</span> Ncpus)</a>
-<a class="sourceLine" id="cb47-9" data-line-number="9">  res &lt;-<span class="st"> </span>foreach<span class="op">::</span><span class="kw">foreach</span>(<span class="dt">i=</span>iter, <span class="dt">.combine=</span><span class="st">&#39;c&#39;</span>)<span class="op">%dopar%</span>{</a>
-<a class="sourceLine" id="cb47-10" data-line-number="10">          <span class="kw">return</span>(<span class="kw">apply</span>(x[, i], <span class="dv">2</span>, median))</a>
-<a class="sourceLine" id="cb47-11" data-line-number="11">  }</a>
-<a class="sourceLine" id="cb47-12" data-line-number="12">  </a>
-<a class="sourceLine" id="cb47-13" data-line-number="13">  parallel<span class="op">::</span><span class="kw">stopCluster</span>(cl)</a>
-<a class="sourceLine" id="cb47-14" data-line-number="14">  <span class="kw">return</span>(res)</a>
-<a class="sourceLine" id="cb47-15" data-line-number="15">}</a>
-<a class="sourceLine" id="cb47-16" data-line-number="16"><span class="kw">system.time</span>(<span class="kw">colmedian_parIter</span>(x))</a></code></pre></div>
+<a class="sourceLine" id="cb47-3" data-line-number="3">  Ncpus &lt;-<span class="st"> </span>parallel<span class="op">::</span><span class="kw">detectCores</span>() <span class="op">-</span><span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb47-4" data-line-number="4">  cl &lt;-<span class="st"> </span>parallel<span class="op">::</span><span class="kw">makeCluster</span>(Ncpus)</a>
+<a class="sourceLine" id="cb47-5" data-line-number="5">  doParallel<span class="op">::</span><span class="kw">registerDoParallel</span>(cl)</a>
+<a class="sourceLine" id="cb47-6" data-line-number="6">  </a>
+<a class="sourceLine" id="cb47-7" data-line-number="7">  iter &lt;-<span class="st"> </span>itertools<span class="op">::</span><span class="kw">isplitIndices</span>(<span class="dt">n=</span><span class="kw">ncol</span>(x), <span class="dt">chunks =</span> Ncpus)</a>
+<a class="sourceLine" id="cb47-8" data-line-number="8">  res &lt;-<span class="st"> </span>foreach<span class="op">::</span><span class="kw">foreach</span>(<span class="dt">i=</span>iter, <span class="dt">.combine=</span><span class="st">&#39;c&#39;</span>)<span class="op">%dopar%</span>{</a>
+<a class="sourceLine" id="cb47-9" data-line-number="9">          <span class="kw">return</span>(<span class="kw">apply</span>(x[, i], <span class="dv">2</span>, median))</a>
+<a class="sourceLine" id="cb47-10" data-line-number="10">  }</a>
+<a class="sourceLine" id="cb47-11" data-line-number="11">  </a>
+<a class="sourceLine" id="cb47-12" data-line-number="12">  parallel<span class="op">::</span><span class="kw">stopCluster</span>(cl)</a>
+<a class="sourceLine" id="cb47-13" data-line-number="13">  <span class="kw">return</span>(res)</a>
+<a class="sourceLine" id="cb47-14" data-line-number="14">}</a>
+<a class="sourceLine" id="cb47-15" data-line-number="15"><span class="kw">system.time</span>(<span class="kw">colmedian_parIter</span>(x))</a></code></pre></div>
 <pre><code>##    user  system elapsed 
-##   0.086   0.036   2.849</code></pre>
+##   0.085   0.036   2.652</code></pre>
 <div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1">colmedian_parIterFor &lt;-<span class="st"> </span><span class="cf">function</span>(x){</a>
 <a class="sourceLine" id="cb49-2" data-line-number="2">  </a>
 <a class="sourceLine" id="cb49-3" data-line-number="3">  Ncpus &lt;-<span class="st"> </span>parallel<span class="op">::</span><span class="kw">detectCores</span>() <span class="op">-</span><span class="st"> </span><span class="dv">1</span></a>
@@ -430,7 +421,7 @@ calcul.</li>
 <a class="sourceLine" id="cb49-19" data-line-number="19">}</a>
 <a class="sourceLine" id="cb49-20" data-line-number="20"><span class="kw">system.time</span>(<span class="kw">colmedian_parIterFor</span>(x))</a></code></pre></div>
 <pre><code>##    user  system elapsed 
-##   0.116   0.038   2.774</code></pre>
+##   0.114   0.037   2.794</code></pre>
 <div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1">mb &lt;-<span class="st"> </span><span class="kw">microbenchmark</span>(<span class="kw">colmedian_apply</span>(x), </a>
 <a class="sourceLine" id="cb51-2" data-line-number="2">                     <span class="kw">colmedian_for</span>(x), </a>
 <a class="sourceLine" id="cb51-3" data-line-number="3">                     <span class="kw">colmedian_parIter</span>(x),</a>
@@ -438,15 +429,15 @@ calcul.</li>
 <a class="sourceLine" id="cb51-5" data-line-number="5">mb</a></code></pre></div>
 <pre><code>## Unit: seconds
 ##                     expr      min       lq     mean   median       uq
-##       colmedian_apply(x) 3.764053 3.994973 4.097236 4.084850 4.228768
-##         colmedian_for(x) 3.691846 3.961871 3.979758 3.987982 4.033534
-##     colmedian_parIter(x) 2.654610 2.720172 2.784184 2.774433 2.839652
-##  colmedian_parIterFor(x) 2.572087 2.654447 2.721355 2.690104 2.777231
+##       colmedian_apply(x) 3.994955 4.078543 4.265400 4.158422 4.291903
+##         colmedian_for(x) 3.716682 3.889168 4.087527 4.020424 4.093116
+##     colmedian_parIter(x) 2.671087 2.747093 2.949281 2.838861 3.105780
+##  colmedian_parIterFor(x) 2.573851 2.743725 2.928242 2.811891 3.099162
 ##       max neval cld
-##  4.332092    20   c
-##  4.178110    20  b 
-##  3.006265    20 a  
-##  3.090233    20 a</code></pre>
+##  5.345830    20   b
+##  5.177259    20   b
+##  3.731752    20  a 
+##  3.945875    20  a</code></pre>
 <p><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-44-1.png" width="672" /></p>
 <p>Le package <code>itertools</code> permet de séparer facilement des données ou des
 taches (étape 3) tout en minimisant les communiquations avec les différents
