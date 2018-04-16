@@ -25,7 +25,7 @@
 <meta name="author" content="Robin Genuer et Boris Hejblum">
 
 
-<meta name="date" content="2018-04-11">
+<meta name="date" content="2018-04-16">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -221,7 +221,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="rcpp-ou-comment-integrer-facilement-du-code-cdans-un-package-r" class="section level1">
-<h1><span class="header-section-number">5</span> <code>Rcpp</code> ou comment intégrer facilement du code <code>C++</code>dans un package <code>R</code></h1>
+<h1><span class="header-section-number">Chapitre 5</span> <code>Rcpp</code> ou comment intégrer facilement du code <code>C++</code>dans un package <code>R</code></h1>
 <p><code>Rcpp</code> (R-C-Plus-Plus) est un package qui facilite l’interface entre <code>C++</code> et <code>R</code>. <code>R</code> est un langage
 interprété, ce qui facilite un certain nombre de choses (notamment nous donne accès à la console
 dans laquelle on peut évaluer du code à la volée). Néanmoins, cette facilité d’utilisation se
@@ -297,17 +297,17 @@ uniquement les calculs d’inverse matriciel par un appel à <code>invC</code>.<
 <a class="sourceLine" id="cb31-8" data-line-number="8">mb</a></code></pre></div>
 <pre><code>## Unit: microseconds
 ##                                                            expr      min
-##              mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))  146.044
-##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 4753.382
-##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3400.843
-##  mvnpdfoptim(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 2982.632
-##  mvnpdf_invC(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3355.388
-##        lq      mean    median       uq        max neval cld
-##   220.388  252.1929  250.8275  284.064    384.873   100  a 
-##  4994.570 5761.6155 5306.9670 6050.620  10491.707   100   b
-##  3586.615 4032.6253 3774.7950 4089.672   8298.903   100   b
-##  3237.754 4741.8702 3364.8385 3725.181 106040.616   100   b
-##  3585.089 4203.4544 3729.9070 4184.549  15436.089   100   b</code></pre>
+##              mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))  155.883
+##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 4723.959
+##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3460.233
+##  mvnpdfoptim(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3067.541
+##  mvnpdf_invC(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3441.281
+##         lq      mean    median       uq       max neval  cld
+##   215.6415  256.2191  249.2085  270.444  1111.822   100 a   
+##  5014.9595 5806.1489 5479.2755 6152.707 13383.315   100    d
+##  3708.7505 4246.5833 3941.3165 4461.660  8477.258   100  bc 
+##  3272.9115 3898.3510 3514.8275 4030.086  9061.458   100  b  
+##  3608.1720 4437.8044 3761.6345 4452.060 16215.243   100   c</code></pre>
 <p><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1">profvis<span class="op">::</span><span class="kw">profvis</span>(<span class="kw">mvnpdfoptim</span>(<span class="dt">x=</span><span class="kw">matrix</span>(<span class="fl">1.96</span>, </a>
 <a class="sourceLine" id="cb33-2" data-line-number="2">    <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">ncol =</span> <span class="dv">1000</span>), <span class="dt">Log=</span><span class="ot">FALSE</span>))</a>
@@ -346,13 +346,13 @@ de densité de la loi Normale multivariée <code>mvnpdfC()</code>.</p></li>
 ##                                        mvnpdfoptim(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE)
 ##                                        mvnpdf_invC(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE)
 ##  mvnpdfC(x = matrix(1.96, nrow = 2, ncol = n), mean = rep(0, 2),      varcovM = diag(2), Log = FALSE)
-##       min       lq      mean    median        uq      max neval  cld
-##   139.218  202.280  240.9661  242.8140  269.2395  510.689   100 a   
-##  4766.189 4944.501 5600.7539 5286.1930 5830.4330 9920.758   100    d
-##  3466.863 3596.512 4121.4403 3737.7285 4018.7730 9319.253   100   c 
-##  2974.810 3175.178 3461.0183 3294.9260 3415.5685 8723.125   100  b  
-##  3398.764 3556.466 3998.9109 3696.3370 3988.8355 7572.826   100   c 
-##    59.417   74.789   94.1473   80.4645   88.1400 1252.626   100 a</code></pre>
+##       min        lq       mean    median        uq       max neval  cld
+##   152.733  211.3585  250.54307  247.3800  277.0615  1004.962   100 a   
+##  4672.156 5050.2385 5789.90778 5580.8015 6398.9925  8901.455   100    d
+##  3470.463 3639.4625 4315.21492 3778.3295 4334.1725 10164.634   100   c 
+##  2977.563 3178.9645 3756.00012 3400.7900 3932.4645  7848.268   100  b  
+##  3418.762 3628.9545 4067.01267 3779.7265 4101.2025  9492.469   100  bc 
+##    59.389   76.0125   88.38878   83.9565   96.1525   164.863   100 a</code></pre>
 <p><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
 <p>À noter que vous pouvez utiliser des fonctions Rcpp en dehors de l’architecture
 d’un package grâce à la fonction <code>Rcpp::sourceCpp()</code>. Mais comme nous avons
@@ -406,7 +406,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/sistm/OutilsDvpmtPerf/edit/master/06-Rcpp.Rmd",
+"link": "https://github.com/sistm/OutilsDvpmtPerfR/blob/master/06-Rcpp.Rmd",
 "text": "Edit"
 },
 "download": ["FormationRavancee_dev_perf.pdf", "FormationRavancee_dev_perf.epub"],
