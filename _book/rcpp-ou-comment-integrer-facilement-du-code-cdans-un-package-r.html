@@ -25,7 +25,7 @@
 <meta name="author" content="Robin Genuer et Boris Hejblum">
 
 
-<meta name="date" content="2018-04-16">
+<meta name="date" content="2018-04-18">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -297,17 +297,17 @@ uniquement les calculs d’inverse matriciel par un appel à <code>invC</code>.<
 <a class="sourceLine" id="cb31-8" data-line-number="8">mb</a></code></pre></div>
 <pre><code>## Unit: microseconds
 ##                                                            expr      min
-##              mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))  151.418
-##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 4696.886
-##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3450.505
-##  mvnpdfoptim(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3153.273
-##  mvnpdf_invC(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3420.382
-##        lq      mean    median       uq       max neval  cld
-##   201.271  249.6385  253.3425  283.123   438.661   100 a   
-##  4887.434 5494.1037 5186.7955 5753.529  8777.707   100    d
-##  3609.713 4286.1466 3880.5000 4339.392  8870.065   100   c 
-##  3320.585 3773.1906 3464.8785 3802.171  9615.537   100  b  
-##  3551.381 4243.0367 3668.0105 4209.970 14410.866   100   c</code></pre>
+##              mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))  150.463
+##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 4705.309
+##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3474.312
+##  mvnpdfoptim(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3063.793
+##  mvnpdf_invC(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3430.117
+##         lq      mean    median       uq       max neval  cld
+##   202.0865  251.0032  249.0995  271.017   944.526   100 a   
+##  4922.9845 5616.9476 5220.1380 5807.172 10204.089   100    d
+##  3601.2410 4156.5422 3714.3400 4044.066 10352.425   100  bc 
+##  3292.1960 3772.6393 3480.0935 3750.610  8293.769   100  b  
+##  3591.8570 4300.5416 3781.5570 4325.986 13202.544   100   c</code></pre>
 <p><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1">profvis<span class="op">::</span><span class="kw">profvis</span>(<span class="kw">mvnpdfoptim</span>(<span class="dt">x=</span><span class="kw">matrix</span>(<span class="fl">1.96</span>, </a>
 <a class="sourceLine" id="cb33-2" data-line-number="2">    <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">ncol =</span> <span class="dv">1000</span>), <span class="dt">Log=</span><span class="ot">FALSE</span>))</a>
@@ -328,7 +328,7 @@ de densité de la loi Normale multivariée <code>mvnpdfC()</code>.</p></li>
 <li><p>Evaluer le gain en performance de cette nouvelle implémentation <code>mvnpdf_invC</code></p></li>
 </ol>
 </blockquote>
-<p>Vous pouvez télécharger notre proposition de <code>mvnpdfC.cpp</code> <a href="https://plmbox.math.cnrs.fr/f/7ca13cfa18e64e6a8133/?dl=1">ici</a>.</p>
+<p>Vous pouvez télécharger notre proposition de <code>mvnpdfC.cpp</code> <a href="https://r-dev-perf.borishejblum.science/FormationRavancee_dev_perf_files/mvnpdfC.cpp">ici</a>.</p>
 <div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1">n &lt;-<span class="st"> </span><span class="dv">1000</span></a>
 <a class="sourceLine" id="cb34-2" data-line-number="2">mb &lt;-<span class="st"> </span><span class="kw">microbenchmark</span>(mvtnorm<span class="op">::</span><span class="kw">dmvnorm</span>(<span class="kw">matrix</span>(<span class="fl">1.96</span>, <span class="dt">nrow =</span> n, <span class="dt">ncol =</span> <span class="dv">2</span>)),</a>
 <a class="sourceLine" id="cb34-3" data-line-number="3">                     <span class="kw">mvnpdf</span>(<span class="dt">x=</span><span class="kw">matrix</span>(<span class="fl">1.96</span>, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">ncol =</span> n), <span class="dt">Log=</span><span class="ot">FALSE</span>),</a>
@@ -346,13 +346,13 @@ de densité de la loi Normale multivariée <code>mvnpdfC()</code>.</p></li>
 ##                                        mvnpdfoptim(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE)
 ##                                        mvnpdf_invC(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE)
 ##  mvnpdfC(x = matrix(1.96, nrow = 2, ncol = n), mean = rep(0, 2),      varcovM = diag(2), Log = FALSE)
-##       min        lq      mean    median        uq       max neval  cld
-##   157.913  193.4370  240.5408  240.8275  267.3415   388.826   100 a   
-##  4693.255 4876.5100 5584.5426 5220.7610 5957.3580  9515.036   100    d
-##  3421.665 3579.2415 4060.4624 3732.6720 4116.6075 11151.210   100  bc 
-##  3131.417 3245.9765 3762.6467 3360.0155 3920.1325  6919.049   100  b  
-##  3421.746 3574.3190 4108.2564 3709.2990 4164.9755  9502.559   100   c 
-##    59.158   72.0255   82.6883   80.5195   88.2840   155.056   100 a</code></pre>
+##       min       lq       mean    median       uq       max neval  cld
+##   163.598  212.094  242.80353  241.5415  264.066   407.205   100 a   
+##  4654.520 5163.909 6149.52878 5667.4955 6563.557 15321.319   100    d
+##  3474.670 3710.117 4553.36353 4140.5330 4794.595 11588.148   100   c 
+##  3125.830 3365.107 4000.94533 3637.5195 4290.048  7585.954   100  b  
+##  3470.743 3678.141 4402.18206 3851.9790 4802.569 11012.327   100  bc 
+##    60.270   77.268   89.35497   81.9875   91.169   218.369   100 a</code></pre>
 <p><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
 <p>À noter que vous pouvez utiliser des fonctions Rcpp en dehors de l’architecture
 d’un package grâce à la fonction <code>Rcpp::sourceCpp()</code>. Mais comme nous avons

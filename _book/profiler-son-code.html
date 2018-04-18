@@ -25,7 +25,7 @@
 <meta name="author" content="Robin Genuer et Boris Hejblum">
 
 
-<meta name="date" content="2018-04-16">
+<meta name="date" content="2018-04-18">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -236,7 +236,7 @@ n’est vraiment pas une bonne idée.</p>
 <h2><span class="header-section-number">4.1</span> Comparaison avec une version plus habile de <code>mnvpdf()</code></h2>
 <p>Considérons une nouvelle version de <code>mvnpdf()</code>, appelée <code>mvnpdfsmart()</code>.
 Télécharger le
-<a href="https://plmbox.math.cnrs.fr/f/9c8ee1d23aa84ebdb9a7/?dl=1">fichier</a> puis
+<a href="ttps://r-dev-perf.borishejblum.science/FormationRavancee_dev_perf_files/mvnpdfsmart.R">fichier</a> puis
 l’inclure dans le package.</p>
 <p>Profiler la commande suivante :</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1">n &lt;-<span class="st"> </span><span class="fl">10e4</span></a>
@@ -252,11 +252,11 @@ fine ce qui prend du temps dans notre fonction.</p>
 <a class="sourceLine" id="cb21-5" data-line-number="5">mb</a></code></pre></div>
 <pre><code>## Unit: milliseconds
 ##                                                            expr      min
-##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 4.676255
-##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3.418074
+##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 4.661550
+##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3.376328
 ##        lq     mean   median       uq      max neval cld
-##  5.145049 6.408145 6.163972 7.143521 11.52442   100   b
-##  3.533699 4.049350 3.716006 4.140066 13.82207   100  a</code></pre>
+##  4.891390 6.269172 5.821054 7.301978 11.63776   100   b
+##  3.527943 3.828626 3.599178 3.756298 12.84646   100  a</code></pre>
 <p><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
 <p>Et on peut également voir si on devient compétitif avec <code>dmvnorm()</code> :</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1">n &lt;-<span class="st"> </span><span class="dv">1000</span></a>
@@ -267,20 +267,20 @@ fine ce qui prend du temps dans notre fonction.</p>
 <a class="sourceLine" id="cb23-6" data-line-number="6">mb</a></code></pre></div>
 <pre><code>## Unit: microseconds
 ##                                                            expr      min
-##              mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))  165.848
-##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 4695.351
-##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3430.778
-##         lq     mean    median        uq       max neval cld
-##   194.5615  229.296  224.0665  250.7105   384.398   100 a  
-##  5098.4075 6142.385 5777.4845 6831.6740  9968.732   100   c
-##  3549.0315 3980.847 3755.5945 4022.6910 10659.876   100  b</code></pre>
+##              mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))  156.364
+##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 4696.018
+##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3465.864
+##        lq      mean   median        uq       max neval cld
+##   189.660  241.8974  216.477  246.2255  2398.573   100 a  
+##  4896.497 5797.9384 5442.230 6392.9015 10566.577   100   c
+##  3517.849 3798.3318 3573.790 3683.0440  8262.188   100  b</code></pre>
 <p><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
 <p>Il y a encore du travail…</p>
 </div>
 <div id="comparaison-avec-une-version-optimisee-dans-r" class="section level2">
 <h2><span class="header-section-number">4.2</span> Comparaison avec une version optimisée dans R</h2>
 <p>Boris est arrivée après plusieurs recherches et tests à une
-<a href="https://plmbox.math.cnrs.fr/f/d961ab1677784af78d4f/?dl=1">version optimisée</a>
+<a href="ttps://r-dev-perf.borishejblum.science/FormationRavancee_dev_perf_files/mvnpdfoptim.R">version optimisée</a>
 avec les outils de R.</p>
 <p>Inclure la fonction <code>mvnpdfoptim()</code> dans le package, puis profiler cette
 fonction :</p>
@@ -296,15 +296,15 @@ fonction :</p>
 <a class="sourceLine" id="cb26-7" data-line-number="7">mb</a></code></pre></div>
 <pre><code>## Unit: microseconds
 ##                                                            expr      min
-##              mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))  153.522
-##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 4621.210
-##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3366.675
-##  mvnpdfoptim(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3122.588
-##         lq      mean   median        uq        max neval cld
-##   190.7045  246.2187  239.975  257.5605   1778.152   100 a  
-##  4885.4325 6147.0449 5766.988 6809.8265  11523.138   100   c
-##  3548.0345 3841.9262 3615.654 3830.4655   7037.793   100  b 
-##  3283.3210 4689.5796 3366.350 3713.6185 107639.754   100  bc</code></pre>
+##              mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))  148.855
+##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 4566.218
+##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3351.211
+##  mvnpdfoptim(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 2963.933
+##        lq      mean    median        uq       max neval cld
+##   196.542  233.3999  231.8095  262.9195   403.308   100 a  
+##  4855.247 6822.0350 5273.6445 6779.7225 94816.697   100   c
+##  3534.188 3798.3390 3612.0270 3738.8645  8035.440   100  b 
+##  3154.437 3482.4122 3256.6300 3409.4715 12679.010   100  b</code></pre>
 <p><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
 <p>Pour finir on peut profiler la fonction <code>dmvnorm()</code> :</p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1">n &lt;-<span class="st"> </span><span class="fl">10e5</span></a>
