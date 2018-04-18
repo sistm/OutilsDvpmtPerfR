@@ -1,7 +1,7 @@
 --- 
 title: 'Formation R avancée'
 subtitle: '*Outils de développement et de performance*'
-author: "[Robin Genuer](https://robin.genuer.fr/) et [Boris Hejblum](http://www.borishejblum.science/)"
+author: "[Robin Genuer](https://robin.genuer.fr/) et [Boris Hejblum](https://borishejblum.science/)"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 documentclass: book
