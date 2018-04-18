@@ -97,7 +97,7 @@ développeurs :
     
   - vous dans 6 mois
   
-Par égard à votre futur moi, soyez sympas et prenez le temps de documenter 
+Par égard à votre futur-vous, soyez sympas et prenez le temps de documenter 
 votre code !
 
 

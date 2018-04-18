@@ -297,17 +297,17 @@ uniquement les calculs d’inverse matriciel par un appel à <code>invC</code>.<
 <a class="sourceLine" id="cb31-8" data-line-number="8">mb</a></code></pre></div>
 <pre><code>## Unit: microseconds
 ##                                                            expr      min
-##              mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))  150.463
-##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 4705.309
-##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3474.312
-##  mvnpdfoptim(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3063.793
-##  mvnpdf_invC(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3430.117
+##              mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))  152.500
+##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 4674.733
+##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3453.510
+##  mvnpdfoptim(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3065.763
+##  mvnpdf_invC(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3431.728
 ##         lq      mean    median       uq       max neval  cld
-##   202.0865  251.0032  249.0995  271.017   944.526   100 a   
-##  4922.9845 5616.9476 5220.1380 5807.172 10204.089   100    d
-##  3601.2410 4156.5422 3714.3400 4044.066 10352.425   100  bc 
-##  3292.1960 3772.6393 3480.0935 3750.610  8293.769   100  b  
-##  3591.8570 4300.5416 3781.5570 4325.986 13202.544   100   c</code></pre>
+##   203.2125  234.7142  236.6085  262.132   348.827   100 a   
+##  4824.4340 5612.1034 5096.5720 5709.025 10940.518   100    d
+##  3566.4740 3969.3794 3678.1175 3795.311 10086.322   100   c 
+##  3170.1440 3550.9302 3307.3620 3426.784 10446.156   100  b  
+##  3523.2590 4112.8114 3649.8450 3784.692 13443.930   100   c</code></pre>
 <p><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1">profvis<span class="op">::</span><span class="kw">profvis</span>(<span class="kw">mvnpdfoptim</span>(<span class="dt">x=</span><span class="kw">matrix</span>(<span class="fl">1.96</span>, </a>
 <a class="sourceLine" id="cb33-2" data-line-number="2">    <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">ncol =</span> <span class="dv">1000</span>), <span class="dt">Log=</span><span class="ot">FALSE</span>))</a>
@@ -346,13 +346,13 @@ de densité de la loi Normale multivariée <code>mvnpdfC()</code>.</p></li>
 ##                                        mvnpdfoptim(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE)
 ##                                        mvnpdf_invC(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE)
 ##  mvnpdfC(x = matrix(1.96, nrow = 2, ncol = n), mean = rep(0, 2),      varcovM = diag(2), Log = FALSE)
-##       min       lq       mean    median       uq       max neval  cld
-##   163.598  212.094  242.80353  241.5415  264.066   407.205   100 a   
-##  4654.520 5163.909 6149.52878 5667.4955 6563.557 15321.319   100    d
-##  3474.670 3710.117 4553.36353 4140.5330 4794.595 11588.148   100   c 
-##  3125.830 3365.107 4000.94533 3637.5195 4290.048  7585.954   100  b  
-##  3470.743 3678.141 4402.18206 3851.9790 4802.569 11012.327   100  bc 
-##    60.270   77.268   89.35497   81.9875   91.169   218.369   100 a</code></pre>
+##       min       lq       mean    median        uq       max neval cld
+##   127.077  205.865  238.56916  240.7155  271.2835   346.652   100 a  
+##  4664.479 4784.693 5382.03288 4905.6865 5750.7540 10427.570   100   c
+##  3442.452 3544.314 3953.26664 3654.9970 3815.8840  8146.906   100  b 
+##  3029.766 3159.209 3679.94869 3247.9935 3427.7075 10446.338   100  b 
+##  3379.697 3505.428 3888.01846 3631.8435 3792.1570  8081.256   100  b 
+##    59.215   72.715   84.30274   81.8660   87.8790   211.749   100 a</code></pre>
 <p><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
 <p>À noter que vous pouvez utiliser des fonctions Rcpp en dehors de l’architecture
 d’un package grâce à la fonction <code>Rcpp::sourceCpp()</code>. Mais comme nous avons
