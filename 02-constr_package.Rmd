@@ -81,7 +81,7 @@ dans le dossier `R` du package, qui :
 invalidera votre participation à la formation !**
 
 Voici une proposition de fonction que vous pouvez télécharger
-[ici](https://plmbox.math.cnrs.fr/f/ed48609a35f24dda8a2a/?dl=1).
+[ici](https://r-dev-perf.borishejblum.science/FormationRavancee_dev_perf_files/mvnpdfRAW.R).
 
 Pour des conseils lors de la rédaction de code, voir la page 
 [R code](http://r-pkgs.had.co.nz/r.html) du site d'Hadley.
@@ -134,7 +134,7 @@ le même fichier que le code définissant cette fonction.
       
 **En cas de bug ou par curiosité ET une fois que vous avez terminé** vous
 pouvez consulter cette
-[proposition](https://plmbox.math.cnrs.fr/f/4cefe1d4d27c4a349cee/?dl=1).
+[proposition](https://r-dev-perf.borishejblum.science/FormationRavancee_dev_perf_files/mvnpdfRox.R).
       
 Pour plus de détails sur la documentation de package et les balises
 `roxygen2`, voir la page
@@ -292,7 +292,7 @@ Consulter le contenu du dossier `man` et les modifications qui ont été
 apportées au fichier `NAMESPACE`.
 
 *Voici une proposition de solution* : le
-[fichier](https://plmbox.math.cnrs.fr/f/e58b0bd8ccd9409c9886/?dl=1)
+[fichier](https://r-dev-perf.borishejblum.science/FormationRavancee_dev_perf_files/mvnpdf.R)
 contient le code complet
 de la fonction `mvnpdf()` et de la méthode `plot()` associée.
 
