@@ -25,7 +25,7 @@
 <meta name="author" content="Robin Genuer et Boris Hejblum">
 
 
-<meta name="date" content="2018-04-18">
+<meta name="date" content="2018-07-20">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -180,7 +180,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5" data-path="rcpp-ou-comment-integrer-facilement-du-code-cdans-un-package-r.html"><a href="rcpp-ou-comment-integrer-facilement-du-code-cdans-un-package-r.html"><i class="fa fa-check"></i><b>5</b> <code>Rcpp</code> ou comment intégrer facilement du code <code>C++</code>dans un package <code>R</code></a><ul>
 <li class="chapter" data-level="5.1" data-path="rcpp-ou-comment-integrer-facilement-du-code-cdans-un-package-r.html"><a href="rcpp-ou-comment-integrer-facilement-du-code-cdans-un-package-r.html#premiere-fonction-en-rcpp"><i class="fa fa-check"></i><b>5.1</b> Première fonction en Rcpp</a></li>
 <li class="chapter" data-level="5.2" data-path="rcpp-ou-comment-integrer-facilement-du-code-cdans-un-package-r.html"><a href="rcpp-ou-comment-integrer-facilement-du-code-cdans-un-package-r.html#optimisation-grace-a-c"><i class="fa fa-check"></i><b>5.2</b> Optimisation grâce à <code>C++</code></a></li>
-<li class="chapter" data-level="5.3" data-path="rcpp-ou-comment-integrer-facilement-du-code-cdans-un-package-r.html"><a href="rcpp-ou-comment-integrer-facilement-du-code-cdans-un-package-r.html#annexe-6.1-loptimisation-prematuree-nest-pas-une-bonne-idee"><i class="fa fa-check"></i><b>5.3</b> Annexe 6.1 : l’optimisation prématurée n’est pas une bonne idée</a></li>
+<li class="chapter" data-level="5.3" data-path="rcpp-ou-comment-integrer-facilement-du-code-cdans-un-package-r.html"><a href="rcpp-ou-comment-integrer-facilement-du-code-cdans-un-package-r.html#annexe-5.1-loptimisation-prematuree-nest-pas-une-bonne-idee"><i class="fa fa-check"></i><b>5.3</b> Annexe 5.1 : l’optimisation prématurée n’est pas une bonne idée</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="parallelisation-du-code-r.html"><a href="parallelisation-du-code-r.html"><i class="fa fa-check"></i><b>6</b> Parallélisation du code <code>R</code></a><ul>
 <li class="chapter" data-level="6.1" data-path="parallelisation-du-code-r.html"><a href="parallelisation-du-code-r.html#introduction-a-lexecution-parallele-sous-r"><i class="fa fa-check"></i><b>6.1</b> Introduction à l’execution parallèle sous <code>R</code></a></li>
@@ -199,7 +199,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="8" data-path="take-home-message.html"><a href="take-home-message.html"><i class="fa fa-check"></i><b>8</b> <em>Take Home message</em></a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>Références</a></li>
-<li class="chapter" data-level="" data-path="references-1.html"><a href="references-1.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -278,7 +277,7 @@ enregistrer l’état actuel de votre package en réalisant votre premier “com
 <li><p>3c. cliquer sur “Commit”</p></li>
 </ul>
 <ol start="4" style="list-style-type: decimal">
-<li><p>ajouter une ligne “*.Rproj&quot; au fichier “.gitignore” et effectuez un nouveau commit</p></li>
+<li><p>ajouter une ligne &quot;*.Rproj&quot; au fichier “.gitignore” et effectuez un nouveau commit</p></li>
 <li><p>visualiser les changements et leur historique à l’aide des outils de visualisation
 “Diff” et “History” accessible depuis l’onglet “Git”</p></li>
 </ol>
@@ -399,7 +398,7 @@ changements dans la branche “master” par exemple, après que l’expérience
 concluante.&quot;</p>
 <p>Si un les changements concernent des parties distinctes du code, alors le <em>merge</em> peut
 s’effectuer sans problème. En revanche si les 2 versions à <em>merger</em> comportent des changements
-depuis leur dernier “commit* commun qui concerne les mêmes lignes de codes, alors on va rencontrer
+depuis leur dernier &quot;commit* commun qui concerne les mêmes lignes de codes, alors on va rencontrer
 un (ou des ) conflit(s), qu’il va falloir résoudre.</p>
 </div>
 <div id="les-conflits" class="section level3">

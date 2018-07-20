@@ -44,9 +44,9 @@ Nous allons adopter le plan suivant :
 
 Afin de suivre cette formation, il est nécessaire de disposer des logiciels suivants :  
 
-  - la dernière version de *R* (v3.4.3 - https://cloud.r-project.org/)
+  - la dernière version de *R* (https://cloud.r-project.org/)
 
-  - la dernière version de *RStudio* (v1.1.423 - https://www.rstudio.com/products/rstudio/download/#download)
+  - la dernière version de *RStudio* (https://www.rstudio.com/products/rstudio/download/#download)
 
   - un *compilateur `C++`* (tel que `gcc` ou `clang` - natif sous les système UNIX, 
 	pour les utilisateurs Windows nous recommandons l’installation de 

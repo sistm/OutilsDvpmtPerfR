@@ -25,7 +25,7 @@
 <meta name="author" content="Robin Genuer et Boris Hejblum">
 
 
-<meta name="date" content="2018-04-18">
+<meta name="date" content="2018-07-20">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -180,7 +180,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5" data-path="rcpp-ou-comment-integrer-facilement-du-code-cdans-un-package-r.html"><a href="rcpp-ou-comment-integrer-facilement-du-code-cdans-un-package-r.html"><i class="fa fa-check"></i><b>5</b> <code>Rcpp</code> ou comment intégrer facilement du code <code>C++</code>dans un package <code>R</code></a><ul>
 <li class="chapter" data-level="5.1" data-path="rcpp-ou-comment-integrer-facilement-du-code-cdans-un-package-r.html"><a href="rcpp-ou-comment-integrer-facilement-du-code-cdans-un-package-r.html#premiere-fonction-en-rcpp"><i class="fa fa-check"></i><b>5.1</b> Première fonction en Rcpp</a></li>
 <li class="chapter" data-level="5.2" data-path="rcpp-ou-comment-integrer-facilement-du-code-cdans-un-package-r.html"><a href="rcpp-ou-comment-integrer-facilement-du-code-cdans-un-package-r.html#optimisation-grace-a-c"><i class="fa fa-check"></i><b>5.2</b> Optimisation grâce à <code>C++</code></a></li>
-<li class="chapter" data-level="5.3" data-path="rcpp-ou-comment-integrer-facilement-du-code-cdans-un-package-r.html"><a href="rcpp-ou-comment-integrer-facilement-du-code-cdans-un-package-r.html#annexe-6.1-loptimisation-prematuree-nest-pas-une-bonne-idee"><i class="fa fa-check"></i><b>5.3</b> Annexe 6.1 : l’optimisation prématurée n’est pas une bonne idée</a></li>
+<li class="chapter" data-level="5.3" data-path="rcpp-ou-comment-integrer-facilement-du-code-cdans-un-package-r.html"><a href="rcpp-ou-comment-integrer-facilement-du-code-cdans-un-package-r.html#annexe-5.1-loptimisation-prematuree-nest-pas-une-bonne-idee"><i class="fa fa-check"></i><b>5.3</b> Annexe 5.1 : l’optimisation prématurée n’est pas une bonne idée</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="parallelisation-du-code-r.html"><a href="parallelisation-du-code-r.html"><i class="fa fa-check"></i><b>6</b> Parallélisation du code <code>R</code></a><ul>
 <li class="chapter" data-level="6.1" data-path="parallelisation-du-code-r.html"><a href="parallelisation-du-code-r.html#introduction-a-lexecution-parallele-sous-r"><i class="fa fa-check"></i><b>6.1</b> Introduction à l’execution parallèle sous <code>R</code></a></li>
@@ -199,7 +199,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="8" data-path="take-home-message.html"><a href="take-home-message.html"><i class="fa fa-check"></i><b>8</b> <em>Take Home message</em></a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>Références</a></li>
-<li class="chapter" data-level="" data-path="references-1.html"><a href="references-1.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -230,7 +229,7 @@ afin de pouvoir comparer les temps d’exécution entre différente implémentat
 fonction <code>system.time()</code> comme ceci :</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw">system.time</span>(<span class="kw">mvnpdf</span>(<span class="dt">x=</span><span class="kw">matrix</span>(<span class="kw">rep</span>(<span class="fl">1.96</span>, <span class="dv">2</span>), <span class="dt">nrow=</span><span class="dv">2</span>, <span class="dt">ncol=</span><span class="dv">1</span>), <span class="dt">Log=</span><span class="ot">FALSE</span>))</a></code></pre></div>
 <pre><code>##    user  system elapsed 
-##   0.001   0.000   0.002</code></pre>
+##   0.001   0.000   0.001</code></pre>
 <p>Le problème qui apparaît sur cet exemple est que l’exécution est tellement
 rapide que <code>system.time()</code> affiche <code>0</code> (ou une valeur très proche).
 De plus, on voit qu’il y a une certaine variabilité quand on relance plusieurs
@@ -239,7 +238,7 @@ fois la commande.</p>
 on ne peut pas utiliser <code>system.time()</code> :</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw">system.time</span>(mvtnorm<span class="op">::</span><span class="kw">dmvnorm</span>(<span class="kw">rep</span>(<span class="fl">1.96</span>, <span class="dv">2</span>)))</a></code></pre></div>
 <pre><code>##    user  system elapsed 
-##   0.003   0.000   0.003</code></pre>
+##   0.004   0.000   0.004</code></pre>
 <p>On pourrait se dire qu’il faut augmenter la complexité de notre calcul, mais
 il y a mieux : utiliser le package <code>microbenchmark</code> !</p>
 </div>
@@ -256,11 +255,11 @@ commandes et donc va stabiliser le résultat.</p>
 <a class="sourceLine" id="cb15-5" data-line-number="5">mb</a></code></pre></div>
 <pre><code>## Unit: microseconds
 ##                                           expr    min      lq     mean
-##                 mvtnorm::dmvnorm(rep(1.96, 2)) 42.449 49.2895 85.36773
-##  mvnpdf(x = matrix(rep(1.96, 2)), Log = FALSE) 34.195 39.9650 72.36913
-##   median      uq      max neval cld
-##  56.9880 73.1315 14195.87  1000   a
-##  47.2485 61.0725 10751.11  1000   a</code></pre>
+##                 mvtnorm::dmvnorm(rep(1.96, 2)) 41.899 50.3690 65.20473
+##  mvnpdf(x = matrix(rep(1.96, 2)), Log = FALSE) 33.479 40.4305 50.17212
+##   median      uq      max neval
+##  58.6825 67.7505 1822.501  1000
+##  46.2140 53.9490  207.524  1000</code></pre>
 <p><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
 <p>Les deux fonctions <code>mvnpdf()</code> et <code>dmnvorm()</code> étant capables de prendre en
 entrée une matrice, on peut également comparer leurs comportements dans ce
@@ -272,11 +271,11 @@ cas :</p>
 <a class="sourceLine" id="cb17-5" data-line-number="5">mb</a></code></pre></div>
 <pre><code>## Unit: microseconds
 ##                                                       expr     min
-##         mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))  75.998
-##  mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 424.829
-##        lq     mean  median       uq      max neval cld
-##  111.0545 148.2203 129.995 164.9825  396.567   100  a 
-##  541.7305 750.7313 651.710 831.6440 2092.779   100   b</code></pre>
+##         mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))  62.328
+##  mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 456.611
+##        lq      mean  median       uq      max neval
+##   71.5295  88.33074  77.482 101.4010  193.868   100
+##  516.9945 593.73818 554.145 697.3815 1014.220   100</code></pre>
 <p><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
 <p>Il s’est passé un quelque chose… Et on va diagnostiquer ce problème dans la suite.</p>
 

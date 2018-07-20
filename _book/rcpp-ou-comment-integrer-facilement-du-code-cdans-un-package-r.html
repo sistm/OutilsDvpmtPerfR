@@ -25,7 +25,7 @@
 <meta name="author" content="Robin Genuer et Boris Hejblum">
 
 
-<meta name="date" content="2018-04-18">
+<meta name="date" content="2018-07-20">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -180,7 +180,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5" data-path="rcpp-ou-comment-integrer-facilement-du-code-cdans-un-package-r.html"><a href="rcpp-ou-comment-integrer-facilement-du-code-cdans-un-package-r.html"><i class="fa fa-check"></i><b>5</b> <code>Rcpp</code> ou comment intégrer facilement du code <code>C++</code>dans un package <code>R</code></a><ul>
 <li class="chapter" data-level="5.1" data-path="rcpp-ou-comment-integrer-facilement-du-code-cdans-un-package-r.html"><a href="rcpp-ou-comment-integrer-facilement-du-code-cdans-un-package-r.html#premiere-fonction-en-rcpp"><i class="fa fa-check"></i><b>5.1</b> Première fonction en Rcpp</a></li>
 <li class="chapter" data-level="5.2" data-path="rcpp-ou-comment-integrer-facilement-du-code-cdans-un-package-r.html"><a href="rcpp-ou-comment-integrer-facilement-du-code-cdans-un-package-r.html#optimisation-grace-a-c"><i class="fa fa-check"></i><b>5.2</b> Optimisation grâce à <code>C++</code></a></li>
-<li class="chapter" data-level="5.3" data-path="rcpp-ou-comment-integrer-facilement-du-code-cdans-un-package-r.html"><a href="rcpp-ou-comment-integrer-facilement-du-code-cdans-un-package-r.html#annexe-6.1-loptimisation-prematuree-nest-pas-une-bonne-idee"><i class="fa fa-check"></i><b>5.3</b> Annexe 6.1 : l’optimisation prématurée n’est pas une bonne idée</a></li>
+<li class="chapter" data-level="5.3" data-path="rcpp-ou-comment-integrer-facilement-du-code-cdans-un-package-r.html"><a href="rcpp-ou-comment-integrer-facilement-du-code-cdans-un-package-r.html#annexe-5.1-loptimisation-prematuree-nest-pas-une-bonne-idee"><i class="fa fa-check"></i><b>5.3</b> Annexe 5.1 : l’optimisation prématurée n’est pas une bonne idée</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="parallelisation-du-code-r.html"><a href="parallelisation-du-code-r.html"><i class="fa fa-check"></i><b>6</b> Parallélisation du code <code>R</code></a><ul>
 <li class="chapter" data-level="6.1" data-path="parallelisation-du-code-r.html"><a href="parallelisation-du-code-r.html#introduction-a-lexecution-parallele-sous-r"><i class="fa fa-check"></i><b>6.1</b> Introduction à l’execution parallèle sous <code>R</code></a></li>
@@ -199,7 +199,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="8" data-path="take-home-message.html"><a href="take-home-message.html"><i class="fa fa-check"></i><b>8</b> <em>Take Home message</em></a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>Références</a></li>
-<li class="chapter" data-level="" data-path="references-1.html"><a href="references-1.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -297,17 +296,17 @@ uniquement les calculs d’inverse matriciel par un appel à <code>invC</code>.<
 <a class="sourceLine" id="cb31-8" data-line-number="8">mb</a></code></pre></div>
 <pre><code>## Unit: microseconds
 ##                                                            expr      min
-##              mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))  152.500
-##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 4674.733
-##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3453.510
-##  mvnpdfoptim(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3065.763
-##  mvnpdf_invC(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3431.728
-##         lq      mean    median       uq       max neval  cld
-##   203.2125  234.7142  236.6085  262.132   348.827   100 a   
-##  4824.4340 5612.1034 5096.5720 5709.025 10940.518   100    d
-##  3566.4740 3969.3794 3678.1175 3795.311 10086.322   100   c 
-##  3170.1440 3550.9302 3307.3620 3426.784 10446.156   100  b  
-##  3523.2590 4112.8114 3649.8450 3784.692 13443.930   100   c</code></pre>
+##              mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))  143.906
+##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 5199.792
+##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3874.640
+##  mvnpdfoptim(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3030.025
+##  mvnpdf_invC(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3851.251
+##        lq      mean   median       uq       max neval
+##   209.250  256.7828  262.985  292.773   411.976   100
+##  5403.868 6266.2112 5742.189 6390.564 11586.222   100
+##  3986.232 4615.3506 4144.007 4545.059  8907.410   100
+##  3222.184 3715.9829 3339.993 3623.265 10141.433   100
+##  4020.351 4467.4800 4134.856 4469.074  8875.418   100</code></pre>
 <p><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1">profvis<span class="op">::</span><span class="kw">profvis</span>(<span class="kw">mvnpdfoptim</span>(<span class="dt">x=</span><span class="kw">matrix</span>(<span class="fl">1.96</span>, </a>
 <a class="sourceLine" id="cb33-2" data-line-number="2">    <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">ncol =</span> <span class="dv">1000</span>), <span class="dt">Log=</span><span class="ot">FALSE</span>))</a>
@@ -346,21 +345,21 @@ de densité de la loi Normale multivariée <code>mvnpdfC()</code>.</p></li>
 ##                                        mvnpdfoptim(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE)
 ##                                        mvnpdf_invC(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE)
 ##  mvnpdfC(x = matrix(1.96, nrow = 2, ncol = n), mean = rep(0, 2),      varcovM = diag(2), Log = FALSE)
-##       min       lq       mean    median        uq       max neval cld
-##   127.077  205.865  238.56916  240.7155  271.2835   346.652   100 a  
-##  4664.479 4784.693 5382.03288 4905.6865 5750.7540 10427.570   100   c
-##  3442.452 3544.314 3953.26664 3654.9970 3815.8840  8146.906   100  b 
-##  3029.766 3159.209 3679.94869 3247.9935 3427.7075 10446.338   100  b 
-##  3379.697 3505.428 3888.01846 3631.8435 3792.1570  8081.256   100  b 
-##    59.215   72.715   84.30274   81.8660   87.8790   211.749   100 a</code></pre>
+##       min       lq       mean    median        uq       max neval
+##   153.970  215.692  248.40744  251.3340  274.9605   403.513   100
+##  5159.574 5303.610 5942.66552 5624.4390 6267.0645 10993.952   100
+##  3799.345 3912.713 5002.47948 3997.8350 4401.0525 65655.801   100
+##  2965.691 3091.124 3576.33037 3209.7125 3433.1545 10726.958   100
+##  3774.164 3884.534 4576.82329 3985.9375 4211.6280 14368.164   100
+##    33.316   44.611   52.14602   50.1765   58.6415    98.589   100</code></pre>
 <p><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
 <p>À noter que vous pouvez utiliser des fonctions Rcpp en dehors de l’architecture
 d’un package grâce à la fonction <code>Rcpp::sourceCpp()</code>. Mais comme nous avons
 qu’il est préférable de gérer tous ces code sous la forme de package, il est
 peu probable que vous en ayez besoin !</p>
 </div>
-<div id="annexe-6.1-loptimisation-prematuree-nest-pas-une-bonne-idee" class="section level2">
-<h2><span class="header-section-number">5.3</span> Annexe 6.1 : l’optimisation prématurée n’est pas une bonne idée</h2>
+<div id="annexe-5.1-loptimisation-prematuree-nest-pas-une-bonne-idee" class="section level2">
+<h2><span class="header-section-number">5.3</span> Annexe 5.1 : l’optimisation prématurée n’est pas une bonne idée</h2>
 <p>Chambers, <em>Software for Data Analysis: Programming with R</em>, Springer, 2008 :</p>
 <blockquote>
 <p><em>Including additional C code is a serious step, with <strong>some added dangers</strong>

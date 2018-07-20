@@ -161,7 +161,7 @@ d'un package grâce à la fonction `Rcpp::sourceCpp()`. Mais comme nous avons
 qu'il est préférable de gérer tous ces code sous la forme de package, il est 
 peu probable que vous en ayez besoin !
 
-## Annexe 6.1 : l'optimisation prématurée n'est pas une bonne idée
+## Annexe 5.1 : l'optimisation prématurée n'est pas une bonne idée
 
 Chambers, *Software for Data Analysis: Programming with R*, Springer, 2008 :
 
