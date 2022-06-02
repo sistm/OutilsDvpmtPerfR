@@ -1,6 +1,5 @@
 
-# Contrôle de version avec `git` et GitHub : hitorique de changement, 
-développement collaboratif et intégration continue.
+# Contrôle de version avec `git` et GitHub : historique de changement, développement collaboratif et intégration continue
 
 Nous nous intéressons ici aux solutions proposées par RStudio et GitHub pour 
 l'hébergement et le contrôle de version de projets.
@@ -61,7 +60,7 @@ contributeurs travaillent simultanément sur la même version du code).
   3. à partir de l'onglet "Git" maintenant apparu à côté de l'onglet "Build", 
   enregistrer l'état actuel de votre package en réalisant votre premier "commit" :
  >     
-      - 3a. sélectionner les fichiers à suivre (ne pas sélectionner le fichier .Rpoj)
+      - 3a. sélectionner les fichiers à suivre (ne pas sélectionner le fichier .Rproj)
  >     
       - 3b. écrire un message informatif (pour vos collaborateurs - ce qui inclut votre futur vous)
  >     
@@ -154,7 +153,7 @@ Les avantages d'utiliser GitHub :
     le répertoire GitHub en ligne avec votre dossier local. Pour cela, vous 
     avez 2 solutions : soit utiliser le bouton "Sync" en haut à droit de la 
     fenêtre du client GitHub desktop ; soit directement depuis RStudio en cliquant
-    sur "Push" depuis l'onglet "Git". Maintenant, les changement du 3^e^ commit sont 
+    sur "Push" depuis l'onglet "Git". Maintenant, les changements du 3^e^ commit sont 
     visibles en ligne dur GitHub.
       
     
@@ -162,7 +161,7 @@ Les avantages d'utiliser GitHub :
 
 ## Collaboration pour la production du code
 
-`git` et GitHub sont particulièrement efficaces lorsque plusieurs personnes collabore pour 
+`git` et GitHub sont particulièrement efficaces lorsque plusieurs personnes collaborent pour 
 développer un code. En effet, chacun peut effectuer des *pull* et *push* successifs pour
 apporter des changements au code, de manière simultanée et en étant sûr de toujours travailler
 sur la dernière version. Nous allons voir différents concepts utiles dans le cas d'un tel travail
@@ -205,11 +204,11 @@ Un *pull* se décompose en 2 actions de la part de `git` :
   
 Après avoir conduit un développement expérimental dans une branche, on peut vouloir *merger* ces 
 changements dans la branche "master" par exemple, après que l'expérience se soit révélée 
-concluante."
+concluante.
   
 Si un les changements concernent des parties distinctes du code, alors le *merge* peut 
 s'effectuer sans problème. En revanche si les 2 versions à *merger* comportent des changements 
-depuis leur dernier "commit* commun qui concerne les mêmes lignes de codes, alors on va rencontrer 
+depuis leur dernier *commit* commun qui concerne les mêmes lignes de codes, alors on va rencontrer 
 un (ou des ) conflit(s), qu'il va falloir résoudre.
   
 
@@ -354,8 +353,8 @@ Appveyor est l'analogue de Travis CI mais pour Windows.
   1. Rendez vous sur le site [https://ci.appveyor.com/](https://ci.appveyor.com/) et créez vous un compte
   associé à votre GitHub en cliquant sur le bouton "GitHub" pour le *Login*
 >
-  2. Ajoutez votre repertoire `mypkg` sur Appveyor en cliquant sur "+ New project" en haut à gauche,
-  puis en selectionnant GitHub et mypkg dans le menu.
+  2. Ajoutez votre repertoire `mypkgr` sur Appveyor en cliquant sur "+ New project" en haut à gauche,
+  puis en selectionnant GitHub et mypkgr dans le menu.
 >
   3. Executez la commande `devtools::use_appveyor()` et *commitez* les changements et regardez ce 
   qu'il se passe sur votre page Appveyor

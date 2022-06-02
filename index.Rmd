@@ -55,9 +55,7 @@ Afin de suivre cette formation, il est nécessaire de disposer des logiciels sui
 	développement Apple comme suggéré 
 	[ici](http://thecoatlessprofessor.com/programming/r-compiler-tools-for-rcpp-on-os-x/))
 
-  - les packages `R` suivants : *devtools*, *doParallel*, *itertools*, 
-	*microbenchmark*, *profvis*, *Rcpp*, *RcppArmadillo*, *roxygen2*, *testthat*, 
-	*mvtnorm*  
+  - les packages `R` suivants : *devtools*, *future.apply*, *itertools*, *microbenchmark*, *mvtnorm*, *profvis*, *Rcpp*, *RcppArmadillo*, *roxygen2*, *testthat*, *usethis*
 
   - le client [*GitHub Desktop*](https://desktop.github.com/)
 

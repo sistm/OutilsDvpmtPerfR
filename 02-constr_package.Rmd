@@ -4,8 +4,8 @@
 Nous présentons ici comment construire un package efficacement à l'aide d'outils
 graphiques présents dans Rstudio et du package `devtools`.
 
-Le site de référence sur ce sujet est le site
-[R packages](http://r-pkgs.had.co.nz/) d'Hadley Wickham.
+Le support de référence sur ce sujet est le livre
+[R packages](https://r-pkgs.org/) d'Hadley Wickham.
 
 ## Initialiser un package
 
@@ -84,7 +84,7 @@ Voici une proposition de fonction que vous pouvez télécharger
 [ici](https://r-dev-perf.borishejblum.science/FormationRavancee_dev_perf_files/mvnpdfRAW.R).
 
 Pour des conseils lors de la rédaction de code, voir la page 
-[R code](http://r-pkgs.had.co.nz/r.html) du site d'Hadley.
+[R code](https://r-pkgs.org/r.html) du site d'Hadley.
 
 
 
@@ -102,13 +102,14 @@ votre code !
 
 
 Nous vous conseillons vivement d'utiliser le package `roxygen2` pour documenter
-vos packages. L'avantage principale étant d'avoir l'aide d'une fonction dans
+vos packages. L'avantage principal étant d'avoir l'aide d'une fonction dans
 le même fichier que le code définissant cette fonction.
 
 > ***A vous de jouer !***  
 >
   1. Commencer par insérer le squelette de l'aide grâce à "Insert Roxygen
-  Skeleton" situé dans le menu "Code" ou le sous-menu *Baguette magique*
+  Skeleton" situé dans le menu "Code" ou le sous-menu *Baguette magique* dans
+  la fenêtre de script.
 >  
   2. Compléter la documentation en renseignant :
 > 
@@ -138,13 +139,13 @@ pouvez consulter cette
       
 Pour plus de détails sur la documentation de package et les balises
 `roxygen2`, voir la page
-[Object documentation](http://r-pkgs.had.co.nz/man.html) du site d'Hadley.
+[Object documentation](https://r-pkgs.org/man.html) du site d'Hadley.
 
-Finissons par évoquer une fonction du package `devtools` qui initialise une
+Finissons par évoquer une fonction du package `usethis` qui initialise une
 page d'aide pour le package dans son ensemble :
 
 ```{r, eval=FALSE}
-devtools::use_package_doc()
+usethis::use_package_doc()
 ```
 
 La page d'aide générée sera alors accessible, une fois le package installé,
@@ -249,12 +250,12 @@ Pour faire ça, utiliser "Install and Restart" dans l'onglet "Build" (`devtools:
 Et enfin, vous pouvez configurer le comportement de Rstudio pour qu'au moment
 de l'installation, il documente en même temps le package : aller dans
 l'onglet "Build", le menu "More" puis "Configure Build Tools". Cliquer ensuite
-sur "Configure" puis cocher la case en bas "Build and Reload".
+sur "Configure" puis cocher la case en bas "Install and Restart".
 
 
 
 
-## Annexe 1.1 : ajouter d'une méthode S3
+## Annexe 1.1 : ajouter une méthode S3
 
 Dans la plupart des packages on est amenés à implémenter des méthodes S3,
 très souvent pour qu'à partir d'un objet résultat `res`, on puisse exécuter
@@ -285,8 +286,7 @@ l'applique au résultat de notre fonction `mvnpdf()`, il faut déclarer que
 ce résultat est de classe `mvnpdf`.
 
 Tester cette fonction, en exécutant l'exemple.\
-*N'oubliez pas de re-charger le package (Ctrl+Shift+L), et de re-documenter le
-package (Ctrl+Shift+D).*
+*N'oubliez pas de réinstaller le package ("Install and Restart" ou Ctrl+Shift+B).*
 
 Consulter le contenu du dossier `man` et les modifications qui ont été
 apportées au fichier `NAMESPACE`.
@@ -299,4 +299,4 @@ de la fonction `mvnpdf()` et de la méthode `plot()` associée.
 
 ## Annexe 1.2 : soumettre son package au CRAN
 
-`devtools::check_cran()` puis `devtools::submit_cran()`
+`devtools::check()` puis `devtools::submit_cran()`

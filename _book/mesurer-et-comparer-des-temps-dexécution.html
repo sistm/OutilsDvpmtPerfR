@@ -259,7 +259,7 @@ fois la commande.</p>
 on ne peut pas utiliser <code>system.time()</code> :</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="mesurer-et-comparer-des-temps-dexécution.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(mvtnorm<span class="sc">::</span><span class="fu">dmvnorm</span>(<span class="fu">rep</span>(<span class="fl">1.96</span>, <span class="dv">2</span>)))</span></code></pre></div>
 <pre><code>## utilisateur     système      écoulé 
-##       0.005       0.000       0.005</code></pre>
+##       0.006       0.000       0.006</code></pre>
 <p>On pourrait se dire qu’il faut augmenter la complexité de notre calcul, mais
 il y a mieux : utiliser le package <code>microbenchmark</code> !</p>
 </div>
@@ -276,11 +276,11 @@ commandes et donc va stabiliser le résultat.</p>
 <span id="cb15-5"><a href="mesurer-et-comparer-des-temps-dexécution.html#cb15-5" aria-hidden="true" tabindex="-1"></a>mb</span></code></pre></div>
 <pre><code>## Unit: microseconds
 ##                                           expr    min      lq     mean  median
-##                 mvtnorm::dmvnorm(rep(1.96, 2)) 36.931 40.4725 46.11420 42.7825
-##  mvnpdf(x = matrix(rep(1.96, 2)), Log = FALSE) 33.620 37.2010 43.75758 39.2755
+##                 mvtnorm::dmvnorm(rep(1.96, 2)) 36.794 40.2310 44.23000 42.2955
+##  mvnpdf(x = matrix(rep(1.96, 2)), Log = FALSE) 33.938 36.8305 42.86492 38.6175
 ##       uq      max neval
-##  46.4015  176.315  1000
-##  42.6555 1916.656  1000</code></pre>
+##  44.7680  107.816  1000
+##  41.6215 2120.324  1000</code></pre>
 <pre><code>## Warning: It is deprecated to specify `guide = FALSE` to remove a guide. Please
 ## use `guide = &quot;none&quot;` instead.</code></pre>
 <p><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
@@ -294,11 +294,11 @@ cas :</p>
 <span id="cb18-5"><a href="mesurer-et-comparer-des-temps-dexécution.html#cb18-5" aria-hidden="true" tabindex="-1"></a>mb</span></code></pre></div>
 <pre><code>## Unit: microseconds
 ##                                                       expr     min       lq
-##         mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))  41.743  49.9790
-##  mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 443.564 464.3905
-##       mean   median       uq     max neval
-##   73.40179  57.8050  83.2065 288.442   100
-##  550.00812 492.5485 582.9215 990.393   100</code></pre>
+##         mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))  42.793  51.2070
+##  mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 436.569 453.0595
+##       mean   median       uq      max neval
+##   74.19048  58.6055  76.7095  224.503   100
+##  581.72722 534.4020 596.5730 1191.282   100</code></pre>
 <pre><code>## Warning: It is deprecated to specify `guide = FALSE` to remove a guide. Please
 ## use `guide = &quot;none&quot;` instead.</code></pre>
 <p><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
