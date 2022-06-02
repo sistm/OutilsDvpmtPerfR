@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapitre 6 Parallélisation du code R | Formation R avancée</title>
+  <meta name="description" content="Outils de développement et de performance" />
+  <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapitre 6 Parallélisation du code R | Formation R avancée" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Outils de développement et de performance" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapitre 6 Parallélisation du code R | Formation R avancée" />
+  
+  <meta name="twitter:description" content="Outils de développement et de performance" />
+  
+
+<meta name="author" content="Robin Genuer et Boris Hejblum" />
+
+
+<meta name="date" content="2022-06-02" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="rcpp-ou-comment-intégrer-facilement-du-code-cdans-un-package-r.html"/>
+<link rel="next" href="miscélanées.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Formation R avancée : Outils de développement et de performance </a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Présentation de la formation</a></li>
+<li class="chapter" data-level="1" data-path="construire-un-package-r.html"><a href="construire-un-package-r.html"><i class="fa fa-check"></i><b>1</b> Construire un package <code>R</code></a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="construire-un-package-r.html"><a href="construire-un-package-r.html#initialiser-un-package"><i class="fa fa-check"></i><b>1.1</b> Initialiser un package</a></li>
+<li class="chapter" data-level="1.2" data-path="construire-un-package-r.html"><a href="construire-un-package-r.html#ajouter-une-fonction-exemple-fil-rouge"><i class="fa fa-check"></i><b>1.2</b> Ajouter une fonction : exemple fil rouge</a></li>
+<li class="chapter" data-level="1.3" data-path="construire-un-package-r.html"><a href="construire-un-package-r.html#documenter-une-fonction"><i class="fa fa-check"></i><b>1.3</b> Documenter une fonction</a></li>
+<li class="chapter" data-level="1.4" data-path="construire-un-package-r.html"><a href="construire-un-package-r.html#tester-le-package-de-manière-intéractive"><i class="fa fa-check"></i><b>1.4</b> Tester le package de manière <em>intéractive</em></a></li>
+<li class="chapter" data-level="1.5" data-path="construire-un-package-r.html"><a href="construire-un-package-r.html#tester-le-package-de-manière-automatique"><i class="fa fa-check"></i><b>1.5</b> Tester le package de manière <em>automatique</em></a></li>
+<li class="chapter" data-level="1.6" data-path="construire-un-package-r.html"><a href="construire-un-package-r.html#faire-un-check-du-package"><i class="fa fa-check"></i><b>1.6</b> Faire un <em>check</em> du package</a></li>
+<li class="chapter" data-level="1.7" data-path="construire-un-package-r.html"><a href="construire-un-package-r.html#installer-le-package"><i class="fa fa-check"></i><b>1.7</b> Installer le package</a></li>
+<li class="chapter" data-level="1.8" data-path="construire-un-package-r.html"><a href="construire-un-package-r.html#annexe-1.1-ajouter-dune-méthode-s3"><i class="fa fa-check"></i><b>1.8</b> Annexe 1.1 : ajouter d’une méthode S3</a></li>
+<li class="chapter" data-level="1.9" data-path="construire-un-package-r.html"><a href="construire-un-package-r.html#annexe-1.2-soumettre-son-package-au-cran"><i class="fa fa-check"></i><b>1.9</b> Annexe 1.2 : soumettre son package au CRAN</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html"><i class="fa fa-check"></i><b>2</b> Contrôle de version avec <code>git</code> et GitHub : hitorique de changement,</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html#principe-du-contrôle-de-version"><i class="fa fa-check"></i><b>2.1</b> Principe du contrôle de version</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html#git"><i class="fa fa-check"></i><b>2.1.1</b> <code>git</code></a></li>
+<li class="chapter" data-level="2.1.2" data-path="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html#subversion"><i class="fa fa-check"></i><b>2.1.2</b> <code>subversion</code></a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html#utiliser-git-localement-depuis-rstudio"><i class="fa fa-check"></i><b>2.2</b> Utiliser <code>git</code> localement depuis RStudio</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html#bonnes-pratiques-du-commit"><i class="fa fa-check"></i><b>2.2.1</b> Bonnes pratiques du <em>commit</em></a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html#github"><i class="fa fa-check"></i><b>2.3</b> GitHub</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html#mettre-son-package-r-sur-github"><i class="fa fa-check"></i><b>2.3.1</b> Mettre son package <code>R</code> sur GitHub</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html#collaboration-pour-la-production-du-code"><i class="fa fa-check"></i><b>2.4</b> Collaboration pour la production du code</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html#branches"><i class="fa fa-check"></i><b>2.4.1</b> <em>Branches</em></a></li>
+<li class="chapter" data-level="2.4.2" data-path="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html#merge"><i class="fa fa-check"></i><b>2.4.2</b> <em>Merge</em></a></li>
+<li class="chapter" data-level="2.4.3" data-path="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html#les-conflits"><i class="fa fa-check"></i><b>2.4.3</b> Les conflits</a></li>
+<li class="chapter" data-level="2.4.4" data-path="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html#fork"><i class="fa fa-check"></i><b>2.4.4</b> <em>Fork</em></a></li>
+<li class="chapter" data-level="2.4.5" data-path="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html#pull-request"><i class="fa fa-check"></i><b>2.4.5</b> <em>Pull request</em></a></li>
+<li class="chapter" data-level="2.4.6" data-path="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html#issues"><i class="fa fa-check"></i><b>2.4.6</b> <em>Issues</em></a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html#intégration-continue"><i class="fa fa-check"></i><b>2.5</b> Intégration continue</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html#travis-ci"><i class="fa fa-check"></i><b>2.5.1</b> Travis CI</a></li>
+<li class="chapter" data-level="2.5.2" data-path="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html#appveyor"><i class="fa fa-check"></i><b>2.5.2</b> Appveyor</a></li>
+<li class="chapter" data-level="2.5.3" data-path="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html#r-hub"><i class="fa fa-check"></i><b>2.5.3</b> R-hub</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html#annexe-2.1-couverture-du-code"><i class="fa fa-check"></i><b>2.6</b> Annexe 2.1 : couverture du code</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="mesurer-et-comparer-des-temps-dexécution.html"><a href="mesurer-et-comparer-des-temps-dexécution.html"><i class="fa fa-check"></i><b>3</b> Mesurer et comparer des temps d’exécution</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="mesurer-et-comparer-des-temps-dexécution.html"><a href="mesurer-et-comparer-des-temps-dexécution.html#mesurer-des-temps-dexécution-avec-system.time"><i class="fa fa-check"></i><b>3.1</b> Mesurer des temps d’exécution avec <code>system.time()</code></a></li>
+<li class="chapter" data-level="3.2" data-path="mesurer-et-comparer-des-temps-dexécution.html"><a href="mesurer-et-comparer-des-temps-dexécution.html#comparer-des-temps-dexécution-avec-microbenchmark"><i class="fa fa-check"></i><b>3.2</b> Comparer des temps d’exécution avec <code>microbenchmark()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="profiler-son-code.html"><a href="profiler-son-code.html"><i class="fa fa-check"></i><b>4</b> <em>Profiler</em> son code</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="profiler-son-code.html"><a href="profiler-son-code.html#comparaison-avec-une-version-plus-habile-de-mnvpdf"><i class="fa fa-check"></i><b>4.1</b> Comparaison avec une version plus habile de <code>mnvpdf()</code></a></li>
+<li class="chapter" data-level="4.2" data-path="profiler-son-code.html"><a href="profiler-son-code.html#comparaison-avec-une-version-optimisée-dans-r"><i class="fa fa-check"></i><b>4.2</b> Comparaison avec une version optimisée dans R</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="rcpp-ou-comment-intégrer-facilement-du-code-cdans-un-package-r.html"><a href="rcpp-ou-comment-intégrer-facilement-du-code-cdans-un-package-r.html"><i class="fa fa-check"></i><b>5</b> <code>Rcpp</code> ou comment intégrer facilement du code <code>C++</code>dans un package <code>R</code></a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="rcpp-ou-comment-intégrer-facilement-du-code-cdans-un-package-r.html"><a href="rcpp-ou-comment-intégrer-facilement-du-code-cdans-un-package-r.html#première-fonction-en-rcpp"><i class="fa fa-check"></i><b>5.1</b> Première fonction en Rcpp</a></li>
+<li class="chapter" data-level="5.2" data-path="rcpp-ou-comment-intégrer-facilement-du-code-cdans-un-package-r.html"><a href="rcpp-ou-comment-intégrer-facilement-du-code-cdans-un-package-r.html#optimisation-grâce-à-c"><i class="fa fa-check"></i><b>5.2</b> Optimisation grâce à <code>C++</code></a></li>
+<li class="chapter" data-level="5.3" data-path="rcpp-ou-comment-intégrer-facilement-du-code-cdans-un-package-r.html"><a href="rcpp-ou-comment-intégrer-facilement-du-code-cdans-un-package-r.html#annexe-5.1-loptimisation-prématurée-nest-pas-une-bonne-idée"><i class="fa fa-check"></i><b>5.3</b> Annexe 5.1 : l’optimisation prématurée n’est pas une bonne idée</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="parallélisation-du-code-r.html"><a href="parallélisation-du-code-r.html"><i class="fa fa-check"></i><b>6</b> Parallélisation du code <code>R</code></a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="parallélisation-du-code-r.html"><a href="parallélisation-du-code-r.html#introduction-à-lexecution-parallèle-sous-r"><i class="fa fa-check"></i><b>6.1</b> Introduction à l’execution parallèle sous <code>R</code></a></li>
+<li class="chapter" data-level="6.2" data-path="parallélisation-du-code-r.html"><a href="parallélisation-du-code-r.html#première-fonction-parallèle-en-r"><i class="fa fa-check"></i><b>6.2</b> Première fonction parallèle en <code>R</code></a></li>
+<li class="chapter" data-level="6.3" data-path="parallélisation-du-code-r.html"><a href="parallélisation-du-code-r.html#parallélisation-efficace"><i class="fa fa-check"></i><b>6.3</b> Parallélisation efficace</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="parallélisation-du-code-r.html"><a href="parallélisation-du-code-r.html#les-itérateurs"><i class="fa fa-check"></i><b>6.3.1</b> Les itérateurs</a></li>
+<li class="chapter" data-level="6.3.2" data-path="parallélisation-du-code-r.html"><a href="parallélisation-du-code-r.html#les-autres-plans-de-calculs-parallèle"><i class="fa fa-check"></i><b>6.3.2</b> Les autres “plans” de calculs parallèle</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="parallélisation-du-code-r.html"><a href="parallélisation-du-code-r.html#parallélisation-dans-notre-exemple-fil-rouge"><i class="fa fa-check"></i><b>6.4</b> Parallélisation dans notre exemple fil rouge</a></li>
+<li class="chapter" data-level="6.5" data-path="parallélisation-du-code-r.html"><a href="parallélisation-du-code-r.html#conclusion"><i class="fa fa-check"></i><b>6.5</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="miscélanées.html"><a href="miscélanées.html"><i class="fa fa-check"></i><b>7</b> Miscélanées</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="miscélanées.html"><a href="miscélanées.html#debugging-avec-browser"><i class="fa fa-check"></i><b>7.1</b> Debugging avec <code>browser()</code></a></li>
+<li class="chapter" data-level="7.2" data-path="miscélanées.html"><a href="miscélanées.html#attach"><i class="fa fa-check"></i><b>7.2</b> <code>attach</code></a></li>
+<li class="chapter" data-level="7.3" data-path="miscélanées.html"><a href="miscélanées.html#gestion-mémoire"><i class="fa fa-check"></i><b>7.3</b> gestion mémoire</a></li>
+<li class="chapter" data-level="7.4" data-path="miscélanées.html"><a href="miscélanées.html#copies-et-variables-localesglobales-dans-les-fonctions"><i class="fa fa-check"></i><b>7.4</b> copies et variables locales/globales dans les fonctions</a></li>
+<li class="chapter" data-level="7.5" data-path="miscélanées.html"><a href="miscélanées.html#naming"><i class="fa fa-check"></i><b>7.5</b> naming</a></li>
+<li class="chapter" data-level="7.6" data-path="miscélanées.html"><a href="miscélanées.html#gpplot2"><i class="fa fa-check"></i><b>7.6</b> <code>gpplot2</code></a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="take-home-message.html"><a href="take-home-message.html"><i class="fa fa-check"></i><b>8</b> <em>Take Home message</em></a></li>
+<li class="chapter" data-level="" data-path="références.html"><a href="références.html"><i class="fa fa-check"></i>Références</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Formation R avancée</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="parallélisation-du-code-r" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">Chapitre 6</span> Parallélisation du code <code>R</code><a href="parallélisation-du-code-r.html#parallélisation-du-code-r" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="introduction-à-lexecution-parallèle-sous-r" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> Introduction à l’execution parallèle sous <code>R</code><a href="parallélisation-du-code-r.html#introduction-à-lexecution-parallèle-sous-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>En dehors de l’optimisation du code et des algorithmes, une autre façon
+d’obtenir un code performant est de tirer profit des architectures parallèles
+des ordinateurs modernes. Il s’agit alors de <strong>paralléliser</strong> son code afin de
+faire des opérations simultanées sur des parties distinctes d’un même problème,
+en utilisant différent cœurs de calcul. On ne réduit pas le temps de calcul
+total nécessaire, mais l’ensemble des opérations s’exécute plus rapidement.</p>
+<p>Il existe un nombre non négligeable d’algorithmes qui sont d’un “parallélisme
+embarrassant”, c’est-à-dire dont les calculs peuvent se décomposer en plusieurs
+sous-calculs indépendants. En statistique, il est ainsi souvent facile et direct
+de paralléliser selon les différentes observations ou selon les différentes
+dimensions. Typiquement, il s’agit d’opérations que l’on peut écrire sous la
+forme de boucle dont les opérations sont indépendantes d’une itération de la
+boucle à l’autre.</p>
+<p><strong>Les opérations nécessaires pour l’établissement d’un code parallèle sont les suivantes :</strong></p>
+<ol style="list-style-type: decimal">
+<li><p>Démarrer <span class="math inline">\(m\)</span> processus “travailleurs” (i.e. cœurs de calcul) et les initialiser</p></li>
+<li><p>Envoyer les fonctions et données nécessaires pour chaque tache aux travailleurs</p></li>
+<li><p>Séparer les taches en <span class="math inline">\(m\)</span> opérations d’envergure similaire et les envoyer aux travailleurs</p></li>
+<li><p>Attendre que tous les travailleurs aient terminer leurs calculs et obtenir leurs résultats</p></li>
+<li><p>Rassembler les résultats des différents travailleurs</p></li>
+<li><p>Arrêter les processus travailleurs</p></li>
+</ol>
+<p>Selon les plateformes, plusieurs protocoles de communications sont disponibles
+entre les cœurs. Sous les systèmes UNIX, le protocole <em>Fork</em> est le plus
+utilisé, mais il n’est pas disponible sous Windows où on utilise
+préférentiellement le protocole <em>PSOCK</em>. Enfin, pour les architecture de calcul
+distribuée où les cœurs ne se trouvent pas nécessairement sur le même processeur
+physique, on utilise généralement le protocole <em>MPI</em>. L’avantage des packages
+<code>future</code> et <code>future.apply</code> est que le même code pourra être exécuté quelque soit
+la configuration matérielle.</p>
+<p>Il existe un nombre important de packages et d’initiatives permettant de faire
+du calcul en R. Depuis <code>R 2.14.0</code>, le package
+<a href="https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf"><code>parallel</code></a>
+est inclus directement dans <code>R</code> et permet de démarrer et d’arrêter un “cluster”
+de plusieurs processus travailleur (étape 1 et 6). En plus du package
+<code>parallel</code>, on va donc utiliser le package <code>future</code> qui permet de gérer les
+processus travailleurs et la communication et l’articulation avec le package
+<code>future.apply</code>qui permet lui de gérer le dialogue avec les travailleurs (envois,
+réception et rassemblement des résultats - étapes 2, 3, 4 et 5).</p>
+</div>
+<div id="première-fonction-parallèle-en-r" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> Première fonction parallèle en <code>R</code><a href="parallélisation-du-code-r.html#première-fonction-parallèle-en-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<blockquote>
+<p><strong><em>À vous de jouer !</em></strong></p>
+<p>Commencez par écrire une fonction simple qui calcule le logarithme de <span class="math inline">\(n\)</span>
+nombres:</p>
+<ol style="list-style-type: decimal">
+<li><p>Déterminez combien de coeurs sont disponibles sur votre marchine grâce à
+la fonction <code>future::availableCores()</code>.</p></li>
+<li><p>À l’aide de la fonction <code>future::plan(multisession(workers = XX))</code>,
+déclarez un “plan” de calculs parallèles sur votre ordinateur (en prenant garde
+à <strong>laisser un coeur disponible</strong> pour traiter les autres processus).</p></li>
+<li><p>À l’aide d’une fonction de type apply <code>future.apply::future_*apply()</code>,
+calculez le log des <span class="math inline">\(n\)</span> nombres en parallèle et concaténez les résultats dans un
+vecteur.</p></li>
+<li><p>Comparez le temps d’éxecution avec celui d’une fonction séquentielle
+sur les 100 premiers entiers, grâce à la commande :<br />
+<code>microbenchmark(log_par(1:100), log_seq(1:100), times=10)</code></p></li>
+</ol>
+</blockquote>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="parallélisation-du-code-r.html#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(microbenchmark)</span>
+<span id="cb43-2"><a href="parallélisation-du-code-r.html#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(future.apply)</span>
+<span id="cb43-3"><a href="parallélisation-du-code-r.html#cb43-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-4"><a href="parallélisation-du-code-r.html#cb43-4" aria-hidden="true" tabindex="-1"></a>log_seq <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
+<span id="cb43-5"><a href="parallélisation-du-code-r.html#cb43-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># try this yourself (spoiler alert: it is quite long...):</span></span>
+<span id="cb43-6"><a href="parallélisation-du-code-r.html#cb43-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># res &lt;- numeric(length(x))</span></span>
+<span id="cb43-7"><a href="parallélisation-du-code-r.html#cb43-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># for(i in 1:length(x)){</span></span>
+<span id="cb43-8"><a href="parallélisation-du-code-r.html#cb43-8" aria-hidden="true" tabindex="-1"></a>  <span class="co">#   res[i] &lt;- log(x[i])</span></span>
+<span id="cb43-9"><a href="parallélisation-du-code-r.html#cb43-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># }</span></span>
+<span id="cb43-10"><a href="parallélisation-du-code-r.html#cb43-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># return(res)</span></span>
+<span id="cb43-11"><a href="parallélisation-du-code-r.html#cb43-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">log</span>(x))</span>
+<span id="cb43-12"><a href="parallélisation-du-code-r.html#cb43-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb43-13"><a href="parallélisation-du-code-r.html#cb43-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-14"><a href="parallélisation-du-code-r.html#cb43-14" aria-hidden="true" tabindex="-1"></a>log_par <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
+<span id="cb43-15"><a href="parallélisation-du-code-r.html#cb43-15" aria-hidden="true" tabindex="-1"></a>  res <span class="ot">&lt;-</span> <span class="fu">future_sapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(x), <span class="at">FUN =</span> <span class="cf">function</span>(i) {</span>
+<span id="cb43-16"><a href="parallélisation-du-code-r.html#cb43-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">log</span>(x[i])</span>
+<span id="cb43-17"><a href="parallélisation-du-code-r.html#cb43-17" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb43-18"><a href="parallélisation-du-code-r.html#cb43-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(res)</span>
+<span id="cb43-19"><a href="parallélisation-du-code-r.html#cb43-19" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb43-20"><a href="parallélisation-du-code-r.html#cb43-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-21"><a href="parallélisation-du-code-r.html#cb43-21" aria-hidden="true" tabindex="-1"></a><span class="fu">plan</span>(<span class="fu">multisession</span>(<span class="at">workers =</span> <span class="dv">3</span>))</span>
+<span id="cb43-22"><a href="parallélisation-du-code-r.html#cb43-22" aria-hidden="true" tabindex="-1"></a>mb <span class="ot">&lt;-</span> <span class="fu">microbenchmark</span>(<span class="fu">log_par</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>), <span class="fu">log_seq</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>), <span class="at">times =</span> <span class="dv">50</span>)</span></code></pre></div>
+<p><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-39-1.png" width="672" /></p>
+<p>La version parallèle tourne beaucoup plus lentement… Car en fait, si les
+tâches individuelles sont trop rapides, <code>R</code> va passer plus de temps à
+communiquer avec les cœurs, qu’à faire les calculs effectifs.</p>
+<p><strong>Il faut qu’une itération de la boucle soit relativement longue pour que le
+calcul parallèle apporte un gain en temps de calcul !</strong></p>
+<p>En augmentant <span class="math inline">\(n\)</span>, on observe une réduction de la différence entre les 2
+implémentations (le temps de calcul en parallèle augmente très lentement comparé
+à l’augmentation de celui de la fonction séquentielle).</p>
+<p><strong>NB :</strong> les itérateurs d’<code>itertools</code> sont très performants mais ne peuvent
+servir que lorsque le code à l’intérieur de <code>future_*apply()</code> est vectorisé (il
+est toujours possible de vectoriser le code à l’intérieur, par exemple avec une
+fonction de type <code>apply</code>). Ils minimisent le nombre de communication entre les
+coeurs.</p>
+</div>
+<div id="parallélisation-efficace" class="section level2 hasAnchor" number="6.3">
+<h2><span class="header-section-number">6.3</span> Parallélisation efficace<a href="parallélisation-du-code-r.html#parallélisation-efficace" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>On va maintenant se pencher sur un autre cas d’utilisation. Imaginons que l’on
+ait un grand tableau de données de taille comportant 10 observations pour 100
+000 variables (e.g. des mesures de génomique), et que l’on veuille calculer la
+médiane pour chacune de ces variables.</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="parallélisation-du-code-r.html#cb44-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="fl">1e6</span>), <span class="at">nrow =</span> <span class="dv">10</span>)</span>
+<span id="cb44-2"><a href="parallélisation-du-code-r.html#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(x)</span></code></pre></div>
+<pre><code>## [1]     10 100000</code></pre>
+<p>Pour un utilisateur averti de <code>R</code>, une telle opération se programme facilement
+à l’aide de la fonction <code>apply</code> :</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="parallélisation-du-code-r.html#cb46-1" aria-hidden="true" tabindex="-1"></a>colmedian_apply <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
+<span id="cb46-2"><a href="parallélisation-du-code-r.html#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">apply</span>(x, <span class="dv">2</span>, median))</span>
+<span id="cb46-3"><a href="parallélisation-du-code-r.html#cb46-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb46-4"><a href="parallélisation-du-code-r.html#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(<span class="fu">colmedian_apply</span>(x))</span></code></pre></div>
+<pre><code>## utilisateur     système      écoulé 
+##       2.852       0.000       2.853</code></pre>
+<p>En réalité, une boucle <code>for</code> n’est pas plus lente à condition d’être bien
+programmée :</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="parallélisation-du-code-r.html#cb48-1" aria-hidden="true" tabindex="-1"></a>colmedian_for <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
+<span id="cb48-2"><a href="parallélisation-du-code-r.html#cb48-2" aria-hidden="true" tabindex="-1"></a>  ans <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, <span class="fu">ncol</span>(x)) </span>
+<span id="cb48-3"><a href="parallélisation-du-code-r.html#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(x)) {</span>
+<span id="cb48-4"><a href="parallélisation-du-code-r.html#cb48-4" aria-hidden="true" tabindex="-1"></a>    ans[i] <span class="ot">&lt;-</span> <span class="fu">median</span>(x[, i]) </span>
+<span id="cb48-5"><a href="parallélisation-du-code-r.html#cb48-5" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb48-6"><a href="parallélisation-du-code-r.html#cb48-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(ans)</span>
+<span id="cb48-7"><a href="parallélisation-du-code-r.html#cb48-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb48-8"><a href="parallélisation-du-code-r.html#cb48-8" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(<span class="fu">colmedian_for</span>(x))</span></code></pre></div>
+<pre><code>## utilisateur     système      écoulé 
+##       2.656       0.008       2.665</code></pre>
+<blockquote>
+<p><strong><em>À vous de jouer !</em></strong><br />
+Essayez d’améliorer encore ce temps de calcul en parallélisant :</p>
+<ol style="list-style-type: decimal">
+<li><p>Parallélisez le calcul de la médiane de chacune des 100 000 variables.
+Observe-t-on un gain en temps de calcul ?</p></li>
+<li><p>Proposez une implémentation alternative grâce à la fonction
+<code>itertools::isplitIndices()</code> qui permet de séparer vos données (les <span class="math inline">\(n\)</span> nombres)
+en autant de groupes que vous avez de coeurs. Comparez à nouveau les temps de
+calcul.</p></li>
+</ol>
+</blockquote>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="parallélisation-du-code-r.html#cb50-1" aria-hidden="true" tabindex="-1"></a>colmedian_par <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
+<span id="cb50-2"><a href="parallélisation-du-code-r.html#cb50-2" aria-hidden="true" tabindex="-1"></a>  res <span class="ot">&lt;-</span> <span class="fu">future_sapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(x), <span class="at">FUN =</span> <span class="cf">function</span>(i) {</span>
+<span id="cb50-3"><a href="parallélisation-du-code-r.html#cb50-3" aria-hidden="true" tabindex="-1"></a>          <span class="fu">median</span>(x[, i])</span>
+<span id="cb50-4"><a href="parallélisation-du-code-r.html#cb50-4" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb50-5"><a href="parallélisation-du-code-r.html#cb50-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(res)</span>
+<span id="cb50-6"><a href="parallélisation-du-code-r.html#cb50-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb50-7"><a href="parallélisation-du-code-r.html#cb50-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plan</span>(<span class="fu">multisession</span>(<span class="at">workers =</span> <span class="dv">3</span>))</span>
+<span id="cb50-8"><a href="parallélisation-du-code-r.html#cb50-8" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(<span class="fu">colmedian_par</span>(x))</span></code></pre></div>
+<pre><code>## utilisateur     système      écoulé 
+##       0.167       0.017       1.954</code></pre>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="parallélisation-du-code-r.html#cb52-1" aria-hidden="true" tabindex="-1"></a>colmedian_parIter <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">ncores =</span> <span class="dv">1</span>){</span>
+<span id="cb52-2"><a href="parallélisation-du-code-r.html#cb52-2" aria-hidden="true" tabindex="-1"></a>  iter <span class="ot">&lt;-</span> itertools<span class="sc">::</span><span class="fu">isplitIndices</span>(<span class="at">n =</span> <span class="fu">ncol</span>(x), <span class="at">chunks =</span> ncores)</span>
+<span id="cb52-3"><a href="parallélisation-du-code-r.html#cb52-3" aria-hidden="true" tabindex="-1"></a>  res <span class="ot">&lt;-</span> <span class="fu">future_sapply</span>(iter, <span class="at">FUN =</span> <span class="cf">function</span>(i) {</span>
+<span id="cb52-4"><a href="parallélisation-du-code-r.html#cb52-4" aria-hidden="true" tabindex="-1"></a>          <span class="fu">apply</span>(x[, i], <span class="dv">2</span>, median)</span>
+<span id="cb52-5"><a href="parallélisation-du-code-r.html#cb52-5" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb52-6"><a href="parallélisation-du-code-r.html#cb52-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">unlist</span>(res))</span>
+<span id="cb52-7"><a href="parallélisation-du-code-r.html#cb52-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb52-8"><a href="parallélisation-du-code-r.html#cb52-8" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(<span class="fu">colmedian_parIter</span>(x, <span class="at">ncores =</span> <span class="dv">3</span>))</span></code></pre></div>
+<pre><code>## utilisateur     système      écoulé 
+##       0.150       0.016       1.785</code></pre>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="parallélisation-du-code-r.html#cb54-1" aria-hidden="true" tabindex="-1"></a>mb <span class="ot">&lt;-</span> <span class="fu">microbenchmark</span>(<span class="fu">colmedian_apply</span>(x), </span>
+<span id="cb54-2"><a href="parallélisation-du-code-r.html#cb54-2" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">colmedian_for</span>(x),</span>
+<span id="cb54-3"><a href="parallélisation-du-code-r.html#cb54-3" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">colmedian_par</span>(x),</span>
+<span id="cb54-4"><a href="parallélisation-du-code-r.html#cb54-4" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">colmedian_parIter</span>(x, <span class="at">ncores =</span> <span class="dv">3</span>), <span class="at">times =</span> <span class="dv">10</span>)</span>
+<span id="cb54-5"><a href="parallélisation-du-code-r.html#cb54-5" aria-hidden="true" tabindex="-1"></a>mb</span></code></pre></div>
+<pre><code>## Unit: seconds
+##                              expr      min       lq     mean   median       uq
+##                colmedian_apply(x) 2.920143 3.049420 3.085212 3.084405 3.148714
+##                  colmedian_for(x) 2.773035 2.912201 2.972180 2.966895 3.062374
+##                  colmedian_par(x) 1.792960 1.845893 1.889270 1.866665 1.910245
+##  colmedian_parIter(x, ncores = 3) 1.652253 1.747087 1.762754 1.784055 1.802877
+##       max neval
+##  3.203945    10
+##  3.159930    10
+##  2.046394    10
+##  1.807544    10</code></pre>
+<p><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-44-1.png" width="672" /></p>
+<div id="les-itérateurs" class="section level3 hasAnchor" number="6.3.1">
+<h3><span class="header-section-number">6.3.1</span> Les itérateurs<a href="parallélisation-du-code-r.html#les-itérateurs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Le package <code>itertools</code> permet de séparer facilement des données ou des
+taches (étape 3) tout en minimisant les communications avec les différents
+travailleurs. Il s’appuie sur une implémentation des itérateurs en <code>R</code>.
+Son utilisation nécessite néanmoins de vectoriser le code à l’intérieur de
+<code>future_*apply()</code>. Expérimentez avec le petit code ci-dessous :</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="parallélisation-du-code-r.html#cb56-1" aria-hidden="true" tabindex="-1"></a>myiter <span class="ot">&lt;-</span> itertools<span class="sc">::</span><span class="fu">isplitIndices</span>(<span class="at">n =</span> <span class="dv">30</span>, <span class="at">chunks =</span> <span class="dv">3</span>)</span>
+<span id="cb56-2"><a href="parallélisation-du-code-r.html#cb56-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-3"><a href="parallélisation-du-code-r.html#cb56-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Une première fois</span></span>
+<span id="cb56-4"><a href="parallélisation-du-code-r.html#cb56-4" aria-hidden="true" tabindex="-1"></a>iterators<span class="sc">::</span><span class="fu">nextElem</span>(myiter)</span></code></pre></div>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="parallélisation-du-code-r.html#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Une deuxième fois... Oh ?!</span></span>
+<span id="cb58-2"><a href="parallélisation-du-code-r.html#cb58-2" aria-hidden="true" tabindex="-1"></a>iterators<span class="sc">::</span><span class="fu">nextElem</span>(myiter)</span></code></pre></div>
+<pre><code>##  [1] 11 12 13 14 15 16 17 18 19 20</code></pre>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="parallélisation-du-code-r.html#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Encore !</span></span>
+<span id="cb60-2"><a href="parallélisation-du-code-r.html#cb60-2" aria-hidden="true" tabindex="-1"></a>iterators<span class="sc">::</span><span class="fu">nextElem</span>(myiter)</span></code></pre></div>
+<pre><code>##  [1] 21 22 23 24 25 26 27 28 29 30</code></pre>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="parallélisation-du-code-r.html#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Encore ?</span></span>
+<span id="cb62-2"><a href="parallélisation-du-code-r.html#cb62-2" aria-hidden="true" tabindex="-1"></a>iterators<span class="sc">::</span><span class="fu">nextElem</span>(myiter)</span></code></pre></div>
+<pre><code>## Error: StopIteration</code></pre>
+</div>
+<div id="les-autres-plans-de-calculs-parallèle" class="section level3 hasAnchor" number="6.3.2">
+<h3><span class="header-section-number">6.3.2</span> Les autres “plans” de calculs parallèle<a href="parallélisation-du-code-r.html#les-autres-plans-de-calculs-parallèle" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Pour exécuter votre code (exactement le même code, c’est un des avantages
+du packages de la famille <code>future*</code>), vous devez régler un “plan” de calculs :</p>
+<ul>
+<li><p>sur un ordinateur (ou un unique serveur de calcul) sous Unix (Linux, Mac OS),
+vous pouvez utiliser <code>plan(multicore(workers = XX))</code> qui est souvent plus
+performant. Le plan multisession fonctionne toujours.</p></li>
+<li><p>sur un cluster de calculs (type Avakas à Bordeaux), nous renvoyons au package
+<a href="https://cran.r-project.org/web/packages/future.batchtools/vignettes/future.batchtools.html"><code>future.batchtools</code></a></p></li>
+</ul>
+</div>
+</div>
+<div id="parallélisation-dans-notre-exemple-fil-rouge" class="section level2 hasAnchor" number="6.4">
+<h2><span class="header-section-number">6.4</span> Parallélisation dans notre exemple fil rouge<a href="parallélisation-du-code-r.html#parallélisation-dans-notre-exemple-fil-rouge" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<blockquote>
+<p><strong><em>À vous de jouer !</em></strong></p>
+<ol style="list-style-type: decimal">
+<li><p>À partir de la fonction <code>mvnpdfoptim()</code> et/ou <code>mvnpdfsmart()</code>, proposez
+une implémentation parallélisant les calculs sur les observations (colonnes de <span class="math inline">\(x\)</span>)</p></li>
+<li><p>Comparez les temps de calcul sur 10 000 observations</p></li>
+</ol>
+</blockquote>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="parallélisation-du-code-r.html#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plan</span>(<span class="fu">multisession</span>(<span class="at">workers =</span> <span class="dv">3</span>))</span>
+<span id="cb64-2"><a href="parallélisation-du-code-r.html#cb64-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
+<span id="cb64-3"><a href="parallélisation-du-code-r.html#cb64-3" aria-hidden="true" tabindex="-1"></a>mb <span class="ot">&lt;-</span> microbenchmark<span class="sc">::</span><span class="fu">microbenchmark</span>(</span>
+<span id="cb64-4"><a href="parallélisation-du-code-r.html#cb64-4" aria-hidden="true" tabindex="-1"></a>  mvtnorm<span class="sc">::</span><span class="fu">dmvnorm</span>(<span class="fu">matrix</span>(<span class="fl">1.96</span>, <span class="at">nrow =</span> n, <span class="at">ncol =</span> <span class="dv">2</span>)),</span>
+<span id="cb64-5"><a href="parallélisation-du-code-r.html#cb64-5" aria-hidden="true" tabindex="-1"></a>  mypkgr<span class="sc">::</span><span class="fu">mvnpdfoptim</span>(<span class="at">x=</span><span class="fu">matrix</span>(<span class="fl">1.96</span>, <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> n), <span class="at">Log=</span><span class="cn">FALSE</span>),</span>
+<span id="cb64-6"><a href="parallélisation-du-code-r.html#cb64-6" aria-hidden="true" tabindex="-1"></a>  mypkgr<span class="sc">::</span><span class="fu">mvnpdfoptim_par</span>(<span class="at">x=</span><span class="fu">matrix</span>(<span class="fl">1.96</span>, <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> n), <span class="at">Log=</span><span class="cn">FALSE</span>),</span>
+<span id="cb64-7"><a href="parallélisation-du-code-r.html#cb64-7" aria-hidden="true" tabindex="-1"></a>  mypkgr<span class="sc">::</span><span class="fu">mvnpdfoptim_parIter</span>(<span class="at">x=</span><span class="fu">matrix</span>(<span class="fl">1.96</span>, <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> n), <span class="at">Log=</span><span class="cn">FALSE</span>, <span class="at">ncores =</span> <span class="dv">3</span>),</span>
+<span id="cb64-8"><a href="parallélisation-du-code-r.html#cb64-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">times=</span>20L)</span>
+<span id="cb64-9"><a href="parallélisation-du-code-r.html#cb64-9" aria-hidden="true" tabindex="-1"></a>mb</span></code></pre></div>
+<pre><code>## Unit: microseconds
+##                                                                                             expr
+##                                               mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))
+##                           mypkgr::mvnpdfoptim(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE)
+##                  mypkgr::mvnpdfoptim_par(x = matrix(1.96, nrow = 2, ncol = n),      Log = FALSE)
+##  mypkgr::mvnpdfoptim_parIter(x = matrix(1.96, nrow = 2, ncol = n),      Log = FALSE, ncores = 3)
+##         min         lq       mean     median         uq        max neval
+##     320.516    422.897   1164.116   1359.943   1445.536   2149.706    20
+##   29176.308  46912.020  51445.355  53101.999  58522.700  67508.120    20
+##  125017.033 161861.298 177917.558 184587.323 199173.476 211619.918    20
+##  123687.089 176012.546 182138.666 184487.080 196239.247 293594.339    20</code></pre>
+<p><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-47-1.png" width="672" /></p>
+</div>
+<div id="conclusion" class="section level2 hasAnchor" number="6.5">
+<h2><span class="header-section-number">6.5</span> Conclusion<a href="parallélisation-du-code-r.html#conclusion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>La parallélisation permet de gagner du temps, mais il faut d’abord bien
+optimiser son code. Quand on parallélise un code, le gain sur la durée
+d’exécution dépend avant tout du ratio entre le temps de communication et le
+temps de calcul effectif pour chaque tache.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="rcpp-ou-comment-intégrer-facilement-du-code-cdans-un-package-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="miscélanées.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/sistm/OutilsDvpmtPerfR/blob/master/07-parallelisation.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["FormationRavancee_dev_perf.pdf", "FormationRavancee_dev_perf.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

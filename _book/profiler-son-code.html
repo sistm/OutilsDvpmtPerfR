@@ -1,45 +1,46 @@
 <!DOCTYPE html>
-<html >
-
+<html lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Formation R avancée</title>
-  <meta name="description" content="Outils de développement et de performance">
-  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapitre 4 Profiler son code | Formation R avancée</title>
+  <meta name="description" content="Outils de développement et de performance" />
+  <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Formation R avancée" />
+  <meta property="og:title" content="Chapitre 4 Profiler son code | Formation R avancée" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="Outils de développement et de performance" />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Formation R avancée" />
+  <meta name="twitter:title" content="Chapitre 4 Profiler son code | Formation R avancée" />
   
   <meta name="twitter:description" content="Outils de développement et de performance" />
   
 
-<meta name="author" content="Robin Genuer et Boris Hejblum">
+<meta name="author" content="Robin Genuer et Boris Hejblum" />
 
 
-<meta name="date" content="2018-07-20">
+<meta name="date" content="2022-06-02" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="mesurer-et-comparer-des-temps-dexecution.html">
-<link rel="next" href="rcpp-ou-comment-integrer-facilement-du-code-cdans-un-package-r.html">
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link rel="prev" href="mesurer-et-comparer-des-temps-dexécution.html"/>
+<link rel="next" href="rcpp-ou-comment-intégrer-facilement-du-code-cdans-un-package-r.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
 
 
 
@@ -47,31 +48,34 @@
 
 
 
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; position: absolute; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; }
-pre.numberSource a.sourceLine:empty
-  { position: absolute; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
-    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all;
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -80,9 +84,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -115,6 +119,7 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 
@@ -132,73 +137,89 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Présentation de la formation</a></li>
-<li class="chapter" data-level="1" data-path="construire-un-package-r.html"><a href="construire-un-package-r.html"><i class="fa fa-check"></i><b>1</b> Construire un package <code>R</code></a><ul>
+<li class="chapter" data-level="1" data-path="construire-un-package-r.html"><a href="construire-un-package-r.html"><i class="fa fa-check"></i><b>1</b> Construire un package <code>R</code></a>
+<ul>
 <li class="chapter" data-level="1.1" data-path="construire-un-package-r.html"><a href="construire-un-package-r.html#initialiser-un-package"><i class="fa fa-check"></i><b>1.1</b> Initialiser un package</a></li>
 <li class="chapter" data-level="1.2" data-path="construire-un-package-r.html"><a href="construire-un-package-r.html#ajouter-une-fonction-exemple-fil-rouge"><i class="fa fa-check"></i><b>1.2</b> Ajouter une fonction : exemple fil rouge</a></li>
 <li class="chapter" data-level="1.3" data-path="construire-un-package-r.html"><a href="construire-un-package-r.html#documenter-une-fonction"><i class="fa fa-check"></i><b>1.3</b> Documenter une fonction</a></li>
-<li class="chapter" data-level="1.4" data-path="construire-un-package-r.html"><a href="construire-un-package-r.html#tester-le-package-de-maniere-interactive"><i class="fa fa-check"></i><b>1.4</b> Tester le package de manière <em>intéractive</em></a></li>
-<li class="chapter" data-level="1.5" data-path="construire-un-package-r.html"><a href="construire-un-package-r.html#tester-le-package-de-maniere-automatique"><i class="fa fa-check"></i><b>1.5</b> Tester le package de manière <em>automatique</em></a></li>
+<li class="chapter" data-level="1.4" data-path="construire-un-package-r.html"><a href="construire-un-package-r.html#tester-le-package-de-manière-intéractive"><i class="fa fa-check"></i><b>1.4</b> Tester le package de manière <em>intéractive</em></a></li>
+<li class="chapter" data-level="1.5" data-path="construire-un-package-r.html"><a href="construire-un-package-r.html#tester-le-package-de-manière-automatique"><i class="fa fa-check"></i><b>1.5</b> Tester le package de manière <em>automatique</em></a></li>
 <li class="chapter" data-level="1.6" data-path="construire-un-package-r.html"><a href="construire-un-package-r.html#faire-un-check-du-package"><i class="fa fa-check"></i><b>1.6</b> Faire un <em>check</em> du package</a></li>
 <li class="chapter" data-level="1.7" data-path="construire-un-package-r.html"><a href="construire-un-package-r.html#installer-le-package"><i class="fa fa-check"></i><b>1.7</b> Installer le package</a></li>
-<li class="chapter" data-level="1.8" data-path="construire-un-package-r.html"><a href="construire-un-package-r.html#annexe-1.1-ajouter-dune-methode-s3"><i class="fa fa-check"></i><b>1.8</b> Annexe 1.1 : ajouter d’une méthode S3</a></li>
+<li class="chapter" data-level="1.8" data-path="construire-un-package-r.html"><a href="construire-un-package-r.html#annexe-1.1-ajouter-dune-méthode-s3"><i class="fa fa-check"></i><b>1.8</b> Annexe 1.1 : ajouter d’une méthode S3</a></li>
 <li class="chapter" data-level="1.9" data-path="construire-un-package-r.html"><a href="construire-un-package-r.html#annexe-1.2-soumettre-son-package-au-cran"><i class="fa fa-check"></i><b>1.9</b> Annexe 1.2 : soumettre son package au CRAN</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="controle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="controle-de-version-avec-git-et-github-hitorique-de-changement.html"><i class="fa fa-check"></i><b>2</b> Contrôle de version avec <code>git</code> et GitHub : hitorique de changement,</a><ul>
-<li class="chapter" data-level="2.1" data-path="controle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="controle-de-version-avec-git-et-github-hitorique-de-changement.html#principe-du-controle-de-version"><i class="fa fa-check"></i><b>2.1</b> Principe du contrôle de version</a><ul>
-<li class="chapter" data-level="2.1.1" data-path="controle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="controle-de-version-avec-git-et-github-hitorique-de-changement.html#git"><i class="fa fa-check"></i><b>2.1.1</b> <code>git</code></a></li>
-<li class="chapter" data-level="2.1.2" data-path="controle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="controle-de-version-avec-git-et-github-hitorique-de-changement.html#subversion"><i class="fa fa-check"></i><b>2.1.2</b> <code>subversion</code></a></li>
+<li class="chapter" data-level="2" data-path="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html"><i class="fa fa-check"></i><b>2</b> Contrôle de version avec <code>git</code> et GitHub : hitorique de changement,</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html#principe-du-contrôle-de-version"><i class="fa fa-check"></i><b>2.1</b> Principe du contrôle de version</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html#git"><i class="fa fa-check"></i><b>2.1.1</b> <code>git</code></a></li>
+<li class="chapter" data-level="2.1.2" data-path="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html#subversion"><i class="fa fa-check"></i><b>2.1.2</b> <code>subversion</code></a></li>
 </ul></li>
-<li class="chapter" data-level="2.2" data-path="controle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="controle-de-version-avec-git-et-github-hitorique-de-changement.html#utiliser-git-localement-depuis-rstudio"><i class="fa fa-check"></i><b>2.2</b> Utiliser <code>git</code> localement depuis RStudio</a><ul>
-<li class="chapter" data-level="2.2.1" data-path="controle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="controle-de-version-avec-git-et-github-hitorique-de-changement.html#bonnes-pratiques-du-commit"><i class="fa fa-check"></i><b>2.2.1</b> Bonnes pratiques du <em>commit</em></a></li>
+<li class="chapter" data-level="2.2" data-path="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html#utiliser-git-localement-depuis-rstudio"><i class="fa fa-check"></i><b>2.2</b> Utiliser <code>git</code> localement depuis RStudio</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html#bonnes-pratiques-du-commit"><i class="fa fa-check"></i><b>2.2.1</b> Bonnes pratiques du <em>commit</em></a></li>
 </ul></li>
-<li class="chapter" data-level="2.3" data-path="controle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="controle-de-version-avec-git-et-github-hitorique-de-changement.html#github"><i class="fa fa-check"></i><b>2.3</b> GitHub</a><ul>
-<li class="chapter" data-level="2.3.1" data-path="controle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="controle-de-version-avec-git-et-github-hitorique-de-changement.html#mettre-son-package-r-sur-github"><i class="fa fa-check"></i><b>2.3.1</b> Mettre son package <code>R</code> sur GitHub</a></li>
+<li class="chapter" data-level="2.3" data-path="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html#github"><i class="fa fa-check"></i><b>2.3</b> GitHub</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html#mettre-son-package-r-sur-github"><i class="fa fa-check"></i><b>2.3.1</b> Mettre son package <code>R</code> sur GitHub</a></li>
 </ul></li>
-<li class="chapter" data-level="2.4" data-path="controle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="controle-de-version-avec-git-et-github-hitorique-de-changement.html#collaboration-pour-la-production-du-code"><i class="fa fa-check"></i><b>2.4</b> Collaboration pour la production du code</a><ul>
-<li class="chapter" data-level="2.4.1" data-path="controle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="controle-de-version-avec-git-et-github-hitorique-de-changement.html#branches"><i class="fa fa-check"></i><b>2.4.1</b> <em>Branches</em></a></li>
-<li class="chapter" data-level="2.4.2" data-path="controle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="controle-de-version-avec-git-et-github-hitorique-de-changement.html#merge"><i class="fa fa-check"></i><b>2.4.2</b> <em>Merge</em></a></li>
-<li class="chapter" data-level="2.4.3" data-path="controle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="controle-de-version-avec-git-et-github-hitorique-de-changement.html#les-conflits"><i class="fa fa-check"></i><b>2.4.3</b> Les conflits</a></li>
-<li class="chapter" data-level="2.4.4" data-path="controle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="controle-de-version-avec-git-et-github-hitorique-de-changement.html#fork"><i class="fa fa-check"></i><b>2.4.4</b> <em>Fork</em></a></li>
-<li class="chapter" data-level="2.4.5" data-path="controle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="controle-de-version-avec-git-et-github-hitorique-de-changement.html#pull-request"><i class="fa fa-check"></i><b>2.4.5</b> <em>Pull request</em></a></li>
-<li class="chapter" data-level="2.4.6" data-path="controle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="controle-de-version-avec-git-et-github-hitorique-de-changement.html#issues"><i class="fa fa-check"></i><b>2.4.6</b> <em>Issues</em></a></li>
+<li class="chapter" data-level="2.4" data-path="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html#collaboration-pour-la-production-du-code"><i class="fa fa-check"></i><b>2.4</b> Collaboration pour la production du code</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html#branches"><i class="fa fa-check"></i><b>2.4.1</b> <em>Branches</em></a></li>
+<li class="chapter" data-level="2.4.2" data-path="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html#merge"><i class="fa fa-check"></i><b>2.4.2</b> <em>Merge</em></a></li>
+<li class="chapter" data-level="2.4.3" data-path="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html#les-conflits"><i class="fa fa-check"></i><b>2.4.3</b> Les conflits</a></li>
+<li class="chapter" data-level="2.4.4" data-path="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html#fork"><i class="fa fa-check"></i><b>2.4.4</b> <em>Fork</em></a></li>
+<li class="chapter" data-level="2.4.5" data-path="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html#pull-request"><i class="fa fa-check"></i><b>2.4.5</b> <em>Pull request</em></a></li>
+<li class="chapter" data-level="2.4.6" data-path="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html#issues"><i class="fa fa-check"></i><b>2.4.6</b> <em>Issues</em></a></li>
 </ul></li>
-<li class="chapter" data-level="2.5" data-path="controle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="controle-de-version-avec-git-et-github-hitorique-de-changement.html#integration-continue"><i class="fa fa-check"></i><b>2.5</b> Intégration continue</a><ul>
-<li class="chapter" data-level="2.5.1" data-path="controle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="controle-de-version-avec-git-et-github-hitorique-de-changement.html#travis-ci"><i class="fa fa-check"></i><b>2.5.1</b> Travis CI</a></li>
-<li class="chapter" data-level="2.5.2" data-path="controle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="controle-de-version-avec-git-et-github-hitorique-de-changement.html#appveyor"><i class="fa fa-check"></i><b>2.5.2</b> Appveyor</a></li>
-<li class="chapter" data-level="2.5.3" data-path="controle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="controle-de-version-avec-git-et-github-hitorique-de-changement.html#r-hub"><i class="fa fa-check"></i><b>2.5.3</b> R-hub</a></li>
+<li class="chapter" data-level="2.5" data-path="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html#intégration-continue"><i class="fa fa-check"></i><b>2.5</b> Intégration continue</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html#travis-ci"><i class="fa fa-check"></i><b>2.5.1</b> Travis CI</a></li>
+<li class="chapter" data-level="2.5.2" data-path="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html#appveyor"><i class="fa fa-check"></i><b>2.5.2</b> Appveyor</a></li>
+<li class="chapter" data-level="2.5.3" data-path="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html#r-hub"><i class="fa fa-check"></i><b>2.5.3</b> R-hub</a></li>
 </ul></li>
-<li class="chapter" data-level="2.6" data-path="controle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="controle-de-version-avec-git-et-github-hitorique-de-changement.html#annexe-2.1-couverture-du-code"><i class="fa fa-check"></i><b>2.6</b> Annexe 2.1 : couverture du code</a></li>
+<li class="chapter" data-level="2.6" data-path="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html"><a href="contrôle-de-version-avec-git-et-github-hitorique-de-changement.html#annexe-2.1-couverture-du-code"><i class="fa fa-check"></i><b>2.6</b> Annexe 2.1 : couverture du code</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="mesurer-et-comparer-des-temps-dexecution.html"><a href="mesurer-et-comparer-des-temps-dexecution.html"><i class="fa fa-check"></i><b>3</b> Mesurer et comparer des temps d’exécution</a><ul>
-<li class="chapter" data-level="3.1" data-path="mesurer-et-comparer-des-temps-dexecution.html"><a href="mesurer-et-comparer-des-temps-dexecution.html#mesurer-des-temps-dexecution-avec-system.time"><i class="fa fa-check"></i><b>3.1</b> Mesurer des temps d’exécution avec <code>system.time()</code></a></li>
-<li class="chapter" data-level="3.2" data-path="mesurer-et-comparer-des-temps-dexecution.html"><a href="mesurer-et-comparer-des-temps-dexecution.html#comparer-des-temps-dexecution-avec-microbenchmark"><i class="fa fa-check"></i><b>3.2</b> Comparer des temps d’exécution avec <code>microbenchmark()</code></a></li>
+<li class="chapter" data-level="3" data-path="mesurer-et-comparer-des-temps-dexécution.html"><a href="mesurer-et-comparer-des-temps-dexécution.html"><i class="fa fa-check"></i><b>3</b> Mesurer et comparer des temps d’exécution</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="mesurer-et-comparer-des-temps-dexécution.html"><a href="mesurer-et-comparer-des-temps-dexécution.html#mesurer-des-temps-dexécution-avec-system.time"><i class="fa fa-check"></i><b>3.1</b> Mesurer des temps d’exécution avec <code>system.time()</code></a></li>
+<li class="chapter" data-level="3.2" data-path="mesurer-et-comparer-des-temps-dexécution.html"><a href="mesurer-et-comparer-des-temps-dexécution.html#comparer-des-temps-dexécution-avec-microbenchmark"><i class="fa fa-check"></i><b>3.2</b> Comparer des temps d’exécution avec <code>microbenchmark()</code></a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="profiler-son-code.html"><a href="profiler-son-code.html"><i class="fa fa-check"></i><b>4</b> <em>Profiler</em> son code</a><ul>
+<li class="chapter" data-level="4" data-path="profiler-son-code.html"><a href="profiler-son-code.html"><i class="fa fa-check"></i><b>4</b> <em>Profiler</em> son code</a>
+<ul>
 <li class="chapter" data-level="4.1" data-path="profiler-son-code.html"><a href="profiler-son-code.html#comparaison-avec-une-version-plus-habile-de-mnvpdf"><i class="fa fa-check"></i><b>4.1</b> Comparaison avec une version plus habile de <code>mnvpdf()</code></a></li>
-<li class="chapter" data-level="4.2" data-path="profiler-son-code.html"><a href="profiler-son-code.html#comparaison-avec-une-version-optimisee-dans-r"><i class="fa fa-check"></i><b>4.2</b> Comparaison avec une version optimisée dans R</a></li>
+<li class="chapter" data-level="4.2" data-path="profiler-son-code.html"><a href="profiler-son-code.html#comparaison-avec-une-version-optimisée-dans-r"><i class="fa fa-check"></i><b>4.2</b> Comparaison avec une version optimisée dans R</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="rcpp-ou-comment-integrer-facilement-du-code-cdans-un-package-r.html"><a href="rcpp-ou-comment-integrer-facilement-du-code-cdans-un-package-r.html"><i class="fa fa-check"></i><b>5</b> <code>Rcpp</code> ou comment intégrer facilement du code <code>C++</code>dans un package <code>R</code></a><ul>
-<li class="chapter" data-level="5.1" data-path="rcpp-ou-comment-integrer-facilement-du-code-cdans-un-package-r.html"><a href="rcpp-ou-comment-integrer-facilement-du-code-cdans-un-package-r.html#premiere-fonction-en-rcpp"><i class="fa fa-check"></i><b>5.1</b> Première fonction en Rcpp</a></li>
-<li class="chapter" data-level="5.2" data-path="rcpp-ou-comment-integrer-facilement-du-code-cdans-un-package-r.html"><a href="rcpp-ou-comment-integrer-facilement-du-code-cdans-un-package-r.html#optimisation-grace-a-c"><i class="fa fa-check"></i><b>5.2</b> Optimisation grâce à <code>C++</code></a></li>
-<li class="chapter" data-level="5.3" data-path="rcpp-ou-comment-integrer-facilement-du-code-cdans-un-package-r.html"><a href="rcpp-ou-comment-integrer-facilement-du-code-cdans-un-package-r.html#annexe-5.1-loptimisation-prematuree-nest-pas-une-bonne-idee"><i class="fa fa-check"></i><b>5.3</b> Annexe 5.1 : l’optimisation prématurée n’est pas une bonne idée</a></li>
+<li class="chapter" data-level="5" data-path="rcpp-ou-comment-intégrer-facilement-du-code-cdans-un-package-r.html"><a href="rcpp-ou-comment-intégrer-facilement-du-code-cdans-un-package-r.html"><i class="fa fa-check"></i><b>5</b> <code>Rcpp</code> ou comment intégrer facilement du code <code>C++</code>dans un package <code>R</code></a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="rcpp-ou-comment-intégrer-facilement-du-code-cdans-un-package-r.html"><a href="rcpp-ou-comment-intégrer-facilement-du-code-cdans-un-package-r.html#première-fonction-en-rcpp"><i class="fa fa-check"></i><b>5.1</b> Première fonction en Rcpp</a></li>
+<li class="chapter" data-level="5.2" data-path="rcpp-ou-comment-intégrer-facilement-du-code-cdans-un-package-r.html"><a href="rcpp-ou-comment-intégrer-facilement-du-code-cdans-un-package-r.html#optimisation-grâce-à-c"><i class="fa fa-check"></i><b>5.2</b> Optimisation grâce à <code>C++</code></a></li>
+<li class="chapter" data-level="5.3" data-path="rcpp-ou-comment-intégrer-facilement-du-code-cdans-un-package-r.html"><a href="rcpp-ou-comment-intégrer-facilement-du-code-cdans-un-package-r.html#annexe-5.1-loptimisation-prématurée-nest-pas-une-bonne-idée"><i class="fa fa-check"></i><b>5.3</b> Annexe 5.1 : l’optimisation prématurée n’est pas une bonne idée</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="parallelisation-du-code-r.html"><a href="parallelisation-du-code-r.html"><i class="fa fa-check"></i><b>6</b> Parallélisation du code <code>R</code></a><ul>
-<li class="chapter" data-level="6.1" data-path="parallelisation-du-code-r.html"><a href="parallelisation-du-code-r.html#introduction-a-lexecution-parallele-sous-r"><i class="fa fa-check"></i><b>6.1</b> Introduction à l’execution parallèle sous <code>R</code></a></li>
-<li class="chapter" data-level="6.2" data-path="parallelisation-du-code-r.html"><a href="parallelisation-du-code-r.html#premiere-fonction-parallele-en-r"><i class="fa fa-check"></i><b>6.2</b> Première fonction parallèle en <code>R</code></a></li>
-<li class="chapter" data-level="6.3" data-path="parallelisation-du-code-r.html"><a href="parallelisation-du-code-r.html#parallelisation-efficace"><i class="fa fa-check"></i><b>6.3</b> Parallélisation efficace</a></li>
-<li class="chapter" data-level="6.4" data-path="parallelisation-du-code-r.html"><a href="parallelisation-du-code-r.html#parallelisation-dans-notre-exemple-fil-rouge"><i class="fa fa-check"></i><b>6.4</b> Parallélisation dans notre exemple fil rouge</a></li>
-<li class="chapter" data-level="6.5" data-path="parallelisation-du-code-r.html"><a href="parallelisation-du-code-r.html#conclusion"><i class="fa fa-check"></i><b>6.5</b> Conclusion</a></li>
+<li class="chapter" data-level="6" data-path="parallélisation-du-code-r.html"><a href="parallélisation-du-code-r.html"><i class="fa fa-check"></i><b>6</b> Parallélisation du code <code>R</code></a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="parallélisation-du-code-r.html"><a href="parallélisation-du-code-r.html#introduction-à-lexecution-parallèle-sous-r"><i class="fa fa-check"></i><b>6.1</b> Introduction à l’execution parallèle sous <code>R</code></a></li>
+<li class="chapter" data-level="6.2" data-path="parallélisation-du-code-r.html"><a href="parallélisation-du-code-r.html#première-fonction-parallèle-en-r"><i class="fa fa-check"></i><b>6.2</b> Première fonction parallèle en <code>R</code></a></li>
+<li class="chapter" data-level="6.3" data-path="parallélisation-du-code-r.html"><a href="parallélisation-du-code-r.html#parallélisation-efficace"><i class="fa fa-check"></i><b>6.3</b> Parallélisation efficace</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="parallélisation-du-code-r.html"><a href="parallélisation-du-code-r.html#les-itérateurs"><i class="fa fa-check"></i><b>6.3.1</b> Les itérateurs</a></li>
+<li class="chapter" data-level="6.3.2" data-path="parallélisation-du-code-r.html"><a href="parallélisation-du-code-r.html#les-autres-plans-de-calculs-parallèle"><i class="fa fa-check"></i><b>6.3.2</b> Les autres “plans” de calculs parallèle</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="miscelanees.html"><a href="miscelanees.html"><i class="fa fa-check"></i><b>7</b> Miscélanées</a><ul>
-<li class="chapter" data-level="7.1" data-path="miscelanees.html"><a href="miscelanees.html#debugging-avec-browser"><i class="fa fa-check"></i><b>7.1</b> Debugging avec <code>browser()</code></a></li>
-<li class="chapter" data-level="7.2" data-path="miscelanees.html"><a href="miscelanees.html#attach"><i class="fa fa-check"></i><b>7.2</b> <code>attach</code></a></li>
-<li class="chapter" data-level="7.3" data-path="miscelanees.html"><a href="miscelanees.html#gestion-memoire"><i class="fa fa-check"></i><b>7.3</b> gestion mémoire</a></li>
-<li class="chapter" data-level="7.4" data-path="miscelanees.html"><a href="miscelanees.html#copies-et-variables-localesglobales-dans-les-fonctions"><i class="fa fa-check"></i><b>7.4</b> copies et variables locales/globales dans les fonctions</a></li>
-<li class="chapter" data-level="7.5" data-path="miscelanees.html"><a href="miscelanees.html#naming"><i class="fa fa-check"></i><b>7.5</b> naming</a></li>
-<li class="chapter" data-level="7.6" data-path="miscelanees.html"><a href="miscelanees.html#gpplot2"><i class="fa fa-check"></i><b>7.6</b> <code>gpplot2</code></a></li>
+<li class="chapter" data-level="6.4" data-path="parallélisation-du-code-r.html"><a href="parallélisation-du-code-r.html#parallélisation-dans-notre-exemple-fil-rouge"><i class="fa fa-check"></i><b>6.4</b> Parallélisation dans notre exemple fil rouge</a></li>
+<li class="chapter" data-level="6.5" data-path="parallélisation-du-code-r.html"><a href="parallélisation-du-code-r.html#conclusion"><i class="fa fa-check"></i><b>6.5</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="miscélanées.html"><a href="miscélanées.html"><i class="fa fa-check"></i><b>7</b> Miscélanées</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="miscélanées.html"><a href="miscélanées.html#debugging-avec-browser"><i class="fa fa-check"></i><b>7.1</b> Debugging avec <code>browser()</code></a></li>
+<li class="chapter" data-level="7.2" data-path="miscélanées.html"><a href="miscélanées.html#attach"><i class="fa fa-check"></i><b>7.2</b> <code>attach</code></a></li>
+<li class="chapter" data-level="7.3" data-path="miscélanées.html"><a href="miscélanées.html#gestion-mémoire"><i class="fa fa-check"></i><b>7.3</b> gestion mémoire</a></li>
+<li class="chapter" data-level="7.4" data-path="miscélanées.html"><a href="miscélanées.html#copies-et-variables-localesglobales-dans-les-fonctions"><i class="fa fa-check"></i><b>7.4</b> copies et variables locales/globales dans les fonctions</a></li>
+<li class="chapter" data-level="7.5" data-path="miscélanées.html"><a href="miscélanées.html#naming"><i class="fa fa-check"></i><b>7.5</b> naming</a></li>
+<li class="chapter" data-level="7.6" data-path="miscélanées.html"><a href="miscélanées.html#gpplot2"><i class="fa fa-check"></i><b>7.6</b> <code>gpplot2</code></a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="take-home-message.html"><a href="take-home-message.html"><i class="fa fa-check"></i><b>8</b> <em>Take Home message</em></a></li>
-<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>Références</a></li>
+<li class="chapter" data-level="" data-path="références.html"><a href="références.html"><i class="fa fa-check"></i>Références</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -219,95 +240,101 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="profiler-son-code" class="section level1">
-<h1><span class="header-section-number">Chapitre 4</span> <em>Profiler</em> son code</h1>
+<div id="profiler-son-code" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">Chapitre 4</span> <em>Profiler</em> son code<a href="profiler-son-code.html#profiler-son-code" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>On parle de <em>profiling</em> en anglais. Il s’agit de déterminer ce qui prend
 du temps dans un code. Le but étant une fois trouvé le bloc de code qui prend
 le plus de temps dans l’exécution d’optimiser uniquement cette brique.</p>
 <p>Pour obtenir un <em>profiling</em> du code ci-dessous, sélectionner les lignes de code
 d’intérêt et aller dans le menu “Profile” puis “Profile Selected Lines” (ou
 Ctrl+Alt+Shift P).</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1">n &lt;-<span class="st"> </span><span class="fl">10e4</span></a>
-<a class="sourceLine" id="cb19-2" data-line-number="2">pdfval &lt;-<span class="st"> </span><span class="kw">mvnpdf</span>(<span class="dt">x=</span><span class="kw">matrix</span>(<span class="fl">1.96</span>, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">ncol =</span> n), <span class="dt">Log=</span><span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="profiler-son-code.html#cb21-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fl">10e4</span></span>
+<span id="cb21-2"><a href="profiler-son-code.html#cb21-2" aria-hidden="true" tabindex="-1"></a>pdfval <span class="ot">&lt;-</span> <span class="fu">mvnpdf</span>(<span class="at">x=</span><span class="fu">matrix</span>(<span class="fl">1.96</span>, <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> n), <span class="at">Log=</span><span class="cn">FALSE</span>)</span></code></pre></div>
 <p><em>OK, we get it !</em> Concaténer un vecteur au fur et à mesure dans une boucle
 n’est vraiment pas une bonne idée.</p>
-<div id="comparaison-avec-une-version-plus-habile-de-mnvpdf" class="section level2">
-<h2><span class="header-section-number">4.1</span> Comparaison avec une version plus habile de <code>mnvpdf()</code></h2>
+<div id="comparaison-avec-une-version-plus-habile-de-mnvpdf" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Comparaison avec une version plus habile de <code>mnvpdf()</code><a href="profiler-son-code.html#comparaison-avec-une-version-plus-habile-de-mnvpdf" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Considérons une nouvelle version de <code>mvnpdf()</code>, appelée <code>mvnpdfsmart()</code>.
 Télécharger le
 <a href="ttps://r-dev-perf.borishejblum.science/FormationRavancee_dev_perf_files/mvnpdfsmart.R">fichier</a> puis
 l’inclure dans le package.</p>
 <p>Profiler la commande suivante :</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1">n &lt;-<span class="st"> </span><span class="fl">10e4</span></a>
-<a class="sourceLine" id="cb20-2" data-line-number="2">pdfval &lt;-<span class="st"> </span><span class="kw">mvnpdfsmart</span>(<span class="dt">x=</span><span class="kw">matrix</span>(<span class="fl">1.96</span>, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">ncol =</span> n), <span class="dt">Log=</span><span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="profiler-son-code.html#cb22-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fl">10e4</span></span>
+<span id="cb22-2"><a href="profiler-son-code.html#cb22-2" aria-hidden="true" tabindex="-1"></a>pdfval <span class="ot">&lt;-</span> <span class="fu">mvnpdfsmart</span>(<span class="at">x=</span><span class="fu">matrix</span>(<span class="fl">1.96</span>, <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> n), <span class="at">Log=</span><span class="cn">FALSE</span>)</span></code></pre></div>
 <p>On a effectivement résolu le problème et on apprend maintenant de manière plus
 fine ce qui prend du temps dans notre fonction.</p>
 <p>Pour confirmer que <code>mvnpdfsmart()</code> est effectivement bien plus rapide que
 <code>mvnpdf()</code> on peut re-faire une comparaison avec <code>microbenchmark()</code> :</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1">n &lt;-<span class="st"> </span><span class="dv">1000</span></a>
-<a class="sourceLine" id="cb21-2" data-line-number="2">mb &lt;-<span class="st"> </span><span class="kw">microbenchmark</span>(<span class="kw">mvnpdf</span>(<span class="dt">x=</span><span class="kw">matrix</span>(<span class="fl">1.96</span>, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">ncol =</span> n), <span class="dt">Log=</span><span class="ot">FALSE</span>),</a>
-<a class="sourceLine" id="cb21-3" data-line-number="3">                     <span class="kw">mvnpdfsmart</span>(<span class="dt">x=</span><span class="kw">matrix</span>(<span class="fl">1.96</span>, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">ncol =</span> n), <span class="dt">Log=</span><span class="ot">FALSE</span>),</a>
-<a class="sourceLine" id="cb21-4" data-line-number="4">                     <span class="dt">times=</span>100L)</a>
-<a class="sourceLine" id="cb21-5" data-line-number="5">mb</a></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="profiler-son-code.html#cb23-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb23-2"><a href="profiler-son-code.html#cb23-2" aria-hidden="true" tabindex="-1"></a>mb <span class="ot">&lt;-</span> <span class="fu">microbenchmark</span>(<span class="fu">mvnpdf</span>(<span class="at">x=</span><span class="fu">matrix</span>(<span class="fl">1.96</span>, <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> n), <span class="at">Log=</span><span class="cn">FALSE</span>),</span>
+<span id="cb23-3"><a href="profiler-son-code.html#cb23-3" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">mvnpdfsmart</span>(<span class="at">x=</span><span class="fu">matrix</span>(<span class="fl">1.96</span>, <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> n), <span class="at">Log=</span><span class="cn">FALSE</span>),</span>
+<span id="cb23-4"><a href="profiler-son-code.html#cb23-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">times=</span>100L)</span>
+<span id="cb23-5"><a href="profiler-son-code.html#cb23-5" aria-hidden="true" tabindex="-1"></a>mb</span></code></pre></div>
 <pre><code>## Unit: milliseconds
 ##                                                            expr      min
-##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 5.196921
-##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3.825475
-##        lq     mean   median       uq      max neval
-##  5.664695 6.870315 6.289173 7.041401 15.21002   100
-##  3.970810 4.849314 4.138094 4.819223 19.31431   100</code></pre>
+##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 4.896913
+##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3.766482
+##        lq     mean   median       uq       max neval
+##  5.108208 5.608101 5.199305 5.352341  9.419278   100
+##  3.932840 4.285558 4.027911 4.153603 14.962139   100</code></pre>
+<pre><code>## Warning: It is deprecated to specify `guide = FALSE` to remove a guide. Please
+## use `guide = &quot;none&quot;` instead.</code></pre>
 <p><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
 <p>Et on peut également voir si on devient compétitif avec <code>dmvnorm()</code> :</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1">n &lt;-<span class="st"> </span><span class="dv">1000</span></a>
-<a class="sourceLine" id="cb23-2" data-line-number="2">mb &lt;-<span class="st"> </span><span class="kw">microbenchmark</span>(mvtnorm<span class="op">::</span><span class="kw">dmvnorm</span>(<span class="kw">matrix</span>(<span class="fl">1.96</span>, <span class="dt">nrow =</span> n, <span class="dt">ncol =</span> <span class="dv">2</span>)),</a>
-<a class="sourceLine" id="cb23-3" data-line-number="3">                     <span class="kw">mvnpdf</span>(<span class="dt">x=</span><span class="kw">matrix</span>(<span class="fl">1.96</span>, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">ncol =</span> n), <span class="dt">Log=</span><span class="ot">FALSE</span>),</a>
-<a class="sourceLine" id="cb23-4" data-line-number="4">                     <span class="kw">mvnpdfsmart</span>(<span class="dt">x=</span><span class="kw">matrix</span>(<span class="fl">1.96</span>, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">ncol =</span> n), <span class="dt">Log=</span><span class="ot">FALSE</span>),</a>
-<a class="sourceLine" id="cb23-5" data-line-number="5">                     <span class="dt">times=</span>100L)</a>
-<a class="sourceLine" id="cb23-6" data-line-number="6">mb</a></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="profiler-son-code.html#cb26-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb26-2"><a href="profiler-son-code.html#cb26-2" aria-hidden="true" tabindex="-1"></a>mb <span class="ot">&lt;-</span> <span class="fu">microbenchmark</span>(mvtnorm<span class="sc">::</span><span class="fu">dmvnorm</span>(<span class="fu">matrix</span>(<span class="fl">1.96</span>, <span class="at">nrow =</span> n, <span class="at">ncol =</span> <span class="dv">2</span>)),</span>
+<span id="cb26-3"><a href="profiler-son-code.html#cb26-3" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">mvnpdf</span>(<span class="at">x=</span><span class="fu">matrix</span>(<span class="fl">1.96</span>, <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> n), <span class="at">Log=</span><span class="cn">FALSE</span>),</span>
+<span id="cb26-4"><a href="profiler-son-code.html#cb26-4" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">mvnpdfsmart</span>(<span class="at">x=</span><span class="fu">matrix</span>(<span class="fl">1.96</span>, <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> n), <span class="at">Log=</span><span class="cn">FALSE</span>),</span>
+<span id="cb26-5"><a href="profiler-son-code.html#cb26-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">times=</span>100L)</span>
+<span id="cb26-6"><a href="profiler-son-code.html#cb26-6" aria-hidden="true" tabindex="-1"></a>mb</span></code></pre></div>
 <pre><code>## Unit: microseconds
 ##                                                            expr      min
-##              mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))  155.037
-##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 5229.053
-##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3833.471
-##         lq      mean   median       uq       max neval
-##   201.6425  277.6956  243.386  285.353  1093.007   100
-##  5460.3290 6615.8082 6011.005 6566.514 24112.959   100
-##  3914.6255 4461.6015 3982.642 4359.858 14339.792   100</code></pre>
+##              mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))   68.127
+##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 4836.487
+##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3704.812
+##        lq      mean   median        uq      max neval
+##    84.543  121.1487  119.853  141.9805  297.272   100
+##  4945.957 5429.2506 5034.401 5168.9745 9863.086   100
+##  3788.747 3987.8099 3846.220 3939.1600 7331.032   100</code></pre>
+<pre><code>## Warning: It is deprecated to specify `guide = FALSE` to remove a guide. Please
+## use `guide = &quot;none&quot;` instead.</code></pre>
 <p><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
 <p>Il y a encore du travail…</p>
 </div>
-<div id="comparaison-avec-une-version-optimisee-dans-r" class="section level2">
-<h2><span class="header-section-number">4.2</span> Comparaison avec une version optimisée dans R</h2>
+<div id="comparaison-avec-une-version-optimisée-dans-r" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> Comparaison avec une version optimisée dans R<a href="profiler-son-code.html#comparaison-avec-une-version-optimisée-dans-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Boris est arrivée après plusieurs recherches et tests à une
 <a href="ttps://r-dev-perf.borishejblum.science/FormationRavancee_dev_perf_files/mvnpdfoptim.R">version optimisée</a>
 avec les outils de R.</p>
 <p>Inclure la fonction <code>mvnpdfoptim()</code> dans le package, puis profiler cette
 fonction :</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1">n &lt;-<span class="st"> </span><span class="fl">10e4</span></a>
-<a class="sourceLine" id="cb25-2" data-line-number="2">pdfval &lt;-<span class="st"> </span><span class="kw">mvnpdfoptim</span>(<span class="dt">x=</span><span class="kw">matrix</span>(<span class="fl">1.96</span>, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">ncol =</span> n), <span class="dt">Log=</span><span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="profiler-son-code.html#cb29-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fl">10e4</span></span>
+<span id="cb29-2"><a href="profiler-son-code.html#cb29-2" aria-hidden="true" tabindex="-1"></a>pdfval <span class="ot">&lt;-</span> <span class="fu">mvnpdfoptim</span>(<span class="at">x=</span><span class="fu">matrix</span>(<span class="fl">1.96</span>, <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> n), <span class="at">Log=</span><span class="cn">FALSE</span>)</span></code></pre></div>
 <p>Et un petit <code>microbenchmark()</code> :</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1">n &lt;-<span class="st"> </span><span class="dv">1000</span></a>
-<a class="sourceLine" id="cb26-2" data-line-number="2">mb &lt;-<span class="st"> </span><span class="kw">microbenchmark</span>(mvtnorm<span class="op">::</span><span class="kw">dmvnorm</span>(<span class="kw">matrix</span>(<span class="fl">1.96</span>, <span class="dt">nrow =</span> n, <span class="dt">ncol =</span> <span class="dv">2</span>)),</a>
-<a class="sourceLine" id="cb26-3" data-line-number="3">                     <span class="kw">mvnpdf</span>(<span class="dt">x=</span><span class="kw">matrix</span>(<span class="fl">1.96</span>, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">ncol =</span> n), <span class="dt">Log=</span><span class="ot">FALSE</span>),</a>
-<a class="sourceLine" id="cb26-4" data-line-number="4">                     <span class="kw">mvnpdfsmart</span>(<span class="dt">x=</span><span class="kw">matrix</span>(<span class="fl">1.96</span>, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">ncol =</span> n), <span class="dt">Log=</span><span class="ot">FALSE</span>),</a>
-<a class="sourceLine" id="cb26-5" data-line-number="5">                     <span class="kw">mvnpdfoptim</span>(<span class="dt">x=</span><span class="kw">matrix</span>(<span class="fl">1.96</span>, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">ncol =</span> n), <span class="dt">Log=</span><span class="ot">FALSE</span>),</a>
-<a class="sourceLine" id="cb26-6" data-line-number="6">                     <span class="dt">times=</span>100L)</a>
-<a class="sourceLine" id="cb26-7" data-line-number="7">mb</a></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="profiler-son-code.html#cb30-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb30-2"><a href="profiler-son-code.html#cb30-2" aria-hidden="true" tabindex="-1"></a>mb <span class="ot">&lt;-</span> <span class="fu">microbenchmark</span>(mvtnorm<span class="sc">::</span><span class="fu">dmvnorm</span>(<span class="fu">matrix</span>(<span class="fl">1.96</span>, <span class="at">nrow =</span> n, <span class="at">ncol =</span> <span class="dv">2</span>)),</span>
+<span id="cb30-3"><a href="profiler-son-code.html#cb30-3" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">mvnpdf</span>(<span class="at">x=</span><span class="fu">matrix</span>(<span class="fl">1.96</span>, <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> n), <span class="at">Log=</span><span class="cn">FALSE</span>),</span>
+<span id="cb30-4"><a href="profiler-son-code.html#cb30-4" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">mvnpdfsmart</span>(<span class="at">x=</span><span class="fu">matrix</span>(<span class="fl">1.96</span>, <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> n), <span class="at">Log=</span><span class="cn">FALSE</span>),</span>
+<span id="cb30-5"><a href="profiler-son-code.html#cb30-5" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">mvnpdfoptim</span>(<span class="at">x=</span><span class="fu">matrix</span>(<span class="fl">1.96</span>, <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> n), <span class="at">Log=</span><span class="cn">FALSE</span>),</span>
+<span id="cb30-6"><a href="profiler-son-code.html#cb30-6" aria-hidden="true" tabindex="-1"></a>                     <span class="at">times=</span>100L)</span>
+<span id="cb30-7"><a href="profiler-son-code.html#cb30-7" aria-hidden="true" tabindex="-1"></a>mb</span></code></pre></div>
 <pre><code>## Unit: microseconds
 ##                                                            expr      min
-##              mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))  107.590
-##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 5192.101
-##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3847.467
-##  mvnpdfoptim(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 2996.313
-##         lq      mean    median        uq       max neval
-##   193.5715  241.6836  245.1985  269.0365   933.844   100
-##  5383.6460 6352.3905 5845.6275 6379.4235 15051.247   100
-##  3931.5950 4708.6970 4018.3375 4447.8735 21168.562   100
-##  3106.0235 3412.2708 3177.3310 3340.8805  7675.983   100</code></pre>
+##              mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))   72.596
+##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 4941.375
+##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3732.640
+##  mvnpdfoptim(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 2860.118
+##         lq      mean   median       uq      max neval
+##   102.4365  127.4794  124.147  142.829  469.250   100
+##  5159.8165 5479.0987 5241.521 5392.817 9589.730   100
+##  3914.5410 4219.8890 4033.341 4145.319 8025.523   100
+##  3076.2195 3420.8407 3181.880 3264.097 7810.673   100</code></pre>
+<pre><code>## Warning: It is deprecated to specify `guide = FALSE` to remove a guide. Please
+## use `guide = &quot;none&quot;` instead.</code></pre>
 <p><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
 <p>Pour finir on peut profiler la fonction <code>dmvnorm()</code> :</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1">n &lt;-<span class="st"> </span><span class="fl">10e5</span></a>
-<a class="sourceLine" id="cb28-2" data-line-number="2">pdfval &lt;-<span class="st"> </span>mvtnorm<span class="op">::</span><span class="kw">dmvnorm</span>(<span class="kw">matrix</span>(<span class="fl">1.96</span>, <span class="dt">nrow =</span> n, <span class="dt">ncol =</span> <span class="dv">2</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="profiler-son-code.html#cb33-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fl">10e5</span></span>
+<span id="cb33-2"><a href="profiler-son-code.html#cb33-2" aria-hidden="true" tabindex="-1"></a>pdfval <span class="ot">&lt;-</span> mvtnorm<span class="sc">::</span><span class="fu">dmvnorm</span>(<span class="fu">matrix</span>(<span class="fl">1.96</span>, <span class="at">nrow =</span> n, <span class="at">ncol =</span> <span class="dv">2</span>))</span></code></pre></div>
 
 </div>
 </div>
@@ -316,17 +343,18 @@ fonction :</p>
           </div>
         </div>
       </div>
-<a href="mesurer-et-comparer-des-temps-dexecution.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="rcpp-ou-comment-integrer-facilement-du-code-cdans-un-package-r.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="mesurer-et-comparer-des-temps-dexécution.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="rcpp-ou-comment-intégrer-facilement-du-code-cdans-un-package-r.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -334,12 +362,12 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -350,7 +378,19 @@ gitbook.start({
 "link": "https://github.com/sistm/OutilsDvpmtPerfR/blob/master/05-profiling.Rmd",
 "text": "Edit"
 },
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
 "download": ["FormationRavancee_dev_perf.pdf", "FormationRavancee_dev_perf.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }
@@ -364,9 +404,10 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();

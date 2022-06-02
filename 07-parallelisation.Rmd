@@ -2,18 +2,19 @@
 
 ## Introduction à l'execution parallèle sous `R`
 
-En dehors de l'optimisation du code et des algorithmes, une autre façon d'obtenir
-un code performant est de tirer profit des architectures parallèles des ordinateurs
-modernes. Il s'agit alors de **paralléliser** son code afin de faire des opérations
-simultanées sur des parties distinctes d'un même problèmes, en utilisant différent
-cœurs de calcul. On ne réduit pas le temps de calcul total nécessaire, mais l'ensemble 
-des opérations s’exécute plus rapidement.
+En dehors de l'optimisation du code et des algorithmes, une autre façon
+d'obtenir un code performant est de tirer profit des architectures parallèles
+des ordinateurs modernes. Il s'agit alors de **paralléliser** son code afin de
+faire des opérations simultanées sur des parties distinctes d'un même problème,
+en utilisant différent cœurs de calcul. On ne réduit pas le temps de calcul
+total nécessaire, mais l'ensemble des opérations s’exécute plus rapidement.
 
-Il existe un nombre non négligeable d'algorithmes qui sont d'un "parallélisme embarrassant",
-c'est-à-dire dont les calculs peuvent se décomposer en plusieurs sous-calculs indépendants.
-En statistique, il est ainsi souvent facile et direct de paralléliser selon les différentes 
-observations ou selon les différentes dimensions. Typiquement, il s'agit d'opérations que l'on 
-peut écrire sous la forme de boucle dont les opérations sont indépendantes d'une itération de la 
+Il existe un nombre non négligeable d'algorithmes qui sont d'un "parallélisme
+embarrassant", c'est-à-dire dont les calculs peuvent se décomposer en plusieurs
+sous-calculs indépendants. En statistique, il est ainsi souvent facile et direct
+de paralléliser selon les différentes observations ou selon les différentes
+dimensions. Typiquement, il s'agit d'opérations que l'on peut écrire sous la
+forme de boucle dont les opérations sont indépendantes d'une itération de la
 boucle à l'autre.
 
 **Les opérations nécessaires pour l'établissement d'un code parallèle sont les suivantes :**
@@ -32,39 +33,41 @@ boucle à l'autre.
 
 
 Selon les plateformes, plusieurs protocoles de communications sont disponibles
-entre les cœurs. Sous les systèmes UNIX, le protocole *Fork* est le plus utilisé, 
-mais il n'est pas disponible sous Windows où on utilise préférentiellement le protocole
-*PSOCK*. Enfin, pour les architecture de calcul distribuée où les cœurs ne se trouvent
-pas nécessairement sur le même processeur physique, on utilise généralement le protocole 
-*MPI*. L'avantage des packages `parallel` et `doParallel` est que la même syntaxe permettra
-d’exécuter du code en parallèle quelque soit le protocole de communication retenu.
+entre les cœurs. Sous les systèmes UNIX, le protocole *Fork* est le plus
+utilisé, mais il n'est pas disponible sous Windows où on utilise
+préférentiellement le protocole *PSOCK*. Enfin, pour les architecture de calcul
+distribuée où les cœurs ne se trouvent pas nécessairement sur le même processeur
+physique, on utilise généralement le protocole *MPI*. L'avantage des packages
+`future` et `future.apply` est que le même code pourra être exécuté quelque soit
+la configuration matérielle.
 
-Il existe un nombre important de packages et d'initiatives permettant de faire du calcul en R. 
-Depuis `R 2.14.0`, le package [`parallel`](https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf) 
-est inclus directement dans `R` et permet de démarrer et d'arrêter un "cluster" 
-de plusieurs processus travailleur (étape 1). En plus du package `parallel`, on va 
-donc utiliser le package `doParallel` qui permet de gérer les processus travailleurs 
-et la communication (étapes 1) et l'articulation avec le package `foreach`qui permet 
-lui de gérer le dialogue avec les travailleurs (envois, réception et rassemblement 
-des résultats - étapes 2, 3, 4 et 5).
+Il existe un nombre important de packages et d'initiatives permettant de faire
+du calcul en R. Depuis `R 2.14.0`, le package
+[`parallel`](https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf)
+est inclus directement dans `R` et permet de démarrer et d'arrêter un "cluster"
+de plusieurs processus travailleur (étape 1 et 6). En plus du package
+`parallel`, on va donc utiliser le package `future` qui permet de gérer les
+processus travailleurs et la communication et l'articulation avec le package
+`future.apply`qui permet lui de gérer le dialogue avec les travailleurs (envois,
+réception et rassemblement des résultats - étapes 2, 3, 4 et 5).
 
 ## Première fonction parallèle en `R`
 
 > ***À vous de jouer !***
 >
-> On va commencer par écrire une fonction simple qui calcule le logarithme $n$ nombres:
+> Commencez par écrire une fonction simple qui calcule le logarithme de $n$
+nombres:
 >
->  1. Déterminez combien de coeurs sont disponibles sur votre marchine grâce à la fonction 
-`parallel::detectCores()`.
+>  1. Déterminez combien de coeurs sont disponibles sur votre marchine grâce à
+la fonction `future::availableCores()`.
 >
->  2. À l'aide de la fonction `parallel::makeCluster()`, créez un cluster de coeur 
-(en prenant garde à **laisser un coeur disponible** pour traiter les autres processus) et 
-déclarer ce cluser via la fonction `doParallel::registerDoParallel()`.
+>  2. À l'aide de la fonction `future::plan(multisession(workers = XX))`,
+déclarez un "plan" de calculs parallèles sur votre ordinateur (en prenant garde
+à **laisser un coeur disponible** pour traiter les autres processus).
 >
->  3. À l'aide de l'opérateur `%dopar%` du package `foreach`, calculez le log des $n$ nombres en 
-parallèle et concaténer les résultats dans un vecteur.
->
->  4. Fermez enfin les connections de votre cluster  via la fonction `parallel::stopCluster(cl)`.
+>  3. À l'aide d'une fonction de type apply `future.apply::future_*apply()`,
+calculez le log des $n$ nombres en parallèle et concaténez les résultats dans un
+vecteur.
 >
 >  5. Comparez le temps d'éxecution avec celui d'une fonction séquentielle
 sur les 100 premiers entiers, grâce à la commande :  
@@ -73,20 +76,7 @@ sur les 100 premiers entiers, grâce à la commande :
 
 ```{r echo = TRUE, message = FALSE, cache=TRUE}
 library(microbenchmark)
-library(parallel)
-library(foreach)
-library(doParallel)
-
-log_par <- function(x){
-  Ncpus <- parallel::detectCores() - 1
-  cl <- parallel::makeCluster(Ncpus)
-  doParallel::registerDoParallel(cl)
-  res <- foreach(i=1:length(x), .combine='c') %dopar% {
-    log(x[i])
-  }
-  parallel::stopCluster(cl)
-  return(res)
-}
+library(future.apply)
 
 log_seq <- function(x){
   # try this yourself (spoiler alert: it is quite long...):
@@ -98,25 +88,27 @@ log_seq <- function(x){
   return(log(x))
 }
 
-mb <- microbenchmark(log_par(1:100), log_seq(1:100), times=50)
+log_par <- function(x){
+  res <- future_sapply(1:length(x), FUN = function(i) {
+    log(x[i])
+  })
+  return(res)
+}
+
+plan(multisession(workers = 3))
+mb <- microbenchmark(log_par(1:100), log_seq(1:100), times = 50)
 ```
 
 
 ```{r, echo=FALSE, eval =FALSE}
-log_par_iter <- function(x){
-  Ncpus <- parallel::detectCores() - 1
-  cl <- parallel::makeCluster(Ncpus)
-  doParallel::registerDoParallel(cl)
-  iter <- itertools::isplitIndices(n=length(x), chunks=Ncpus)
-  res <- foreach(i=iter, .combine='c') %dopar% {
+log_parIter <- function(x, ncores = 1){
+  iter <- itertools::isplitIndices(n=length(x), chunks=ncores)
+  res <- future_sapply(iter, FUN = function(i) {
     log(x[i])
-  }
-  
-  parallel::stopCluster(cl)
-  
-  return(res)
+  })
+  return(unlist(res))
 }
-mb <- microbenchmark(log_par(1:100), log_par_iter(1:100), log_seq(1:100), times=50)
+mb <- microbenchmark(log_par(1:100), log_parIter(1:100), times=50)
 ```
 
 
@@ -129,7 +121,7 @@ for(i in rangeTime){
     brk <- c(brk, seq(from = 10^i, to = 10^(i+1), by=10^i))
 }
 ggplot(data2plot) + geom_violin(aes(x=Expression, y=Time, fill=Expression), alpha=0.8)  +
-  scale_fill_manual(guide=FALSE, values=viridis::viridis(6)[1:4]) + 
+  scale_fill_manual(guide="none", values=viridis::viridis(6)[1:4]) + 
   scale_y_log10(minor_breaks=brk) + 
   ylab("Log-temps de calcul (milli-sec)") +
   xlab("Expression évaluée") +
@@ -137,21 +129,22 @@ ggplot(data2plot) + geom_violin(aes(x=Expression, y=Time, fill=Expression), alph
   ggtitle("Spoiler alert")
 ```
 
-La version parallèle tourne beaucoup plus lentement... Car en fait, si les tâches individuelles 
-sont trop rapides, `R` va passer plus de temps à communiquer avec les cœurs, 
-qu'à faire les calculs effectifs.
+La version parallèle tourne beaucoup plus lentement... Car en fait, si les
+tâches individuelles sont trop rapides, `R` va passer plus de temps à
+communiquer avec les cœurs, qu'à faire les calculs effectifs.
 
-**Il faut qu'une itération de la boucle soit relativement longue pour 
-que le calcul parallèle apporte un gain en temps de calcul !**
+**Il faut qu'une itération de la boucle soit relativement longue pour que le
+calcul parallèle apporte un gain en temps de calcul !**
 
-En augmentant $n$, on observe une réduction de la différence entre les 2 implémentations
-(le temps de calcul en parallèle augmente très lentement comparé à l'augmentation de celui de la 
-fonction séquentielle).
+En augmentant $n$, on observe une réduction de la différence entre les 2
+implémentations (le temps de calcul en parallèle augmente très lentement comparé
+à l'augmentation de celui de la fonction séquentielle).
 
-**NB : ** les itérateurs d'`itertools` sont très performants mais ne peuvent servir 
-que lorsque le code à l'intérieur du foreach est vectorisé (il est toujours 
-possible de vectoriser le code à l'intérieur, par exemple avec une fonction de type 
-`apply`). Ils minimisent le nombre de communication entre les coeurs.
+**NB :** les itérateurs d'`itertools` sont très performants mais ne peuvent
+servir que lorsque le code à l'intérieur de `future_*apply()` est vectorisé (il
+est toujours possible de vectoriser le code à l'intérieur, par exemple avec une
+fonction de type `apply`). Ils minimisent le nombre de communication entre les
+coeurs.
 
 
 
@@ -159,16 +152,18 @@ possible de vectoriser le code à l'intérieur, par exemple avec une fonction de
 ## Parallélisation efficace
 
 On va maintenant se pencher sur un autre cas d'utilisation. Imaginons que l'on
-ait un grand tableau de données de taille comportant 10 observations pour 100 000 
-variables (e.g. des mesures de génomique), et que l'on veuille calculer
-la médiane pour chacune de ces variables.
+ait un grand tableau de données de taille comportant 10 observations pour 100
+000 variables (e.g. des mesures de génomique), et que l'on veuille calculer la
+médiane pour chacune de ces variables.
+
 ```{r}
-x <- matrix(rnorm(1e6), nrow=10)
+x <- matrix(rnorm(1e6), nrow = 10)
 dim(x)
 ```
 
 Pour un utilisateur averti de `R`, une telle opération se programme facilement 
-à l'aide de la fonction `apply` :  
+à l'aide de la fonction `apply` :
+
 ```{r}
 colmedian_apply <- function(x){
   return(apply(x, 2, median))
@@ -176,22 +171,26 @@ colmedian_apply <- function(x){
 system.time(colmedian_apply(x))
 ```
 
-En réalité, une boucle `for` n'est pas plus lente à condition d'être bien programmée :
-```{r, cache=TRUE}
+En réalité, une boucle `for` n'est pas plus lente à condition d'être bien 
+programmée :
+
+```{r}
 colmedian_for <- function(x){
   ans <- rep(0, ncol(x)) 
   for (i in 1:ncol(x)) {
-    ans[i] <- median(x[,i]) 
+    ans[i] <- median(x[, i]) 
   }
+  return(ans)
 }
 system.time(colmedian_for(x))
-microbenchmark(colmedian_apply(x), colmedian_for(x), times=20)
 ```
 
+
+
 >***À vous de jouer !***  
-> Essayons d'améliorer encore ce temps de calcul en parallélisant :
+> Essayez d'améliorer encore ce temps de calcul en parallélisant :
 >
->  1 . Parallélisez le calcul de la médiane de chacune des 100 000 variables. 
+>  1. Parallélisez le calcul de la médiane de chacune des 100 000 variables. 
 Observe-t-on un gain en temps de calcul ?
 >  
 >  2. Proposez une implémentation alternative grâce à la fonction 
@@ -201,59 +200,27 @@ calcul.
 
 ```{r, error=TRUE, cache=TRUE}
 colmedian_par <- function(x){
-  Ncpus <- parallel::detectCores() - 1
-  cl <- parallel::makeCluster(Ncpus)
-  doParallel::registerDoParallel(cl)
-  
-  res <- foreach::foreach(i=1:ncol(x), .combine='c')%dopar%{
-          return(median(x[,i]))
-  }
-  
-  parallel::stopCluster(cl)
+  res <- future_sapply(1:ncol(x), FUN = function(i) {
+          median(x[, i])
+    })
   return(res)
 }
+plan(multisession(workers = 3))
 system.time(colmedian_par(x))
 
-library(itertools)
-colmedian_parIter <- function(x){
-  Ncpus <- parallel::detectCores() - 1
-  cl <- parallel::makeCluster(Ncpus)
-  doParallel::registerDoParallel(cl)
-  
-  iter <- itertools::isplitIndices(n=ncol(x), chunks = Ncpus)
-  res <- foreach::foreach(i=iter, .combine='c')%dopar%{
-          return(apply(x[, i], 2, median))
-  }
-  
-  parallel::stopCluster(cl)
-  return(res)
+colmedian_parIter <- function(x, ncores = 1){
+  iter <- itertools::isplitIndices(n = ncol(x), chunks = ncores)
+  res <- future_sapply(iter, FUN = function(i) {
+          apply(x[, i], 2, median)
+    })
+  return(unlist(res))
 }
-system.time(colmedian_parIter(x))
+system.time(colmedian_parIter(x, ncores = 3))
 
-colmedian_parIterFor <- function(x){
-  
-  Ncpus <- parallel::detectCores() - 1
-  cl <- parallel::makeCluster(Ncpus)
-  doParallel::registerDoParallel(cl)
-  
-  iter <- itertools::isplitIndices(n=ncol(x), chunks = Ncpus)
-  res <- foreach(i=iter, .combine='c') %dopar% {
-    xtemp <- x[,i]
-    ans <- rep(0, ncol(xtemp)) 
-    for (j in 1:ncol(xtemp)) {
-      ans[j] <- median(xtemp[,j]) 
-    }
-    return(ans)
-  }
-  
-  parallel::stopCluster(cl)
-  return(res)
-}
-system.time(colmedian_parIterFor(x))
 mb <- microbenchmark(colmedian_apply(x), 
-                     colmedian_for(x), 
-                     colmedian_parIter(x),
-                     colmedian_parIterFor(x), times=20)
+                     colmedian_for(x),
+                     colmedian_par(x),
+                     colmedian_parIter(x, ncores = 3), times = 10)
 mb
 ```
 
@@ -266,7 +233,7 @@ for(i in rangeTime){
     brk <- c(brk, seq(from = 10^i, to = 10^(i+1), by=10^i))
 }
 ggplot(data2plot) + geom_violin(aes(x=Expression, y=Time, fill=Expression), alpha=0.8)  +
-  scale_fill_manual(guide=FALSE, values=viridis::viridis(6)[1:4]) + 
+  scale_fill_manual(guide="none", values=viridis::viridis(6)[1:4]) + 
   #scale_y_log10(minor_breaks=brk) + 
   ylab("Temps de calcul (sec)") +
   xlab("Expression évaluée") +
@@ -276,14 +243,16 @@ ggplot(data2plot) + geom_violin(aes(x=Expression, y=Time, fill=Expression), alph
                                                   "coeurs disponibles pour la parallélisation"))
 ```
 
+### Les itérateurs
+
 Le package `itertools` permet de séparer facilement des données ou des 
-taches (étape 3) tout en minimisant les communiquations avec les différents 
+taches (étape 3) tout en minimisant les communications avec les différents 
 travailleurs. Il s'appuie sur une implémentation des itérateurs en `R`. 
-Son utilisation nécessite néanmoins de vectoriser le code à l'intérieur du
-`foreach`. Expérimentez avec le petit code ci-dessous : 
+Son utilisation nécessite néanmoins de vectoriser le code à l'intérieur de
+`future_*apply()`. Expérimentez avec le petit code ci-dessous : 
 
 ```{r, error = TRUE}
-myiter <- itertools::isplitIndices(n=30, chunks = 3)
+myiter <- itertools::isplitIndices(n = 30, chunks = 3)
 
 # Une première fois
 iterators::nextElem(myiter)
@@ -296,22 +265,39 @@ iterators::nextElem(myiter)
 ```
 
 
+### Les autres "plans" de calculs parallèle
+
+Pour exécuter votre code (exactement le même code, c'est un des avantages
+du packages de la famille `future*`), vous devez régler un "plan" de calculs :
+
+- sur un ordinateur (ou un unique serveur de calcul) sous Unix (Linux, Mac OS),
+vous pouvez utiliser `plan(multicore(workers = XX))` qui est souvent plus
+performant. Le plan multisession fonctionne toujours.
+
+- sur un cluster de calculs (type Avakas à Bordeaux), nous renvoyons au package
+[`future.batchtools`](https://cran.r-project.org/web/packages/future.batchtools/vignettes/future.batchtools.html)
+
+
+
 ## Parallélisation dans notre exemple fil rouge
 
 >***À vous de jouer !***
 >
->  1 . À partir de la fonction `mvnpdfoptim()` et/ou  `mvnpdfsmart()`, proposez 
+>  1. À partir de la fonction `mvnpdfoptim()` et/ou  `mvnpdfsmart()`, proposez 
 une implémentation parallélisant les calculs sur les observations (colonnes de $x$)
 >  
 >  2. Comparez les temps de calcul sur 10 000 observations
 
 
 ```{r, cache=TRUE}
+plan(multisession(workers = 3))
 n <- 10000
-mb <- microbenchmark::microbenchmark(mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2)),
-                                     mvnpdfoptim(x=matrix(1.96, nrow = 2, ncol = n), Log=FALSE),
-                                     mvnpdfoptim_par(x=matrix(1.96, nrow = 2, ncol = n), Log=FALSE),
-                                     times=10L)
+mb <- microbenchmark::microbenchmark(
+  mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2)),
+  mypkgr::mvnpdfoptim(x=matrix(1.96, nrow = 2, ncol = n), Log=FALSE),
+  mypkgr::mvnpdfoptim_par(x=matrix(1.96, nrow = 2, ncol = n), Log=FALSE),
+  mypkgr::mvnpdfoptim_parIter(x=matrix(1.96, nrow = 2, ncol = n), Log=FALSE, ncores = 3),
+  times=20L)
 mb
 ```
 
@@ -325,7 +311,7 @@ for(i in rangeTime){
 }
 levels(data2plot$Expression) <- gsub("mvtnorm::", "", sapply(strsplit(levels(data2plot$Expression), "(", fixed=T), "[", 1))
 ggplot(data2plot) + geom_violin(aes(x=Expression, y=Time, fill=Expression), alpha=0.8)  +
-  scale_fill_manual(guide=FALSE, values=viridis::viridis(6)[1:4]) + 
+  scale_fill_manual(guide="none", values=viridis::viridis(6)[1:4]) + 
   scale_y_log10(minor_breaks=brk) + 
   ylab("Log-temps de calcul (milli-sec)") +
   xlab("Expression évaluée") +
@@ -334,12 +320,11 @@ ggplot(data2plot) + geom_violin(aes(x=Expression, y=Time, fill=Expression), alph
 ```
 
 
-
-
 ## Conclusion
 
-La parallélisation permet de gagner du temps, mais il faut d'abord bien optimiser
-son code. Quand on parallélise un code, le gain sur la durée d’exécution dépend avant tout du ratio 
-entre le temps de communication et le temps de calcul effectif pour chaque tache.
+La parallélisation permet de gagner du temps, mais il faut d'abord bien
+optimiser son code. Quand on parallélise un code, le gain sur la durée
+d’exécution dépend avant tout du ratio entre le temps de communication et le
+temps de calcul effectif pour chaque tache.
 
 
