@@ -50,25 +50,23 @@ contributeurs travaillent simultanément sur la même version du code).
 ## Utiliser `git` localement depuis RStudio
 
 > ***A vous de jouer !***  
->
+> 
   1. Commencez par activer `git` depuis l'onglet "Git/SVN" de "Project Options" 
-  situé dans le menu "Tools" et suivre les instructions.
+  situé dans le menu "Tools" et suivre les instructions. Vous pouvez aussi
+  utilisé `usethis::use_git()`
 >  
   2. À partir de l'onglet "Git" maintenant apparu à côté de l'onglet "Build", 
-  enregistrer l'état actuel de votre package en réalisant votre premier "commit"
->  
-  3. à partir de l'onglet "Git" maintenant apparu à côté de l'onglet "Build", 
   enregistrer l'état actuel de votre package en réalisant votre premier "commit" :
  >     
-      - 3a. sélectionner les fichiers à suivre (ne pas sélectionner le fichier .Rproj)
+      - 2a. sélectionner les fichiers à suivre (ne pas sélectionner le fichier .Rproj)
  >     
-      - 3b. écrire un message informatif (pour vos collaborateurs - ce qui inclut votre futur vous)
+      - 2b. écrire un message informatif (pour vos collaborateurs - ce qui inclut votre futur vous)
  >     
-      - 3c. cliquer sur "Commit"
+      - 2c. cliquer sur "Commit"
 >     
-  4. ajouter une ligne "*.Rproj" au fichier ".gitignore" et effectuez un nouveau commit
+  3. Ajouter une ligne "*.Rproj" au fichier ".gitignore" et effectuez un nouveau commit
 >  
-  5. visualiser les changements et leur historique à l'aide des outils de visualisation 
+  4. Visualiser les changements et leur historique à l'aide des outils de visualisation 
   "Diff" et "History" accessible depuis l'onglet "Git"
   
   
@@ -121,24 +119,23 @@ Les avantages d'utiliser GitHub :
 
 > ***A vous de jouer !***  
 >
-  1. rendez vous sur le site [https://github.com/](https://github.com/) et créez vous un compte
+  1. Rendez-vous sur le site [https://github.com/](https://github.com/) et créez vous un compte
   GitHub (si vous hésitez, une convention courante est d'utiliser *prénomnom* comme nom d'utilisateur)
 >  
-  2. ouvrez le client "GitHub desktop" sur votre machine et connectez vous à votre compte 
-  GitHub.
+  2. Vous pouvez ensuite soit utiliser le client "GitHub desktop" installé sur votre machine en vous connectant au compte GitHub et en suivant les instructions 3 et 4 suivantes, soit utiliser `usethis::use_github()` et vous laisser guider.
 >  
-  3. ajouter un nouveau projet local en cliquant sur l'icone "+" en haut à gauche de 
+  3. Ajouter un nouveau projet local en cliquant sur l'icone "+" en haut à gauche de 
   la fenêtre du client, puis en choississant "Add" et en rentrant le chemin du dossier 
   où se trouve le code de votre package.
 >  
-  4. une fois le repertoire créer en local, publiez le sur GitHub en cliquant sur "Publish"
+  4. Une fois le repertoire créer en local, publiez le sur GitHub en cliquant sur "Publish"
   en haut à droite de la fenêtre du client. Vérifiez sur le site de GitHub que votre 
   code à bien été *uploadé* avec les 2 commits précédents.
 >  
   5. Ajouter un fichier "README.Rmd" à votre package afin de disposer d'une belle page 
   d'accueil sur GitHub :
 >  
-    - 5a. dans RStudio, executez la commande `devtools::use_readme_rmd()`
+    - 5a. dans RStudio, executez la commande `usethis::use_readme_rmd()`
 >  
     - 5b. à l'aide de l'outilds "Diff" de l'onglet "Git" de RStudio, étudier
     les changements opérer par la commande précédente
@@ -281,10 +278,9 @@ le pouvez (i.e. en avez les capacités et le temps).
 
 > ***A vous de jouer !***  
 >
-  1. Utilisez `devtools::use_github_links()` afin d'ajouter les 2 lignes suivantes au fichier `DESCRIPTION` de votre package  
+  1. Utilisez `usethis::use_github_links()` afin d'ajouter les 2 lignes suivantes au fichier `DESCRIPTION` de votre package  
 `URL: http://github.com/*prenom.nom*/mypkg`  
-`BugReports: http://github.com/*prenom.nom*/mypkg/issues`  
->grâce à la fonction `devtools::use_github_links()`
+`BugReports: http://github.com/*prenom.nom*/mypkg/issues`
 >
   2. Visualisez les nouveau changements, puis *commitez* les.
 >
@@ -306,69 +302,84 @@ Une autre raison d'utiliser l'intégration continue est qu'elle permet de tester
 des infrastructures différentes de la votre (e.g. Windows, Ubuntu, Mac OS) et pour différentes 
 versions de `R` (*current*, *devel*...)
 
-### Travis CI
+### Github actions
 
-Travis est un service d'intégration continue (*Continuous Integration*), qui permet de *checker*
-votre package à chaque *commit* sous Ubuntu. La commande `devtools::use_travis()` initialise 
-le fichier de configuration `.travis.yml` nécessaire.
+Les Github actions permettent de lancer des actions automatiquement à chaque fois que vous pushez sur github. La commande `usethis::use_github_action_check_standard()` permet d'initialiser les Github actions et d'ajouter l'action de check du package.
 
-> ***A vous de jouer !***  
+> ***A vous de jouer !***
 >
-  1. Rendez vous sur le site [https://travis-ci.org/](https://travis-ci.org/) et créez vous un compte
-  associé à votre GitHub en cliquant sur le bouton "SignIn with GitHub" en haut à droite.
+  1. Executez la commande `usethis::use_github_action_check_standard()` et *commitez* les changements et regardez ce
+  qu'il se passe sur page github
 >
-  2. Activez votre repertoire `mypkg` sur Travis 
->
-  3. executez la commande `devtools::use_travis()` et *commitez* les changements et regardez ce 
-  qu'il se passe sur votre page Travis
-> 
-  4. ajouter un joli badge à votre README.md grâce au code suivant (obtenu dans la console R) :  
-`[![Travis-CI Build Status](https://travis-ci.org/*prenomnom*/mypkgr.svg?branch=master)](https://travis-ci.org/*prenomnom*/mypkgr)`  
-et *commitez les changements*
-
-Travis permet également de tester votre package sous Mac OS (même si ce service est parfois moins 
-stable).  
-
-> 
-  5. Ajoutez les lignes suivantes dans le fichier de configuration `.travis.yml` :  
-```{r eval=FALSE}
-r: 
- - release
- - devel
-os:
- - linux
- - osx
-```
-
-N'hésitez pas à aller visiter les pages de packages connus sur GitHub pour observer comment ils
-configurent leur fichier `.travis.yml`.
-
-
-### Appveyor
-
-Appveyor est l'analogue de Travis CI mais pour Windows.
-
-> ***A vous de jouer !***  
->
-  1. Rendez vous sur le site [https://ci.appveyor.com/](https://ci.appveyor.com/) et créez vous un compte
-  associé à votre GitHub en cliquant sur le bouton "GitHub" pour le *Login*
->
-  2. Ajoutez votre repertoire `mypkgr` sur Appveyor en cliquant sur "+ New project" en haut à gauche,
-  puis en selectionnant GitHub et mypkgr dans le menu.
->
-  3. Executez la commande `devtools::use_appveyor()` et *commitez* les changements et regardez ce 
-  qu'il se passe sur votre page Appveyor
-> 
-  4. ajouter un joli badge à votre README.md grâce au code suivant (obtenu dans la console R) :  
-`[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/*prenomnom*/mypkgr?branch=master&svg=true)](https://ci.appveyor.com/project/*prenomnom*/mypkgr)`
+  2. Ajouter un badge à votre README.md grâce au code obtenu dans la console R
 et *commitez les changements*
 
 
+N'hésitez pas à consulter la page suivantes qui renseigne sur les différentes github actions pour les pacakges : [https://github.com/r-lib/actions/blob/v1/examples/README.md](https://github.com/r-lib/actions/blob/v1/examples/README.md)
 
-### R-hub
+<!-- ### Travis CI -->
 
-Le *R consortium* met à disposition le [R-hub builder](https://www.r-consortium.org/blog/2016/06/06/first-public-version-of-the-r-hub-builder),
-et a pour ambition de bientôt proposer un service d'intégration continue spécialement dédié aux packages `R`.
+<!-- Travis est un service d'intégration continue (*Continuous Integration*), qui permet de *checker* -->
+<!-- votre package à chaque *commit* sous Ubuntu. La commande `devtools::use_travis()` initialise  -->
+<!-- le fichier de configuration `.travis.yml` nécessaire. -->
+
+<!-- > ***A vous de jouer !***   -->
+<!-- > -->
+<!--   1. Rendez vous sur le site [https://travis-ci.org/](https://travis-ci.org/) et créez vous un compte -->
+<!--   associé à votre GitHub en cliquant sur le bouton "SignIn with GitHub" en haut à droite. -->
+<!-- > -->
+<!--   2. Activez votre repertoire `mypkg` sur Travis  -->
+<!-- > -->
+<!--   3. Executez la commande `usethis::use_travis()` et *commitez* les changements et regardez ce  -->
+<!--   qu'il se passe sur votre page Travis -->
+<!-- >  -->
+<!--   4. ajouter un joli badge à votre README.md grâce au code suivant (obtenu dans la console R) :   -->
+<!-- `[![Travis-CI Build Status](https://travis-ci.org/*prenomnom*/mypkgr.svg?branch=master)](https://travis-ci.org/*prenomnom*/mypkgr)`   -->
+<!-- et *commitez les changements* -->
+
+<!-- Travis permet également de tester votre package sous Mac OS (même si ce service est parfois moins  -->
+<!-- stable).   -->
+
+<!-- >  -->
+<!--   5. Ajoutez les lignes suivantes dans le fichier de configuration `.travis.yml` :   -->
+<!-- ```{r eval=FALSE} -->
+<!-- r:  -->
+<!--  - release -->
+<!--  - devel -->
+<!-- os: -->
+<!--  - linux -->
+<!--  - osx -->
+<!-- ``` -->
+
+<!-- N'hésitez pas à aller visiter les pages de packages connus sur GitHub pour observer comment ils -->
+<!-- configurent leur fichier `.travis.yml`. -->
+
+
+<!-- ### Appveyor -->
+
+<!-- Appveyor est l'analogue de Travis CI mais pour Windows. -->
+
+<!-- > ***A vous de jouer !***   -->
+<!-- > -->
+<!--   1. Rendez vous sur le site [https://ci.appveyor.com/](https://ci.appveyor.com/) et créez vous un compte -->
+<!--   associé à votre GitHub en cliquant sur le bouton "GitHub" pour le *Login* -->
+<!-- > -->
+<!--   2. Ajoutez votre repertoire `mypkgr` sur Appveyor en cliquant sur "+ New project" en haut à gauche, -->
+<!--   puis en selectionnant GitHub et mypkgr dans le menu. -->
+<!-- > -->
+<!--   3. Executez la commande `devtools::use_appveyor()` et *commitez* les changements et regardez ce  -->
+<!--   qu'il se passe sur votre page Appveyor -->
+<!-- >  -->
+<!--   4. ajouter un joli badge à votre README.md grâce au code suivant (obtenu dans la console R) :   -->
+<!-- `[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/*prenomnom*/mypkgr?branch=master&svg=true)](https://ci.appveyor.com/project/*prenomnom*/mypkgr)` -->
+<!-- et *commitez les changements* -->
+
+
+
+<!-- ### R-hub -->
+
+<!-- Le *R consortium* met à disposition le [R-hub builder](https://www.r-consortium.org/blog/2016/06/06/first-public-version-of-the-r-hub-builder), -->
+<!-- et a pour ambition de bientôt proposer un service d'intégration continue spécialement dédié aux packages `R`. -->
 
 
 
@@ -381,14 +392,7 @@ d'un code et donne confiance à ses utilisateurs potentiels.
 
 > ***A vous de jouer !***  
 >
-  1. Executez la commande `devtools::use_appveyor()`,  ajouter un joli badge à votre README.md grâce
-  au code suivant (obtenu dans la console R) :  
-  `[![Coverage Status](https://img.shields.io/codecov/c/github/*prenomnom*/mypkgr/master.svg)](https://codecov.io/github/*prenomnom*/mypkgr?branch=master)`  
-  Et ajouter au fichier `.travis.yml`:
-```{r eval=FALSE}
-after_success:
-  - Rscript -e 'covr::codecov()'
-```
+  1. Executez la commande `usethis::use_coverage()`,  ajouter un joli badge à votre README.md grâce au code obtenu dans la console R
 
 >  
   2. *Commitez* ces changements.

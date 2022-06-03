@@ -6,9 +6,9 @@ tester-le-package-de-manière-intéractive
 tester-le-package-de-manière-automatique
 faire-un-check-du-package
 installer-le-package
-annexe-1.1-ajouter-dune-méthode-s3
+annexe-1.1-ajouter-une-méthode-s3
 annexe-1.2-soumettre-son-package-au-cran
-contrôle-de-version-avec-git-et-github-hitorique-de-changement
+contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue
 principe-du-contrôle-de-version
 git
 subversion
@@ -24,9 +24,7 @@ fork
 pull-request
 issues
 intégration-continue
-travis-ci
-appveyor
-r-hub
+github-actions
 annexe-2.1-couverture-du-code
 mesurer-et-comparer-des-temps-dexécution
 mesurer-des-temps-dexécution-avec-system.time
