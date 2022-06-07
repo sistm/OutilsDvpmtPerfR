@@ -25,6 +25,7 @@ pull-request
 issues
 intégration-continue
 github-actions
+r-hub
 annexe-2.1-couverture-du-code
 mesurer-et-comparer-des-temps-dexécution
 mesurer-des-temps-dexécution-avec-system.time

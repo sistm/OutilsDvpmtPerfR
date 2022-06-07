@@ -4,6 +4,7 @@
 .Rproj.user
 .Rhistory
 temp.Rmd
+*.DS_Store
 *.tex
 *_cache
 *_bookdown_files/

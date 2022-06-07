@@ -23,7 +23,7 @@
 <meta name="author" content="Robin Genuer et Boris Hejblum" />
 
 
-<meta name="date" content="2022-06-03" />
+<meta name="date" content="2022-06-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -175,7 +175,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="2.5" data-path="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html"><a href="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html#intégration-continue"><i class="fa fa-check"></i><b>2.5</b> Intégration continue</a>
 <ul>
-<li class="chapter" data-level="2.5.1" data-path="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html"><a href="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html#github-actions"><i class="fa fa-check"></i><b>2.5.1</b> Github actions</a></li>
+<li class="chapter" data-level="2.5.1" data-path="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html"><a href="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html#github-actions"><i class="fa fa-check"></i><b>2.5.1</b> <em>GitHub Actions</em></a></li>
+<li class="chapter" data-level="2.5.2" data-path="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html"><a href="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html#r-hub"><i class="fa fa-check"></i><b>2.5.2</b> R-hub</a></li>
 </ul></li>
 <li class="chapter" data-level="2.6" data-path="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html"><a href="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html#annexe-2.1-couverture-du-code"><i class="fa fa-check"></i><b>2.6</b> Annexe 2.1 : couverture du code</a></li>
 </ul></li>
@@ -270,11 +271,11 @@ fine ce qui prend du temps dans notre fonction.</p>
 <span id="cb21-5"><a href="profiler-son-code.html#cb21-5" aria-hidden="true" tabindex="-1"></a>mb</span></code></pre></div>
 <pre><code>## Unit: milliseconds
 ##                                                            expr      min
-##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 4.851827
-##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3.717443
-##        lq     mean   median       uq       max neval
-##  5.002038 5.498930 5.074198 5.267846  9.534286   100
-##  3.912065 4.313602 3.970318 4.029818 12.750337   100</code></pre>
+##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 4.076874
+##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3.073185
+##        lq     mean   median       uq      max neval cld
+##  4.893137 5.998156 5.141924 6.389890 21.46039   100   b
+##  3.475643 3.780200 3.764268 3.839279 13.09866   100  a</code></pre>
 <pre><code>## Warning: It is deprecated to specify `guide = FALSE` to remove a guide. Please
 ## use `guide = &quot;none&quot;` instead.</code></pre>
 <p><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
@@ -287,13 +288,13 @@ fine ce qui prend du temps dans notre fonction.</p>
 <span id="cb24-6"><a href="profiler-son-code.html#cb24-6" aria-hidden="true" tabindex="-1"></a>mb</span></code></pre></div>
 <pre><code>## Unit: microseconds
 ##                                                            expr      min
-##              mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))   65.769
-##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 4739.710
-##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3687.112
-##         lq     mean    median       uq      max neval
-##    79.3705  115.301  105.3765  131.740  424.453   100
-##  4841.4640 5267.371 4903.1115 5014.280 9884.085   100
-##  3734.3435 4008.874 3781.4025 3867.206 7612.846   100</code></pre>
+##              mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))   62.498
+##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 4246.703
+##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3202.743
+##        lq      mean    median       uq       max neval cld
+##    84.077  108.1276  110.3375  126.303   194.793   100 a  
+##  4974.164 5797.1226 5113.8840 5258.858 13368.359   100   c
+##  3548.608 3793.4547 3798.8340 3898.847  7118.741   100  b</code></pre>
 <pre><code>## Warning: It is deprecated to specify `guide = FALSE` to remove a guide. Please
 ## use `guide = &quot;none&quot;` instead.</code></pre>
 <p><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
@@ -318,15 +319,15 @@ fonction :</p>
 <span id="cb28-7"><a href="profiler-son-code.html#cb28-7" aria-hidden="true" tabindex="-1"></a>mb</span></code></pre></div>
 <pre><code>## Unit: microseconds
 ##                                                            expr      min
-##              mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))   70.413
-##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 4854.195
-##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3748.463
-##  mvnpdfoptim(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 2868.992
-##        lq      mean   median        uq      max neval
-##    88.307  117.7733  117.330  131.5535  412.264   100
-##  5002.996 5254.5454 5075.145 5146.0450 9595.496   100
-##  3923.424 4173.2014 3982.950 4038.9160 8201.590   100
-##  3053.129 3343.9608 3122.930 3206.3250 7731.286   100</code></pre>
+##              mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))   63.676
+##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 4367.042
+##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3191.183
+##  mvnpdfoptim(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 2403.509
+##        lq     mean    median       uq       max neval  cld
+##    81.727  152.935   95.5255  114.958  5438.278   100 a   
+##  4841.532 5809.991 5088.3075 5498.373 16351.868   100    d
+##  3575.333 3779.259 3748.1150 3832.771 11097.826   100   c 
+##  2672.487 2943.300 2843.1590 2965.386 10037.843   100  b</code></pre>
 <pre><code>## Warning: It is deprecated to specify `guide = FALSE` to remove a guide. Please
 ## use `guide = &quot;none&quot;` instead.</code></pre>
 <p><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>

@@ -23,7 +23,7 @@
 <meta name="author" content="Robin Genuer et Boris Hejblum" />
 
 
-<meta name="date" content="2022-06-03" />
+<meta name="date" content="2022-06-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -175,7 +175,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="2.5" data-path="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html"><a href="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html#intégration-continue"><i class="fa fa-check"></i><b>2.5</b> Intégration continue</a>
 <ul>
-<li class="chapter" data-level="2.5.1" data-path="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html"><a href="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html#github-actions"><i class="fa fa-check"></i><b>2.5.1</b> Github actions</a></li>
+<li class="chapter" data-level="2.5.1" data-path="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html"><a href="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html#github-actions"><i class="fa fa-check"></i><b>2.5.1</b> <em>GitHub Actions</em></a></li>
+<li class="chapter" data-level="2.5.2" data-path="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html"><a href="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html#r-hub"><i class="fa fa-check"></i><b>2.5.2</b> R-hub</a></li>
 </ul></li>
 <li class="chapter" data-level="2.6" data-path="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html"><a href="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html#annexe-2.1-couverture-du-code"><i class="fa fa-check"></i><b>2.6</b> Annexe 2.1 : couverture du code</a></li>
 </ul></li>
@@ -445,12 +446,13 @@ essayez de <em>pusher</em> ces changements.</p></li>
 <li><p>Résolvez le conflit.</p></li>
 </ol>
 </blockquote>
+<p><strong>NB:</strong> Dans la vraie vie, on cherche à éviter cette situation et donc on va toujours <em>puller</em> avant de <em>pusher</em>. Ici, nous faisons volontairement le contraire pour donner un exemple et démystifier les conflits.</p>
 </div>
 <div id="fork" class="section level3 hasAnchor" number="2.4.4">
 <h3><span class="header-section-number">2.4.4</span> <em>Fork</em><a href="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html#fork" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>L’action <em>fork</em> permet de créer une copie qui vous appartient à partir d’un code disponible. Ainsi
 le code original ne sera pas impacté par vos changements. Cela revient à créer une branche, et la
-séparer de l’arbre pour pouvoir en assumer la propriété.</p>
+séparer de l’arbre pour pouvoir en assumer la propriété. On aurait aussi pu appeler cette action une “bouture”…</p>
 <p>Cette action est principalement utile dans le cadre des <em>pull requests</em>.</p>
 </div>
 <div id="pull-request" class="section level3 hasAnchor" number="2.4.5">
@@ -462,8 +464,8 @@ collaborateur. GitHub propose une interface graphique facilitant leur traitement
 <ol style="list-style-type: decimal">
 <li><p>Modifiez le <code>README.Rmd</code> de votre voisin qui n’est pas votre binôme après avoir <em>forké</em> son
 package.</p></li>
-<li><p>Proposez votre changement sous la forme d’une <em>pull request</em>.</p></li>
-<li><p>Acceptez la <em>pull request</em> sur le site de GitHub et faire le <em>merge</em>.</p></li>
+<li><p>Proposez votre changement sous la forme d’une <em>pull request</em> depuis l’onglet “Pull requests” sur la page GitHub du répertoire de votre voisin.</p></li>
+<li><p>Acceptez la <em>pull request</em> de votre voisin sur la page GitHub de votre répertoire, puis faire le <em>merge</em>.</p></li>
 </ol>
 </blockquote>
 </div>
@@ -488,79 +490,25 @@ le pouvez (i.e. en avez les capacités et le temps).</p>
 </div>
 <div id="intégration-continue" class="section level2 hasAnchor" number="2.5">
 <h2><span class="header-section-number">2.5</span> Intégration continue<a href="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html#intégration-continue" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>À chaque changement, à chaque <em>commit</em> donc, il y a la possibilité d’introduire 1 (ou plusieurs)
-bugs qui vont empêcher le package de passer le <em>CRAN check</em>. Si l’on accumule trop de ces bugs,
-au moment de soumettre la nouvelle version, il peut y avoir beaucoup de corrections à apporter.
-C’est d’autant plus frustrant si le package passait le <em>CRAN check</em> auparavant…</p>
-<p>Les services d’intégration continue permettent de <em>checker</em> votre package <strong>automatiquement</strong> après
-chaque <em>commit</em> ! En cas d’échec, vous recevez un mail qui vous en informe. Un certain nombre de ces
-services proposent une offre limitée gratuite pour les projets open-source.</p>
-<p>Une autre raison d’utiliser l’intégration continue est qu’elle permet de tester votre package sur
-des infrastructures différentes de la votre (e.g. Windows, Ubuntu, Mac OS) et pour différentes
-versions de <code>R</code> (<em>current</em>, <em>devel</em>…)</p>
+<p>À chaque changement, à chaque <em>commit</em> donc, il y a la possibilité d’introduire 1 (ou plusieurs) bugs qui vont empêcher le package de passer le <em>CRAN check</em>. Si l’on accumule trop de ces bugs, au moment de soumettre la nouvelle version, il peut y avoir beaucoup de corrections à apporter. C’est d’autant plus frustrant si le package passait le <em>CRAN check</em> auparavant…</p>
+<p>Les services d’intégration continue permettent de <em>checker</em> votre package <strong>automatiquement</strong> après chaque <em>commit</em> ! En cas d’échec, vous recevez un mail qui vous en informe. Un certain nombre de ces services proposent une offre limitée gratuite pour les projets open-source.</p>
+<p>Une autre raison d’utiliser l’intégration continue est qu’elle permet de tester votre package sur des infrastructures différentes de la votre (e.g. Windows, Ubuntu, Mac OS) et pour différentes versions de <svg aria-hidden="true" role="img" viewBox="0 0 581 512" style="height:1em;width:1.13em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M581 226.6C581 119.1 450.9 32 290.5 32S0 119.1 0 226.6C0 322.4 103.3 402 239.4 418.1V480h99.1v-61.5c24.3-2.7 47.6-7.4 69.4-13.9L448 480h112l-67.4-113.7c54.5-35.4 88.4-84.9 88.4-139.7zm-466.8 14.5c0-73.5 98.9-133 220.8-133s211.9 40.7 211.9 133c0 50.1-26.5 85-70.3 106.4-2.4-1.6-4.7-2.9-6.4-3.7-10.2-5.2-27.8-10.5-27.8-10.5s86.6-6.4 86.6-92.7-90.6-87.9-90.6-87.9h-199V361c-74.1-21.5-125.2-67.1-125.2-119.9zm225.1 38.3v-55.6c57.8 0 87.8-6.8 87.8 27.3 0 36.5-38.2 28.3-87.8 28.3zm-.9 72.5H365c10.8 0 18.9 11.7 24 19.2-16.1 1.9-33 2.8-50.6 2.9v-22.1z"/></svg> (<em>current</em>, <em>devel</em>…)</p>
 <div id="github-actions" class="section level3 hasAnchor" number="2.5.1">
-<h3><span class="header-section-number">2.5.1</span> Github actions<a href="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html#github-actions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Les Github actions permettent de lancer des actions automatiquement à chaque fois que vous pushez sur github. La commande <code>usethis::use_github_action_check_standard()</code> permet d’initialiser les Github actions et d’ajouter l’action de check du package.</p>
+<h3><span class="header-section-number">2.5.1</span> <em>GitHub Actions</em><a href="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html#github-actions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Les Github actions permettent de lancer des actions automatiquement à chaque fois que vous pushez sur GitHub La commande <code>usethis::use_github_action_check_standard()</code> permet d’initialiser les <em>Github Actions</em>, et d’ajouter l’action <code>R CMD CHECK</code> du package.</p>
 <blockquote>
 <p><strong><em>A vous de jouer !</em></strong></p>
 <ol style="list-style-type: decimal">
-<li><p>Executez la commande <code>usethis::use_github_action_check_standard()</code> et <em>commitez</em> les changements et regardez ce
-qu’il se passe sur page github</p></li>
-<li><p>Ajouter un badge à votre README.md grâce au code obtenu dans la console R
-et <em>commitez les changements</em></p></li>
+<li><p>Executez la commande <code>usethis::use_github_action_check_standard()</code> et <em>commitez</em> les changements et regardez ce qu’il se passe sur la page GitHub</p></li>
+<li><p>Ajouter un badge à votre README.md grâce au code obtenu dans la console R et <em>commitez ces changements</em></p></li>
 </ol>
 </blockquote>
-<p>N’hésitez pas à consulter la page suivantes qui renseigne sur les différentes github actions pour les pacakges : <a href="https://github.com/r-lib/actions/blob/v1/examples/README.md">https://github.com/r-lib/actions/blob/v1/examples/README.md</a></p>
-<!-- ### Travis CI -->
-<!-- Travis est un service d'intégration continue (*Continuous Integration*), qui permet de *checker* -->
-<!-- votre package à chaque *commit* sous Ubuntu. La commande `devtools::use_travis()` initialise  -->
-<!-- le fichier de configuration `.travis.yml` nécessaire. -->
-<!-- > ***A vous de jouer !***   -->
-<!-- > -->
-<!--   1. Rendez vous sur le site [https://travis-ci.org/](https://travis-ci.org/) et créez vous un compte -->
-<!--   associé à votre GitHub en cliquant sur le bouton "SignIn with GitHub" en haut à droite. -->
-<!-- > -->
-<!--   2. Activez votre repertoire `mypkg` sur Travis  -->
-<!-- > -->
-<!--   3. Executez la commande `usethis::use_travis()` et *commitez* les changements et regardez ce  -->
-<!--   qu'il se passe sur votre page Travis -->
-<!-- >  -->
-<!--   4. ajouter un joli badge à votre README.md grâce au code suivant (obtenu dans la console R) :   -->
-<!-- `[![Travis-CI Build Status](https://travis-ci.org/*prenomnom*/mypkgr.svg?branch=master)](https://travis-ci.org/*prenomnom*/mypkgr)`   -->
-<!-- et *commitez les changements* -->
-<!-- Travis permet également de tester votre package sous Mac OS (même si ce service est parfois moins  -->
-<!-- stable).   -->
-<!-- >  -->
-<!--   5. Ajoutez les lignes suivantes dans le fichier de configuration `.travis.yml` :   -->
-<!-- ```{r eval=FALSE} -->
-<!-- r:  -->
-<!--  - release -->
-<!--  - devel -->
-<!-- os: -->
-<!--  - linux -->
-<!--  - osx -->
-<!-- ``` -->
-<!-- N'hésitez pas à aller visiter les pages de packages connus sur GitHub pour observer comment ils -->
-<!-- configurent leur fichier `.travis.yml`. -->
-<!-- ### Appveyor -->
-<!-- Appveyor est l'analogue de Travis CI mais pour Windows. -->
-<!-- > ***A vous de jouer !***   -->
-<!-- > -->
-<!--   1. Rendez vous sur le site [https://ci.appveyor.com/](https://ci.appveyor.com/) et créez vous un compte -->
-<!--   associé à votre GitHub en cliquant sur le bouton "GitHub" pour le *Login* -->
-<!-- > -->
-<!--   2. Ajoutez votre repertoire `mypkgr` sur Appveyor en cliquant sur "+ New project" en haut à gauche, -->
-<!--   puis en selectionnant GitHub et mypkgr dans le menu. -->
-<!-- > -->
-<!--   3. Executez la commande `devtools::use_appveyor()` et *commitez* les changements et regardez ce  -->
-<!--   qu'il se passe sur votre page Appveyor -->
-<!-- >  -->
-<!--   4. ajouter un joli badge à votre README.md grâce au code suivant (obtenu dans la console R) :   -->
-<!-- `[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/*prenomnom*/mypkgr?branch=master&svg=true)](https://ci.appveyor.com/project/*prenomnom*/mypkgr)` -->
-<!-- et *commitez les changements* -->
-<!-- ### R-hub -->
-<!-- Le *R consortium* met à disposition le [R-hub builder](https://www.r-consortium.org/blog/2016/06/06/first-public-version-of-the-r-hub-builder), -->
-<!-- et a pour ambition de bientôt proposer un service d'intégration continue spécialement dédié aux packages `R`. -->
+<p>N’hésitez pas à consulter la page suivantes qui renseigne sur les différentes <em>GitHub Actions</em> disponibles pour les pacakges <svg aria-hidden="true" role="img" viewBox="0 0 581 512" style="height:1em;width:1.13em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M581 226.6C581 119.1 450.9 32 290.5 32S0 119.1 0 226.6C0 322.4 103.3 402 239.4 418.1V480h99.1v-61.5c24.3-2.7 47.6-7.4 69.4-13.9L448 480h112l-67.4-113.7c54.5-35.4 88.4-84.9 88.4-139.7zm-466.8 14.5c0-73.5 98.9-133 220.8-133s211.9 40.7 211.9 133c0 50.1-26.5 85-70.3 106.4-2.4-1.6-4.7-2.9-6.4-3.7-10.2-5.2-27.8-10.5-27.8-10.5s86.6-6.4 86.6-92.7-90.6-87.9-90.6-87.9h-199V361c-74.1-21.5-125.2-67.1-125.2-119.9zm225.1 38.3v-55.6c57.8 0 87.8-6.8 87.8 27.3 0 36.5-38.2 28.3-87.8 28.3zm-.9 72.5H365c10.8 0 18.9 11.7 24 19.2-16.1 1.9-33 2.8-50.6 2.9v-22.1z"/></svg> : <a href="https://github.com/r-lib/actions/blob/v1/examples/README.md">https://github.com/r-lib/actions/blob/v1/examples/README.md</a></p>
+</div>
+<div id="r-hub" class="section level3 hasAnchor" number="2.5.2">
+<h3><span class="header-section-number">2.5.2</span> R-hub<a href="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html#r-hub" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Le <em>R consortium</em> met à disposition le <a href="https://www.r-consortium.org/blog/2016/06/06/first-public-version-of-the-r-hub-builder">R-hub builder</a>,
+- et a pour ambition de bientôt proposer un service d’intégration continue spécialement dédié aux packages <code>R</code>.</p>
 </div>
 </div>
 <div id="annexe-2.1-couverture-du-code" class="section level2 hasAnchor" number="2.6">

@@ -239,8 +239,7 @@ ggplot(data2plot) + geom_violin(aes(x=Expression, y=Time, fill=Expression), alph
   xlab("Expression évaluée") +
   theme_bw() +
   ylim(0, max(data2plot$Time)) +
-  ggtitle("La parallélisation ça marche !", paste(parallel::detectCores()-1, 
-                                                  "coeurs disponibles pour la parallélisation"))
+  ggtitle("La parallélisation ça marche ! 3 coeurs disponibles pour la parallélisation")
 ```
 
 ### Les itérateurs

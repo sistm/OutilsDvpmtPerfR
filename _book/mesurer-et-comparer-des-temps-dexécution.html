@@ -23,7 +23,7 @@
 <meta name="author" content="Robin Genuer et Boris Hejblum" />
 
 
-<meta name="date" content="2022-06-03" />
+<meta name="date" content="2022-06-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -175,7 +175,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="2.5" data-path="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html"><a href="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html#intégration-continue"><i class="fa fa-check"></i><b>2.5</b> Intégration continue</a>
 <ul>
-<li class="chapter" data-level="2.5.1" data-path="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html"><a href="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html#github-actions"><i class="fa fa-check"></i><b>2.5.1</b> Github actions</a></li>
+<li class="chapter" data-level="2.5.1" data-path="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html"><a href="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html#github-actions"><i class="fa fa-check"></i><b>2.5.1</b> <em>GitHub Actions</em></a></li>
+<li class="chapter" data-level="2.5.2" data-path="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html"><a href="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html#r-hub"><i class="fa fa-check"></i><b>2.5.2</b> R-hub</a></li>
 </ul></li>
 <li class="chapter" data-level="2.6" data-path="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html"><a href="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html#annexe-2.1-couverture-du-code"><i class="fa fa-check"></i><b>2.6</b> Annexe 2.1 : couverture du code</a></li>
 </ul></li>
@@ -248,7 +249,7 @@ afin de pouvoir comparer les temps d’exécution entre différente implémentat
 fonction <code>system.time()</code> comme ceci :</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="mesurer-et-comparer-des-temps-dexécution.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(<span class="fu">mvnpdf</span>(<span class="at">x=</span><span class="fu">matrix</span>(<span class="fu">rep</span>(<span class="fl">1.96</span>, <span class="dv">2</span>), <span class="at">nrow=</span><span class="dv">2</span>, <span class="at">ncol=</span><span class="dv">1</span>), <span class="at">Log=</span><span class="cn">FALSE</span>))</span></code></pre></div>
 <pre><code>## utilisateur     système      écoulé 
-##       0.001       0.000       0.001</code></pre>
+##       0.001       0.001       0.003</code></pre>
 <p>Le problème qui apparaît sur cet exemple est que l’exécution est tellement
 rapide que <code>system.time()</code> affiche <code>0</code> (ou une valeur très proche).
 De plus, on voit qu’il y a une certaine variabilité quand on relance plusieurs
@@ -257,7 +258,7 @@ fois la commande.</p>
 on ne peut pas utiliser <code>system.time()</code> :</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="mesurer-et-comparer-des-temps-dexécution.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(mvtnorm<span class="sc">::</span><span class="fu">dmvnorm</span>(<span class="fu">rep</span>(<span class="fl">1.96</span>, <span class="dv">2</span>)))</span></code></pre></div>
 <pre><code>## utilisateur     système      écoulé 
-##       0.004       0.000       0.004</code></pre>
+##       0.004       0.002       0.010</code></pre>
 <p>On pourrait se dire qu’il faut augmenter la complexité de notre calcul, mais
 il y a mieux : utiliser le package <code>microbenchmark</code> !</p>
 </div>
@@ -273,12 +274,12 @@ commandes et donc va stabiliser le résultat.</p>
 <span id="cb13-4"><a href="mesurer-et-comparer-des-temps-dexécution.html#cb13-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">times=</span>1000L)</span>
 <span id="cb13-5"><a href="mesurer-et-comparer-des-temps-dexécution.html#cb13-5" aria-hidden="true" tabindex="-1"></a>mb</span></code></pre></div>
 <pre><code>## Unit: microseconds
-##                                           expr    min      lq     mean  median
-##                 mvtnorm::dmvnorm(rep(1.96, 2)) 36.903 40.4580 47.78442 42.7085
-##  mvnpdf(x = matrix(rep(1.96, 2)), Log = FALSE) 33.879 37.3105 41.86592 39.1145
-##       uq      max neval
-##  46.4225 2220.385  1000
-##  42.2905  106.154  1000</code></pre>
+##                                           expr    min      lq     mean median
+##                 mvtnorm::dmvnorm(rep(1.96, 2)) 37.529 41.8935 49.21259 48.381
+##  mvnpdf(x = matrix(rep(1.96, 2)), Log = FALSE) 34.670 39.4360 47.86043 45.431
+##       uq     max neval cld
+##  54.8115  179.16  1000   a
+##  50.8410 1859.84  1000   a</code></pre>
 <pre><code>## Warning: It is deprecated to specify `guide = FALSE` to remove a guide. Please
 ## use `guide = &quot;none&quot;` instead.</code></pre>
 <p><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
@@ -292,11 +293,11 @@ cas :</p>
 <span id="cb16-5"><a href="mesurer-et-comparer-des-temps-dexécution.html#cb16-5" aria-hidden="true" tabindex="-1"></a>mb</span></code></pre></div>
 <pre><code>## Unit: microseconds
 ##                                                       expr     min       lq
-##         mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))  62.912 104.8715
-##  mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 474.068 897.1680
-##       mean    median       uq      max neval
-##   159.6901  132.7655  173.855 1742.103   100
-##  1054.4527 1080.7370 1196.169 1656.792   100</code></pre>
+##         mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))  46.745  53.4165
+##  mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 450.776 480.6770
+##       mean   median       uq     max neval cld
+##   58.78664  57.7615  61.9550 158.111   100  a 
+##  514.03432 513.0670 548.4595 605.525   100   b</code></pre>
 <pre><code>## Warning: It is deprecated to specify `guide = FALSE` to remove a guide. Please
 ## use `guide = &quot;none&quot;` instead.</code></pre>
 <p><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>

@@ -23,7 +23,7 @@
 <meta name="author" content="Robin Genuer et Boris Hejblum" />
 
 
-<meta name="date" content="2022-06-03" />
+<meta name="date" content="2022-06-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -175,7 +175,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="2.5" data-path="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html"><a href="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html#intégration-continue"><i class="fa fa-check"></i><b>2.5</b> Intégration continue</a>
 <ul>
-<li class="chapter" data-level="2.5.1" data-path="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html"><a href="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html#github-actions"><i class="fa fa-check"></i><b>2.5.1</b> Github actions</a></li>
+<li class="chapter" data-level="2.5.1" data-path="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html"><a href="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html#github-actions"><i class="fa fa-check"></i><b>2.5.1</b> <em>GitHub Actions</em></a></li>
+<li class="chapter" data-level="2.5.2" data-path="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html"><a href="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html#r-hub"><i class="fa fa-check"></i><b>2.5.2</b> R-hub</a></li>
 </ul></li>
 <li class="chapter" data-level="2.6" data-path="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html"><a href="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html#annexe-2.1-couverture-du-code"><i class="fa fa-check"></i><b>2.6</b> Annexe 2.1 : couverture du code</a></li>
 </ul></li>
@@ -355,7 +356,7 @@ médiane pour chacune de ces variables.</p>
 <span id="cb44-3"><a href="parallélisation-du-code-r.html#cb44-3" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb44-4"><a href="parallélisation-du-code-r.html#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(<span class="fu">colmedian_apply</span>(x))</span></code></pre></div>
 <pre><code>## utilisateur     système      écoulé 
-##       2.893       0.000       2.894</code></pre>
+##       2.701       0.016       2.722</code></pre>
 <p>En réalité, une boucle <code>for</code> n’est pas plus lente à condition d’être bien
 programmée :</p>
 <div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="parallélisation-du-code-r.html#cb46-1" aria-hidden="true" tabindex="-1"></a>colmedian_for <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
@@ -367,7 +368,7 @@ programmée :</p>
 <span id="cb46-7"><a href="parallélisation-du-code-r.html#cb46-7" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb46-8"><a href="parallélisation-du-code-r.html#cb46-8" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(<span class="fu">colmedian_for</span>(x))</span></code></pre></div>
 <pre><code>## utilisateur     système      écoulé 
-##       2.642       0.000       2.642</code></pre>
+##       2.524       0.013       2.539</code></pre>
 <blockquote>
 <p><strong><em>À vous de jouer !</em></strong><br />
 Essayez d’améliorer encore ce temps de calcul en parallélisant :</p>
@@ -389,7 +390,7 @@ calcul.</p></li>
 <span id="cb48-7"><a href="parallélisation-du-code-r.html#cb48-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plan</span>(<span class="fu">multisession</span>(<span class="at">workers =</span> <span class="dv">3</span>))</span>
 <span id="cb48-8"><a href="parallélisation-du-code-r.html#cb48-8" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(<span class="fu">colmedian_par</span>(x))</span></code></pre></div>
 <pre><code>## utilisateur     système      écoulé 
-##       0.163       0.012       1.865</code></pre>
+##       0.096       0.019       1.388</code></pre>
 <div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="parallélisation-du-code-r.html#cb50-1" aria-hidden="true" tabindex="-1"></a>colmedian_parIter <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">ncores =</span> <span class="dv">1</span>){</span>
 <span id="cb50-2"><a href="parallélisation-du-code-r.html#cb50-2" aria-hidden="true" tabindex="-1"></a>  iter <span class="ot">&lt;-</span> itertools<span class="sc">::</span><span class="fu">isplitIndices</span>(<span class="at">n =</span> <span class="fu">ncol</span>(x), <span class="at">chunks =</span> ncores)</span>
 <span id="cb50-3"><a href="parallélisation-du-code-r.html#cb50-3" aria-hidden="true" tabindex="-1"></a>  res <span class="ot">&lt;-</span> <span class="fu">future_sapply</span>(iter, <span class="at">FUN =</span> <span class="cf">function</span>(i) {</span>
@@ -399,7 +400,7 @@ calcul.</p></li>
 <span id="cb50-7"><a href="parallélisation-du-code-r.html#cb50-7" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb50-8"><a href="parallélisation-du-code-r.html#cb50-8" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(<span class="fu">colmedian_parIter</span>(x, <span class="at">ncores =</span> <span class="dv">3</span>))</span></code></pre></div>
 <pre><code>## utilisateur     système      écoulé 
-##       0.144       0.020       1.787</code></pre>
+##       0.073       0.018       1.183</code></pre>
 <div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="parallélisation-du-code-r.html#cb52-1" aria-hidden="true" tabindex="-1"></a>mb <span class="ot">&lt;-</span> <span class="fu">microbenchmark</span>(<span class="fu">colmedian_apply</span>(x), </span>
 <span id="cb52-2"><a href="parallélisation-du-code-r.html#cb52-2" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">colmedian_for</span>(x),</span>
 <span id="cb52-3"><a href="parallélisation-du-code-r.html#cb52-3" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">colmedian_par</span>(x),</span>
@@ -407,15 +408,15 @@ calcul.</p></li>
 <span id="cb52-5"><a href="parallélisation-du-code-r.html#cb52-5" aria-hidden="true" tabindex="-1"></a>mb</span></code></pre></div>
 <pre><code>## Unit: seconds
 ##                              expr      min       lq     mean   median       uq
-##                colmedian_apply(x) 2.855002 2.968180 3.004419 2.986824 3.019751
-##                  colmedian_for(x) 2.775654 2.809329 2.909641 2.917691 2.968705
-##                  colmedian_par(x) 1.714276 1.743171 1.863069 1.785169 1.864398
-##  colmedian_parIter(x, ncores = 3) 1.673829 1.703488 1.739814 1.747465 1.773543
-##       max neval
-##  3.245923    10
-##  3.135763    10
-##  2.437516    10
-##  1.819385    10</code></pre>
+##                colmedian_apply(x) 2.601143 2.720376 2.857724 2.838962 2.886018
+##                  colmedian_for(x) 2.638237 2.683742 2.766450 2.788148 2.835958
+##                  colmedian_par(x) 1.121735 1.153840 1.162703 1.161448 1.170586
+##  colmedian_parIter(x, ncores = 3) 1.060698 1.090269 1.095221 1.096937 1.105581
+##       max neval cld
+##  3.515726    10   b
+##  2.878594    10   b
+##  1.239357    10  a 
+##  1.112330    10  a</code></pre>
 <p><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-42-1.png" width="672" /></p>
 <div id="les-itérateurs" class="section level3 hasAnchor" number="6.3.1">
 <h3><span class="header-section-number">6.3.1</span> Les itérateurs<a href="parallélisation-du-code-r.html#les-itérateurs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -477,11 +478,11 @@ une implémentation parallélisant les calculs sur les observations (colonnes de
 ##                           mypkgr::mvnpdfoptim(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE)
 ##                  mypkgr::mvnpdfoptim_par(x = matrix(1.96, nrow = 2, ncol = n),      Log = FALSE)
 ##  mypkgr::mvnpdfoptim_parIter(x = matrix(1.96, nrow = 2, ncol = n),      Log = FALSE, ncores = 3)
-##         min          lq        mean      median         uq        max neval
-##     318.694    388.5865    880.9646    625.5385   1437.486   1733.495    20
-##   29613.976  38802.7275  48955.3973  51284.2045  58467.712  69547.257    20
-##  121384.416 169063.8070 174821.9272 181597.4170 192180.836 208439.400    20
-##  121267.662 168384.9875 185675.2539 187435.5410 197775.050 296759.459    20</code></pre>
+##        min        lq       mean     median         uq        max neval cld
+##    310.591   358.672   402.3596   374.2165   392.1445    829.857    20  a 
+##  26298.256 28055.067 30869.8138 29345.8330 31370.2675  50463.096    20   b
+##  23056.564 25062.957 42489.4763 25778.1410 27263.3515 351280.603    20   b
+##  21397.044 24601.644 25259.4758 25393.3370 26400.7515  27887.129    20  ab</code></pre>
 <p><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-45-1.png" width="672" /></p>
 </div>
 <div id="conclusion" class="section level2 hasAnchor" number="6.5">

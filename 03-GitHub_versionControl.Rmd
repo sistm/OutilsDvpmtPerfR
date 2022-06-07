@@ -243,12 +243,13 @@ de *pusher* vos changements avec succès.
 >
   3. Résolvez le conflit.
 
+**NB:** Dans la vraie vie, on cherche à éviter cette situation et donc on va toujours *puller* avant de *pusher*. Ici, nous faisons volontairement le contraire pour donner un exemple et démystifier les conflits.
 
 ### *Fork*
 
 L'action *fork* permet de créer une copie qui vous appartient à partir d'un code disponible. Ainsi 
 le code original ne sera pas impacté par vos changements. Cela revient à créer une branche, et la
-séparer de l'arbre pour pouvoir en assumer la propriété.
+séparer de l'arbre pour pouvoir en assumer la propriété. On aurait aussi pu appeler cette action une "bouture"...
 
 Cette action est principalement utile dans le cadre des *pull requests*.
 
@@ -263,9 +264,9 @@ collaborateur. GitHub propose une interface graphique facilitant leur traitement
   1. Modifiez le `README.Rmd` de votre voisin qui n'est pas votre binôme après avoir *forké* son 
   package.
 >
-  2. Proposez votre changement sous la forme d'une *pull request*.
+  2. Proposez votre changement sous la forme d'une *pull request* depuis l'onglet "Pull requests" sur la page GitHub du répertoire de votre voisin.
 >
-  3. Acceptez la *pull request* sur le site de GitHub et faire le *merge*.
+  3. Acceptez la *pull request* de votre voisin sur la page GitHub de votre répertoire, puis faire le *merge*.
 
 ### *Issues*
 
@@ -288,98 +289,34 @@ le pouvez (i.e. en avez les capacités et le temps).
 
 ## Intégration continue
 
-À chaque changement, à chaque *commit* donc, il y a la possibilité d'introduire 1 (ou plusieurs)
-bugs qui vont empêcher le package de passer le *CRAN check*. Si l'on accumule trop de ces bugs,
-au moment de soumettre la nouvelle version, il peut y avoir beaucoup de corrections à apporter. 
-C'est d'autant plus frustrant si le package passait le *CRAN check* auparavant... 
+À chaque changement, à chaque *commit* donc, il y a la possibilité d'introduire 1 (ou plusieurs) bugs qui vont empêcher le package de passer le *CRAN check*. Si l'on accumule trop de ces bugs, au moment de soumettre la nouvelle version, il peut y avoir beaucoup de corrections à apporter. C'est d'autant plus frustrant si le package passait le *CRAN check* auparavant... 
 
 
-Les services d'intégration continue permettent de *checker* votre package **automatiquement** après 
-chaque *commit* ! En cas d'échec, vous recevez un mail qui vous en informe. Un certain nombre de ces 
-services proposent une offre limitée gratuite pour les projets open-source. 
+Les services d'intégration continue permettent de *checker* votre package **automatiquement** après chaque *commit* ! En cas d'échec, vous recevez un mail qui vous en informe. Un certain nombre de ces services proposent une offre limitée gratuite pour les projets open-source. 
 
-Une autre raison d'utiliser l'intégration continue est qu'elle permet de tester votre package sur 
-des infrastructures différentes de la votre (e.g. Windows, Ubuntu, Mac OS) et pour différentes 
-versions de `R` (*current*, *devel*...)
+Une autre raison d'utiliser l'intégration continue est qu'elle permet de tester votre package sur des infrastructures différentes de la votre (e.g. Windows, Ubuntu, Mac OS) et pour différentes versions de `r fontawesome::fa("r-project")` (*current*, *devel*...)
 
-### Github actions
+### *GitHub Actions*
 
-Les Github actions permettent de lancer des actions automatiquement à chaque fois que vous pushez sur github. La commande `usethis::use_github_action_check_standard()` permet d'initialiser les Github actions et d'ajouter l'action de check du package.
+Les Github actions permettent de lancer des actions automatiquement à chaque fois que vous pushez sur GitHub La commande `usethis::use_github_action_check_standard()` permet d'initialiser les *Github Actions*, et d'ajouter l'action `R CMD CHECK` du package.
 
 > ***A vous de jouer !***
 >
-  1. Executez la commande `usethis::use_github_action_check_standard()` et *commitez* les changements et regardez ce
-  qu'il se passe sur page github
+  1. Executez la commande `usethis::use_github_action_check_standard()` et *commitez* les changements et regardez ce qu'il se passe sur la page GitHub
 >
-  2. Ajouter un badge à votre README.md grâce au code obtenu dans la console R
-et *commitez les changements*
+  2. Ajouter un badge à votre README.md grâce au code obtenu dans la console R et *commitez ces changements*
 
 
-N'hésitez pas à consulter la page suivantes qui renseigne sur les différentes github actions pour les pacakges : [https://github.com/r-lib/actions/blob/v1/examples/README.md](https://github.com/r-lib/actions/blob/v1/examples/README.md)
-
-<!-- ### Travis CI -->
-
-<!-- Travis est un service d'intégration continue (*Continuous Integration*), qui permet de *checker* -->
-<!-- votre package à chaque *commit* sous Ubuntu. La commande `devtools::use_travis()` initialise  -->
-<!-- le fichier de configuration `.travis.yml` nécessaire. -->
-
-<!-- > ***A vous de jouer !***   -->
-<!-- > -->
-<!--   1. Rendez vous sur le site [https://travis-ci.org/](https://travis-ci.org/) et créez vous un compte -->
-<!--   associé à votre GitHub en cliquant sur le bouton "SignIn with GitHub" en haut à droite. -->
-<!-- > -->
-<!--   2. Activez votre repertoire `mypkg` sur Travis  -->
-<!-- > -->
-<!--   3. Executez la commande `usethis::use_travis()` et *commitez* les changements et regardez ce  -->
-<!--   qu'il se passe sur votre page Travis -->
-<!-- >  -->
-<!--   4. ajouter un joli badge à votre README.md grâce au code suivant (obtenu dans la console R) :   -->
-<!-- `[![Travis-CI Build Status](https://travis-ci.org/*prenomnom*/mypkgr.svg?branch=master)](https://travis-ci.org/*prenomnom*/mypkgr)`   -->
-<!-- et *commitez les changements* -->
-
-<!-- Travis permet également de tester votre package sous Mac OS (même si ce service est parfois moins  -->
-<!-- stable).   -->
-
-<!-- >  -->
-<!--   5. Ajoutez les lignes suivantes dans le fichier de configuration `.travis.yml` :   -->
-<!-- ```{r eval=FALSE} -->
-<!-- r:  -->
-<!--  - release -->
-<!--  - devel -->
-<!-- os: -->
-<!--  - linux -->
-<!--  - osx -->
-<!-- ``` -->
-
-<!-- N'hésitez pas à aller visiter les pages de packages connus sur GitHub pour observer comment ils -->
-<!-- configurent leur fichier `.travis.yml`. -->
-
-
-<!-- ### Appveyor -->
-
-<!-- Appveyor est l'analogue de Travis CI mais pour Windows. -->
-
-<!-- > ***A vous de jouer !***   -->
-<!-- > -->
-<!--   1. Rendez vous sur le site [https://ci.appveyor.com/](https://ci.appveyor.com/) et créez vous un compte -->
-<!--   associé à votre GitHub en cliquant sur le bouton "GitHub" pour le *Login* -->
-<!-- > -->
-<!--   2. Ajoutez votre repertoire `mypkgr` sur Appveyor en cliquant sur "+ New project" en haut à gauche, -->
-<!--   puis en selectionnant GitHub et mypkgr dans le menu. -->
-<!-- > -->
-<!--   3. Executez la commande `devtools::use_appveyor()` et *commitez* les changements et regardez ce  -->
-<!--   qu'il se passe sur votre page Appveyor -->
-<!-- >  -->
-<!--   4. ajouter un joli badge à votre README.md grâce au code suivant (obtenu dans la console R) :   -->
-<!-- `[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/*prenomnom*/mypkgr?branch=master&svg=true)](https://ci.appveyor.com/project/*prenomnom*/mypkgr)` -->
-<!-- et *commitez les changements* -->
+N'hésitez pas à consulter la page suivantes qui renseigne sur les différentes *GitHub Actions* disponibles pour les pacakges `r fontawesome::fa("r-project")` : [https://github.com/r-lib/actions/blob/v1/examples/README.md](https://github.com/r-lib/actions/blob/v1/examples/README.md)
 
 
 
-<!-- ### R-hub -->
 
-<!-- Le *R consortium* met à disposition le [R-hub builder](https://www.r-consortium.org/blog/2016/06/06/first-public-version-of-the-r-hub-builder), -->
-<!-- et a pour ambition de bientôt proposer un service d'intégration continue spécialement dédié aux packages `R`. -->
+
+### R-hub
+
+Le *R consortium* met à disposition le [R-hub builder](https://www.r-consortium.org/blog/2016/06/06/first-public-version-of-the-r-hub-builder),
+- et a pour ambition de bientôt proposer un service d'intégration continue spécialement dédié aux packages `R`.
 
 
 
