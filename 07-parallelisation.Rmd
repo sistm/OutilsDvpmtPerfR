@@ -69,7 +69,7 @@ déclarez un "plan" de calculs parallèles sur votre ordinateur (en prenant gard
 calculez le log des $n$ nombres en parallèle et concaténez les résultats dans un
 vecteur.
 >
->  5. Comparez le temps d'éxecution avec celui d'une fonction séquentielle
+>  4. Comparez le temps d'éxecution avec celui d'une fonction séquentielle
 sur les 100 premiers entiers, grâce à la commande :  
 `microbenchmark(log_par(1:100), log_seq(1:100), times=10)`
 

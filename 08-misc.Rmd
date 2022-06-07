@@ -1,4 +1,4 @@
-
+<!--
 # Miscélanées
 
 ## Debugging avec `browser()`
@@ -12,5 +12,5 @@
 ## naming
 
 ## `gpplot2`
-
+-->
 

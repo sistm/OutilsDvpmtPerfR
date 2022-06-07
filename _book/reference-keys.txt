@@ -45,11 +45,4 @@ les-itérateurs
 les-autres-plans-de-calculs-parallèle
 parallélisation-dans-notre-exemple-fil-rouge
 conclusion
-miscélanées
-debugging-avec-browser
-attach
-gestion-mémoire
-copies-et-variables-localesglobales-dans-les-fonctions
-naming
-gpplot2
 take-home-message

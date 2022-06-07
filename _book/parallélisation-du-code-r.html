@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="rcpp-ou-comment-intégrer-facilement-du-code-cdans-un-package-r.html"/>
-<link rel="next" href="miscélanées.html"/>
+<link rel="next" href="take-home-message.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -208,16 +208,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.4" data-path="parallélisation-du-code-r.html"><a href="parallélisation-du-code-r.html#parallélisation-dans-notre-exemple-fil-rouge"><i class="fa fa-check"></i><b>6.4</b> Parallélisation dans notre exemple fil rouge</a></li>
 <li class="chapter" data-level="6.5" data-path="parallélisation-du-code-r.html"><a href="parallélisation-du-code-r.html#conclusion"><i class="fa fa-check"></i><b>6.5</b> Conclusion</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="miscélanées.html"><a href="miscélanées.html"><i class="fa fa-check"></i><b>7</b> Miscélanées</a>
-<ul>
-<li class="chapter" data-level="7.1" data-path="miscélanées.html"><a href="miscélanées.html#debugging-avec-browser"><i class="fa fa-check"></i><b>7.1</b> Debugging avec <code>browser()</code></a></li>
-<li class="chapter" data-level="7.2" data-path="miscélanées.html"><a href="miscélanées.html#attach"><i class="fa fa-check"></i><b>7.2</b> <code>attach</code></a></li>
-<li class="chapter" data-level="7.3" data-path="miscélanées.html"><a href="miscélanées.html#gestion-mémoire"><i class="fa fa-check"></i><b>7.3</b> gestion mémoire</a></li>
-<li class="chapter" data-level="7.4" data-path="miscélanées.html"><a href="miscélanées.html#copies-et-variables-localesglobales-dans-les-fonctions"><i class="fa fa-check"></i><b>7.4</b> copies et variables locales/globales dans les fonctions</a></li>
-<li class="chapter" data-level="7.5" data-path="miscélanées.html"><a href="miscélanées.html#naming"><i class="fa fa-check"></i><b>7.5</b> naming</a></li>
-<li class="chapter" data-level="7.6" data-path="miscélanées.html"><a href="miscélanées.html#gpplot2"><i class="fa fa-check"></i><b>7.6</b> <code>gpplot2</code></a></li>
-</ul></li>
-<li class="chapter" data-level="8" data-path="take-home-message.html"><a href="take-home-message.html"><i class="fa fa-check"></i><b>8</b> <em>Take Home message</em></a></li>
+<li class="chapter" data-level="7" data-path="take-home-message.html"><a href="take-home-message.html"><i class="fa fa-check"></i><b>7</b> <em>Take Home message</em></a></li>
 <li class="chapter" data-level="" data-path="références.html"><a href="références.html"><i class="fa fa-check"></i>Références</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -356,7 +347,7 @@ médiane pour chacune de ces variables.</p>
 <span id="cb44-3"><a href="parallélisation-du-code-r.html#cb44-3" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb44-4"><a href="parallélisation-du-code-r.html#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(<span class="fu">colmedian_apply</span>(x))</span></code></pre></div>
 <pre><code>## utilisateur     système      écoulé 
-##       3.181       0.027       3.231</code></pre>
+##       3.272       0.013       3.292</code></pre>
 <p>En réalité, une boucle <code>for</code> n’est pas plus lente à condition d’être bien
 programmée :</p>
 <div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="parallélisation-du-code-r.html#cb46-1" aria-hidden="true" tabindex="-1"></a>colmedian_for <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
@@ -368,7 +359,7 @@ programmée :</p>
 <span id="cb46-7"><a href="parallélisation-du-code-r.html#cb46-7" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb46-8"><a href="parallélisation-du-code-r.html#cb46-8" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(<span class="fu">colmedian_for</span>(x))</span></code></pre></div>
 <pre><code>## utilisateur     système      écoulé 
-##       3.777       0.052       3.880</code></pre>
+##       2.734       0.003       2.740</code></pre>
 <blockquote>
 <p><strong><em>À vous de jouer !</em></strong><br />
 Essayez d’améliorer encore ce temps de calcul en parallélisant :</p>
@@ -492,6 +483,22 @@ optimiser son code. Quand on parallélise un code, le gain sur la durée
 d’exécution dépend avant tout du ratio entre le temps de communication et le
 temps de calcul effectif pour chaque tache.</p>
 
+<!--
+# Miscélanées
+
+## Debugging avec `browser()`
+
+## `attach`
+
+## gestion mémoire
+
+## copies et variables locales/globales dans les fonctions
+
+## naming
+
+## `gpplot2`
+-->
+
 </div>
 </div>
             </section>
@@ -500,7 +507,7 @@ temps de calcul effectif pour chaque tache.</p>
         </div>
       </div>
 <a href="rcpp-ou-comment-intégrer-facilement-du-code-cdans-un-package-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="miscélanées.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="take-home-message.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

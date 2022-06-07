@@ -208,16 +208,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.4" data-path="parallélisation-du-code-r.html"><a href="parallélisation-du-code-r.html#parallélisation-dans-notre-exemple-fil-rouge"><i class="fa fa-check"></i><b>6.4</b> Parallélisation dans notre exemple fil rouge</a></li>
 <li class="chapter" data-level="6.5" data-path="parallélisation-du-code-r.html"><a href="parallélisation-du-code-r.html#conclusion"><i class="fa fa-check"></i><b>6.5</b> Conclusion</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="miscélanées.html"><a href="miscélanées.html"><i class="fa fa-check"></i><b>7</b> Miscélanées</a>
-<ul>
-<li class="chapter" data-level="7.1" data-path="miscélanées.html"><a href="miscélanées.html#debugging-avec-browser"><i class="fa fa-check"></i><b>7.1</b> Debugging avec <code>browser()</code></a></li>
-<li class="chapter" data-level="7.2" data-path="miscélanées.html"><a href="miscélanées.html#attach"><i class="fa fa-check"></i><b>7.2</b> <code>attach</code></a></li>
-<li class="chapter" data-level="7.3" data-path="miscélanées.html"><a href="miscélanées.html#gestion-mémoire"><i class="fa fa-check"></i><b>7.3</b> gestion mémoire</a></li>
-<li class="chapter" data-level="7.4" data-path="miscélanées.html"><a href="miscélanées.html#copies-et-variables-localesglobales-dans-les-fonctions"><i class="fa fa-check"></i><b>7.4</b> copies et variables locales/globales dans les fonctions</a></li>
-<li class="chapter" data-level="7.5" data-path="miscélanées.html"><a href="miscélanées.html#naming"><i class="fa fa-check"></i><b>7.5</b> naming</a></li>
-<li class="chapter" data-level="7.6" data-path="miscélanées.html"><a href="miscélanées.html#gpplot2"><i class="fa fa-check"></i><b>7.6</b> <code>gpplot2</code></a></li>
-</ul></li>
-<li class="chapter" data-level="8" data-path="take-home-message.html"><a href="take-home-message.html"><i class="fa fa-check"></i><b>8</b> <em>Take Home message</em></a></li>
+<li class="chapter" data-level="7" data-path="take-home-message.html"><a href="take-home-message.html"><i class="fa fa-check"></i><b>7</b> <em>Take Home message</em></a></li>
 <li class="chapter" data-level="" data-path="références.html"><a href="références.html"><i class="fa fa-check"></i>Références</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -249,7 +240,7 @@ afin de pouvoir comparer les temps d’exécution entre différente implémentat
 fonction <code>system.time()</code> comme ceci :</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="mesurer-et-comparer-des-temps-dexécution.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(<span class="fu">mvnpdf</span>(<span class="at">x=</span><span class="fu">matrix</span>(<span class="fu">rep</span>(<span class="fl">1.96</span>, <span class="dv">2</span>), <span class="at">nrow=</span><span class="dv">2</span>, <span class="at">ncol=</span><span class="dv">1</span>), <span class="at">Log=</span><span class="cn">FALSE</span>))</span></code></pre></div>
 <pre><code>## utilisateur     système      écoulé 
-##       0.002       0.000       0.003</code></pre>
+##       0.003       0.001       0.008</code></pre>
 <p>Le problème qui apparaît sur cet exemple est que l’exécution est tellement
 rapide que <code>system.time()</code> affiche <code>0</code> (ou une valeur très proche).
 De plus, on voit qu’il y a une certaine variabilité quand on relance plusieurs
@@ -258,7 +249,7 @@ fois la commande.</p>
 on ne peut pas utiliser <code>system.time()</code> :</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="mesurer-et-comparer-des-temps-dexécution.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(mvtnorm<span class="sc">::</span><span class="fu">dmvnorm</span>(<span class="fu">rep</span>(<span class="fl">1.96</span>, <span class="dv">2</span>)))</span></code></pre></div>
 <pre><code>## utilisateur     système      écoulé 
-##       0.004       0.002       0.008</code></pre>
+##       0.005       0.003       0.010</code></pre>
 <p>On pourrait se dire qu’il faut augmenter la complexité de notre calcul, mais
 il y a mieux : utiliser le package <code>microbenchmark</code> !</p>
 </div>
@@ -275,11 +266,11 @@ commandes et donc va stabiliser le résultat.</p>
 <span id="cb13-5"><a href="mesurer-et-comparer-des-temps-dexécution.html#cb13-5" aria-hidden="true" tabindex="-1"></a>mb</span></code></pre></div>
 <pre><code>## Unit: microseconds
 ##                                           expr    min      lq     mean  median
-##                 mvtnorm::dmvnorm(rep(1.96, 2)) 40.521 52.1545 78.16958 68.4525
-##  mvnpdf(x = matrix(rep(1.96, 2)), Log = FALSE) 37.144 48.6565 76.18894 61.7755
-##       uq      max neval cld
-##  90.6475  326.312  1000   a
-##  82.1440 5082.800  1000   a</code></pre>
+##                 mvtnorm::dmvnorm(rep(1.96, 2)) 47.366 65.7290 119.0396 91.3135
+##  mvnpdf(x = matrix(rep(1.96, 2)), Log = FALSE) 44.014 63.0585 114.9594 85.1060
+##        uq      max neval cld
+##  138.4440 1552.536  1000   a
+##  134.4595 2949.098  1000   a</code></pre>
 <pre><code>## Warning: It is deprecated to specify `guide = FALSE` to remove a guide. Please
 ## use `guide = &quot;none&quot;` instead.</code></pre>
 <p><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
@@ -293,11 +284,11 @@ cas :</p>
 <span id="cb16-5"><a href="mesurer-et-comparer-des-temps-dexécution.html#cb16-5" aria-hidden="true" tabindex="-1"></a>mb</span></code></pre></div>
 <pre><code>## Unit: microseconds
 ##                                                       expr     min       lq
-##         mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))  46.295  55.7175
-##  mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 472.513 486.1850
-##       mean   median       uq      max neval cld
-##   95.77254  66.1755 108.6990  423.400   100  a 
-##  666.31521 508.1955 789.8635 1459.967   100   b</code></pre>
+##         mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))  44.436  52.5295
+##  mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 459.803 493.2745
+##       mean  median       uq     max neval cld
+##   56.63684  55.668  58.8760 127.253   100  a 
+##  519.80729 519.813 544.9245 602.691   100   b</code></pre>
 <pre><code>## Warning: It is deprecated to specify `guide = FALSE` to remove a guide. Please
 ## use `guide = &quot;none&quot;` instead.</code></pre>
 <p><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
