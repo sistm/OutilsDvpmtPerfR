@@ -262,11 +262,11 @@ fine ce qui prend du temps dans notre fonction.</p>
 <span id="cb21-5"><a href="profiler-son-code.html#cb21-5" aria-hidden="true" tabindex="-1"></a>mb</span></code></pre></div>
 <pre><code>## Unit: milliseconds
 ##                                                            expr      min
-##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 4.399487
-##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3.245338
-##        lq     mean   median       uq      max neval cld
-##  5.050434 7.934795 5.377343 7.157343 72.72614   100   b
-##  3.703267 4.317832 3.836042 3.964478 11.84162   100  a</code></pre>
+##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 4.574991
+##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3.215281
+##        lq     mean   median       uq       max neval cld
+##  5.045830 6.520134 5.250265 6.914852 27.249948   100   b
+##  3.689979 3.902544 3.787631 4.025588  6.084361   100  a</code></pre>
 <pre><code>## Warning: It is deprecated to specify `guide = FALSE` to remove a guide. Please
 ## use `guide = &quot;none&quot;` instead.</code></pre>
 <p><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
@@ -279,13 +279,13 @@ fine ce qui prend du temps dans notre fonction.</p>
 <span id="cb24-6"><a href="profiler-son-code.html#cb24-6" aria-hidden="true" tabindex="-1"></a>mb</span></code></pre></div>
 <pre><code>## Unit: microseconds
 ##                                                            expr      min
-##              mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))   65.825
-##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 4356.576
-##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3361.015
-##         lq      mean   median        uq       max neval cld
-##    90.5305  152.7151  123.062  150.1035   816.245   100 a  
-##  5147.1210 7558.1639 5361.229 8015.6220 27383.348   100   c
-##  3868.4955 5016.9187 3948.516 4662.1605 15871.331   100  b</code></pre>
+##              mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))   61.370
+##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 4475.009
+##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3032.901
+##         lq      mean   median       uq       max neval cld
+##    83.4275  109.4677  109.735  126.989   283.361   100 a  
+##  5100.2700 6080.4207 5228.254 5462.438 18163.540   100   c
+##  3752.4205 3821.1106 3793.256 3895.669  5374.425   100  b</code></pre>
 <pre><code>## Warning: It is deprecated to specify `guide = FALSE` to remove a guide. Please
 ## use `guide = &quot;none&quot;` instead.</code></pre>
 <p><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
@@ -310,15 +310,15 @@ fonction :</p>
 <span id="cb28-7"><a href="profiler-son-code.html#cb28-7" aria-hidden="true" tabindex="-1"></a>mb</span></code></pre></div>
 <pre><code>## Unit: microseconds
 ##                                                            expr      min
-##              mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))   72.809
-##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 4429.243
-##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3465.461
-##  mvnpdfoptim(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 2761.024
-##         lq      mean    median       uq       max neval  cld
-##    91.3825  125.5147  113.7305  137.587   595.169   100 a   
-##  5238.8885 6916.7459 5419.8630 6807.667 23945.545   100    d
-##  3887.9935 5064.2922 4070.2800 4706.861 15311.619   100   c 
-##  2926.6805 3432.5904 3032.9925 3214.467  9513.100   100  b</code></pre>
+##              mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))   67.701
+##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 4903.311
+##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3558.951
+##  mvnpdfoptim(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 2585.208
+##        lq      mean   median        uq       max neval  cld
+##    95.112  116.3876  113.454  130.3835   233.083   100 a   
+##  5153.353 6119.6230 5265.910 5955.0400 15294.914   100    d
+##  3791.514 3930.6124 3863.649 3944.4960  5508.697   100   c 
+##  2838.860 3077.9545 2927.133 3072.7475  8040.364   100  b</code></pre>
 <pre><code>## Warning: It is deprecated to specify `guide = FALSE` to remove a guide. Please
 ## use `guide = &quot;none&quot;` instead.</code></pre>
 <p><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>

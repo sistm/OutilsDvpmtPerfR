@@ -319,6 +319,9 @@ ggplot(data2plot) + geom_violin(aes(x=Expression, y=Time, fill=Expression), alph
 ```
 
 
+Notre proposition d'implementation pour `mvnpdfoptim_par` est téléchargeable [ici](https://r-dev-perf.borishejblum.science/FormationRavancee_dev_perf_files/mvnpdfoptim_par.R).
+
+
 ## Conclusion
 
 La parallélisation permet de gagner du temps, mais il faut d'abord bien

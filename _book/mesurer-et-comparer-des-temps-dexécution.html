@@ -240,7 +240,7 @@ afin de pouvoir comparer les temps d’exécution entre différente implémentat
 fonction <code>system.time()</code> comme ceci :</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="mesurer-et-comparer-des-temps-dexécution.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(<span class="fu">mvnpdf</span>(<span class="at">x=</span><span class="fu">matrix</span>(<span class="fu">rep</span>(<span class="fl">1.96</span>, <span class="dv">2</span>), <span class="at">nrow=</span><span class="dv">2</span>, <span class="at">ncol=</span><span class="dv">1</span>), <span class="at">Log=</span><span class="cn">FALSE</span>))</span></code></pre></div>
 <pre><code>## utilisateur     système      écoulé 
-##       0.002       0.001       0.004</code></pre>
+##       0.001       0.001       0.003</code></pre>
 <p>Le problème qui apparaît sur cet exemple est que l’exécution est tellement
 rapide que <code>system.time()</code> affiche <code>0</code> (ou une valeur très proche).
 De plus, on voit qu’il y a une certaine variabilité quand on relance plusieurs
@@ -249,7 +249,7 @@ fois la commande.</p>
 on ne peut pas utiliser <code>system.time()</code> :</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="mesurer-et-comparer-des-temps-dexécution.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(mvtnorm<span class="sc">::</span><span class="fu">dmvnorm</span>(<span class="fu">rep</span>(<span class="fl">1.96</span>, <span class="dv">2</span>)))</span></code></pre></div>
 <pre><code>## utilisateur     système      écoulé 
-##       0.013       0.009       0.029</code></pre>
+##       0.005       0.003       0.012</code></pre>
 <p>On pourrait se dire qu’il faut augmenter la complexité de notre calcul, mais
 il y a mieux : utiliser le package <code>microbenchmark</code> !</p>
 </div>
@@ -265,12 +265,12 @@ commandes et donc va stabiliser le résultat.</p>
 <span id="cb13-4"><a href="mesurer-et-comparer-des-temps-dexécution.html#cb13-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">times=</span>1000L)</span>
 <span id="cb13-5"><a href="mesurer-et-comparer-des-temps-dexécution.html#cb13-5" aria-hidden="true" tabindex="-1"></a>mb</span></code></pre></div>
 <pre><code>## Unit: microseconds
-##                                           expr    min      lq     mean  median
-##                 mvtnorm::dmvnorm(rep(1.96, 2)) 54.789 80.2935 150.3612 104.822
-##  mvnpdf(x = matrix(rep(1.96, 2)), Log = FALSE) 52.438 72.9730 139.8045  94.449
-##        uq      max neval cld
-##  164.2215 1178.559  1000   a
-##  146.7355 6215.688  1000   a</code></pre>
+##                                           expr    min      lq     mean median
+##                 mvtnorm::dmvnorm(rep(1.96, 2)) 37.750 51.3115 64.75459 59.857
+##  mvnpdf(x = matrix(rep(1.96, 2)), Log = FALSE) 35.157 47.8725 58.09040 55.484
+##       uq      max neval cld
+##  69.9570 1976.137  1000   b
+##  64.5885  328.314  1000  a</code></pre>
 <pre><code>## Warning: It is deprecated to specify `guide = FALSE` to remove a guide. Please
 ## use `guide = &quot;none&quot;` instead.</code></pre>
 <p><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
@@ -284,11 +284,11 @@ cas :</p>
 <span id="cb16-5"><a href="mesurer-et-comparer-des-temps-dexécution.html#cb16-5" aria-hidden="true" tabindex="-1"></a>mb</span></code></pre></div>
 <pre><code>## Unit: microseconds
 ##                                                       expr     min       lq
-##         mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))  46.497  53.0320
-##  mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 471.192 480.3515
+##         mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))  47.397  53.5815
+##  mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 467.245 488.0235
 ##       mean   median       uq     max neval cld
-##   58.84541  56.6915  62.7585 120.784   100  a 
-##  521.10634 517.4710 561.4085 618.478   100   b</code></pre>
+##   62.35459  58.2305  65.7645 126.896   100  a 
+##  528.55179 520.8260 547.6590 743.017   100   b</code></pre>
 <pre><code>## Warning: It is deprecated to specify `guide = FALSE` to remove a guide. Please
 ## use `guide = &quot;none&quot;` instead.</code></pre>
 <p><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>

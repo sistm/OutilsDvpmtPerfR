@@ -347,7 +347,7 @@ médiane pour chacune de ces variables.</p>
 <span id="cb44-3"><a href="parallélisation-du-code-r.html#cb44-3" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb44-4"><a href="parallélisation-du-code-r.html#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(<span class="fu">colmedian_apply</span>(x))</span></code></pre></div>
 <pre><code>## utilisateur     système      écoulé 
-##       3.116       0.016       3.147</code></pre>
+##       3.718       0.158       4.058</code></pre>
 <p>En réalité, une boucle <code>for</code> n’est pas plus lente à condition d’être bien
 programmée :</p>
 <div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="parallélisation-du-code-r.html#cb46-1" aria-hidden="true" tabindex="-1"></a>colmedian_for <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
@@ -359,7 +359,7 @@ programmée :</p>
 <span id="cb46-7"><a href="parallélisation-du-code-r.html#cb46-7" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb46-8"><a href="parallélisation-du-code-r.html#cb46-8" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(<span class="fu">colmedian_for</span>(x))</span></code></pre></div>
 <pre><code>## utilisateur     système      écoulé 
-##       4.198       0.033       4.273</code></pre>
+##       3.319       0.055       3.435</code></pre>
 <blockquote>
 <p><strong><em>À vous de jouer !</em></strong><br />
 Essayez d’améliorer encore ce temps de calcul en parallélisant :</p>
@@ -475,6 +475,7 @@ une implémentation parallélisant les calculs sur les observations (colonnes de
 ##  23056.564 25062.957 42489.4763 25778.1410 27263.3515 351280.603    20   b
 ##  21397.044 24601.644 25259.4758 25393.3370 26400.7515  27887.129    20  ab</code></pre>
 <p><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-45-1.png" width="672" /></p>
+<p>Notre proposition d’implementation pour <code>mvnpdfoptim_par</code> est téléchargeable <a href="https://r-dev-perf.borishejblum.science/FormationRavancee_dev_perf_files/mvnpdfoptim_par.R">ici</a>.</p>
 </div>
 <div id="conclusion" class="section level2 hasAnchor" number="6.5">
 <h2><span class="header-section-number">6.5</span> Conclusion<a href="parallélisation-du-code-r.html#conclusion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
