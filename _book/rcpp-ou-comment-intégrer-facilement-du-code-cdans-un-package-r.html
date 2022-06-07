@@ -287,23 +287,12 @@ l’utiliser.</p></li>
 <blockquote>
 <p><strong><em>A vous de jouer !</em></strong></p>
 <ol style="list-style-type: decimal">
-<li><p>Créez un nouveau fichier <code>C++</code> depuis RStudio (via le menu <code>File</code> &gt; <code>New File</code> &gt; <code>C++ File</code>),
-et enregistrez le dans le dossier <code>src</code>. Prenez le temps de le lire et essayez de comprendre
-chaque ligne.</p></li>
-<li><p>Compilez et chargez votre package (via le bouton “Install and Restart”) et essayez d’utiliser
-la fonction <code>timesTwo()</code> depuis la console.</p></li>
-<li><p>Installez le package RcppArmadillo, et n’oubliez pas de faire les ajouts nécessaires dans
-<code>DESCRIPTION</code> (cf. Rcpp précédement - vous pouvez expérimentez avec la fonction
-<code>RcppArmadillo::RcppArmadillo.package.skeleton()</code> qui a le désavantage de créer beaucoup de fichiers
-inutiles)</p></li>
-<li><p>À l’aide de la documentation des <a href="http://adv-r.had.co.nz/Rcpp.html#rcpp-intro">packages Rcpp</a>
-et <a href="http://gallery.rcpp.org/articles/armadillo-eigenvalues/à">RcppArmadillo</a> de celle de la
-library <a href="http://arma.sourceforge.net/docs.html">Armadillo</a>, tentez d’écrire une courte fonction
-<code>invC</code> en <code>C++</code> calculant l’inverse d’une matrice.</p></li>
-<li><p>Lorsque vous avez réussi à compiler votre fonction <code>invC</code> et qu’elle est accèssible depuis <code>R</code>
-créer une fonction <code>mvnpdf_invC()</code> à partir de l’implémentation de <code>mvnpdfsmart</code> en remplaçant
-uniquement les calculs d’inverse matriciel par un appel à <code>invC</code>.</p></li>
-<li><p>Evaluer le gain en performance de cette nouvelle implémentation <code>mvnpdf_invC</code></p></li>
+<li><p>Créez un nouveau fichier <code>C++</code> depuis RStudio (via le menu <code>File</code> &gt; <code>New File</code> &gt; <code>C++ File</code>), et enregistrez le dans le dossier <code>src</code>. Prenez le temps de le lire et essayez de comprendre chaque ligne.</p></li>
+<li><p>Compilez et chargez votre package (via le bouton “Install and Restart”) et essayez d’utiliser la fonction <code>timesTwo()</code> depuis la console.</p></li>
+<li><p>Installez le package RcppArmadillo, et n’oubliez pas de faire les ajouts nécessaires dans <code>DESCRIPTION</code> (cf. <code>usethis::use_rcpp_armadillo()</code>)</p></li>
+<li><p>À l’aide de l’[introduction à <code>Rcpp</code>]](<a href="http://adv-r.had.co.nz/Rcpp.html#rcpp-intro" class="uri">http://adv-r.had.co.nz/Rcpp.html#rcpp-intro</a>) de Hadley Wickham dans son livre <em>Advanced R</em>, ainsi que de la documentation du <a href="http://gallery.rcpp.org/articles/armadillo-eigenvalues/">package <code>RcppArmadillo</code></a> de celle de la library <code>C++</code> <a href="http://arma.sourceforge.net/docs.html">Armadillo</a>, tentez d’écrire une courte fonction <code>invC</code> en <code>C++</code> calculant l’inverse d’une matrice.</p></li>
+<li><p>Lorsque vous avez réussi à compiler votre fonction <code>invC</code> et qu’elle est accessible depuis <svg aria-hidden="true" role="img" viewBox="0 0 581 512" style="height:1em;width:1.13em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M581 226.6C581 119.1 450.9 32 290.5 32S0 119.1 0 226.6C0 322.4 103.3 402 239.4 418.1V480h99.1v-61.5c24.3-2.7 47.6-7.4 69.4-13.9L448 480h112l-67.4-113.7c54.5-35.4 88.4-84.9 88.4-139.7zm-466.8 14.5c0-73.5 98.9-133 220.8-133s211.9 40.7 211.9 133c0 50.1-26.5 85-70.3 106.4-2.4-1.6-4.7-2.9-6.4-3.7-10.2-5.2-27.8-10.5-27.8-10.5s86.6-6.4 86.6-92.7-90.6-87.9-90.6-87.9h-199V361c-74.1-21.5-125.2-67.1-125.2-119.9zm225.1 38.3v-55.6c57.8 0 87.8-6.8 87.8 27.3 0 36.5-38.2 28.3-87.8 28.3zm-.9 72.5H365c10.8 0 18.9 11.7 24 19.2-16.1 1.9-33 2.8-50.6 2.9v-22.1z"/></svg> créer une fonction <code>mvnpdf_invC()</code> à partir de l’implémentation de <code>mvnpdfsmart</code> en remplaçant uniquement les calculs d’inverse matriciel par un appel à <code>invC</code>.</p></li>
+<li><p>Evaluer le gain en performance de cette nouvelle implémentation <code>mvnpdf_invC</code>.</p></li>
 </ol>
 </blockquote>
 <div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="rcpp-ou-comment-intégrer-facilement-du-code-cdans-un-package-r.html#cb34-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
@@ -316,17 +305,17 @@ uniquement les calculs d’inverse matriciel par un appel à <code>invC</code>.<
 <span id="cb34-8"><a href="rcpp-ou-comment-intégrer-facilement-du-code-cdans-un-package-r.html#cb34-8" aria-hidden="true" tabindex="-1"></a>mb</span></code></pre></div>
 <pre><code>## Unit: microseconds
 ##                                                            expr      min
-##              mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))   63.425
-##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 4241.974
-##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3076.671
-##  mvnpdfoptim(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 2461.704
-##  mvnpdf_invC(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3207.500
-##        lq      mean    median        uq        max neval cld
-##    93.719  117.4969  115.6735  133.6525    237.724   100 a  
-##  5032.598 5600.2329 5169.3570 5834.6880  16537.394   100   c
-##  3768.450 4052.4862 3867.5305 4102.3610  10829.319   100  bc
-##  2754.434 3102.2656 2898.1510 3087.3980  12136.253   100  b 
-##  3725.554 5266.1177 3827.0140 4041.3410 127093.235   100  bc</code></pre>
+##              mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))   68.982
+##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 4244.388
+##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3272.665
+##  mvnpdfoptim(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 2378.688
+##  mvnpdf_invC(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3125.128
+##         lq       mean   median         uq        max neval cld
+##   113.1025   168.4242  138.883   193.4195    502.197   100 a  
+##  5345.6865 11394.5824 6332.586 11303.8930 127349.473   100   c
+##  3791.6275  6419.8959 4005.534  6245.4935  78438.157   100  b 
+##  2851.7470  4733.1832 3157.202  5593.7925  24970.007   100  b 
+##  3751.4100  5269.8079 4004.860  4874.8900  20945.783   100  b</code></pre>
 <pre><code>## Warning: It is deprecated to specify `guide = FALSE` to remove a guide. Please
 ## use `guide = &quot;none&quot;` instead.</code></pre>
 <p><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
@@ -346,7 +335,7 @@ réalité déjà sur des routines <code>C</code> ou <code>Fortran</code> bien op
 <ol style="list-style-type: decimal">
 <li><p>À partir de <code>mvnpdfsmart</code>, proposez une implémentation completement en <code>C++</code> du calcul
 de densité de la loi Normale multivariée <code>mvnpdfC()</code>.</p></li>
-<li><p>Evaluer le gain en performance de cette nouvelle implémentation <code>mvnpdf_invC</code></p></li>
+<li><p>Evaluer le gain en performance de cette nouvelle implémentation <code>mvnpdfC</code></p></li>
 </ol>
 </blockquote>
 <p>Vous pouvez télécharger notre proposition de <code>mvnpdfC.cpp</code> <a href="https://r-dev-perf.borishejblum.science/FormationRavancee_dev_perf_files/mvnpdfC.cpp">ici</a>.</p>
@@ -367,13 +356,13 @@ de densité de la loi Normale multivariée <code>mvnpdfC()</code>.</p></li>
 ##                                        mvnpdfoptim(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE)
 ##                                        mvnpdf_invC(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE)
 ##  mvnpdfC(x = matrix(1.96, nrow = 2, ncol = n), mean = rep(0, 2),      varcovM = diag(2), Log = FALSE)
-##       min        lq       mean    median        uq       max neval  cld
-##    68.497   86.5625  109.92815  108.9470  122.1255   187.119   100 a   
-##  4252.244 5021.5865 5288.22761 5199.4375 5359.4960  7169.753   100    d
-##  3171.839 3583.8740 4037.58146 3846.6045 3960.2030 11137.318   100   c 
-##  2341.401 2823.2650 3225.41906 2969.2655 3099.5480 16131.740   100  b  
-##  3190.270 3612.2665 3919.67499 3800.7605 3934.6850 14647.873   100   c 
-##    46.058   58.2075   79.39621   65.7545   71.9340  1404.636   100 a</code></pre>
+##       min        lq      mean    median        uq       max neval  cld
+##    75.800  123.7515  172.2358  138.6330  182.4695   701.896   100 a   
+##  4463.243 5415.7285 7350.6738 6315.5200 7776.4160 29603.732   100    d
+##  3359.192 3993.0300 6059.2614 4562.5950 6639.9965 69132.165   100   cd
+##  2511.499 2981.8415 4402.9428 3392.0805 4849.6575 12101.807   100  b  
+##  3321.725 3888.6350 5237.7403 4239.3300 5657.8765 13384.118   100  bc 
+##    54.743   70.7075  106.8560   88.1565  117.9890   962.482   100 a</code></pre>
 <pre><code>## Warning: It is deprecated to specify `guide = FALSE` to remove a guide. Please
 ## use `guide = &quot;none&quot;` instead.</code></pre>
 <p><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>

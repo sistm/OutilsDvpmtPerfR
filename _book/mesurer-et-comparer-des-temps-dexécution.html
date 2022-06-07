@@ -249,7 +249,7 @@ afin de pouvoir comparer les temps d’exécution entre différente implémentat
 fonction <code>system.time()</code> comme ceci :</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="mesurer-et-comparer-des-temps-dexécution.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(<span class="fu">mvnpdf</span>(<span class="at">x=</span><span class="fu">matrix</span>(<span class="fu">rep</span>(<span class="fl">1.96</span>, <span class="dv">2</span>), <span class="at">nrow=</span><span class="dv">2</span>, <span class="at">ncol=</span><span class="dv">1</span>), <span class="at">Log=</span><span class="cn">FALSE</span>))</span></code></pre></div>
 <pre><code>## utilisateur     système      écoulé 
-##       0.001       0.001       0.003</code></pre>
+##       0.002       0.000       0.003</code></pre>
 <p>Le problème qui apparaît sur cet exemple est que l’exécution est tellement
 rapide que <code>system.time()</code> affiche <code>0</code> (ou une valeur très proche).
 De plus, on voit qu’il y a une certaine variabilité quand on relance plusieurs
@@ -258,7 +258,7 @@ fois la commande.</p>
 on ne peut pas utiliser <code>system.time()</code> :</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="mesurer-et-comparer-des-temps-dexécution.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(mvtnorm<span class="sc">::</span><span class="fu">dmvnorm</span>(<span class="fu">rep</span>(<span class="fl">1.96</span>, <span class="dv">2</span>)))</span></code></pre></div>
 <pre><code>## utilisateur     système      écoulé 
-##       0.004       0.002       0.010</code></pre>
+##       0.004       0.002       0.008</code></pre>
 <p>On pourrait se dire qu’il faut augmenter la complexité de notre calcul, mais
 il y a mieux : utiliser le package <code>microbenchmark</code> !</p>
 </div>
@@ -274,12 +274,12 @@ commandes et donc va stabiliser le résultat.</p>
 <span id="cb13-4"><a href="mesurer-et-comparer-des-temps-dexécution.html#cb13-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">times=</span>1000L)</span>
 <span id="cb13-5"><a href="mesurer-et-comparer-des-temps-dexécution.html#cb13-5" aria-hidden="true" tabindex="-1"></a>mb</span></code></pre></div>
 <pre><code>## Unit: microseconds
-##                                           expr    min      lq     mean median
-##                 mvtnorm::dmvnorm(rep(1.96, 2)) 37.529 41.8935 49.21259 48.381
-##  mvnpdf(x = matrix(rep(1.96, 2)), Log = FALSE) 34.670 39.4360 47.86043 45.431
-##       uq     max neval cld
-##  54.8115  179.16  1000   a
-##  50.8410 1859.84  1000   a</code></pre>
+##                                           expr    min      lq     mean  median
+##                 mvtnorm::dmvnorm(rep(1.96, 2)) 40.521 52.1545 78.16958 68.4525
+##  mvnpdf(x = matrix(rep(1.96, 2)), Log = FALSE) 37.144 48.6565 76.18894 61.7755
+##       uq      max neval cld
+##  90.6475  326.312  1000   a
+##  82.1440 5082.800  1000   a</code></pre>
 <pre><code>## Warning: It is deprecated to specify `guide = FALSE` to remove a guide. Please
 ## use `guide = &quot;none&quot;` instead.</code></pre>
 <p><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
@@ -293,11 +293,11 @@ cas :</p>
 <span id="cb16-5"><a href="mesurer-et-comparer-des-temps-dexécution.html#cb16-5" aria-hidden="true" tabindex="-1"></a>mb</span></code></pre></div>
 <pre><code>## Unit: microseconds
 ##                                                       expr     min       lq
-##         mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))  46.745  53.4165
-##  mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 450.776 480.6770
-##       mean   median       uq     max neval cld
-##   58.78664  57.7615  61.9550 158.111   100  a 
-##  514.03432 513.0670 548.4595 605.525   100   b</code></pre>
+##         mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))  46.295  55.7175
+##  mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 472.513 486.1850
+##       mean   median       uq      max neval cld
+##   95.77254  66.1755 108.6990  423.400   100  a 
+##  666.31521 508.1955 789.8635 1459.967   100   b</code></pre>
 <pre><code>## Warning: It is deprecated to specify `guide = FALSE` to remove a guide. Please
 ## use `guide = &quot;none&quot;` instead.</code></pre>
 <p><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>

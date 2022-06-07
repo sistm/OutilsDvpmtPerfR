@@ -58,28 +58,17 @@ avec `R` via le package `RcppArmadillo`.
 
 > ***A vous de jouer !***  
 >
-  1. Créez un nouveau fichier `C++` depuis RStudio (via le menu `File` > `New File` > `C++ File`), 
-  et enregistrez le dans le dossier `src`. Prenez le temps de le lire et essayez de comprendre 
-  chaque ligne.
+  1. Créez un nouveau fichier `C++` depuis RStudio (via le menu `File` > `New File` > `C++ File`), et enregistrez le dans le dossier `src`. Prenez le temps de le lire et essayez de comprendre  chaque ligne.
 >
-  2. Compilez et chargez votre package (via le bouton "Install and Restart") et essayez d'utiliser 
-  la fonction `timesTwo()` depuis la console.
+  2. Compilez et chargez votre package (via le bouton "Install and Restart") et essayez d'utiliser la fonction `timesTwo()` depuis la console.
 >
-  3. Installez le package RcppArmadillo, et n'oubliez pas de faire les ajouts nécessaires dans 
-  `DESCRIPTION` (cf. Rcpp précédement - vous pouvez expérimentez avec la fonction 
-  `RcppArmadillo::RcppArmadillo.package.skeleton()` qui a le désavantage de créer beaucoup de fichiers 
-  inutiles)
+  3. Installez le package RcppArmadillo, et n'oubliez pas de faire les ajouts nécessaires dans `DESCRIPTION` (cf. `usethis::use_rcpp_armadillo()`)
 >
-  4. À l'aide de la documentation des [packages Rcpp](http://adv-r.had.co.nz/Rcpp.html#rcpp-intro) 
-  et [RcppArmadillo](http://gallery.rcpp.org/articles/armadillo-eigenvalues/à) de celle de la 
-  library [Armadillo](http://arma.sourceforge.net/docs.html), tentez d'écrire une courte fonction 
-  `invC` en `C++` calculant l'inverse d'une matrice.
+  4. À l'aide de l'[introduction à `Rcpp`]](http://adv-r.had.co.nz/Rcpp.html#rcpp-intro) de Hadley Wickham dans son livre *Advanced R*, ainsi que de la documentation du  [package `RcppArmadillo`](http://gallery.rcpp.org/articles/armadillo-eigenvalues/) de celle de la library `C++` [Armadillo](http://arma.sourceforge.net/docs.html), tentez d'écrire une courte fonction `invC` en `C++` calculant l'inverse d'une matrice.
 > 
-  5. Lorsque vous avez réussi à compiler votre fonction `invC` et qu'elle est accèssible depuis `R`
-  créer une fonction `mvnpdf_invC()` à partir de l'implémentation de `mvnpdfsmart` en remplaçant 
-  uniquement les calculs d'inverse matriciel par un appel à `invC`.
+  5. Lorsque vous avez réussi à compiler votre fonction `invC` et qu'elle est accessible depuis `r fontawesome::fa("r-project")` créer une fonction `mvnpdf_invC()` à partir de l'implémentation de `mvnpdfsmart` en remplaçant uniquement les calculs d'inverse matriciel par un appel à `invC`.
 > 
-  5. Evaluer le gain en performance de cette nouvelle implémentation `mvnpdf_invC`
+  6. Evaluer le gain en performance de cette nouvelle implémentation `mvnpdf_invC`.
 
 ```{r, echo=TRUE, eval=TRUE}
 n <- 1000
@@ -122,7 +111,7 @@ réalité déjà sur des routines `C` ou `Fortran` bien optimisée. Le gain se l
   1. À partir de `mvnpdfsmart`, proposez une implémentation completement en `C++` du calcul
   de densité de la loi Normale multivariée `mvnpdfC()`.
 > 
-  2. Evaluer le gain en performance de cette nouvelle implémentation `mvnpdf_invC`
+  2. Evaluer le gain en performance de cette nouvelle implémentation `mvnpdfC`
 
 
 
