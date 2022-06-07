@@ -246,7 +246,7 @@ n’est vraiment pas une bonne idée.</p>
 <h2><span class="header-section-number">4.1</span> Comparaison avec une version plus habile de <code>mnvpdf()</code><a href="profiler-son-code.html#comparaison-avec-une-version-plus-habile-de-mnvpdf" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Considérons une nouvelle version de <code>mvnpdf()</code>, appelée <code>mvnpdfsmart()</code>.
 Télécharger le
-<a href="ttps://r-dev-perf.borishejblum.science/FormationRavancee_dev_perf_files/mvnpdfsmart.R">fichier</a> puis
+<a href="https://r-dev-perf.borishejblum.science/FormationRavancee_dev_perf_files/mvnpdfsmart.R">fichier</a> puis
 l’inclure dans le package.</p>
 <p>Profiler la commande suivante :</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="profiler-son-code.html#cb20-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fl">10e4</span></span>
@@ -262,11 +262,11 @@ fine ce qui prend du temps dans notre fonction.</p>
 <span id="cb21-5"><a href="profiler-son-code.html#cb21-5" aria-hidden="true" tabindex="-1"></a>mb</span></code></pre></div>
 <pre><code>## Unit: milliseconds
 ##                                                            expr      min
-##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 4.154924
-##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3.064364
+##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 4.399487
+##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3.245338
 ##        lq     mean   median       uq      max neval cld
-##  5.067380 7.413835 5.564233 8.003994 41.09093   100   b
-##  3.616648 4.127804 3.742081 3.876312 12.02316   100  a</code></pre>
+##  5.050434 7.934795 5.377343 7.157343 72.72614   100   b
+##  3.703267 4.317832 3.836042 3.964478 11.84162   100  a</code></pre>
 <pre><code>## Warning: It is deprecated to specify `guide = FALSE` to remove a guide. Please
 ## use `guide = &quot;none&quot;` instead.</code></pre>
 <p><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
@@ -279,13 +279,13 @@ fine ce qui prend du temps dans notre fonction.</p>
 <span id="cb24-6"><a href="profiler-son-code.html#cb24-6" aria-hidden="true" tabindex="-1"></a>mb</span></code></pre></div>
 <pre><code>## Unit: microseconds
 ##                                                            expr      min
-##              mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))   62.492
-##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 4193.800
-##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3056.859
+##              mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))   65.825
+##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 4356.576
+##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3361.015
 ##         lq      mean   median        uq       max neval cld
-##    82.6985  139.0671  108.704  141.6415   660.558   100 a  
-##  5040.0335 7121.2856 5302.860 6641.1850 22854.639   100   c
-##  3671.5855 4498.5259 3845.221 4588.8060 12226.529   100  b</code></pre>
+##    90.5305  152.7151  123.062  150.1035   816.245   100 a  
+##  5147.1210 7558.1639 5361.229 8015.6220 27383.348   100   c
+##  3868.4955 5016.9187 3948.516 4662.1605 15871.331   100  b</code></pre>
 <pre><code>## Warning: It is deprecated to specify `guide = FALSE` to remove a guide. Please
 ## use `guide = &quot;none&quot;` instead.</code></pre>
 <p><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
@@ -294,7 +294,7 @@ fine ce qui prend du temps dans notre fonction.</p>
 <div id="comparaison-avec-une-version-optimisée-dans-r" class="section level2 hasAnchor" number="4.2">
 <h2><span class="header-section-number">4.2</span> Comparaison avec une version optimisée dans R<a href="profiler-son-code.html#comparaison-avec-une-version-optimisée-dans-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Boris est arrivée après plusieurs recherches et tests à une
-<a href="ttps://r-dev-perf.borishejblum.science/FormationRavancee_dev_perf_files/mvnpdfoptim.R">version optimisée</a>
+<a href="https://r-dev-perf.borishejblum.science/FormationRavancee_dev_perf_files/mvnpdfoptim.R">version optimisée</a>
 avec les outils de R.</p>
 <p>Inclure la fonction <code>mvnpdfoptim()</code> dans le package, puis profiler cette
 fonction :</p>
@@ -310,15 +310,15 @@ fonction :</p>
 <span id="cb28-7"><a href="profiler-son-code.html#cb28-7" aria-hidden="true" tabindex="-1"></a>mb</span></code></pre></div>
 <pre><code>## Unit: microseconds
 ##                                                            expr      min
-##              mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))   73.605
-##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 5025.396
-##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3693.085
-##  mvnpdfoptim(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 2768.166
-##         lq      mean   median       uq       max neval  cld
-##   108.7775  139.8491  130.879  149.477   462.980   100 a   
-##  5366.2335 7059.8492 5507.146 6575.949 27473.575   100    d
-##  3914.9535 5130.9032 4013.736 5158.730 20536.882   100   c 
-##  2877.7875 3381.7996 3032.034 3316.273  8691.122   100  b</code></pre>
+##              mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))   72.809
+##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 4429.243
+##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3465.461
+##  mvnpdfoptim(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 2761.024
+##         lq      mean    median       uq       max neval  cld
+##    91.3825  125.5147  113.7305  137.587   595.169   100 a   
+##  5238.8885 6916.7459 5419.8630 6807.667 23945.545   100    d
+##  3887.9935 5064.2922 4070.2800 4706.861 15311.619   100   c 
+##  2926.6805 3432.5904 3032.9925 3214.467  9513.100   100  b</code></pre>
 <pre><code>## Warning: It is deprecated to specify `guide = FALSE` to remove a guide. Please
 ## use `guide = &quot;none&quot;` instead.</code></pre>
 <p><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>

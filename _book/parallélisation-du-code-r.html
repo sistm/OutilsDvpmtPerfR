@@ -347,7 +347,7 @@ médiane pour chacune de ces variables.</p>
 <span id="cb44-3"><a href="parallélisation-du-code-r.html#cb44-3" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb44-4"><a href="parallélisation-du-code-r.html#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(<span class="fu">colmedian_apply</span>(x))</span></code></pre></div>
 <pre><code>## utilisateur     système      écoulé 
-##       3.272       0.013       3.292</code></pre>
+##       3.116       0.016       3.147</code></pre>
 <p>En réalité, une boucle <code>for</code> n’est pas plus lente à condition d’être bien
 programmée :</p>
 <div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="parallélisation-du-code-r.html#cb46-1" aria-hidden="true" tabindex="-1"></a>colmedian_for <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
@@ -359,7 +359,7 @@ programmée :</p>
 <span id="cb46-7"><a href="parallélisation-du-code-r.html#cb46-7" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb46-8"><a href="parallélisation-du-code-r.html#cb46-8" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(<span class="fu">colmedian_for</span>(x))</span></code></pre></div>
 <pre><code>## utilisateur     système      écoulé 
-##       2.734       0.003       2.740</code></pre>
+##       4.198       0.033       4.273</code></pre>
 <blockquote>
 <p><strong><em>À vous de jouer !</em></strong><br />
 Essayez d’améliorer encore ce temps de calcul en parallélisant :</p>

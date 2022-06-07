@@ -27,7 +27,7 @@ n'est vraiment pas une bonne idée.
 
 Considérons une nouvelle version de `mvnpdf()`, appelée `mvnpdfsmart()`.
 Télécharger le
-[fichier](ttps://r-dev-perf.borishejblum.science/FormationRavancee_dev_perf_files/mvnpdfsmart.R) puis
+[fichier](https://r-dev-perf.borishejblum.science/FormationRavancee_dev_perf_files/mvnpdfsmart.R) puis
 l'inclure dans le package.
 
 Profiler la commande suivante :
@@ -100,7 +100,7 @@ Il y a encore du travail...
 ## Comparaison avec une version optimisée dans R
 
 Boris est arrivée après plusieurs recherches et tests à une
-[version optimisée](ttps://r-dev-perf.borishejblum.science/FormationRavancee_dev_perf_files/mvnpdfoptim.R)
+[version optimisée](https://r-dev-perf.borishejblum.science/FormationRavancee_dev_perf_files/mvnpdfoptim.R)
 avec les outils de R.
 
 Inclure la fonction `mvnpdfoptim()` dans le package, puis profiler cette
