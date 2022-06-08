@@ -23,7 +23,7 @@
 <meta name="author" content="Robin Genuer et Boris Hejblum" />
 
 
-<meta name="date" content="2022-06-07" />
+<meta name="date" content="2022-06-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -249,7 +249,7 @@ fois la commande.</p>
 on ne peut pas utiliser <code>system.time()</code> :</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="mesurer-et-comparer-des-temps-dexécution.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(mvtnorm<span class="sc">::</span><span class="fu">dmvnorm</span>(<span class="fu">rep</span>(<span class="fl">1.96</span>, <span class="dv">2</span>)))</span></code></pre></div>
 <pre><code>## utilisateur     système      écoulé 
-##       0.005       0.003       0.012</code></pre>
+##       0.009       0.005       0.018</code></pre>
 <p>On pourrait se dire qu’il faut augmenter la complexité de notre calcul, mais
 il y a mieux : utiliser le package <code>microbenchmark</code> !</p>
 </div>
@@ -265,12 +265,12 @@ commandes et donc va stabiliser le résultat.</p>
 <span id="cb13-4"><a href="mesurer-et-comparer-des-temps-dexécution.html#cb13-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">times=</span>1000L)</span>
 <span id="cb13-5"><a href="mesurer-et-comparer-des-temps-dexécution.html#cb13-5" aria-hidden="true" tabindex="-1"></a>mb</span></code></pre></div>
 <pre><code>## Unit: microseconds
-##                                           expr    min      lq     mean median
-##                 mvtnorm::dmvnorm(rep(1.96, 2)) 37.750 51.3115 64.75459 59.857
-##  mvnpdf(x = matrix(rep(1.96, 2)), Log = FALSE) 35.157 47.8725 58.09040 55.484
-##       uq      max neval cld
-##  69.9570 1976.137  1000   b
-##  64.5885  328.314  1000  a</code></pre>
+##                                           expr    min     lq      mean  median
+##                 mvtnorm::dmvnorm(rep(1.96, 2)) 38.026 53.807 100.01754 67.7565
+##  mvnpdf(x = matrix(rep(1.96, 2)), Log = FALSE) 35.643 48.974  88.56617 62.9515
+##        uq      max neval
+##  106.3260 2529.688  1000
+##  102.2445  597.666  1000</code></pre>
 <pre><code>## Warning: It is deprecated to specify `guide = FALSE` to remove a guide. Please
 ## use `guide = &quot;none&quot;` instead.</code></pre>
 <p><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
@@ -284,11 +284,11 @@ cas :</p>
 <span id="cb16-5"><a href="mesurer-et-comparer-des-temps-dexécution.html#cb16-5" aria-hidden="true" tabindex="-1"></a>mb</span></code></pre></div>
 <pre><code>## Unit: microseconds
 ##                                                       expr     min       lq
-##         mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))  47.397  53.5815
-##  mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 467.245 488.0235
-##       mean   median       uq     max neval cld
-##   62.35459  58.2305  65.7645 126.896   100  a 
-##  528.55179 520.8260 547.6590 743.017   100   b</code></pre>
+##         mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))  46.707  53.5735
+##  mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 451.371 486.9975
+##       mean   median      uq     max neval
+##   66.43732  58.9245  67.552 171.064   100
+##  545.60655 502.5920 563.130 947.610   100</code></pre>
 <pre><code>## Warning: It is deprecated to specify `guide = FALSE` to remove a guide. Please
 ## use `guide = &quot;none&quot;` instead.</code></pre>
 <p><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>

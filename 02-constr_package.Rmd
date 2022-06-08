@@ -113,29 +113,23 @@ le même fichier que le code définissant cette fonction.
 >  
   2. Compléter la documentation en renseignant :
 > 
-      - le titre de la fonction (première ligne)
+>      - le titre de la fonction (première ligne)
 >      
-      - la description de ce que fait la fonction (deuxième paragraphe)
+>      - la description de ce que fait la fonction (deuxième paragraphe)
 >      
-      - si vous renseignez un troisième paragraphe, cette partie ira dans
-      la section "Details" de la page d'aide
- >     
-      - la signification des paramètres
- >     
-      - la sortie, après la balise `@return`
- >     
-  3. Générer la documentation à l'aide de "Document" dans le menu "More" de
-  l'onglet "Build" (ou Ctrl+Shift+D ou `devtools::document()`). L'effet de
-  cette commande est multiple :
+>      - si vous renseignez un troisième paragraphe, cette partie ira dans la section "Details" de la page d'aide
+>     
+>      - la signification des paramètres
+>     
+>      - la sortie, après la balise `@return`
+>     
+>  3. Générer la documentation à l'aide de "Document" dans le menu "More" de l'onglet "Build" (ou Ctrl+Shift+D ou `devtools::document()`). L'effet de   cette commande est multiple :
 >
-    - un dossier `man` a été créé et à l'intérieur, un fichier `mvnpdf.Rd`
-      a été créé et contient les informations de l'aide de la fonction
+>      - un dossier `man` a été créé et à l'intérieur, un fichier `mvnpdf.Rd` a été créé et contient les informations de l'aide de la fonction
 >      
-    - le fichier `NAMESPACE` a été modifié
+>      - le fichier `NAMESPACE` a été modifié
       
-**En cas de bug ou par curiosité ET une fois que vous avez terminé** vous
-pouvez consulter cette
-[proposition](https://r-dev-perf.borishejblum.science/FormationRavancee_dev_perf_files/mvnpdfRox.R).
+**En cas de bug ou par curiosité ET une fois que vous avez terminé** vous pouvez consulter cette [proposition](https://r-dev-perf.borishejblum.science/FormationRavancee_dev_perf_files/mvnpdfRox.R).
       
 Pour plus de détails sur la documentation de package et les balises
 `roxygen2`, voir la page
@@ -184,19 +178,14 @@ Pour initialiser la fonctionnalité de tests automatiques dans le package,
 utiliser :
 
 ```{r, eval=FALSE}
-devtools::use_testthat()
+usethis::use_testthat()
 ```
 
-Cette commande induit la création d'un dossier `tests` qui comprend un
-fichier `testthat.R`  - à ne pas modifier  - et un dossier `testthat` dans lequel on
-va insérer nos tests. Cet outils s'appuie sur la théorie des *tests unitaires*.
+Cette commande induit la création d'un dossier `tests` qui comprend un fichier `testthat.R`  - à ne pas modifier  - et un dossier `testthat` dans lequel on va insérer nos tests. Cet outils s'appuie sur la théorie des *tests unitaires*.
 
-Voici par exemple, le contenu d'un fichier qu'on appellera `test-univariate.R`
-à mettre dans le dossier `testthat` :
+Voici par exemple, le contenu d'un fichier qu'on appellera `test-univariate.R` à mettre dans le dossier `testthat` :
 
 ```{r, eval=FALSE}
-context("Univariate gaussian test")
-
 test_that("correct result for univariate gaussian", {
   expect_equal(mvnpdf(x=matrix(1.96), Log=FALSE)$y, dnorm(1.96))
   expect_equal(mvnpdf(x=matrix(c(1.96, -0.5), ncol = 2), Log=FALSE)$y,
@@ -207,8 +196,6 @@ test_that("correct result for univariate gaussian", {
 Et un deuxième, appelé `test-bivariate.R` :
 
 ```{r, eval=FALSE}
-context("Bivariate gaussian test")
-
 test_that("correct results for bivariate gaussian", {
   expect_equal(mvnpdf(x=matrix(rep(1.96,2), nrow=2, ncol=1), Log=FALSE)$y,
                mvtnorm::dmvnorm(rep(1.96, 2)))

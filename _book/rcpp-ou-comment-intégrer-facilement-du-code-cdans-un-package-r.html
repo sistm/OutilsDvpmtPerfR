@@ -23,7 +23,7 @@
 <meta name="author" content="Robin Genuer et Boris Hejblum" />
 
 
-<meta name="date" content="2022-06-07" />
+<meta name="date" content="2022-06-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -296,17 +296,17 @@ l’utiliser.</p></li>
 <span id="cb34-8"><a href="rcpp-ou-comment-intégrer-facilement-du-code-cdans-un-package-r.html#cb34-8" aria-hidden="true" tabindex="-1"></a>mb</span></code></pre></div>
 <pre><code>## Unit: microseconds
 ##                                                            expr      min
-##              mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))   68.517
-##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 4419.739
-##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3209.040
-##  mvnpdfoptim(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 2382.014
-##  mvnpdf_invC(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3162.984
-##         lq      mean    median        uq       max neval  cld
-##    91.5645  115.5275  106.4035  129.3455   302.295   100 a   
-##  4995.7835 6147.9918 5262.2960 6192.1585 40398.531   100    d
-##  3736.1860 4166.4915 3830.9750 3993.4030 11950.145   100   c 
-##  2775.2390 3297.4240 2893.3840 3120.9850 13061.894   100  b  
-##  3694.0100 4009.3123 3806.1785 4003.8185 12579.719   100  bc</code></pre>
+##              mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))   81.312
+##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 4567.207
+##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3697.857
+##  mvnpdfoptim(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 2751.647
+##  mvnpdf_invC(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3479.836
+##         lq      mean   median       uq       max neval
+##   109.4895  191.4152  126.269  162.665  1395.487   100
+##  5084.1400 6397.5795 5296.011 6542.100 19908.098   100
+##  3869.7950 5425.8466 4080.270 5073.152 22684.911   100
+##  3063.0850 4329.9840 3223.970 4501.099 14136.145   100
+##  3894.9390 5510.5038 4130.610 5944.477 20815.481   100</code></pre>
 <pre><code>## Warning: It is deprecated to specify `guide = FALSE` to remove a guide. Please
 ## use `guide = &quot;none&quot;` instead.</code></pre>
 <p><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
@@ -347,13 +347,13 @@ de densité de la loi Normale multivariée <code>mvnpdfC()</code>.</p></li>
 ##                                        mvnpdfoptim(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE)
 ##                                        mvnpdf_invC(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE)
 ##  mvnpdfC(x = matrix(1.96, nrow = 2, ncol = n), mean = rep(0, 2),      varcovM = diag(2), Log = FALSE)
-##       min        lq       mean    median        uq       max neval  cld
-##    65.200   87.6125  118.42410  114.3435  132.1080   276.825   100 a   
-##  4256.344 5022.3770 5488.65172 5252.2720 5485.4330 17245.800   100    d
-##  3065.346 3679.3920 3972.78843 3790.4555 3915.7080 10156.814   100   c 
-##  2377.090 2820.8755 3073.45270 2899.1050 3015.1125 12680.455   100  b  
-##  3027.314 3688.1245 4042.17264 3816.0435 3917.9465 11640.784   100   c 
-##    50.400   67.3050   86.96821   73.1935   80.2895  1228.500   100 a</code></pre>
+##       min       lq       mean    median        uq       max neval
+##    72.193  108.675  149.20873  122.2345  147.5490   608.960   100
+##  4681.433 5137.149 6803.02546 5305.5390 6091.9360 26301.413   100
+##  3360.530 3866.938 4763.13682 3960.1975 4516.8085 25051.627   100
+##  2726.471 3045.586 4035.46685 3203.7300 3694.4660 18091.520   100
+##  3499.483 3877.631 5106.07514 4033.3230 4846.1275 17746.022   100
+##    57.826   68.635   83.09394   75.4315   86.7715   206.058   100</code></pre>
 <pre><code>## Warning: It is deprecated to specify `guide = FALSE` to remove a guide. Please
 ## use `guide = &quot;none&quot;` instead.</code></pre>
 <p><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>

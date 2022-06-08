@@ -23,7 +23,7 @@
 <meta name="author" content="Robin Genuer et Boris Hejblum" />
 
 
-<meta name="date" content="2022-06-07" />
+<meta name="date" content="2022-06-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -319,30 +319,22 @@ le même fichier que le code définissant cette fonction.</p>
 <li><p>Commencer par insérer le squelette de l’aide grâce à “Insert Roxygen
 Skeleton” situé dans le menu “Code” ou le sous-menu <em>Baguette magique</em> dans
 la fenêtre de script.</p></li>
-<li><p>Compléter la documentation en renseignant :</p></li>
-</ol>
+<li><p>Compléter la documentation en renseignant :</p>
 <ul>
 <li><p>le titre de la fonction (première ligne)</p></li>
 <li><p>la description de ce que fait la fonction (deuxième paragraphe)</p></li>
-<li><p>si vous renseignez un troisième paragraphe, cette partie ira dans
-la section “Details” de la page d’aide</p></li>
+<li><p>si vous renseignez un troisième paragraphe, cette partie ira dans la section “Details” de la page d’aide</p></li>
 <li><p>la signification des paramètres</p></li>
 <li><p>la sortie, après la balise <code>@return</code></p></li>
-</ul>
-<ol start="3" style="list-style-type: decimal">
-<li>Générer la documentation à l’aide de “Document” dans le menu “More” de
-l’onglet “Build” (ou Ctrl+Shift+D ou <code>devtools::document()</code>). L’effet de
-cette commande est multiple :</li>
-</ol>
+</ul></li>
+<li><p>Générer la documentation à l’aide de “Document” dans le menu “More” de l’onglet “Build” (ou Ctrl+Shift+D ou <code>devtools::document()</code>). L’effet de cette commande est multiple :</p>
 <ul>
-<li><p>un dossier <code>man</code> a été créé et à l’intérieur, un fichier <code>mvnpdf.Rd</code>
-a été créé et contient les informations de l’aide de la fonction</p></li>
+<li><p>un dossier <code>man</code> a été créé et à l’intérieur, un fichier <code>mvnpdf.Rd</code> a été créé et contient les informations de l’aide de la fonction</p></li>
 <li><p>le fichier <code>NAMESPACE</code> a été modifié</p></li>
-</ul>
+</ul></li>
+</ol>
 </blockquote>
-<p><strong>En cas de bug ou par curiosité ET une fois que vous avez terminé</strong> vous
-pouvez consulter cette
-<a href="https://r-dev-perf.borishejblum.science/FormationRavancee_dev_perf_files/mvnpdfRox.R">proposition</a>.</p>
+<p><strong>En cas de bug ou par curiosité ET une fois que vous avez terminé</strong> vous pouvez consulter cette <a href="https://r-dev-perf.borishejblum.science/FormationRavancee_dev_perf_files/mvnpdfRox.R">proposition</a>.</p>
 <p>Pour plus de détails sur la documentation de package et les balises
 <code>roxygen2</code>, voir la page
 <a href="https://r-pkgs.org/man.html">Object documentation</a> du site d’Hadley.</p>
@@ -373,26 +365,19 @@ l’aide de la fonction avec <code>?mvnpdf</code> et par exemple exécuter les c
 <h2><span class="header-section-number">1.5</span> Tester le package de manière <em>automatique</em><a href="construire-un-package-r.html#tester-le-package-de-manière-automatique" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Pour initialiser la fonctionnalité de tests automatiques dans le package,
 utiliser :</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="construire-un-package-r.html#cb4-1" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">use_testthat</span>()</span></code></pre></div>
-<p>Cette commande induit la création d’un dossier <code>tests</code> qui comprend un
-fichier <code>testthat.R</code> - à ne pas modifier - et un dossier <code>testthat</code> dans lequel on
-va insérer nos tests. Cet outils s’appuie sur la théorie des <em>tests unitaires</em>.</p>
-<p>Voici par exemple, le contenu d’un fichier qu’on appellera <code>test-univariate.R</code>
-à mettre dans le dossier <code>testthat</code> :</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="construire-un-package-r.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">context</span>(<span class="st">&quot;Univariate gaussian test&quot;</span>)</span>
-<span id="cb5-2"><a href="construire-un-package-r.html#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="construire-un-package-r.html#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">test_that</span>(<span class="st">&quot;correct result for univariate gaussian&quot;</span>, {</span>
-<span id="cb5-4"><a href="construire-un-package-r.html#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_equal</span>(<span class="fu">mvnpdf</span>(<span class="at">x=</span><span class="fu">matrix</span>(<span class="fl">1.96</span>), <span class="at">Log=</span><span class="cn">FALSE</span>)<span class="sc">$</span>y, <span class="fu">dnorm</span>(<span class="fl">1.96</span>))</span>
-<span id="cb5-5"><a href="construire-un-package-r.html#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_equal</span>(<span class="fu">mvnpdf</span>(<span class="at">x=</span><span class="fu">matrix</span>(<span class="fu">c</span>(<span class="fl">1.96</span>, <span class="sc">-</span><span class="fl">0.5</span>), <span class="at">ncol =</span> <span class="dv">2</span>), <span class="at">Log=</span><span class="cn">FALSE</span>)<span class="sc">$</span>y,</span>
-<span id="cb5-6"><a href="construire-un-package-r.html#cb5-6" aria-hidden="true" tabindex="-1"></a>               <span class="fu">dnorm</span>(<span class="fu">c</span>(<span class="fl">1.96</span>, <span class="sc">-</span><span class="fl">0.5</span>)))</span>
-<span id="cb5-7"><a href="construire-un-package-r.html#cb5-7" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="construire-un-package-r.html#cb4-1" aria-hidden="true" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">use_testthat</span>()</span></code></pre></div>
+<p>Cette commande induit la création d’un dossier <code>tests</code> qui comprend un fichier <code>testthat.R</code> - à ne pas modifier - et un dossier <code>testthat</code> dans lequel on va insérer nos tests. Cet outils s’appuie sur la théorie des <em>tests unitaires</em>.</p>
+<p>Voici par exemple, le contenu d’un fichier qu’on appellera <code>test-univariate.R</code> à mettre dans le dossier <code>testthat</code> :</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="construire-un-package-r.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">test_that</span>(<span class="st">&quot;correct result for univariate gaussian&quot;</span>, {</span>
+<span id="cb5-2"><a href="construire-un-package-r.html#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_equal</span>(<span class="fu">mvnpdf</span>(<span class="at">x=</span><span class="fu">matrix</span>(<span class="fl">1.96</span>), <span class="at">Log=</span><span class="cn">FALSE</span>)<span class="sc">$</span>y, <span class="fu">dnorm</span>(<span class="fl">1.96</span>))</span>
+<span id="cb5-3"><a href="construire-un-package-r.html#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_equal</span>(<span class="fu">mvnpdf</span>(<span class="at">x=</span><span class="fu">matrix</span>(<span class="fu">c</span>(<span class="fl">1.96</span>, <span class="sc">-</span><span class="fl">0.5</span>), <span class="at">ncol =</span> <span class="dv">2</span>), <span class="at">Log=</span><span class="cn">FALSE</span>)<span class="sc">$</span>y,</span>
+<span id="cb5-4"><a href="construire-un-package-r.html#cb5-4" aria-hidden="true" tabindex="-1"></a>               <span class="fu">dnorm</span>(<span class="fu">c</span>(<span class="fl">1.96</span>, <span class="sc">-</span><span class="fl">0.5</span>)))</span>
+<span id="cb5-5"><a href="construire-un-package-r.html#cb5-5" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
 <p>Et un deuxième, appelé <code>test-bivariate.R</code> :</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="construire-un-package-r.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">context</span>(<span class="st">&quot;Bivariate gaussian test&quot;</span>)</span>
-<span id="cb6-2"><a href="construire-un-package-r.html#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="construire-un-package-r.html#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">test_that</span>(<span class="st">&quot;correct results for bivariate gaussian&quot;</span>, {</span>
-<span id="cb6-4"><a href="construire-un-package-r.html#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_equal</span>(<span class="fu">mvnpdf</span>(<span class="at">x=</span><span class="fu">matrix</span>(<span class="fu">rep</span>(<span class="fl">1.96</span>,<span class="dv">2</span>), <span class="at">nrow=</span><span class="dv">2</span>, <span class="at">ncol=</span><span class="dv">1</span>), <span class="at">Log=</span><span class="cn">FALSE</span>)<span class="sc">$</span>y,</span>
-<span id="cb6-5"><a href="construire-un-package-r.html#cb6-5" aria-hidden="true" tabindex="-1"></a>               mvtnorm<span class="sc">::</span><span class="fu">dmvnorm</span>(<span class="fu">rep</span>(<span class="fl">1.96</span>, <span class="dv">2</span>)))</span>
-<span id="cb6-6"><a href="construire-un-package-r.html#cb6-6" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="construire-un-package-r.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">test_that</span>(<span class="st">&quot;correct results for bivariate gaussian&quot;</span>, {</span>
+<span id="cb6-2"><a href="construire-un-package-r.html#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_equal</span>(<span class="fu">mvnpdf</span>(<span class="at">x=</span><span class="fu">matrix</span>(<span class="fu">rep</span>(<span class="fl">1.96</span>,<span class="dv">2</span>), <span class="at">nrow=</span><span class="dv">2</span>, <span class="at">ncol=</span><span class="dv">1</span>), <span class="at">Log=</span><span class="cn">FALSE</span>)<span class="sc">$</span>y,</span>
+<span id="cb6-3"><a href="construire-un-package-r.html#cb6-3" aria-hidden="true" tabindex="-1"></a>               mvtnorm<span class="sc">::</span><span class="fu">dmvnorm</span>(<span class="fu">rep</span>(<span class="fl">1.96</span>, <span class="dv">2</span>)))</span>
+<span id="cb6-4"><a href="construire-un-package-r.html#cb6-4" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
 <p>Pour exécuter ces tests, on peut utiliser dans l’onglet “Build”, le menu
 “More”, “Test package” (ou <code>devtools::test()</code> ou Ctrl+Shift+T).</p>
 <p>L’avantage de ces tests automatiques est qu’ils vont
