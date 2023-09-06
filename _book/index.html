@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Formation R avancée</title>
   <meta name="description" content="Outils de développement et de performance" />
-  <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Formation R avancée" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Robin Genuer et Boris Hejblum" />
 
 
-<meta name="date" content="2022-06-08" />
+<meta name="date" content="2023-09-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -31,7 +31,7 @@
   
   
 
-<link rel="next" href="construire-un-package-r.html"/>
+<link rel="next" href="construire-un-package.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -54,71 +54,11 @@
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
-<style type="text/css">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-</style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -136,18 +76,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">Formation R avancée : Outils de développement et de performance </a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Présentation de la formation</a></li>
-<li class="chapter" data-level="1" data-path="construire-un-package-r.html"><a href="construire-un-package-r.html"><i class="fa fa-check"></i><b>1</b> Construire un package <code>R</code></a>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Présentation de la formation</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="construire-un-package-r.html"><a href="construire-un-package-r.html#initialiser-un-package"><i class="fa fa-check"></i><b>1.1</b> Initialiser un package</a></li>
-<li class="chapter" data-level="1.2" data-path="construire-un-package-r.html"><a href="construire-un-package-r.html#ajouter-une-fonction-exemple-fil-rouge"><i class="fa fa-check"></i><b>1.2</b> Ajouter une fonction : exemple fil rouge</a></li>
-<li class="chapter" data-level="1.3" data-path="construire-un-package-r.html"><a href="construire-un-package-r.html#documenter-une-fonction"><i class="fa fa-check"></i><b>1.3</b> Documenter une fonction</a></li>
-<li class="chapter" data-level="1.4" data-path="construire-un-package-r.html"><a href="construire-un-package-r.html#tester-le-package-de-manière-intéractive"><i class="fa fa-check"></i><b>1.4</b> Tester le package de manière <em>intéractive</em></a></li>
-<li class="chapter" data-level="1.5" data-path="construire-un-package-r.html"><a href="construire-un-package-r.html#tester-le-package-de-manière-automatique"><i class="fa fa-check"></i><b>1.5</b> Tester le package de manière <em>automatique</em></a></li>
-<li class="chapter" data-level="1.6" data-path="construire-un-package-r.html"><a href="construire-un-package-r.html#faire-un-check-du-package"><i class="fa fa-check"></i><b>1.6</b> Faire un <em>check</em> du package</a></li>
-<li class="chapter" data-level="1.7" data-path="construire-un-package-r.html"><a href="construire-un-package-r.html#installer-le-package"><i class="fa fa-check"></i><b>1.7</b> Installer le package</a></li>
-<li class="chapter" data-level="1.8" data-path="construire-un-package-r.html"><a href="construire-un-package-r.html#annexe-1.1-ajouter-une-méthode-s3"><i class="fa fa-check"></i><b>1.8</b> Annexe 1.1 : ajouter une méthode S3</a></li>
-<li class="chapter" data-level="1.9" data-path="construire-un-package-r.html"><a href="construire-un-package-r.html#annexe-1.2-soumettre-son-package-au-cran"><i class="fa fa-check"></i><b>1.9</b> Annexe 1.2 : soumettre son package au CRAN</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#logiciels-et-librairies-nécessaires-à-la-formation"><i class="fa fa-check"></i>Logiciels et librairies nécessaires à la formation</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#pré-requis"><i class="fa fa-check"></i>Pré-requis</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="construire-un-package.html"><a href="construire-un-package.html"><i class="fa fa-check"></i><b>1</b> Construire un package <svg aria-hidden="true" role="img" viewBox="0 0 581 512" style="height:1em;width:1.13em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M581 226.6C581 119.1 450.9 32 290.5 32S0 119.1 0 226.6C0 322.4 103.3 402 239.4 418.1V480h99.1v-61.5c24.3-2.7 47.6-7.4 69.4-13.9L448 480h112l-67.4-113.7c54.5-35.4 88.4-84.9 88.4-139.7zm-466.8 14.5c0-73.5 98.9-133 220.8-133s211.9 40.7 211.9 133c0 50.1-26.5 85-70.3 106.4-2.4-1.6-4.7-2.9-6.4-3.7-10.2-5.2-27.8-10.5-27.8-10.5s86.6-6.4 86.6-92.7-90.6-87.9-90.6-87.9h-199V361c-74.1-21.5-125.2-67.1-125.2-119.9zm225.1 38.3v-55.6c57.8 0 87.8-6.8 87.8 27.3 0 36.5-38.2 28.3-87.8 28.3zm-.9 72.5H365c10.8 0 18.9 11.7 24 19.2-16.1 1.9-33 2.8-50.6 2.9v-22.1z"/></svg></a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="construire-un-package.html"><a href="construire-un-package.html#initialiser-un-package"><i class="fa fa-check"></i><b>1.1</b> Initialiser un package</a></li>
+<li class="chapter" data-level="1.2" data-path="construire-un-package.html"><a href="construire-un-package.html#ajouter-une-fonction-exemple-fil-rouge"><i class="fa fa-check"></i><b>1.2</b> Ajouter une fonction : exemple fil rouge</a></li>
+<li class="chapter" data-level="1.3" data-path="construire-un-package.html"><a href="construire-un-package.html#documenter-une-fonction"><i class="fa fa-check"></i><b>1.3</b> Documenter une fonction</a></li>
+<li class="chapter" data-level="1.4" data-path="construire-un-package.html"><a href="construire-un-package.html#tester-le-package-de-manière-intéractive"><i class="fa fa-check"></i><b>1.4</b> Tester le package de manière <em>intéractive</em></a></li>
+<li class="chapter" data-level="1.5" data-path="construire-un-package.html"><a href="construire-un-package.html#tester-le-package-de-manière-automatique"><i class="fa fa-check"></i><b>1.5</b> Tester le package de manière <em>automatique</em></a></li>
+<li class="chapter" data-level="1.6" data-path="construire-un-package.html"><a href="construire-un-package.html#faire-un-check-du-package"><i class="fa fa-check"></i><b>1.6</b> Faire un <em>check</em> du package</a></li>
+<li class="chapter" data-level="1.7" data-path="construire-un-package.html"><a href="construire-un-package.html#installer-le-package"><i class="fa fa-check"></i><b>1.7</b> Installer le package</a></li>
+<li class="chapter" data-level="1.8" data-path="construire-un-package.html"><a href="construire-un-package.html#annexe-1.1-ajouter-une-méthode-s3"><i class="fa fa-check"></i><b>1.8</b> Annexe 1.1 : ajouter une méthode S3</a></li>
+<li class="chapter" data-level="1.9" data-path="construire-un-package.html"><a href="construire-un-package.html#annexe-1.2-soumettre-son-package-au-cran"><i class="fa fa-check"></i><b>1.9</b> Annexe 1.2 : soumettre son package au CRAN</a></li>
+<li class="chapter" data-level="1.10" data-path="construire-un-package.html"><a href="construire-un-package.html#annexe-1.3-construire-un-site-web-pour-accompagner-son-package"><i class="fa fa-check"></i><b>1.10</b> Annexe 1.3 : construire un site web pour accompagner son package</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html"><a href="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html"><i class="fa fa-check"></i><b>2</b> Contrôle de version avec <code>git</code> et GitHub : historique de changement, développement collaboratif et intégration continue</a>
 <ul>
@@ -234,7 +179,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1 class="title">Formation R avancée</h1>
 <h2 class="subtitle"><em><em>Outils de développement et de performance</em></em></h2>
 <p class="author"><em><a href="https://robin.genuer.fr/">Robin Genuer</a> et <a href="https://borishejblum.science/">Boris Hejblum</a></em></p>
-<p class="date"><em>2022-06-08</em></p>
+<p class="date"><em>2023-09-06</em></p>
 </div>
 <div id="présentation-de-la-formation" class="section level1 unnumbered hasAnchor">
 <h1>Présentation de la formation<a href="index.html#présentation-de-la-formation" class="anchor-section" aria-label="Anchor link to header"></a></h1>
@@ -258,21 +203,34 @@ développer le code.</p>
 <li><p>Utiliser <em>Rcpp</em> pour optimiser ce qui doit l’être</p></li>
 <li><p>Paralléliser facilement le code</p></li>
 </ol>
+<div id="logiciels-et-librairies-nécessaires-à-la-formation" class="section level2 unnumbered hasAnchor">
+<h2>Logiciels et librairies nécessaires à la formation<a href="index.html#logiciels-et-librairies-nécessaires-à-la-formation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Afin de suivre cette formation, il est nécessaire de disposer des logiciels suivants :</p>
 <ul>
-<li><p>la dernière version de <em>R</em> (<a href="https://cloud.r-project.org/" class="uri">https://cloud.r-project.org/</a>)</p></li>
-<li><p>la dernière version de <em>RStudio</em> (<a href="https://www.rstudio.com/products/rstudio/download/#download" class="uri">https://www.rstudio.com/products/rstudio/download/#download</a>)</p></li>
+<li><p>la dernière version de <svg aria-hidden="true" role="img" viewBox="0 0 581 512" style="height:1em;width:1.13em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M581 226.6C581 119.1 450.9 32 290.5 32S0 119.1 0 226.6C0 322.4 103.3 402 239.4 418.1V480h99.1v-61.5c24.3-2.7 47.6-7.4 69.4-13.9L448 480h112l-67.4-113.7c54.5-35.4 88.4-84.9 88.4-139.7zm-466.8 14.5c0-73.5 98.9-133 220.8-133s211.9 40.7 211.9 133c0 50.1-26.5 85-70.3 106.4-2.4-1.6-4.7-2.9-6.4-3.7-10.2-5.2-27.8-10.5-27.8-10.5s86.6-6.4 86.6-92.7-90.6-87.9-90.6-87.9h-199V361c-74.1-21.5-125.2-67.1-125.2-119.9zm225.1 38.3v-55.6c57.8 0 87.8-6.8 87.8 27.3 0 36.5-38.2 28.3-87.8 28.3zm-.9 72.5H365c10.8 0 18.9 11.7 24 19.2-16.1 1.9-33 2.8-50.6 2.9v-22.1z"/></svg> (<a href="https://cloud.r-project.org/" class="uri">https://cloud.r-project.org/</a>)</p></li>
+<li><p>la dernière version de <em>RStudio</em> (<a href="https://posit.co/download/rstudio-desktop/#download" class="uri">https://posit.co/download/rstudio-desktop/#download</a>)</p></li>
 <li><p>un <em>compilateur <code>C++</code></em> (tel que <code>gcc</code> ou <code>clang</code> - natif sous les système UNIX,
 pour les utilisateurs Windows nous recommandons l’installation de
 <a href="https://cran.r-project.org/bin/windows/Rtools/">Rtools</a>, pour les
 utilisateurs Mac il peut être nécessaire d’installer les outils de
-développement Apple comme suggéré
-<a href="http://thecoatlessprofessor.com/programming/r-compiler-tools-for-rcpp-on-os-x/">ici</a>)</p></li>
-<li><p>les packages <code>R</code> suivants : <em>devtools</em>, <em>future.apply</em>, <em>itertools</em>, <em>microbenchmark</em>, <em>mvtnorm</em>, <em>profvis</em>, <em>Rcpp</em>, <em>RcppArmadillo</em>, <em>roxygen2</em>, <em>testthat</em>, <em>usethis</em></p></li>
+développement Apple comme indiqué
+<a href="https://mac.r-project.org/tools/">ici</a>)</p></li>
+<li><p>les packages <svg aria-hidden="true" role="img" viewBox="0 0 581 512" style="height:1em;width:1.13em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M581 226.6C581 119.1 450.9 32 290.5 32S0 119.1 0 226.6C0 322.4 103.3 402 239.4 418.1V480h99.1v-61.5c24.3-2.7 47.6-7.4 69.4-13.9L448 480h112l-67.4-113.7c54.5-35.4 88.4-84.9 88.4-139.7zm-466.8 14.5c0-73.5 98.9-133 220.8-133s211.9 40.7 211.9 133c0 50.1-26.5 85-70.3 106.4-2.4-1.6-4.7-2.9-6.4-3.7-10.2-5.2-27.8-10.5-27.8-10.5s86.6-6.4 86.6-92.7-90.6-87.9-90.6-87.9h-199V361c-74.1-21.5-125.2-67.1-125.2-119.9zm225.1 38.3v-55.6c57.8 0 87.8-6.8 87.8 27.3 0 36.5-38.2 28.3-87.8 28.3zm-.9 72.5H365c10.8 0 18.9 11.7 24 19.2-16.1 1.9-33 2.8-50.6 2.9v-22.1z"/></svg> suivants : <em>devtools</em>, <em>future.apply</em>, <em>itertools</em>, <em>microbenchmark</em>, <em>mvtnorm</em>, <em>profvis</em>, <em>Rcpp</em>, <em>RcppArmadillo</em>, <em>roxygen2</em>, <em>testthat</em>, <em>usethis</em></p></li>
 <li><p>le client <a href="https://desktop.github.com/"><em>GitHub Desktop</em></a></p></li>
 <li><p>le logiciel <a href="https://git-scm.com/"><em>git</em></a></p></li>
 </ul>
+</div>
+<div id="pré-requis" class="section level2 unnumbered hasAnchor">
+<h2>Pré-requis<a href="index.html#pré-requis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Afin de pouvoir suivre cette formation correctement vous devez être à l’aise avec les aspects suivants :</p>
+<ul>
+<li>la programation avec <svg aria-hidden="true" role="img" viewBox="0 0 581 512" style="height:1em;width:1.13em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M581 226.6C581 119.1 450.9 32 290.5 32S0 119.1 0 226.6C0 322.4 103.3 402 239.4 418.1V480h99.1v-61.5c24.3-2.7 47.6-7.4 69.4-13.9L448 480h112l-67.4-113.7c54.5-35.4 88.4-84.9 88.4-139.7zm-466.8 14.5c0-73.5 98.9-133 220.8-133s211.9 40.7 211.9 133c0 50.1-26.5 85-70.3 106.4-2.4-1.6-4.7-2.9-6.4-3.7-10.2-5.2-27.8-10.5-27.8-10.5s86.6-6.4 86.6-92.7-90.6-87.9-90.6-87.9h-199V361c-74.1-21.5-125.2-67.1-125.2-119.9zm225.1 38.3v-55.6c57.8 0 87.8-6.8 87.8 27.3 0 36.5-38.2 28.3-87.8 28.3zm-.9 72.5H365c10.8 0 18.9 11.7 24 19.2-16.1 1.9-33 2.8-50.6 2.9v-22.1z"/></svg> dans l’environnement de développement <em>RStudio</em></li>
+<li>écriture de fonctions en <svg aria-hidden="true" role="img" viewBox="0 0 581 512" style="height:1em;width:1.13em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M581 226.6C581 119.1 450.9 32 290.5 32S0 119.1 0 226.6C0 322.4 103.3 402 239.4 418.1V480h99.1v-61.5c24.3-2.7 47.6-7.4 69.4-13.9L448 480h112l-67.4-113.7c54.5-35.4 88.4-84.9 88.4-139.7zm-466.8 14.5c0-73.5 98.9-133 220.8-133s211.9 40.7 211.9 133c0 50.1-26.5 85-70.3 106.4-2.4-1.6-4.7-2.9-6.4-3.7-10.2-5.2-27.8-10.5-27.8-10.5s86.6-6.4 86.6-92.7-90.6-87.9-90.6-87.9h-199V361c-74.1-21.5-125.2-67.1-125.2-119.9zm225.1 38.3v-55.6c57.8 0 87.8-6.8 87.8 27.3 0 36.5-38.2 28.3-87.8 28.3zm-.9 72.5H365c10.8 0 18.9 11.7 24 19.2-16.1 1.9-33 2.8-50.6 2.9v-22.1z"/></svg></li>
+<li>structure de contrôle, en particulier les boucles <em>for</em></li>
+<li>le calcul de la densité d’une loi normale multivariée</li>
+</ul>
 
+</div>
 </div>
             </section>
 
@@ -280,7 +238,7 @@ développement Apple comme suggéré
         </div>
       </div>
 
-<a href="construire-un-package-r.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="construire-un-package.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -334,20 +292,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:")
-      if (/^https?:/.test(src))
-        src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>

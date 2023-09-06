@@ -46,3 +46,5 @@ les-autres-plans-de-calculs-parallèle
 parallélisation-dans-notre-exemple-fil-rouge
 conclusion
 take-home-message
+construire-un-package
+annexe-1.3-construire-un-site-web-pour-accompagner-son-package

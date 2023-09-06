@@ -42,21 +42,32 @@ Nous allons adopter le plan suivant :
 6. Paralléliser facilement le code
 
 
+## Logiciels et librairies nécessaires à la formation {-}
+
 Afin de suivre cette formation, il est nécessaire de disposer des logiciels suivants :  
 
-  - la dernière version de *R* (https://cloud.r-project.org/)
+  - la dernière version de `r fontawesome::fa("r-project")` (https://cloud.r-project.org/)
 
-  - la dernière version de *RStudio* (https://www.rstudio.com/products/rstudio/download/#download)
+  - la dernière version de *RStudio* (https://posit.co/download/rstudio-desktop/#download)
 
   - un *compilateur `C++`* (tel que `gcc` ou `clang` - natif sous les système UNIX, 
 	pour les utilisateurs Windows nous recommandons l’installation de 
 	[Rtools](https://cran.r-project.org/bin/windows/Rtools/), pour les 
 	utilisateurs Mac il peut être nécessaire d'installer les outils de 
-	développement Apple comme suggéré 
-	[ici](http://thecoatlessprofessor.com/programming/r-compiler-tools-for-rcpp-on-os-x/))
+	développement Apple comme indiqué 
+	[ici](https://mac.r-project.org/tools/))
 
-  - les packages `R` suivants : *devtools*, *future.apply*, *itertools*, *microbenchmark*, *mvtnorm*, *profvis*, *Rcpp*, *RcppArmadillo*, *roxygen2*, *testthat*, *usethis*
+  - les packages `r fontawesome::fa("r-project")` suivants : *devtools*, *future.apply*, *itertools*, *microbenchmark*, *mvtnorm*, *profvis*, *Rcpp*, *RcppArmadillo*, *roxygen2*, *testthat*, *usethis*
 
   - le client [*GitHub Desktop*](https://desktop.github.com/)
 
   - le logiciel [*git*](https://git-scm.com/)
+
+## Pré-requis {-}
+
+Afin de pouvoir suivre cette formation correctement vous devez être à l'aise avec les aspects suivants : 
+
+  - la programation avec `r fontawesome::fa("r-project")` dans l'environnement de développement *RStudio*
+  - écriture de fonctions en `r fontawesome::fa("r-project")`
+  - structure de contrôle, en particulier les boucles *for*
+  - le calcul de la densité d'une loi normale multivariée

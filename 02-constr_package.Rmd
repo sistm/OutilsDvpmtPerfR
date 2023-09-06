@@ -1,5 +1,5 @@
 
-# Construire un package `R`
+# Construire un package `r fontawesome::fa("r-project")`
 
 Nous présentons ici comment construire un package efficacement à l'aide d'outils
 graphiques présents dans Rstudio et du package `devtools`.
@@ -30,7 +30,7 @@ On récupère la structure **minimale pour un package R**, à savoir :
   
   - un fichier `NAMESPACE` qui sera éditer automatiquement plus loin
   
-  - un dossier `R` dans lequel on va ajouter des fichiers de scripts R
+  - un dossier `r fontawesome::fa("r-project")` dans lequel on va ajouter des fichiers de scripts R
   
   
 Rstudio ajoute également trois **fichiers facultatifs** :
@@ -59,7 +59,7 @@ et on souhaite pouvoir calculer toutes les valeurs de la densité évaluées
 sur les $n$ points en un seul appel de la fonction.
 
 Vous devez donc créer une fonction `mvnpdf()` dans un fichier nommé `mvnpdf.R`
-dans le dossier `R` du package, qui :
+dans le dossier `r fontawesome::fa("r-project")` du package, qui :
 
   - prend en arguments :
   
@@ -287,3 +287,8 @@ de la fonction `mvnpdf()` et de la méthode `plot()` associée.
 ## Annexe 1.2 : soumettre son package au CRAN
 
 `devtools::check()` puis `devtools::submit_cran()`
+
+
+## Annexe 1.3 : construire un site web pour accompagner son package
+
+`usethis::use_pkgdown()`
