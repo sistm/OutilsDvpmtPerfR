@@ -1,4 +1,4 @@
-construire-un-package-r
+construire-un-package
 initialiser-un-package
 ajouter-une-fonction-exemple-fil-rouge
 documenter-une-fonction
@@ -8,6 +8,7 @@ faire-un-check-du-package
 installer-le-package
 annexe-1.1-ajouter-une-méthode-s3
 annexe-1.2-soumettre-son-package-au-cran
+annexe-1.3-construire-un-site-web-pour-accompagner-son-package
 contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue
 principe-du-contrôle-de-version
 git
@@ -46,5 +47,3 @@ les-autres-plans-de-calculs-parallèle
 parallélisation-dans-notre-exemple-fil-rouge
 conclusion
 take-home-message
-construire-un-package
-annexe-1.3-construire-un-site-web-pour-accompagner-son-package

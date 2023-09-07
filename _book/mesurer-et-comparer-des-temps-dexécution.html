@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapitre 3 Mesurer et comparer des temps d’exécution | Formation R avancée</title>
   <meta name="description" content="Outils de développement et de performance" />
-  <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapitre 3 Mesurer et comparer des temps d’exécution | Formation R avancée" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Robin Genuer et Boris Hejblum" />
 
 
-<meta name="date" content="2022-06-08" />
+<meta name="date" content="2023-09-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -92,7 +92,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -105,7 +105,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -119,6 +119,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -136,18 +140,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">Formation R avancée : Outils de développement et de performance </a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Présentation de la formation</a></li>
-<li class="chapter" data-level="1" data-path="construire-un-package-r.html"><a href="construire-un-package-r.html"><i class="fa fa-check"></i><b>1</b> Construire un package <code>R</code></a>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Présentation de la formation</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="construire-un-package-r.html"><a href="construire-un-package-r.html#initialiser-un-package"><i class="fa fa-check"></i><b>1.1</b> Initialiser un package</a></li>
-<li class="chapter" data-level="1.2" data-path="construire-un-package-r.html"><a href="construire-un-package-r.html#ajouter-une-fonction-exemple-fil-rouge"><i class="fa fa-check"></i><b>1.2</b> Ajouter une fonction : exemple fil rouge</a></li>
-<li class="chapter" data-level="1.3" data-path="construire-un-package-r.html"><a href="construire-un-package-r.html#documenter-une-fonction"><i class="fa fa-check"></i><b>1.3</b> Documenter une fonction</a></li>
-<li class="chapter" data-level="1.4" data-path="construire-un-package-r.html"><a href="construire-un-package-r.html#tester-le-package-de-manière-intéractive"><i class="fa fa-check"></i><b>1.4</b> Tester le package de manière <em>intéractive</em></a></li>
-<li class="chapter" data-level="1.5" data-path="construire-un-package-r.html"><a href="construire-un-package-r.html#tester-le-package-de-manière-automatique"><i class="fa fa-check"></i><b>1.5</b> Tester le package de manière <em>automatique</em></a></li>
-<li class="chapter" data-level="1.6" data-path="construire-un-package-r.html"><a href="construire-un-package-r.html#faire-un-check-du-package"><i class="fa fa-check"></i><b>1.6</b> Faire un <em>check</em> du package</a></li>
-<li class="chapter" data-level="1.7" data-path="construire-un-package-r.html"><a href="construire-un-package-r.html#installer-le-package"><i class="fa fa-check"></i><b>1.7</b> Installer le package</a></li>
-<li class="chapter" data-level="1.8" data-path="construire-un-package-r.html"><a href="construire-un-package-r.html#annexe-1.1-ajouter-une-méthode-s3"><i class="fa fa-check"></i><b>1.8</b> Annexe 1.1 : ajouter une méthode S3</a></li>
-<li class="chapter" data-level="1.9" data-path="construire-un-package-r.html"><a href="construire-un-package-r.html#annexe-1.2-soumettre-son-package-au-cran"><i class="fa fa-check"></i><b>1.9</b> Annexe 1.2 : soumettre son package au CRAN</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#logiciels-et-librairies-nécessaires-à-la-formation"><i class="fa fa-check"></i>Logiciels et librairies nécessaires à la formation</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#pré-requis"><i class="fa fa-check"></i>Pré-requis</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="construire-un-package.html"><a href="construire-un-package.html"><i class="fa fa-check"></i><b>1</b> Construire un package <svg aria-hidden="true" role="img" viewBox="0 0 581 512" style="height:1em;width:1.13em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M581 226.6C581 119.1 450.9 32 290.5 32S0 119.1 0 226.6C0 322.4 103.3 402 239.4 418.1V480h99.1v-61.5c24.3-2.7 47.6-7.4 69.4-13.9L448 480h112l-67.4-113.7c54.5-35.4 88.4-84.9 88.4-139.7zm-466.8 14.5c0-73.5 98.9-133 220.8-133s211.9 40.7 211.9 133c0 50.1-26.5 85-70.3 106.4-2.4-1.6-4.7-2.9-6.4-3.7-10.2-5.2-27.8-10.5-27.8-10.5s86.6-6.4 86.6-92.7-90.6-87.9-90.6-87.9h-199V361c-74.1-21.5-125.2-67.1-125.2-119.9zm225.1 38.3v-55.6c57.8 0 87.8-6.8 87.8 27.3 0 36.5-38.2 28.3-87.8 28.3zm-.9 72.5H365c10.8 0 18.9 11.7 24 19.2-16.1 1.9-33 2.8-50.6 2.9v-22.1z"/></svg></a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="construire-un-package.html"><a href="construire-un-package.html#initialiser-un-package"><i class="fa fa-check"></i><b>1.1</b> Initialiser un package</a></li>
+<li class="chapter" data-level="1.2" data-path="construire-un-package.html"><a href="construire-un-package.html#ajouter-une-fonction-exemple-fil-rouge"><i class="fa fa-check"></i><b>1.2</b> Ajouter une fonction : exemple fil rouge</a></li>
+<li class="chapter" data-level="1.3" data-path="construire-un-package.html"><a href="construire-un-package.html#documenter-une-fonction"><i class="fa fa-check"></i><b>1.3</b> Documenter une fonction</a></li>
+<li class="chapter" data-level="1.4" data-path="construire-un-package.html"><a href="construire-un-package.html#tester-le-package-de-manière-intéractive"><i class="fa fa-check"></i><b>1.4</b> Tester le package de manière <em>intéractive</em></a></li>
+<li class="chapter" data-level="1.5" data-path="construire-un-package.html"><a href="construire-un-package.html#tester-le-package-de-manière-automatique"><i class="fa fa-check"></i><b>1.5</b> Tester le package de manière <em>automatique</em></a></li>
+<li class="chapter" data-level="1.6" data-path="construire-un-package.html"><a href="construire-un-package.html#faire-un-check-du-package"><i class="fa fa-check"></i><b>1.6</b> Faire un <em>check</em> du package</a></li>
+<li class="chapter" data-level="1.7" data-path="construire-un-package.html"><a href="construire-un-package.html#installer-le-package"><i class="fa fa-check"></i><b>1.7</b> Installer le package</a></li>
+<li class="chapter" data-level="1.8" data-path="construire-un-package.html"><a href="construire-un-package.html#annexe-1.1-ajouter-une-méthode-s3"><i class="fa fa-check"></i><b>1.8</b> Annexe 1.1 : ajouter une méthode S3</a></li>
+<li class="chapter" data-level="1.9" data-path="construire-un-package.html"><a href="construire-un-package.html#annexe-1.2-soumettre-son-package-au-cran"><i class="fa fa-check"></i><b>1.9</b> Annexe 1.2 : soumettre son package au CRAN</a></li>
+<li class="chapter" data-level="1.10" data-path="construire-un-package.html"><a href="construire-un-package.html#annexe-1.3-construire-un-site-web-pour-accompagner-son-package"><i class="fa fa-check"></i><b>1.10</b> Annexe 1.3 : construire un site web pour accompagner son package</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html"><a href="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html"><i class="fa fa-check"></i><b>2</b> Contrôle de version avec <code>git</code> et GitHub : historique de changement, développement collaboratif et intégration continue</a>
 <ul>
@@ -238,18 +247,18 @@ afin de pouvoir comparer les temps d’exécution entre différente implémentat
 <h2><span class="header-section-number">3.1</span> Mesurer des temps d’exécution avec <code>system.time()</code><a href="mesurer-et-comparer-des-temps-dexécution.html#mesurer-des-temps-dexécution-avec-system.time" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Pour mesure le temps d’exécution d’une commande R, on peut utiliser la
 fonction <code>system.time()</code> comme ceci :</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="mesurer-et-comparer-des-temps-dexécution.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(<span class="fu">mvnpdf</span>(<span class="at">x=</span><span class="fu">matrix</span>(<span class="fu">rep</span>(<span class="fl">1.96</span>, <span class="dv">2</span>), <span class="at">nrow=</span><span class="dv">2</span>, <span class="at">ncol=</span><span class="dv">1</span>), <span class="at">Log=</span><span class="cn">FALSE</span>))</span></code></pre></div>
-<pre><code>## utilisateur     système      écoulé 
-##       0.001       0.001       0.003</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="mesurer-et-comparer-des-temps-dexécution.html#cb9-1" tabindex="-1"></a><span class="fu">system.time</span>(<span class="fu">mvnpdf</span>(<span class="at">x=</span><span class="fu">matrix</span>(<span class="fu">rep</span>(<span class="fl">1.96</span>, <span class="dv">2</span>), <span class="at">nrow=</span><span class="dv">2</span>, <span class="at">ncol=</span><span class="dv">1</span>), <span class="at">Log=</span><span class="cn">FALSE</span>))</span></code></pre></div>
+<pre><code>##    user  system elapsed 
+##   0.001   0.000   0.002</code></pre>
 <p>Le problème qui apparaît sur cet exemple est que l’exécution est tellement
 rapide que <code>system.time()</code> affiche <code>0</code> (ou une valeur très proche).
 De plus, on voit qu’il y a une certaine variabilité quand on relance plusieurs
 fois la commande.</p>
 <p>Ainsi si on souhaite comparer notre code avec la fonction <code>mvtnorm::dmvnorm()</code>,
 on ne peut pas utiliser <code>system.time()</code> :</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="mesurer-et-comparer-des-temps-dexécution.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(mvtnorm<span class="sc">::</span><span class="fu">dmvnorm</span>(<span class="fu">rep</span>(<span class="fl">1.96</span>, <span class="dv">2</span>)))</span></code></pre></div>
-<pre><code>## utilisateur     système      écoulé 
-##       0.009       0.005       0.018</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="mesurer-et-comparer-des-temps-dexécution.html#cb11-1" tabindex="-1"></a><span class="fu">system.time</span>(mvtnorm<span class="sc">::</span><span class="fu">dmvnorm</span>(<span class="fu">rep</span>(<span class="fl">1.96</span>, <span class="dv">2</span>)))</span></code></pre></div>
+<pre><code>##    user  system elapsed 
+##   0.003   0.001   0.007</code></pre>
 <p>On pourrait se dire qu’il faut augmenter la complexité de notre calcul, mais
 il y a mieux : utiliser le package <code>microbenchmark</code> !</p>
 </div>
@@ -259,38 +268,41 @@ il y a mieux : utiliser le package <code>microbenchmark</code> !</p>
 d’exécution même quand ceux-ci sont très faibles. De plus, la fonction
 <code>microbenchmark()</code> va répéter un certain nombre de fois l’exécution des
 commandes et donc va stabiliser le résultat.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="mesurer-et-comparer-des-temps-dexécution.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(microbenchmark)</span>
-<span id="cb13-2"><a href="mesurer-et-comparer-des-temps-dexécution.html#cb13-2" aria-hidden="true" tabindex="-1"></a>mb <span class="ot">&lt;-</span> <span class="fu">microbenchmark</span>(mvtnorm<span class="sc">::</span><span class="fu">dmvnorm</span>(<span class="fu">rep</span>(<span class="fl">1.96</span>, <span class="dv">2</span>)),</span>
-<span id="cb13-3"><a href="mesurer-et-comparer-des-temps-dexécution.html#cb13-3" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">mvnpdf</span>(<span class="at">x=</span><span class="fu">matrix</span>(<span class="fu">rep</span>(<span class="fl">1.96</span>,<span class="dv">2</span>)), <span class="at">Log=</span><span class="cn">FALSE</span>),</span>
-<span id="cb13-4"><a href="mesurer-et-comparer-des-temps-dexécution.html#cb13-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">times=</span>1000L)</span>
-<span id="cb13-5"><a href="mesurer-et-comparer-des-temps-dexécution.html#cb13-5" aria-hidden="true" tabindex="-1"></a>mb</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="mesurer-et-comparer-des-temps-dexécution.html#cb13-1" tabindex="-1"></a><span class="fu">library</span>(microbenchmark)</span>
+<span id="cb13-2"><a href="mesurer-et-comparer-des-temps-dexécution.html#cb13-2" tabindex="-1"></a>mb <span class="ot">&lt;-</span> <span class="fu">microbenchmark</span>(mvtnorm<span class="sc">::</span><span class="fu">dmvnorm</span>(<span class="fu">rep</span>(<span class="fl">1.96</span>, <span class="dv">2</span>)),</span>
+<span id="cb13-3"><a href="mesurer-et-comparer-des-temps-dexécution.html#cb13-3" tabindex="-1"></a>                     <span class="fu">mvnpdf</span>(<span class="at">x=</span><span class="fu">matrix</span>(<span class="fu">rep</span>(<span class="fl">1.96</span>,<span class="dv">2</span>)), <span class="at">Log=</span><span class="cn">FALSE</span>),</span>
+<span id="cb13-4"><a href="mesurer-et-comparer-des-temps-dexécution.html#cb13-4" tabindex="-1"></a>                     <span class="at">times=</span>1000L)</span></code></pre></div>
+<pre><code>## Warning in microbenchmark(mvtnorm::dmvnorm(rep(1.96, 2)), mvnpdf(x =
+## matrix(rep(1.96, : less accurate nanosecond times to avoid potential integer
+## overflows</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="mesurer-et-comparer-des-temps-dexécution.html#cb15-1" tabindex="-1"></a>mb</span></code></pre></div>
 <pre><code>## Unit: microseconds
-##                                           expr    min     lq      mean  median
-##                 mvtnorm::dmvnorm(rep(1.96, 2)) 38.026 53.807 100.01754 67.7565
-##  mvnpdf(x = matrix(rep(1.96, 2)), Log = FALSE) 35.643 48.974  88.56617 62.9515
-##        uq      max neval
-##  106.3260 2529.688  1000
-##  102.2445  597.666  1000</code></pre>
-<pre><code>## Warning: It is deprecated to specify `guide = FALSE` to remove a guide. Please
-## use `guide = &quot;none&quot;` instead.</code></pre>
+##                                           expr    min     lq     mean median
+##                 mvtnorm::dmvnorm(rep(1.96, 2)) 15.416 16.933 19.64519 18.122
+##  mvnpdf(x = matrix(rep(1.96, 2)), Log = FALSE) 13.981 15.498 16.86371 16.564
+##       uq      max neval cld
+##  19.0035 1336.395  1000  a 
+##  17.3430  105.698  1000   b</code></pre>
+<pre><code>## Warning: The `guide` argument in `scale_*()` cannot be `FALSE`. This was deprecated in ggplot2 3.3.4.
+## ℹ Please use &quot;none&quot; instead.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.</code></pre>
 <p><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 <p>Les deux fonctions <code>mvnpdf()</code> et <code>dmnvorm()</code> étant capables de prendre en
 entrée une matrice, on peut également comparer leurs comportements dans ce
 cas :</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="mesurer-et-comparer-des-temps-dexécution.html#cb16-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100</span></span>
-<span id="cb16-2"><a href="mesurer-et-comparer-des-temps-dexécution.html#cb16-2" aria-hidden="true" tabindex="-1"></a>mb <span class="ot">&lt;-</span> <span class="fu">microbenchmark</span>(mvtnorm<span class="sc">::</span><span class="fu">dmvnorm</span>(<span class="fu">matrix</span>(<span class="fl">1.96</span>, <span class="at">nrow =</span> n, <span class="at">ncol =</span> <span class="dv">2</span>)),</span>
-<span id="cb16-3"><a href="mesurer-et-comparer-des-temps-dexécution.html#cb16-3" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">mvnpdf</span>(<span class="at">x=</span><span class="fu">matrix</span>(<span class="fl">1.96</span>, <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> n), <span class="at">Log=</span><span class="cn">FALSE</span>),</span>
-<span id="cb16-4"><a href="mesurer-et-comparer-des-temps-dexécution.html#cb16-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">times=</span>100L)</span>
-<span id="cb16-5"><a href="mesurer-et-comparer-des-temps-dexécution.html#cb16-5" aria-hidden="true" tabindex="-1"></a>mb</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="mesurer-et-comparer-des-temps-dexécution.html#cb18-1" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb18-2"><a href="mesurer-et-comparer-des-temps-dexécution.html#cb18-2" tabindex="-1"></a>mb <span class="ot">&lt;-</span> <span class="fu">microbenchmark</span>(mvtnorm<span class="sc">::</span><span class="fu">dmvnorm</span>(<span class="fu">matrix</span>(<span class="fl">1.96</span>, <span class="at">nrow =</span> n, <span class="at">ncol =</span> <span class="dv">2</span>)),</span>
+<span id="cb18-3"><a href="mesurer-et-comparer-des-temps-dexécution.html#cb18-3" tabindex="-1"></a>                     <span class="fu">mvnpdf</span>(<span class="at">x=</span><span class="fu">matrix</span>(<span class="fl">1.96</span>, <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> n), <span class="at">Log=</span><span class="cn">FALSE</span>),</span>
+<span id="cb18-4"><a href="mesurer-et-comparer-des-temps-dexécution.html#cb18-4" tabindex="-1"></a>                     <span class="at">times=</span>100L)</span>
+<span id="cb18-5"><a href="mesurer-et-comparer-des-temps-dexécution.html#cb18-5" tabindex="-1"></a>mb</span></code></pre></div>
 <pre><code>## Unit: microseconds
 ##                                                       expr     min       lq
-##         mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))  46.707  53.5735
-##  mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 451.371 486.9975
-##       mean   median      uq     max neval
-##   66.43732  58.9245  67.552 171.064   100
-##  545.60655 502.5920 563.130 947.610   100</code></pre>
-<pre><code>## Warning: It is deprecated to specify `guide = FALSE` to remove a guide. Please
-## use `guide = &quot;none&quot;` instead.</code></pre>
+##         mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))  17.589  18.3475
+##  mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 204.016 208.7720
+##       mean   median       uq     max neval cld
+##   19.62096  19.1265  20.0490  47.109   100  a 
+##  214.98760 212.3185 219.2065 267.320   100   b</code></pre>
 <p><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
 <p>Il s’est passé un quelque chose… Et on va diagnostiquer ce problème dans la suite.</p>
 
@@ -362,7 +374,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');
