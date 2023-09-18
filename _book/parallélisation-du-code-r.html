@@ -187,7 +187,7 @@ médiane pour chacune de ces variables.</p>
 <span><span class="op">}</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span><span class="op">(</span><span class="fu">colmedian_apply</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>##    user  system elapsed 
-##   1.552   0.006   1.562</code></pre>
+##   1.544   0.006   1.551</code></pre>
 <p>En réalité, une boucle <code>for</code> n’est pas plus lente à condition d’être bien
 programmée :</p>
 <div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
@@ -200,7 +200,7 @@ programmée :</p>
 <span><span class="op">}</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span><span class="op">(</span><span class="fu">colmedian_for</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>##    user  system elapsed 
-##   1.502   0.006   1.516</code></pre>
+##   1.486   0.004   1.493</code></pre>
 <blockquote>
 <p><strong><em>À vous de jouer !</em></strong><br>
 Essayez d’améliorer encore ce temps de calcul en parallélisant :</p>

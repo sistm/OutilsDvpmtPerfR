@@ -133,17 +133,17 @@ l’utiliser.</p></li>
 <span><span class="va">mb</span></span></code></pre></div>
 <pre><code>## Unit: microseconds
 ##                                                            expr      min
-##              mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))   43.624
-##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3136.090
-##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 2328.431
-##  mvnpdfoptim(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 1756.153
-##  mvnpdf_invC(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 2308.710
-##         lq       mean    median        uq       max neval  cld
-##    64.7595   81.67077   78.8225   95.4685   136.858   100 a   
-##  3245.0885 3470.06247 3342.0330 3504.0035  8277.777   100  b  
-##  2366.6430 2665.19106 2398.8485 2436.0765  6870.001   100   c 
-##  1791.6180 2055.62602 1828.5385 1875.6270 11743.220   100    d
-##  2359.0580 2407.79716 2384.6010 2420.9065  2951.549   100   c</code></pre>
+##              mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))   43.911
+##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3145.356
+##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 2320.887
+##  mvnpdfoptim(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 1744.427
+##  mvnpdf_invC(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 2314.368
+##        lq       mean   median        uq       max neval  cld
+##    54.735   68.44335   66.666   79.6835   113.488   100 a   
+##  3281.456 3481.98978 3374.505 3495.5370  7867.613   100  b  
+##  2353.564 2559.27289 2378.615 2438.1470  8375.685   100   c 
+##  1788.113 2102.97897 1817.264 1850.2275 10247.212   100    d
+##  2346.123 2382.13608 2370.271 2403.3790  2666.189   100   c</code></pre>
 <div class="inline-figure"><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-31-1.png" width="672"></div>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">profvis</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/profvis/man/profvis.html">profvis</a></span><span class="op">(</span><span class="fu">mvnpdfoptim</span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">1.96</span>, </span>
@@ -187,12 +187,12 @@ de densité de la loi Normale multivariée <code>mvnpdfC()</code>.</p></li>
 ##                                        mvnpdf_invC(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE)
 ##  mvnpdfC(x = matrix(1.96, nrow = 2, ncol = n), mean = rep(0, 2),      varcovM = diag(2), Log = FALSE)
 ##       min        lq       mean    median       uq      max neval  cld
-##    45.674   62.7505   82.95612   85.6285  101.188  130.421   100 a   
-##  3111.777 3281.8245 3415.65465 3361.6105 3435.820 7494.226   100  b  
-##  2318.550 2381.0340 2570.15757 2419.6150 2481.402 6731.954   100   c 
-##  1756.071 1817.4890 1999.04479 1865.8075 1925.135 6273.615   100    d
-##  2310.514 2372.9365 2582.31407 2406.4130 2431.177 6135.650   100   c 
-##    35.670   42.2710   54.40741   48.6055   53.095  682.732   100 a</code></pre>
+##    43.706   60.1675   77.65974   75.5220   91.676  138.539   100 a   
+##  3110.178 3288.4460 3522.38175 3370.9995 3478.563 7040.561   100  b  
+##  2312.974 2373.0800 2627.06270 2407.0280 2446.265 6732.897   100   c 
+##  1732.865 1789.0965 1873.19365 1837.6405 1876.324 5023.730   100    d
+##  2307.480 2341.6740 2452.33751 2374.1870 2408.750 6276.157   100   c 
+##    35.301   40.4260   52.91911   45.4075   50.717  676.746   100 a</code></pre>
 <div class="inline-figure"><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-35-1.png" width="672"></div>
 <p>À noter que vous pouvez utiliser des fonctions Rcpp en dehors de l’architecture
 d’un package grâce à la fonction <code><a href="https://rdrr.io/pkg/Rcpp/man/sourceCpp.html">Rcpp::sourceCpp()</a></code>. Mais comme nous avons

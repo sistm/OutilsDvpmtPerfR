@@ -75,7 +75,7 @@ fonction <code><a href="https://rdrr.io/r/base/system.time.html">system.time()</
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span><span class="op">(</span><span class="fu">mvnpdf</span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1.96</span>, <span class="fl">2</span><span class="op">)</span>, nrow<span class="op">=</span><span class="fl">2</span>, ncol<span class="op">=</span><span class="fl">1</span><span class="op">)</span>, Log<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>##    user  system elapsed 
-##   0.001   0.000   0.003</code></pre>
+##   0.001   0.000   0.001</code></pre>
 <p>Le problème qui apparaît sur cet exemple est que l’exécution est tellement
 rapide que <code><a href="https://rdrr.io/r/base/system.time.html">system.time()</a></code> affiche <code>0</code> (ou une valeur très proche).
 De plus, on voit qu’il y a une certaine variabilité quand on relance plusieurs
@@ -85,7 +85,7 @@ on ne peut pas utiliser <code><a href="https://rdrr.io/r/base/system.time.html">
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span><span class="op">(</span><span class="fu">mvtnorm</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/mvtnorm/man/Mvnorm.html">dmvnorm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1.96</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>##    user  system elapsed 
-##   0.003   0.001   0.008</code></pre>
+##   0.003   0.001   0.007</code></pre>
 <p>On pourrait se dire qu’il faut augmenter la complexité de notre calcul, mais
 il y a mieux : utiliser le package <code>microbenchmark</code> !</p>
 </div>
@@ -108,12 +108,12 @@ commandes et donc va stabiliser le résultat.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mb</span></span></code></pre></div>
 <pre><code>## Unit: microseconds
-##                                           expr    min     lq     mean median
-##                 mvtnorm::dmvnorm(rep(1.96, 2)) 20.090 21.033 24.02194 21.484
-##  mvnpdf(x = matrix(rep(1.96, 2)), Log = FALSE) 18.491 19.311 20.39643 19.721
-##       uq      max neval cld
-##  22.5910 1695.186  1000  a 
-##  20.8075   53.095  1000   b</code></pre>
+##                                           expr   min     lq     mean median
+##                 mvtnorm::dmvnorm(rep(1.96, 2)) 20.09 21.197 22.52614 21.730
+##  mvnpdf(x = matrix(rep(1.96, 2)), Log = FALSE) 18.45 19.352 22.35168 19.803
+##      uq      max neval cld
+##  22.632   91.594  1000   a
+##  20.664 1754.144  1000   a</code></pre>
 <pre><code>## Warning: The `guide` argument in `scale_*()` cannot be `FALSE`. This was deprecated in ggplot2 3.3.4.
 ## ℹ Please use "none" instead.
 ## This warning is displayed once every 8 hours.
@@ -129,12 +129,12 @@ cas :</p>
 <span>                     times<span class="op">=</span><span class="fl">100L</span><span class="op">)</span></span>
 <span><span class="va">mb</span></span></code></pre></div>
 <pre><code>## Unit: microseconds
-##                                                       expr     min       lq
-##         mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))  22.919  24.1285
-##  mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 267.771 271.8300
+##                                                       expr     min      lq
+##         mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))  23.452  25.010
+##  mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 269.001 274.003
 ##       mean   median       uq     max neval cld
-##   26.84352  25.0305  26.5475  92.783   100  a 
-##  278.42280 273.4085 278.1235 365.146   100   b</code></pre>
+##   31.68521  26.4040  30.1965  91.512   100  a 
+##  286.14966 277.7135 286.3645 436.691   100   b</code></pre>
 <div class="inline-figure"><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-15-1.png" width="672"></div>
 <p>Il s’est passé un quelque chose… Et on va diagnostiquer ce problème dans la suite.</p>
 

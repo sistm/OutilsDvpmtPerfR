@@ -293,11 +293,11 @@ Une autre raison d'utiliser l'intégration continue est qu'elle permet de tester
 
 ### *GitHub Actions*
 
-Les *GitHub Actions* permettent de lancer des actions automatiquement à chaque fois que vous pushez sur *GitHub* La commande `usethis::use_github_action_check_standard()` permet d'initialiser les *Github Actions*, et d'ajouter l'action `R CMD CHECK` du package.
+Les *GitHub Actions* permettent de lancer des actions automatiquement à chaque fois que vous pushez sur *GitHub* La commande `usethis::use_github_action("check-standard")` permet d'initialiser les *Github Actions*, et d'ajouter l'action `R CMD CHECK` du package.
 
 > ***`r emoji::emoji("point_right")` À vous de jouer !***
 >
-  1. Executer la commande `usethis::use_github_action_check_standard()` et *commiter* les changements et regardez ce qu'il se passe sur la page *GitHub*
+  1. Executer la commande `usethis::use_github_action("check-standard")` et *commiter* les changements et regardez ce qu'il se passe sur la page *GitHub*
 >
   2. Ajouter un badge à votre README.md grâce au code obtenu dans la console `r fontawesome::fa("r-project")` et *commiter* ces changements
 
