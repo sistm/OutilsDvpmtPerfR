@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapitre 2 Contrôle de version avec git et GitHub | Formation R avancée</title>
+<meta name="author" content="Robin Genuer 🌐 &amp; Boris Hejblum 🌐">
+<meta name="description" content="Nous nous intéressons ici aux solutions proposées par RStudio et GitHub pour l’hébergement et le contrôle de version de projets.  2.1 Principe du contrôle de version Le principe du contrôle de...">
+<meta name="generator" content="bookdown 0.35 with bs4_book()">
+<meta property="og:title" content="Chapitre 2 Contrôle de version avec git et GitHub | Formation R avancée">
+<meta property="og:type" content="book">
+<meta property="og:description" content="Nous nous intéressons ici aux solutions proposées par RStudio et GitHub pour l’hébergement et le contrôle de version de projets.  2.1 Principe du contrôle de version Le principe du contrôle de...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapitre 2 Contrôle de version avec git et GitHub | Formation R avancée">
+<meta name="twitter:description" content="Nous nous intéressons ici aux solutions proposées par RStudio et GitHub pour l’hébergement et le contrôle de version de projets.  2.1 Principe du contrôle de version Le principe du contrôle de...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.5.1/transition.js"></script><script src="libs/bs3compat-0.5.1/tabs.js"></script><script src="libs/bs3compat-0.5.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="&lt;em&gt;Outils de développement et de performance&lt;/em&gt;">Formation R avancée</a>:
+        <small class="text-muted"><em>Outils de développement et de performance</em></small>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled"><li><a class="" href="index.html"><span class="header-section-number">Chapitre 2</span> Contrôle de version avec git et GitHub</a></li></ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="contrôle-de-version-avec-git-et-github" class="section level1" number="2">
+<h1>
+<span class="header-section-number">Chapitre 2</span> <a href="Contr%C3%B4le%20de%20version%20avec%20%60git%60%20et%20*GitHub*:%20historique%20de%20changement,%20d%C3%A9veloppement%20collaboratif%20et%20int%C3%A9gration%20continue">Contrôle de version avec <code>git</code> et <em>GitHub</em></a><a class="anchor" aria-label="anchor" href="#contr%C3%B4le-de-version-avec-git-et-github"><i class="fas fa-link"></i></a>
+</h1>
+<p>Nous nous intéressons ici aux solutions proposées par RStudio et GitHub pour
+l’hébergement et le contrôle de version de projets.</p>
+<div id="principe-du-contrôle-de-version" class="section level2" number="2.1">
+<h2>
+<span class="header-section-number">2.1</span> Principe du contrôle de version<a class="anchor" aria-label="anchor" href="#principe-du-contr%C3%B4le-de-version"><i class="fas fa-link"></i></a>
+</h2>
+<p>Le principe du contrôle de version est d’enregistrer les changements
+successifs apportés à des fichiers (notamment des fichiers R).</p>
+<p>RStudio propose 2 solutions intégrées pour le contrôle de version :</p>
+<ul>
+<li><p><code>git</code></p></li>
+<li><p><code>svn</code></p></li>
+</ul>
+<div id="git" class="section level3" number="2.1.1">
+<h3>
+<span class="header-section-number">2.1.1</span> <code>git</code><a class="anchor" aria-label="anchor" href="#git"><i class="fas fa-link"></i></a>
+</h3>
+<p><code>git</code> est un logiciel de contrôle de version (c’est-à-dire un outils qui va
+enregistrer l’histoire des changements successifs de votre code et permettre de
+partager ces changements avec d’autres personnes). <code>git</code> est un logiciel en
+ligne de commande, et sa prise en main n’est pas nécessairement intuitive.</p>
+<p><code>git</code> fonctionne de la façon suivante : sur un serveur dans le ‘cloud’,
+une version <strong>à jour</strong> du code est disponible. À tout moment il est possible
+d’accéder à cette version du code en ligne. Chaque contributeur peut télécharger
+cette dernière version <strong>à jour</strong> (dans une action que l’on dénomme <em>pull</em>),
+avant de l’éditer localement. Une fois ses changements effectués, le
+contributeur peut alors mettre à jour la version en ligne du code afin que ses
+changements soient disponibles pour tout le monde (dans une action que l’on
+dénomme <em>push</em>)</p>
+<p><strong>NB</strong> : <code>git</code> a été pensé pour des fichiers légers (comme par exemple des
+fichiers texte) et est loin d’être optimisé pour des fichiers trop lourds et/où
+compressés.</p>
+</div>
+<div id="subversion" class="section level3" number="2.1.2">
+<h3>
+<span class="header-section-number">2.1.2</span> <code>subversion</code><a class="anchor" aria-label="anchor" href="#subversion"><i class="fas fa-link"></i></a>
+</h3>
+<p><code>subversion</code> est l’autre solution disponible dans RStudio. Elle fonctionne de
+manière similaire à git, mais avec des fonctionnalités un peu plus réduites
+que nous détaillons pas ici (la différence majeure est que tout les
+contributeurs travaillent simultanément sur la même version du code).</p>
+</div>
+</div>
+<div id="utiliser-git-localement-depuis-rstudio" class="section level2" number="2.2">
+<h2>
+<span class="header-section-number">2.2</span> Utiliser <code>git</code> localement depuis RStudio<a class="anchor" aria-label="anchor" href="#utiliser-git-localement-depuis-rstudio"><i class="fas fa-link"></i></a>
+</h2>
+<blockquote>
+<p><strong><em>A vous de jouer !</em></strong></p>
+<ol style="list-style-type: decimal">
+<li><p>Commencez par activer <code>git</code> depuis l’onglet “Git/SVN” de “Project Options”
+situé dans le menu “Tools” et suivre les instructions. Vous pouvez aussi
+utilisé <code><a href="https://usethis.r-lib.org/reference/use_git.html">usethis::use_git()</a></code></p></li>
+<li><p>À partir de l’onglet “Git” maintenant apparu à côté de l’onglet “Build”,
+enregistrer l’état actuel de votre package en réalisant votre premier “commit” :</p></li>
+</ol>
+<ul>
+<li><p>2a. sélectionner les fichiers à suivre (ne pas sélectionner le fichier .Rproj)</p></li>
+<li><p>2b. écrire un message informatif (pour vos collaborateurs - ce qui inclut votre futur vous)</p></li>
+<li><p>2c. cliquer sur “Commit”</p></li>
+</ul>
+<ol start="3" style="list-style-type: decimal">
+<li><p>Ajouter une ligne “*.Rproj” au fichier “.gitignore” et effectuez un nouveau commit</p></li>
+<li><p>Visualiser les changements et leur historique à l’aide des outils de visualisation
+“Diff” et “History” accessible depuis l’onglet “Git”</p></li>
+</ol>
+</blockquote>
+<div id="bonnes-pratiques-du-commit" class="section level3" number="2.2.1">
+<h3>
+<span class="header-section-number">2.2.1</span> Bonnes pratiques du <em>commit</em><a class="anchor" aria-label="anchor" href="#bonnes-pratiques-du-commit"><i class="fas fa-link"></i></a>
+</h3>
+<p>Idéalement, chaque commit ne devrait régler qu’un seul problème. Il devrait le régler dans
+son intégralité (être <strong>complet</strong>) et ne contenir des changements relatifs qu’uniquement à
+ce problème (être <strong>minimal</strong>). Il est alors important d’écrire des message de commit
+<strong>informatifs</strong> (pensez à vos collaborateur, qui incluent votre <strong>futur vous</strong>).
+Il faut également être concis, et décrire les raisons des changements plutôt que
+les changements eux-mêmes (visibles dans le <em>Diff</em>). Il est parfois difficile de
+respecter ces directives à la lettre, et celles-ci ne sont qu’un guide et ne
+doivent pas vous empêcher d’effectuer des <em>commits</em> réguliers.</p>
+<p>Par ailleurs, la tentation d’avoir un historique de changements “propre” et bien
+ordonné est naturelle, mais se révèle une source de problèmes inutiles. Elle
+entre en contradiction avec l’objectif de traçabilité du contrôle de version.
+Le développement de code étant généralement un processus intellectuel complexe
+et non linéaire, il est normal que l’enregistrement des changements reflète ce
+cheminement. En pratique, votre futur-vous sera le premier utilisateur de votre
+historique de changements et la priorité est donc de vous faciliter la tache
+dans le futur lors de la résolution de bug où l’extension de fonctionnalités.</p>
+</div>
+</div>
+<div id="github" class="section level2" number="2.3">
+<h2>
+<span class="header-section-number">2.3</span> GitHub<a class="anchor" aria-label="anchor" href="#github"><i class="fas fa-link"></i></a>
+</h2>
+<p><a href="https://github.com/">GitHub</a> est un site internet proposant une solution
+d’hébergement de code en ligne, et s’appuyant sur <code>git</code>. Il existe de nombreux
+sites web et services (gitlab, bitbucket, …) permettant d’héberger du code et
+s’appuyant sur <code>git</code>. GitHub est très populaire dans la communauté des
+développeurs <code>R</code>, et est relativement facile à utiliser, même pour un
+utilisateur novice.</p>
+<p>Les avantages d’utiliser GitHub :</p>
+<ul>
+<li><p>une interface graphique simple pour suivre l’historique des changements de votre code</p></li>
+<li><p>la dernière version de développement de votre code est disponible en ligne et vous pouvez la
+référencer (on peut même référencer un numéro de commit précis pour geler une version spécifique
+du code)</p></li>
+<li><p>les utilisateurs disposent d’un canal clair et transparent pour signaler les bugs/difficultés</p></li>
+<li><p>cela facilite grandement le développement collaboratif</p></li>
+</ul>
+<div id="mettre-son-package-r-sur-github" class="section level3" number="2.3.1">
+<h3>
+<span class="header-section-number">2.3.1</span> Mettre son package <code>R</code> sur GitHub<a class="anchor" aria-label="anchor" href="#mettre-son-package-r-sur-github"><i class="fas fa-link"></i></a>
+</h3>
+<blockquote>
+<p><strong><em>A vous de jouer !</em></strong></p>
+<ol style="list-style-type: decimal">
+<li><p>Rendez-vous sur le site <a href="https://github.com/">https://github.com/</a> et créez vous un compte
+GitHub (si vous hésitez, une convention courante est d’utiliser <em>prénomnom</em> comme nom d’utilisateur)</p></li>
+<li><p>Vous pouvez ensuite soit utiliser le client “GitHub desktop” installé sur votre machine en vous connectant au compte GitHub et en suivant les instructions 3 et 4 suivantes, soit utiliser <code><a href="https://usethis.r-lib.org/reference/use_github.html">usethis::use_github()</a></code> et vous laisser guider.</p></li>
+<li><p>Ajouter un nouveau projet local en cliquant sur l’icone “+” en haut à gauche de
+la fenêtre du client, puis en choississant “Add” et en rentrant le chemin du dossier
+où se trouve le code de votre package.</p></li>
+<li><p>Une fois le repertoire créer en local, publiez le sur GitHub en cliquant sur “Publish”
+en haut à droite de la fenêtre du client. Vérifiez sur le site de GitHub que votre
+code à bien été <em>uploadé</em> avec les 2 commits précédents.</p></li>
+<li><p>Ajouter un fichier “README.Rmd” à votre package afin de disposer d’une belle page
+d’accueil sur GitHub :</p></li>
+</ol>
+<ul>
+<li><p>5a. dans RStudio, executez la commande <code><a href="https://usethis.r-lib.org/reference/use_readme_rmd.html">usethis::use_readme_rmd()</a></code></p></li>
+<li><p>5b. à l’aide de l’outilds “Diff” de l’onglet “Git” de RStudio, étudier
+les changements opérer par la commande précédente</p></li>
+<li><p>5c. éditez le fichier “README.Rmd” créé, puis créer le fichier README.md
+correspondant en executant <code>knitr</code> (cliquer su la pelotte de laine “Knit”
+en haut à gauche dans Rstudio), avant d’effectuer un 3<sup>e</sup> commit contenant ces
+changements</p></li>
+<li><p>5d. à ce stade, si vous visitez la page de votre répertoire sur GitHub,
+votre 3<sup>e</sup> commit n’apparait pour l’instant pas. Il faut synchroniser
+le répertoire GitHub en ligne avec votre dossier local. Pour cela, vous
+avez 2 solutions : soit utiliser le bouton “Sync” en haut à droit de la
+fenêtre du client GitHub desktop ; soit directement depuis RStudio en cliquant
+sur “Push” depuis l’onglet “Git”. Maintenant, les changements du 3<sup>e</sup> commit sont
+visibles en ligne dur GitHub.</p></li>
+</ul>
+</blockquote>
+</div>
+</div>
+<div id="collaboration-pour-la-production-du-code" class="section level2" number="2.4">
+<h2>
+<span class="header-section-number">2.4</span> Collaboration pour la production du code<a class="anchor" aria-label="anchor" href="#collaboration-pour-la-production-du-code"><i class="fas fa-link"></i></a>
+</h2>
+<p><code>git</code> et GitHub sont particulièrement efficaces lorsque plusieurs personnes collaborent pour
+développer un code. En effet, chacun peut effectuer des <em>pull</em> et <em>push</em> successifs pour
+apporter des changements au code, de manière simultanée et en étant sûr de toujours travailler
+sur la dernière version. Nous allons voir différents concepts utiles dans le cas d’un tel travail
+collaboratif.</p>
+<blockquote>
+<p><strong><em>A vous de jouer !</em></strong></p>
+<ol style="list-style-type: decimal">
+<li><p>En formant des groupes de 2, vous allez chacun ajouter votre binome comme “collaborator”
+à votre repertoire GitHub à partir de l’onglet “Settings” (sur GitHub).</p></li>
+<li><p>Quelques instants plus tard le collaborateur ainsi ajouté reçoit un email l’invitant à
+accepter l’ajout. Cliquer sur le lien et accepter.</p></li>
+<li><p>Dans le client “GitHub desktop”, ajouter le répertoire de votre binôme en cliquant sur
+l’icone “+” en haut à gauche et en selectionnant “Clone”, ce qui fait apparaitre la liste
+des repertoires associés à votre compte GitHub non liés à un dossier local.
+Sélectionner le projet de votre binome.</p></li>
+</ol>
+</blockquote>
+<div id="branches" class="section level3" number="2.4.1">
+<h3>
+<span class="header-section-number">2.4.1</span> <em>Branches</em><a class="anchor" aria-label="anchor" href="#branches"><i class="fas fa-link"></i></a>
+</h3>
+<p>Une des fonctionnalités assez utile de git est les <em>branches</em>. Cela permet d’opérer des changements
+importants dans le code sans perturber le fonctionnement actuel. C’est notamment utile pour explorer
+une piste de développement dont on ne sait pas si elle sera concluante au final.</p>
+<p>D’ailleurs, vous utilisez déjà les branches depuis le depuis de cette partie. En effet, la branche
+par défaut est appelé “master”.</p>
+<p>Grâce à ce système de branches, on obtient un arbre des différents <em>commits</em> au cours du temps (où
+les nœuds correspondent à la séparations des branches).</p>
+</div>
+<div id="merge" class="section level3" number="2.4.2">
+<h3>
+<span class="header-section-number">2.4.2</span> <em>Merge</em><a class="anchor" aria-label="anchor" href="#merge"><i class="fas fa-link"></i></a>
+</h3>
+<p>Un <em>pull</em> se décompose en 2 actions de la part de <code>git</code> :</p>
+<ol style="list-style-type: decimal">
+<li><p>tout d’abord un <em>fetch</em>, qui correspond au téléchargement du code en ligne</p></li>
+<li><p>suivi d’un <em>merge</em> qui fusionne la version locale avec les changements.</p></li>
+</ol>
+<p>Après avoir conduit un développement expérimental dans une branche, on peut vouloir <em>merger</em> ces
+changements dans la branche “master” par exemple, après que l’expérience se soit révélée
+concluante.</p>
+<p>Si un les changements concernent des parties distinctes du code, alors le <em>merge</em> peut
+s’effectuer sans problème. En revanche si les 2 versions à <em>merger</em> comportent des changements
+depuis leur dernier <em>commit</em> commun qui concerne les mêmes lignes de codes, alors on va rencontrer
+un (ou des ) conflit(s), qu’il va falloir résoudre.</p>
+</div>
+<div id="les-conflits" class="section level3" number="2.4.3">
+<h3>
+<span class="header-section-number">2.4.3</span> Les conflits<a class="anchor" aria-label="anchor" href="#les-conflits"><i class="fas fa-link"></i></a>
+</h3>
+<p>Prenons l’exemple suivant : le développeur <span class="math inline">\(D_1\)</span> et le développeur <span class="math inline">\(D_2\)</span> on tous les 2 <em>pullé</em> la
+version v0.1 du code à l’instant <span class="math inline">\(t\)</span> sur leur machine respective. Ils travaillent chacun
+indépendamment pour apporter des changements au code. Au moment de <em>pusher</em> ses changements,
+le développeur <span class="math inline">\(D_2\)</span> reçoit un message d’erreur :</p>
+<p>“Sync Error.<br>
+Please resolve all conflicted files, commit, then try syncing again.”</p>
+<p>Chaque fichier étant source de conflit a alors été automatiquement édité comme suit :</p>
+<pre class="git"><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+code dans votre version local
+=======
+code en ligne
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; remote</code></pre>
+<p>Pour résoudre le conflit, il faut alors éditer chaque fichier un à un en choisissant s’il faut
+conserver la version locale ou bien celle en ligne, avant de pouvoir <em>commiter</em> à nouveau et enfin
+de <em>pusher</em> vos changements avec succès.</p>
+<blockquote>
+<p><strong><em>A vous de jouer !</em></strong></p>
+<ol style="list-style-type: decimal">
+<li><p>Modifiez le fichier <code>README.Rmd</code> de votre binome, puis <em>commitez</em> votre changement et <em>pushez</em>
+le.</p></li>
+<li><p>une fois que votre binôme a modifié votre <code>README.Rmd</code>, modifiez à votre tour le fichier
+à la même ligne, <strong>SANS</strong> <em>puller</em> les changements de votre binôme au préalable ! <em>Commitez</em> et
+essayez de <em>pusher</em> ces changements.</p></li>
+<li><p>Résolvez le conflit.</p></li>
+</ol>
+</blockquote>
+<p><strong>NB:</strong> Dans la vraie vie, on cherche à éviter cette situation et donc on va toujours <em>puller</em> avant de <em>pusher</em>. Ici, nous faisons volontairement le contraire pour donner un exemple et démystifier les conflits.</p>
+</div>
+<div id="fork" class="section level3" number="2.4.4">
+<h3>
+<span class="header-section-number">2.4.4</span> <em>Fork</em><a class="anchor" aria-label="anchor" href="#fork"><i class="fas fa-link"></i></a>
+</h3>
+<p>L’action <em>fork</em> permet de créer une copie qui vous appartient à partir d’un code disponible. Ainsi
+le code original ne sera pas impacté par vos changements. Cela revient à créer une branche, et la
+séparer de l’arbre pour pouvoir en assumer la propriété. On aurait aussi pu appeler cette action une “bouture”…</p>
+<p>Cette action est principalement utile dans le cadre des <em>pull requests</em>.</p>
+</div>
+<div id="pull-request" class="section level3" number="2.4.5">
+<h3>
+<span class="header-section-number">2.4.5</span> <em>Pull request</em><a class="anchor" aria-label="anchor" href="#pull-request"><i class="fas fa-link"></i></a>
+</h3>
+<p>Il s’agit du moyen le plus facile de proposer des changements dans un code dont vous n’êtes pas
+collaborateur. GitHub propose une interface graphique facilitant leur traitement.</p>
+<blockquote>
+<p><strong><em>A vous de jouer !</em></strong></p>
+<ol style="list-style-type: decimal">
+<li><p>Modifiez le <code>README.Rmd</code> de votre voisin qui n’est pas votre binôme après avoir <em>forké</em> son
+package.</p></li>
+<li><p>Proposez votre changement sous la forme d’une <em>pull request</em> depuis l’onglet “Pull requests” sur la page GitHub du répertoire de votre voisin.</p></li>
+<li><p>Acceptez la <em>pull request</em> de votre voisin sur la page GitHub de votre répertoire, puis faire le <em>merge</em>.</p></li>
+</ol>
+</blockquote>
+</div>
+<div id="issues" class="section level3" number="2.4.6">
+<h3>
+<span class="header-section-number">2.4.6</span> <em>Issues</em><a class="anchor" aria-label="anchor" href="#issues"><i class="fas fa-link"></i></a>
+</h3>
+<p>Pour n’importe quel répertoire GitHub, vous pouvez poster un commentaire sous forme d’<em>issue</em>
+afin d’alerter les développeurs sur un éventuel bug, ou une question sur l’utilisation du package,
+ou encore demander une fonctionnalité supplémentaire…</p>
+<p>L’idéal est de proposer vous-même une <em>pull request</em> qui résout votre <em>issue</em> lorsque vous
+le pouvez (i.e. en avez les capacités et le temps).</p>
+<blockquote>
+<p><strong><em>A vous de jouer !</em></strong></p>
+<ol style="list-style-type: decimal">
+<li><p>Utilisez <code><a href="https://usethis.r-lib.org/reference/use_github_links.html">usethis::use_github_links()</a></code> afin d’ajouter les 2 lignes suivantes au fichier <code>DESCRIPTION</code> de votre package<br><code>URL: http://github.com/*prenom.nom*/mypkg</code><br><code>BugReports: http://github.com/*prenom.nom*/mypkg/issues</code></p></li>
+<li><p>Visualisez les nouveau changements, puis <em>commitez</em> les.</p></li>
+<li><p>Créez une <em>issue</em> sur le projet de votre binome</p></li>
+</ol>
+</blockquote>
+</div>
+</div>
+<div id="intégration-continue" class="section level2" number="2.5">
+<h2>
+<span class="header-section-number">2.5</span> Intégration continue<a class="anchor" aria-label="anchor" href="#int%C3%A9gration-continue"><i class="fas fa-link"></i></a>
+</h2>
+<p>À chaque changement, à chaque <em>commit</em> donc, il y a la possibilité d’introduire 1 (ou plusieurs) bugs qui vont empêcher le package de passer le <em>CRAN check</em>. Si l’on accumule trop de ces bugs, au moment de soumettre la nouvelle version, il peut y avoir beaucoup de corrections à apporter. C’est d’autant plus frustrant si le package passait le <em>CRAN check</em> auparavant…</p>
+<p>Les services d’intégration continue permettent de <em>checker</em> votre package <strong>automatiquement</strong> après chaque <em>commit</em> ! En cas d’échec, vous recevez un mail qui vous en informe. Un certain nombre de ces services proposent une offre limitée gratuite pour les projets open-source.</p>
+<p>Une autre raison d’utiliser l’intégration continue est qu’elle permet de tester votre package sur des infrastructures différentes de la votre (e.g. Windows, Ubuntu, Mac OS) et pour différentes versions de <svg aria-hidden="true" role="img" viewbox="0 0 581 512" style="height:1em;width:1.13em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M581 226.6C581 119.1 450.9 32 290.5 32S0 119.1 0 226.6C0 322.4 103.3 402 239.4 418.1V480h99.1v-61.5c24.3-2.7 47.6-7.4 69.4-13.9L448 480h112l-67.4-113.7c54.5-35.4 88.4-84.9 88.4-139.7zm-466.8 14.5c0-73.5 98.9-133 220.8-133s211.9 40.7 211.9 133c0 50.1-26.5 85-70.3 106.4-2.4-1.6-4.7-2.9-6.4-3.7-10.2-5.2-27.8-10.5-27.8-10.5s86.6-6.4 86.6-92.7-90.6-87.9-90.6-87.9h-199V361c-74.1-21.5-125.2-67.1-125.2-119.9zm225.1 38.3v-55.6c57.8 0 87.8-6.8 87.8 27.3 0 36.5-38.2 28.3-87.8 28.3zm-.9 72.5H365c10.8 0 18.9 11.7 24 19.2-16.1 1.9-33 2.8-50.6 2.9v-22.1z"></path></svg> (<em>current</em>, <em>devel</em>…)</p>
+<div id="github-actions" class="section level3" number="2.5.1">
+<h3>
+<span class="header-section-number">2.5.1</span> <em>GitHub Actions</em><a class="anchor" aria-label="anchor" href="#github-actions"><i class="fas fa-link"></i></a>
+</h3>
+<p>Les Github actions permettent de lancer des actions automatiquement à chaque fois que vous pushez sur GitHub La commande <code><a href="https://usethis.r-lib.org/reference/use_github_actions.html">usethis::use_github_action_check_standard()</a></code> permet d’initialiser les <em>Github Actions</em>, et d’ajouter l’action <code>R CMD CHECK</code> du package.</p>
+<blockquote>
+<p><strong><em>A vous de jouer !</em></strong></p>
+<ol style="list-style-type: decimal">
+<li><p>Executez la commande <code><a href="https://usethis.r-lib.org/reference/use_github_actions.html">usethis::use_github_action_check_standard()</a></code> et <em>commitez</em> les changements et regardez ce qu’il se passe sur la page GitHub</p></li>
+<li><p>Ajouter un badge à votre README.md grâce au code obtenu dans la console R et <em>commitez ces changements</em></p></li>
+</ol>
+</blockquote>
+<p>N’hésitez pas à consulter la page suivantes qui renseigne sur les différentes <em>GitHub Actions</em> disponibles pour les pacakges <svg aria-hidden="true" role="img" viewbox="0 0 581 512" style="height:1em;width:1.13em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M581 226.6C581 119.1 450.9 32 290.5 32S0 119.1 0 226.6C0 322.4 103.3 402 239.4 418.1V480h99.1v-61.5c24.3-2.7 47.6-7.4 69.4-13.9L448 480h112l-67.4-113.7c54.5-35.4 88.4-84.9 88.4-139.7zm-466.8 14.5c0-73.5 98.9-133 220.8-133s211.9 40.7 211.9 133c0 50.1-26.5 85-70.3 106.4-2.4-1.6-4.7-2.9-6.4-3.7-10.2-5.2-27.8-10.5-27.8-10.5s86.6-6.4 86.6-92.7-90.6-87.9-90.6-87.9h-199V361c-74.1-21.5-125.2-67.1-125.2-119.9zm225.1 38.3v-55.6c57.8 0 87.8-6.8 87.8 27.3 0 36.5-38.2 28.3-87.8 28.3zm-.9 72.5H365c10.8 0 18.9 11.7 24 19.2-16.1 1.9-33 2.8-50.6 2.9v-22.1z"></path></svg> : <a href="https://github.com/r-lib/actions/blob/v1/examples/README.md">https://github.com/r-lib/actions/blob/v1/examples/README.md</a></p>
+</div>
+</div>
+<div id="construire-et-déployer-simplement-un-site-web-pour-accompagner-son-package" class="section level2" number="2.6">
+<h2>
+<span class="header-section-number">2.6</span> Construire et déployer simplement un site web pour accompagner son package<a class="anchor" aria-label="anchor" href="#construire-et-d%C3%A9ployer-simplement-un-site-web-pour-accompagner-son-package"><i class="fas fa-link"></i></a>
+</h2>
+<p><code><a href="https://usethis.r-lib.org/reference/use_pkgdown.html">usethis::use_pkgdown()</a></code></p>
+<div id="annexe-2.1-r-hub" class="section level3 unnumbered">
+<h3>Annexe 2.1 : R-hub<a class="anchor" aria-label="anchor" href="#annexe-2.1-r-hub"><i class="fas fa-link"></i></a>
+</h3>
+<p>Le <em>R consortium</em> met à disposition le <a href="https://www.r-consortium.org/blog/2016/06/06/first-public-version-of-the-r-hub-builder">R-hub builder</a>,
+- et a pour ambition de bientôt proposer un service d’intégration continue spécialement dédié aux packages <code>R</code>.</p>
+</div>
+</div>
+<div id="annexe-2.2-couverture-du-code" class="section level2 unnumbered">
+<h2>Annexe 2.2 : couverture du code<a class="anchor" aria-label="anchor" href="#annexe-2.2-couverture-du-code"><i class="fas fa-link"></i></a>
+</h2>
+<p>Le package <code>covr</code> propose une solution pour mesurer la couverture des tests unitaires associés à un
+package. La couverture de test détermine la proportion du code source qui est effectivement utilisée
+lors de l’exécution des tests unitaires. La mesure de la couverture du code renforce la fiabilité
+d’un code et donne confiance à ses utilisateurs potentiels.</p>
+<blockquote>
+<p><strong><em>A vous de jouer !</em></strong></p>
+<ol style="list-style-type: decimal">
+<li>Executez la commande <code><a href="https://usethis.r-lib.org/reference/use_coverage.html">usethis::use_coverage()</a></code>, ajouter un joli badge à votre README.md grâce au code obtenu dans la console R</li>
+</ol>
+</blockquote>
+<blockquote>
+<ol start="2" style="list-style-type: decimal">
+<li>
+<em>Commitez</em> ces changements.</li>
+</ol>
+</blockquote>
+<p>Pour plus d’information n’hésitez pas à consulter la <a href="https://cran.r-project.org/web/packages/covr/vignettes/how_it_works.html">vignette</a> de <code>covr</code>.</p>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="empty"></div>
+<div class="empty"></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <div id="book-on-this-page"></div>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Formation R avancée</strong>: <em>Outils de développement et de performance</em>" was written by <strong><em>Robin Genuer</em></strong> <a href="https://robin.genuer.fr/">🌐</a> &amp; <strong><em>Boris Hejblum</em></strong> <a href="https://borishejblum.science/">🌐</a>. It was last built on 2023-09-18.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

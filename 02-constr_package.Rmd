@@ -246,7 +246,7 @@ sur "Configure" puis cocher la case en bas "Install and Restart".
 
 
 
-## Annexe 1.1 : ajouter une méthode S3
+## Annexe 1.1 : ajouter une méthode S3 {-}
 
 Dans la plupart des packages on est amenés à implémenter des méthodes S3,
 très souvent pour qu'à partir d'un objet résultat `res`, on puisse exécuter
@@ -272,7 +272,7 @@ plot.mvnpdf <- function(x, ...) {
 }
 ```
 
-*Attention !* Pour que cette méthode fasse bien ce qu'on veut quand on
+`r emoji::emoji("warning")` *ATTENTION !* Pour que cette méthode fasse bien ce qu'on veut quand on
 l'applique au résultat de notre fonction `mvnpdf()`, il faut déclarer que
 ce résultat est de classe `mvnpdf`.
 
@@ -288,11 +288,7 @@ contient le code complet
 de la fonction `mvnpdf()` et de la méthode `plot()` associée.
 
 
-## Annexe 1.2 : soumettre son package au CRAN
+## Annexe 1.2 : soumettre son package au CRAN {-}
 
 `devtools::check()` puis `devtools::submit_cran()`
 
-
-## Annexe 1.3 : construire un site web pour accompagner son package
-
-`usethis::use_pkgdown()`

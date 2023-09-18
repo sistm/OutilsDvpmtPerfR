@@ -46,7 +46,7 @@
         <ul class="book-toc list-unstyled">
 <li><a class="" href="index.html">Présentation de la formation</a></li>
 <li><a class="" href="construire-un-package.html"><span class="header-section-number">1</span> Construire un package </a></li>
-<li><a class="" href="contr%C3%B4le-de-version-avec-git-et-github-historique-de-changement-d%C3%A9veloppement-collaboratif-et-int%C3%A9gration-continue.html"><span class="header-section-number">2</span> Contrôle de version avec git et GitHub : historique de changement, développement collaboratif et intégration continue</a></li>
+<li><a class="" href="contr%C3%B4le-de-version-avec-git-et-github-historique-de-changement-d%C3%A9veloppement-collaboratif-et-int%C3%A9gration-continue.html"><span class="header-section-number">2</span> Contrôle de version avec git et GitHub: historique de changement, développement collaboratif et intégration continue</a></li>
 <li><a class="" href="mesurer-et-comparer-des-temps-dex%C3%A9cution.html"><span class="header-section-number">3</span> Mesurer et comparer des temps d’exécution</a></li>
 <li><a class="active" href="profiler-son-code.html"><span class="header-section-number">4</span> Profiler son code</a></li>
 <li><a class="" href="rcpp-ou-comment-int%C3%A9grer-facilement-du-code-cdans-un-package-r.html"><span class="header-section-number">5</span> Rcpp ou comment intégrer facilement du code C++dans un package R</a></li>
@@ -99,11 +99,11 @@ fine ce qui prend du temps dans notre fonction.</p>
 <span><span class="va">mb</span></span></code></pre></div>
 <pre><code>## Unit: milliseconds
 ##                                                            expr      min
-##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3.083077
-##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 2.310637
+##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3.086480
+##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 2.308177
 ##        lq     mean   median       uq      max neval cld
-##  3.224035 3.729692 3.355645 3.529587 8.155720   100  a 
-##  2.338824 2.374991 2.357992 2.389172 2.578982   100   b</code></pre>
+##  3.188344 3.736767 3.379773 3.531494 8.909956   100  a 
+##  2.342043 2.379005 2.362564 2.392043 2.637981   100   b</code></pre>
 <div class="inline-figure"><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-20-1.png" width="672"></div>
 <p>Et on peut également voir si on devient compétitif avec <code>dmvnorm()</code> :</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
@@ -115,13 +115,13 @@ fine ce qui prend du temps dans notre fonction.</p>
 <span><span class="va">mb</span></span></code></pre></div>
 <pre><code>## Unit: microseconds
 ##                                                            expr      min
-##              mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))   43.419
-##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3122.109
-##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 2305.963
+##              mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))   44.198
+##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3080.822
+##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 2298.706
 ##         lq       mean   median        uq      max neval cld
-##    49.7125   62.60003   58.671   71.6065   97.457   100 a  
-##  3342.6480 3739.18565 3415.854 3466.1605 7962.364   100  b 
-##  2328.6360 2358.91573 2343.376 2368.6725 2492.185   100   c</code></pre>
+##    53.9765   74.22927   71.791   89.3595  139.933   100 a  
+##  3305.2970 3708.03795 3416.858 3595.4130 8125.134   100  b 
+##  2356.3315 2473.74730 2379.681 2422.2595 6489.193   100   c</code></pre>
 <div class="inline-figure"><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-22-1.png" width="672"></div>
 <p>Il y a encore du travail…</p>
 </div>
@@ -148,15 +148,15 @@ fonction :</p>
 <span><span class="va">mb</span></span></code></pre></div>
 <pre><code>## Unit: microseconds
 ##                                                            expr      min
-##              mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))   43.419
-##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3099.723
-##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 2304.159
-##  mvnpdfoptim(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 1744.222
-##         lq       mean   median       uq       max neval  cld
-##    53.4845   64.94646   63.017   72.939   107.707   100 a   
-##  3274.5880 3689.51415 3387.379 3462.101 11497.589   100  b  
-##  2345.3230 2502.91593 2385.298 2418.672  6630.110   100   c 
-##  1773.2090 1847.76545 1802.606 1849.387  4712.007   100    d</code></pre>
+##              mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))   44.362
+##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3151.424
+##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 2325.520
+##  mvnpdfoptim(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 1733.070
+##        lq       mean    median        uq      max neval  cld
+##    54.284   74.30143   74.1895   89.3185  134.726   100 a   
+##  3260.628 3685.75732 3355.5425 3444.9225 9068.462   100  b  
+##  2359.591 2544.04262 2390.1770 2439.5205 8699.708   100   c 
+##  1804.369 1856.34470 1833.1510 1886.5125 2138.560   100    d</code></pre>
 <div class="inline-figure"><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-25-1.png" width="672"></div>
 <p>Pour finir on peut profiler la fonction <code>dmvnorm()</code> :</p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">

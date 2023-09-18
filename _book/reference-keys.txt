@@ -6,9 +6,6 @@ tester-le-package-de-manière-intéractive
 tester-le-package-de-manière-automatique
 faire-un-check-du-package
 installer-le-package
-annexe-1.1-ajouter-une-méthode-s3
-annexe-1.2-soumettre-son-package-au-cran
-annexe-1.3-construire-un-site-web-pour-accompagner-son-package
 contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue
 principe-du-contrôle-de-version
 git
@@ -16,7 +13,7 @@ subversion
 utiliser-git-localement-depuis-rstudio
 bonnes-pratiques-du-commit
 github
-mettre-son-package-r-sur-github
+mettre-son-package-sur-github
 collaboration-pour-la-production-du-code
 branches
 merge
@@ -26,8 +23,8 @@ pull-request
 issues
 intégration-continue
 github-actions
-r-hub
-annexe-2.1-couverture-du-code
+construire-et-déployer-simplement-un-site-web-pour-accompagner-son-package
+références-additionnelles
 mesurer-et-comparer-des-temps-dexécution
 mesurer-des-temps-dexécution-avec-system.time
 comparer-des-temps-dexécution-avec-microbenchmark

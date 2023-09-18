@@ -46,7 +46,7 @@
         <ul class="book-toc list-unstyled">
 <li><a class="" href="index.html">Présentation de la formation</a></li>
 <li><a class="" href="construire-un-package.html"><span class="header-section-number">1</span> Construire un package </a></li>
-<li><a class="" href="contr%C3%B4le-de-version-avec-git-et-github-historique-de-changement-d%C3%A9veloppement-collaboratif-et-int%C3%A9gration-continue.html"><span class="header-section-number">2</span> Contrôle de version avec git et GitHub : historique de changement, développement collaboratif et intégration continue</a></li>
+<li><a class="" href="contr%C3%B4le-de-version-avec-git-et-github-historique-de-changement-d%C3%A9veloppement-collaboratif-et-int%C3%A9gration-continue.html"><span class="header-section-number">2</span> Contrôle de version avec git et GitHub: historique de changement, développement collaboratif et intégration continue</a></li>
 <li><a class="" href="mesurer-et-comparer-des-temps-dex%C3%A9cution.html"><span class="header-section-number">3</span> Mesurer et comparer des temps d’exécution</a></li>
 <li><a class="" href="profiler-son-code.html"><span class="header-section-number">4</span> Profiler son code</a></li>
 <li><a class="active" href="rcpp-ou-comment-int%C3%A9grer-facilement-du-code-cdans-un-package-r.html"><span class="header-section-number">5</span> Rcpp ou comment intégrer facilement du code C++dans un package R</a></li>
@@ -133,17 +133,17 @@ l’utiliser.</p></li>
 <span><span class="va">mb</span></span></code></pre></div>
 <pre><code>## Unit: microseconds
 ##                                                            expr      min
-##              mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))   44.362
-##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3128.013
-##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 2319.083
-##  mvnpdfoptim(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 1736.760
-##  mvnpdf_invC(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 2308.915
+##              mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))   43.624
+##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3136.090
+##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 2328.431
+##  mvnpdfoptim(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 1756.153
+##  mvnpdf_invC(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 2308.710
 ##         lq       mean    median        uq       max neval  cld
-##    57.0105   71.60773   71.7295   82.5945   121.729   100 a   
-##  3269.9960 3542.48897 3375.3250 3470.0145  7743.998   100  b  
-##  2356.2495 2509.33161 2379.7220 2423.2435 10112.486   100   c 
-##  1789.4860 1931.05695 1825.0740 1853.6715  5658.410   100    d
-##  2351.1245 2517.90266 2375.3350 2410.1645  6439.214   100   c</code></pre>
+##    64.7595   81.67077   78.8225   95.4685   136.858   100 a   
+##  3245.0885 3470.06247 3342.0330 3504.0035  8277.777   100  b  
+##  2366.6430 2665.19106 2398.8485 2436.0765  6870.001   100   c 
+##  1791.6180 2055.62602 1828.5385 1875.6270 11743.220   100    d
+##  2359.0580 2407.79716 2384.6010 2420.9065  2951.549   100   c</code></pre>
 <div class="inline-figure"><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-31-1.png" width="672"></div>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">profvis</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/profvis/man/profvis.html">profvis</a></span><span class="op">(</span><span class="fu">mvnpdfoptim</span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">1.96</span>, </span>
@@ -186,13 +186,13 @@ de densité de la loi Normale multivariée <code>mvnpdfC()</code>.</p></li>
 ##                                        mvnpdfoptim(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE)
 ##                                        mvnpdf_invC(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE)
 ##  mvnpdfC(x = matrix(1.96, nrow = 2, ncol = n), mean = rep(0, 2),      varcovM = diag(2), Log = FALSE)
-##       min        lq       mean    median        uq      max neval  cld
-##    43.829   53.4845   62.76772   60.9670   71.1555  100.901   100 a   
-##  3108.456 3257.2655 3560.86681 3430.4290 3485.0410 7903.242   100  b  
-##  2319.452 2349.0335 2414.52567 2369.4925 2393.5800 6000.391   100   c 
-##  1736.924 1774.0700 1878.94841 1792.0485 1819.3135 5915.603   100    d
-##  2310.801 2338.6605 2541.02748 2354.9375 2383.0020 6964.465   100   c 
-##    35.260   38.6835   48.45175   41.0205   43.4805  686.750   100 a</code></pre>
+##       min        lq       mean    median       uq      max neval  cld
+##    45.674   62.7505   82.95612   85.6285  101.188  130.421   100 a   
+##  3111.777 3281.8245 3415.65465 3361.6105 3435.820 7494.226   100  b  
+##  2318.550 2381.0340 2570.15757 2419.6150 2481.402 6731.954   100   c 
+##  1756.071 1817.4890 1999.04479 1865.8075 1925.135 6273.615   100    d
+##  2310.514 2372.9365 2582.31407 2406.4130 2431.177 6135.650   100   c 
+##    35.670   42.2710   54.40741   48.6055   53.095  682.732   100 a</code></pre>
 <div class="inline-figure"><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-35-1.png" width="672"></div>
 <p>À noter que vous pouvez utiliser des fonctions Rcpp en dehors de l’architecture
 d’un package grâce à la fonction <code><a href="https://rdrr.io/pkg/Rcpp/man/sourceCpp.html">Rcpp::sourceCpp()</a></code>. Mais comme nous avons

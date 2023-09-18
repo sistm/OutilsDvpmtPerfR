@@ -1,19 +1,19 @@
 
-# Contrôle de version avec `git` et GitHub : historique de changement, développement collaboratif et intégration continue
+# Contrôle de version avec `git` et *GitHub*: historique de changement, développement collaboratif et intégration continue
 
-Nous nous intéressons ici aux solutions proposées par RStudio et GitHub pour 
-l'hébergement et le contrôle de version de projets.
+Nous nous intéressons ici aux solutions proposées par *RStudio* et *GitHub* pour 
+le contrôle de version de projets, l'hébergement de vos projets et l'automatisation d'un certain nombre de vérifications garantissant un partage facile de votre code.
 
 ## Principe du contrôle de version
 
 Le principe du contrôle de version est d'enregistrer les changements 
-successifs apportés à des fichiers (notamment des fichiers R).
+successifs apportés à des fichiers (notamment des fichiers `.R`).
 
-RStudio propose 2 solutions intégrées pour le contrôle de version :
+*RStudio* propose 2 solutions intégrées pour le contrôle de version :
 
   - `git`
   
-  - `svn`
+  - `svn` ("subversion")
 
 
 
@@ -30,30 +30,32 @@ une version **à jour** du code est disponible. À tout moment il est possible
 d’accéder à cette version du code en ligne. Chaque contributeur peut télécharger 
 cette dernière version **à jour** (dans une action que l'on dénomme *pull*), 
 avant de l'éditer localement. Une fois ses changements effectués, le 
-contributeur peut alors mettre à jour la version en ligne du code afin que ses 
-changements soient disponibles pour tout le monde (dans une action que l'on 
+contributeur peut alors mettre à jour la version en ligne du code afin que ses
+ changements soient disponibles pour tout le monde (dans une action que l'on 
 dénomme *push*)
 
+
 **NB** :  `git` a été pensé pour des fichiers légers (comme par exemple des 
-fichiers texte) et est loin d'être optimisé pour des fichiers trop lourds et/où 
-compressés.
+fichiers texte) et est loin d'être optimisé pour des fichiers trop lourds et/où compressés.
+
+
+![Artwork CC-BY Allison Horst](FormationRavancee_dev_perf_files/git_workflow.png){width=100%}
+
+
 
 
 ### `subversion`
 
-`subversion` est l'autre solution disponible dans RStudio. Elle fonctionne de 
-manière similaire à git, mais avec des fonctionnalités un peu plus réduites
-que nous détaillons pas ici (la différence majeure est que tout les 
-contributeurs travaillent simultanément sur la même version du code).
+`subversion` est l'autre solution disponible dans *RStudio*. Elle fonctionne de manière similaire à git, mais avec des fonctionnalités un peu plus réduites
+que nous détaillons pas ici (la différence majeure est que tout les contributeurs travaillent simultanément sur la même version du code).
 
 
-## Utiliser `git` localement depuis RStudio
+## Utiliser `git` localement depuis *RStudio*
 
-> ***A vous de jouer !***  
+> ***`r emoji::emoji("point_right")` À vous de jouer !***
 > 
-  1. Commencez par activer `git` depuis l'onglet "Git/SVN" de "Project Options" 
-  situé dans le menu "Tools" et suivre les instructions. Vous pouvez aussi
-  utilisé `usethis::use_git()`
+  1. Commencer par activer `git` depuis l'onglet "Git/SVN" de "Project Options" 
+  situé dans le menu "Tools" et suivre les instructions. Vous pouvez ~~aussi~~plutôt utiliser `usethis::use_git()`
 >  
   2. À partir de l'onglet "Git" maintenant apparu à côté de l'onglet "Build", 
   enregistrer l'état actuel de votre package en réalisant votre premier "commit" :
@@ -68,8 +70,10 @@ contributeurs travaillent simultanément sur la même version du code).
 >  
   4. Visualiser les changements et leur historique à l'aide des outils de visualisation 
   "Diff" et "History" accessible depuis l'onglet "Git"
+
+![Artwork CC-BY Allison Horst](FormationRavancee_dev_perf_files/github_fall.png){width=100%}
   
-  
+
 ### Bonnes pratiques du *commit*
 
 Idéalement, chaque commit ne devrait régler qu'un seul problème. Il devrait le régler dans 
@@ -91,18 +95,19 @@ historique de changements et la priorité est donc de vous faciliter la tache
 dans le futur lors de la résolution de bug où l'extension de fonctionnalités.
 
 
+![Artwork CC-BY Allison Horst](FormationRavancee_dev_perf_files/github_wickham_bryan_git_quote.png){width=100%}
 
 
-## GitHub
+## *GitHub*
 
-[GitHub](https://github.com/) est un site internet proposant une solution 
+[*GitHub*](https://github.com/) est un site internet proposant une solution 
 d'hébergement de code en ligne, et s'appuyant sur `git`. Il existe de nombreux 
 sites web et services (gitlab, bitbucket, ...) permettant d'héberger du code et 
-s'appuyant sur `git`. GitHub est très populaire dans la communauté des 
-développeurs `R`, et est relativement facile à utiliser, même pour un 
+s'appuyant sur `git`. *GitHub* est très populaire dans la communauté des 
+développeurs `r fontawesome::fa('r-project')`, et est relativement facile à utiliser, même pour un 
 utilisateur novice.
 
-Les avantages d'utiliser GitHub :
+Les avantages d'utiliser *GitHub* sont :
  
   - une interface graphique simple pour suivre l'historique des changements de votre code
   
@@ -115,67 +120,56 @@ Les avantages d'utiliser GitHub :
   - cela facilite grandement le développement collaboratif
   
   
-### Mettre son package `R` sur GitHub
+### Mettre son package `r fontawesome::fa('r-project')` sur *GitHub*
 
-> ***A vous de jouer !***  
+> ***`r emoji::emoji("point_right")` À vous de jouer !***  
 >
-  1. Rendez-vous sur le site [https://github.com/](https://github.com/) et créez vous un compte
-  GitHub (si vous hésitez, une convention courante est d'utiliser *prénomnom* comme nom d'utilisateur)
+  1. Rendez-vous sur le site [https://github.com/](https://github.com/) et créez vous un compte *GitHub* (si vous hésitez, une convention courante est d'utiliser *prénomnom* comme nom d'utilisateur)
 >  
-  2. Vous pouvez ensuite soit utiliser le client "GitHub desktop" installé sur votre machine en vous connectant au compte GitHub et en suivant les instructions 3 et 4 suivantes, soit utiliser `usethis::use_github()` et vous laisser guider.
+  2. Vous pouvez ensuite executer `usethis::use_github()` dans la console `r fontawesome::fa('r-project')` et vous laisser guider.
 >  
   3. Ajouter un nouveau projet local en cliquant sur l'icone "+" en haut à gauche de 
   la fenêtre du client, puis en choississant "Add" et en rentrant le chemin du dossier 
   où se trouve le code de votre package.
 >  
-  4. Une fois le repertoire créer en local, publiez le sur GitHub en cliquant sur "Publish"
-  en haut à droite de la fenêtre du client. Vérifiez sur le site de GitHub que votre 
+  4. Une fois le repertoire créer en local, publiez le sur *GitHub* en cliquant sur "Publish"
+  en haut à droite de la fenêtre du client. Vérifiez sur le site de *GitHub* que votre 
   code à bien été *uploadé* avec les 2 commits précédents.
 >  
   5. Ajouter un fichier "README.Rmd" à votre package afin de disposer d'une belle page 
-  d'accueil sur GitHub :
+  d'accueil sur *GitHub* :
 >  
-    - 5a. dans RStudio, executez la commande `usethis::use_readme_rmd()`
+    - 5a. dans `r fontawesome::fa('r-project')`, executez la commande `usethis::use_readme_rmd()`
 >  
-    - 5b. à l'aide de l'outilds "Diff" de l'onglet "Git" de RStudio, étudier
+    - 5b. à l'aide de l'outilds "Diff" de l'onglet "Git" de *RStudio*, étudier
     les changements opérer par la commande précédente
  >   
-    - 5c. éditez le fichier "README.Rmd" créé, puis créer le fichier README.md 
-    correspondant en executant `knitr` (cliquer su la pelotte de laine "Knit" 
-    en haut à gauche dans Rstudio), avant d'effectuer un 3^e^ commit contenant ces 
-    changements
+    - 5c. éditez le fichier "*README.Rmd*" créé, puis créer le fichier *README.md* correspondant en executant `knitr` (cliquer su la pelotte de laine "Knit" en haut à gauche dans Rstudio), avant d'effectuer un 3^e^ commit contenant ces changements
 >    
-    - 5d. à ce stade, si vous visitez la page de votre répertoire sur GitHub,
+    - 5d. à ce stade, si vous visitez la page de votre répertoire sur *GitHub*,
     votre 3^e^ commit n'apparait pour l'instant pas. Il faut synchroniser
-    le répertoire GitHub en ligne avec votre dossier local. Pour cela, vous 
-    avez 2 solutions : soit utiliser le bouton "Sync" en haut à droit de la 
-    fenêtre du client GitHub desktop ; soit directement depuis RStudio en cliquant
-    sur "Push" depuis l'onglet "Git". Maintenant, les changements du 3^e^ commit sont 
-    visibles en ligne dur GitHub.
+    le répertoire *GitHub* en ligne avec votre dossier local. Pour cela, directement depuis *RStudio*, cliquer sur "Push" depuis l'onglet "Git". Maintenant, les changements du 3^e^ commit sont  visibles en ligne sur *GitHub.*
       
     
     
 
 ## Collaboration pour la production du code
 
-`git` et GitHub sont particulièrement efficaces lorsque plusieurs personnes collaborent pour 
+![Artwork CC-BY Allison Horst](FormationRavancee_dev_perf_files/github_friends.png){width=100%}
+
+`git` et *GitHub* sont particulièrement efficaces lorsque plusieurs personnes collaborent pour 
 développer un code. En effet, chacun peut effectuer des *pull* et *push* successifs pour
 apporter des changements au code, de manière simultanée et en étant sûr de toujours travailler
 sur la dernière version. Nous allons voir différents concepts utiles dans le cas d'un tel travail
 collaboratif.
 
-> ***A vous de jouer !***  
+> ***`r emoji::emoji("point_right")` À vous de jouer !***  
 >
-  1. En formant des groupes de 2, vous allez chacun ajouter votre binome comme "collaborator" 
-  à votre repertoire GitHub à partir de l'onglet "Settings" (sur GitHub).
+  1. En formant des groupes de 2, vous allez chacun ajouter votre binome comme "collaborator" à votre repertoire *GitHub* à partir de l'onglet "Settings" (sur *GitHub*).
 >
-  2. Quelques instants plus tard le collaborateur ainsi ajouté reçoit un email l'invitant à 
-  accepter l'ajout. Cliquer sur le lien et accepter.
+  2. Quelques instants plus tard le collaborateur ainsi ajouté reçoit un email l'invitant à accepter l'ajout. Cliquer sur le lien et accepter.
 >
-  3. Dans le client "GitHub desktop", ajouter le répertoire de votre binôme en cliquant sur 
-  l'icone "+" en haut à gauche et en selectionnant "Clone", ce qui fait apparaitre la liste 
-  des repertoires associés à votre compte GitHub non liés à  un dossier local. 
-  Sélectionner le projet de votre binome.
+  3. Dans *RStudio*, créer un nouveau projet "*Version control*" à partir de l'url https du répertoire de votre binôme sur *GitHub*.
 
   
 ### *Branches*
@@ -232,7 +226,7 @@ Pour résoudre le conflit, il faut alors éditer chaque fichier un à un en choi
 conserver la version locale ou bien celle en ligne, avant de pouvoir *commiter* à nouveau et enfin 
 de *pusher* vos changements avec succès.
 
-> ***A vous de jouer !***  
+> ***`r emoji::emoji("point_right")` À vous de jouer !***  
 >
   1. Modifiez le fichier `README.Rmd` de votre binome, puis *commitez* votre changement et *pushez*
   le.
@@ -257,27 +251,27 @@ Cette action est principalement utile dans le cadre des *pull requests*.
 ### *Pull request*
 
 Il s’agit du moyen le plus facile de proposer des changements dans un code dont vous n'êtes pas 
-collaborateur. GitHub propose une interface graphique facilitant leur traitement.
+collaborateur. *GitHub* propose une interface graphique facilitant leur traitement.
 
-> ***A vous de jouer !***  
+> ***`r emoji::emoji("point_right")` À vous de jouer !***  
 >
   1. Modifiez le `README.Rmd` de votre voisin qui n'est pas votre binôme après avoir *forké* son 
   package.
 >
-  2. Proposez votre changement sous la forme d'une *pull request* depuis l'onglet "Pull requests" sur la page GitHub du répertoire de votre voisin.
+  2. Proposez votre changement sous la forme d'une *pull request* depuis l'onglet "Pull requests" sur la page *GitHub* du répertoire de votre voisin.
 >
-  3. Acceptez la *pull request* de votre voisin sur la page GitHub de votre répertoire, puis faire le *merge*.
+  3. Acceptez la *pull request* de votre voisin sur la page *GitHub* de votre répertoire, puis faire le *merge*.
 
 ### *Issues*
 
-Pour n'importe quel répertoire GitHub, vous pouvez poster un commentaire sous forme d'*issue* 
+Pour n'importe quel répertoire *GitHub*, vous pouvez poster un commentaire sous forme d'*issue* 
 afin d'alerter les développeurs sur un éventuel bug, ou une question sur l'utilisation du package,
 ou encore demander une fonctionnalité supplémentaire...
 
 L'idéal est de proposer vous-même une *pull request* qui résout votre *issue* lorsque vous 
 le pouvez (i.e. en avez les capacités et le temps).
 
-> ***A vous de jouer !***  
+> ***`r emoji::emoji("point_right")` À vous de jouer !***  
 >
   1. Utilisez `usethis::use_github_links()` afin d'ajouter les 2 lignes suivantes au fichier `DESCRIPTION` de votre package  
 `URL: http://github.com/*prenom.nom*/mypkg`  
@@ -286,6 +280,7 @@ le pouvez (i.e. en avez les capacités et le temps).
   2. Visualisez les nouveau changements, puis *commitez* les.
 >
   3. Créez une *issue* sur le projet de votre binome
+
 
 ## Intégration continue
 
@@ -298,41 +293,65 @@ Une autre raison d'utiliser l'intégration continue est qu'elle permet de tester
 
 ### *GitHub Actions*
 
-Les Github actions permettent de lancer des actions automatiquement à chaque fois que vous pushez sur GitHub La commande `usethis::use_github_action_check_standard()` permet d'initialiser les *Github Actions*, et d'ajouter l'action `R CMD CHECK` du package.
+Les *GitHub Actions* permettent de lancer des actions automatiquement à chaque fois que vous pushez sur *GitHub* La commande `usethis::use_github_action_check_standard()` permet d'initialiser les *Github Actions*, et d'ajouter l'action `R CMD CHECK` du package.
 
-> ***A vous de jouer !***
+> ***`r emoji::emoji("point_right")` À vous de jouer !***
 >
-  1. Executez la commande `usethis::use_github_action_check_standard()` et *commitez* les changements et regardez ce qu'il se passe sur la page GitHub
+  1. Executer la commande `usethis::use_github_action_check_standard()` et *commiter* les changements et regardez ce qu'il se passe sur la page *GitHub*
 >
-  2. Ajouter un badge à votre README.md grâce au code obtenu dans la console R et *commitez ces changements*
+  2. Ajouter un badge à votre README.md grâce au code obtenu dans la console `r fontawesome::fa("r-project")` et *commiter* ces changements
 
 
-N'hésitez pas à consulter la page suivantes qui renseigne sur les différentes *GitHub Actions* disponibles pour les pacakges `r fontawesome::fa("r-project")` : [https://github.com/r-lib/actions/blob/v1/examples/README.md](https://github.com/r-lib/actions/blob/v1/examples/README.md)
-
-
+N'hésitez pas à consulter la page suivantes qui renseigne sur les différentes *GitHub Actions* disponibles pour les pacakges `r fontawesome::fa("r-project")` : [https://github.com/r-lib/actions/blob/v2-branch/examples/README.md](https://github.com/r-lib/actions/blob/v2-branch/examples/README.md)
 
 
 
-### R-hub
+## Construire et déployer simplement un site web pour accompagner son package
+
+Le package `r fontawesome::fa("r-project")` `pkgdown` permet de générer automatiquement un site web attrayant rassemblant la documentation de votre package (y compris les *Vignettes*).
+
+> ***`r emoji::emoji("point_right")` À vous de jouer !***
+> 
+> 1. Executer la commande `usethis::use_pkgdown()` dans la console `r fontawesome::fa("r-project")`.
+>
+> 2. *Commiter* et *pusher* les changements. Rendez-vous sur l'onglet *Actions* de votre répertoire sur *GitHub* et constater les nouveautés.
+
+> ***`r emoji::emoji("point_right")` À vous de jouer !***
+> 
+> Examiner les changement du fichier `DESCRIPTION` suite à l'execution des différentes commandes `usethis::use_...` précedemment.
+> 
+> Modifier le champ *URL* du fichier `DESCRIPTION`.
+
+![Artwork CC-BY Allison Horst](FormationRavancee_dev_perf_files/usethis.png){width=100%}
+
+## Références additionnelles
+
+ - [*Happy Git With R*](https://happygitwithr.com/) by Jenny Bryan.
+ 
+ - Jennifer Bryan (2018). Excuse Me, Do You Have a Moment to Talk about Version Control? *The American Statistician* 72 (1):20--27.  
+ [DOI: 10.1080/00031305.2017.1399928](https://doi.org/10.1080/00031305.2017.1399928)
+
+
+## Annexe 2.1 : R-hub {-}
 
 Le *R consortium* met à disposition le [R-hub builder](https://www.r-consortium.org/blog/2016/06/06/first-public-version-of-the-r-hub-builder),
-- et a pour ambition de bientôt proposer un service d'intégration continue spécialement dédié aux packages `R`.
+- et a pour ambition de pouvoir un jour proposer un service d'intégration continue spécialement dédié aux packages `r fontawesome::fa('r-project')`.
 
 
 
-## Annexe 2.1 : couverture du code
+## Annexe 2.2 : couverture du code {-}
 
 Le package `covr` propose une solution pour mesurer la couverture des tests unitaires associés à un 
 package. La couverture de test détermine la proportion du code source qui est effectivement utilisée
 lors de l’exécution des tests unitaires. La mesure de la couverture du code renforce la fiabilité
 d'un code et donne confiance à ses utilisateurs potentiels.
 
-> ***A vous de jouer !***  
+> ***`r emoji::emoji("point_right")` À vous de jouer !***  
 >
-  1. Executez la commande `usethis::use_coverage()`,  ajouter un joli badge à votre README.md grâce au code obtenu dans la console R
+  1. Executer la commande `usethis::use_coverage()`,  ajouter un joli badge à votre README.md grâce au code obtenu dans la console  `r fontawesome::fa("r-project")`.
 
 >  
-  2. *Commitez* ces changements.
+  2. *Commiter* ces changements.
 
 Pour plus d'information n'hésitez pas à consulter la [vignette](https://cran.r-project.org/web/packages/covr/vignettes/how_it_works.html) de `covr`.
 
