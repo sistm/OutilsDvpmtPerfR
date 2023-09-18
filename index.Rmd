@@ -1,7 +1,7 @@
 --- 
 title: 'Formation R avancée'
 subtitle: '*Outils de développement et de performance*'
-author: "[Robin Genuer](https://robin.genuer.fr/) et [Boris Hejblum](https://borishejblum.science/)"
+author: "***Robin Genuer*** [`r emoji::emoji('globe_with_meridians')`](https://robin.genuer.fr/) & ***Boris Hejblum*** [`r emoji::emoji('globe_with_meridians')`](https://borishejblum.science/)"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 documentclass: book
@@ -14,7 +14,7 @@ description: "Outils de développement et de performance"
 # Présentation de la formation {-}
 
 Le but principal de cette formation est de vous donner des outils pour
-faciliter le développement de code (performant) avec `R`. L'aspect "performance"
+faciliter le développement de code (performant) avec `r fontawesome::fa("r-project")`. L'aspect "performance"
 arrivera dans un deuxième temps, et les premiers outils présentés sont
 également très utiles dans des situations ne faisant pas intervenir de temps
 de calculs importants.
@@ -22,24 +22,29 @@ de calculs importants.
 Nous allons centrer la présentation de ces outils de développement autour
 de la notion de package. Vous connaissez déjà cette notion, car vous avez
 déjà installer des packages depuis le CRAN par exemple. Vous savez également
-que c'est le moyen le plus standard dans `R` pour mettre à disposition du code.
+que c'est le moyen le plus standard dans `r fontawesome::fa("r-project")` pour 
+partager et mettre à disposition du code.
 Nous allons vous montrer que le package est également un excellent outil pour
 développer le code.
 
 
 Nous allons adopter le plan suivant :
 
-1. Construire un package
+Build an R package as a useful tool for code development
 
-2. Tracer les changements, partager son code, développement collaboratif et automatiser les tests dans un package
+ 2. Leverage `git` for **tracking** changes, and `GitHub` for **sharing** code, **collaborative** development, automating tests in a package and broadcast a companion website
 
-3. Mesurer le temps de calcul
+1. Construire un **package** `r fontawesome::fa("r-project")` comme outils de développement de code
 
-4. *Profiler* le code
+2. Utiliser `git` pour **tracer** les changements, et `GitHub` pour **partager** son code, le développement collaboratif, **automatiser** les tests dans un package et **diffuser** un site web d'accompagnement
 
-5. Utiliser *Rcpp* pour optimiser ce qui doit l'être
+3. **Mesurer** le temps de calcul
 
-6. Paralléliser facilement le code
+4. **Profiler** le code
+
+5. Utiliser `Rcpp` pour **optimiser** ce qui doit l'être
+
+6. **Paralléliser** facilement le code
 
 
 ## Logiciels et librairies nécessaires à la formation {-}
@@ -48,7 +53,7 @@ Afin de suivre cette formation, il est nécessaire de disposer des logiciels sui
 
   - la dernière version de `r fontawesome::fa("r-project")` (https://cloud.r-project.org/)
 
-  - la dernière version de *RStudio* (https://posit.co/download/rstudio-desktop/#download)
+  - la dernière version de `RStudio` (https://posit.co/download/rstudio-desktop/#download)
 
   - un *compilateur `C++`* (tel que `gcc` ou `clang` - natif sous les système UNIX, 
 	pour les utilisateurs Windows nous recommandons l’installation de 
@@ -57,17 +62,17 @@ Afin de suivre cette formation, il est nécessaire de disposer des logiciels sui
 	développement Apple comme indiqué 
 	[ici](https://mac.r-project.org/tools/))
 
-  - les packages `r fontawesome::fa("r-project")` suivants : *devtools*, *future.apply*, *itertools*, *microbenchmark*, *mvtnorm*, *profvis*, *Rcpp*, *RcppArmadillo*, *roxygen2*, *testthat*, *usethis*
-
-  - le client [*GitHub Desktop*](https://desktop.github.com/)
+  - les packages `r fontawesome::fa("r-project")` suivants : `devtools`, `future.apply`, `itertools`, `microbenchmark`, `mvtnorm`, `profvis`, `Rcpp`, `RcppArmadillo`, `roxygen2`, `testthat`, `usethis`
 
   - le logiciel [*git*](https://git-scm.com/)
+
+  - le client [*GitHub Desktop*](https://desktop.github.com/)
 
 ## Pré-requis {-}
 
 Afin de pouvoir suivre cette formation correctement vous devez être à l'aise avec les aspects suivants : 
 
-  - la programation avec `r fontawesome::fa("r-project")` dans l'environnement de développement *RStudio*
+  - la programation avec `r fontawesome::fa("r-project")` dans l'environnement de développement `RStudio`
   - écriture de fonctions en `r fontawesome::fa("r-project")`
   - structure de contrôle, en particulier les boucles *for*
   - le calcul de la densité d'une loi normale multivariée

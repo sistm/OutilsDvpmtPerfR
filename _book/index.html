@@ -1,363 +1,158 @@
 <!DOCTYPE html>
-<html lang="" xml:lang="">
+<html lang="en">
 <head>
-
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Formation R avancée</title>
-  <meta name="description" content="Outils de développement et de performance" />
-  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
-
-  <meta property="og:title" content="Formation R avancée" />
-  <meta property="og:type" content="book" />
-  
-  <meta property="og:description" content="Outils de développement et de performance" />
-  
-
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Formation R avancée" />
-  
-  <meta name="twitter:description" content="Outils de développement et de performance" />
-  
-
-<meta name="author" content="Robin Genuer et Boris Hejblum" />
-
-
-<meta name="date" content="2023-09-07" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-  
-  
-
-<link rel="next" href="construire-un-package.html"/>
-<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
-<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
-
-
-
-
-
-
-
-
-<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
-<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-
-
-<style type="text/css">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-</style>
-
-<style type="text/css">
-  
-  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-</style>
-
-<link rel="stylesheet" href="style.css" type="text/css" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Présentation de la formation | Formation R avancée</title>
+<meta name="author" content="Robin Genuer 🌐 &amp; Boris Hejblum 🌐">
+<meta name="description" content="Outils de développement et de performance">
+<meta name="generator" content="bookdown 0.35 with bs4_book()">
+<meta property="og:title" content="Présentation de la formation | Formation R avancée">
+<meta property="og:type" content="book">
+<meta property="og:description" content="Outils de développement et de performance">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Présentation de la formation | Formation R avancée">
+<meta name="twitter:description" content="Outils de développement et de performance">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.5.1/transition.js"></script><script src="libs/bs3compat-0.5.1/tabs.js"></script><script src="libs/bs3compat-0.5.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style.css">
 </head>
+<body data-spy="scroll" data-target="#toc">
 
-<body>
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
 
-
-
-  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
-
-    <div class="book-summary">
-      <nav role="navigation">
-
-<ul class="summary">
-<li><a href="./">Formation R avancée : Outils de développement et de performance </a></li>
-
-<li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Présentation de la formation</a>
-<ul>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#logiciels-et-librairies-nécessaires-à-la-formation"><i class="fa fa-check"></i>Logiciels et librairies nécessaires à la formation</a></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#pré-requis"><i class="fa fa-check"></i>Pré-requis</a></li>
-</ul></li>
-<li class="chapter" data-level="1" data-path="construire-un-package.html"><a href="construire-un-package.html"><i class="fa fa-check"></i><b>1</b> Construire un package <svg aria-hidden="true" role="img" viewBox="0 0 581 512" style="height:1em;width:1.13em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M581 226.6C581 119.1 450.9 32 290.5 32S0 119.1 0 226.6C0 322.4 103.3 402 239.4 418.1V480h99.1v-61.5c24.3-2.7 47.6-7.4 69.4-13.9L448 480h112l-67.4-113.7c54.5-35.4 88.4-84.9 88.4-139.7zm-466.8 14.5c0-73.5 98.9-133 220.8-133s211.9 40.7 211.9 133c0 50.1-26.5 85-70.3 106.4-2.4-1.6-4.7-2.9-6.4-3.7-10.2-5.2-27.8-10.5-27.8-10.5s86.6-6.4 86.6-92.7-90.6-87.9-90.6-87.9h-199V361c-74.1-21.5-125.2-67.1-125.2-119.9zm225.1 38.3v-55.6c57.8 0 87.8-6.8 87.8 27.3 0 36.5-38.2 28.3-87.8 28.3zm-.9 72.5H365c10.8 0 18.9 11.7 24 19.2-16.1 1.9-33 2.8-50.6 2.9v-22.1z"/></svg></a>
-<ul>
-<li class="chapter" data-level="1.1" data-path="construire-un-package.html"><a href="construire-un-package.html#initialiser-un-package"><i class="fa fa-check"></i><b>1.1</b> Initialiser un package</a></li>
-<li class="chapter" data-level="1.2" data-path="construire-un-package.html"><a href="construire-un-package.html#ajouter-une-fonction-exemple-fil-rouge"><i class="fa fa-check"></i><b>1.2</b> Ajouter une fonction : exemple fil rouge</a></li>
-<li class="chapter" data-level="1.3" data-path="construire-un-package.html"><a href="construire-un-package.html#documenter-une-fonction"><i class="fa fa-check"></i><b>1.3</b> Documenter une fonction</a></li>
-<li class="chapter" data-level="1.4" data-path="construire-un-package.html"><a href="construire-un-package.html#tester-le-package-de-manière-intéractive"><i class="fa fa-check"></i><b>1.4</b> Tester le package de manière <em>intéractive</em></a></li>
-<li class="chapter" data-level="1.5" data-path="construire-un-package.html"><a href="construire-un-package.html#tester-le-package-de-manière-automatique"><i class="fa fa-check"></i><b>1.5</b> Tester le package de manière <em>automatique</em></a></li>
-<li class="chapter" data-level="1.6" data-path="construire-un-package.html"><a href="construire-un-package.html#faire-un-check-du-package"><i class="fa fa-check"></i><b>1.6</b> Faire un <em>check</em> du package</a></li>
-<li class="chapter" data-level="1.7" data-path="construire-un-package.html"><a href="construire-un-package.html#installer-le-package"><i class="fa fa-check"></i><b>1.7</b> Installer le package</a></li>
-<li class="chapter" data-level="1.8" data-path="construire-un-package.html"><a href="construire-un-package.html#annexe-1.1-ajouter-une-méthode-s3"><i class="fa fa-check"></i><b>1.8</b> Annexe 1.1 : ajouter une méthode S3</a></li>
-<li class="chapter" data-level="1.9" data-path="construire-un-package.html"><a href="construire-un-package.html#annexe-1.2-soumettre-son-package-au-cran"><i class="fa fa-check"></i><b>1.9</b> Annexe 1.2 : soumettre son package au CRAN</a></li>
-<li class="chapter" data-level="1.10" data-path="construire-un-package.html"><a href="construire-un-package.html#annexe-1.3-construire-un-site-web-pour-accompagner-son-package"><i class="fa fa-check"></i><b>1.10</b> Annexe 1.3 : construire un site web pour accompagner son package</a></li>
-</ul></li>
-<li class="chapter" data-level="2" data-path="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html"><a href="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html"><i class="fa fa-check"></i><b>2</b> Contrôle de version avec <code>git</code> et GitHub : historique de changement, développement collaboratif et intégration continue</a>
-<ul>
-<li class="chapter" data-level="2.1" data-path="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html"><a href="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html#principe-du-contrôle-de-version"><i class="fa fa-check"></i><b>2.1</b> Principe du contrôle de version</a>
-<ul>
-<li class="chapter" data-level="2.1.1" data-path="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html"><a href="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html#git"><i class="fa fa-check"></i><b>2.1.1</b> <code>git</code></a></li>
-<li class="chapter" data-level="2.1.2" data-path="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html"><a href="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html#subversion"><i class="fa fa-check"></i><b>2.1.2</b> <code>subversion</code></a></li>
-</ul></li>
-<li class="chapter" data-level="2.2" data-path="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html"><a href="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html#utiliser-git-localement-depuis-rstudio"><i class="fa fa-check"></i><b>2.2</b> Utiliser <code>git</code> localement depuis RStudio</a>
-<ul>
-<li class="chapter" data-level="2.2.1" data-path="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html"><a href="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html#bonnes-pratiques-du-commit"><i class="fa fa-check"></i><b>2.2.1</b> Bonnes pratiques du <em>commit</em></a></li>
-</ul></li>
-<li class="chapter" data-level="2.3" data-path="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html"><a href="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html#github"><i class="fa fa-check"></i><b>2.3</b> GitHub</a>
-<ul>
-<li class="chapter" data-level="2.3.1" data-path="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html"><a href="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html#mettre-son-package-r-sur-github"><i class="fa fa-check"></i><b>2.3.1</b> Mettre son package <code>R</code> sur GitHub</a></li>
-</ul></li>
-<li class="chapter" data-level="2.4" data-path="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html"><a href="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html#collaboration-pour-la-production-du-code"><i class="fa fa-check"></i><b>2.4</b> Collaboration pour la production du code</a>
-<ul>
-<li class="chapter" data-level="2.4.1" data-path="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html"><a href="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html#branches"><i class="fa fa-check"></i><b>2.4.1</b> <em>Branches</em></a></li>
-<li class="chapter" data-level="2.4.2" data-path="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html"><a href="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html#merge"><i class="fa fa-check"></i><b>2.4.2</b> <em>Merge</em></a></li>
-<li class="chapter" data-level="2.4.3" data-path="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html"><a href="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html#les-conflits"><i class="fa fa-check"></i><b>2.4.3</b> Les conflits</a></li>
-<li class="chapter" data-level="2.4.4" data-path="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html"><a href="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html#fork"><i class="fa fa-check"></i><b>2.4.4</b> <em>Fork</em></a></li>
-<li class="chapter" data-level="2.4.5" data-path="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html"><a href="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html#pull-request"><i class="fa fa-check"></i><b>2.4.5</b> <em>Pull request</em></a></li>
-<li class="chapter" data-level="2.4.6" data-path="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html"><a href="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html#issues"><i class="fa fa-check"></i><b>2.4.6</b> <em>Issues</em></a></li>
-</ul></li>
-<li class="chapter" data-level="2.5" data-path="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html"><a href="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html#intégration-continue"><i class="fa fa-check"></i><b>2.5</b> Intégration continue</a>
-<ul>
-<li class="chapter" data-level="2.5.1" data-path="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html"><a href="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html#github-actions"><i class="fa fa-check"></i><b>2.5.1</b> <em>GitHub Actions</em></a></li>
-<li class="chapter" data-level="2.5.2" data-path="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html"><a href="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html#r-hub"><i class="fa fa-check"></i><b>2.5.2</b> R-hub</a></li>
-</ul></li>
-<li class="chapter" data-level="2.6" data-path="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html"><a href="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html#annexe-2.1-couverture-du-code"><i class="fa fa-check"></i><b>2.6</b> Annexe 2.1 : couverture du code</a></li>
-</ul></li>
-<li class="chapter" data-level="3" data-path="mesurer-et-comparer-des-temps-dexécution.html"><a href="mesurer-et-comparer-des-temps-dexécution.html"><i class="fa fa-check"></i><b>3</b> Mesurer et comparer des temps d’exécution</a>
-<ul>
-<li class="chapter" data-level="3.1" data-path="mesurer-et-comparer-des-temps-dexécution.html"><a href="mesurer-et-comparer-des-temps-dexécution.html#mesurer-des-temps-dexécution-avec-system.time"><i class="fa fa-check"></i><b>3.1</b> Mesurer des temps d’exécution avec <code>system.time()</code></a></li>
-<li class="chapter" data-level="3.2" data-path="mesurer-et-comparer-des-temps-dexécution.html"><a href="mesurer-et-comparer-des-temps-dexécution.html#comparer-des-temps-dexécution-avec-microbenchmark"><i class="fa fa-check"></i><b>3.2</b> Comparer des temps d’exécution avec <code>microbenchmark()</code></a></li>
-</ul></li>
-<li class="chapter" data-level="4" data-path="profiler-son-code.html"><a href="profiler-son-code.html"><i class="fa fa-check"></i><b>4</b> <em>Profiler</em> son code</a>
-<ul>
-<li class="chapter" data-level="4.1" data-path="profiler-son-code.html"><a href="profiler-son-code.html#comparaison-avec-une-version-plus-habile-de-mnvpdf"><i class="fa fa-check"></i><b>4.1</b> Comparaison avec une version plus habile de <code>mnvpdf()</code></a></li>
-<li class="chapter" data-level="4.2" data-path="profiler-son-code.html"><a href="profiler-son-code.html#comparaison-avec-une-version-optimisée-dans-r"><i class="fa fa-check"></i><b>4.2</b> Comparaison avec une version optimisée dans R</a></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="rcpp-ou-comment-intégrer-facilement-du-code-cdans-un-package-r.html"><a href="rcpp-ou-comment-intégrer-facilement-du-code-cdans-un-package-r.html"><i class="fa fa-check"></i><b>5</b> <code>Rcpp</code> ou comment intégrer facilement du code <code>C++</code>dans un package <code>R</code></a>
-<ul>
-<li class="chapter" data-level="5.1" data-path="rcpp-ou-comment-intégrer-facilement-du-code-cdans-un-package-r.html"><a href="rcpp-ou-comment-intégrer-facilement-du-code-cdans-un-package-r.html#première-fonction-en-rcpp"><i class="fa fa-check"></i><b>5.1</b> Première fonction en Rcpp</a></li>
-<li class="chapter" data-level="5.2" data-path="rcpp-ou-comment-intégrer-facilement-du-code-cdans-un-package-r.html"><a href="rcpp-ou-comment-intégrer-facilement-du-code-cdans-un-package-r.html#optimisation-grâce-à-c"><i class="fa fa-check"></i><b>5.2</b> Optimisation grâce à <code>C++</code></a></li>
-<li class="chapter" data-level="5.3" data-path="rcpp-ou-comment-intégrer-facilement-du-code-cdans-un-package-r.html"><a href="rcpp-ou-comment-intégrer-facilement-du-code-cdans-un-package-r.html#annexe-5.1-loptimisation-prématurée-nest-pas-une-bonne-idée"><i class="fa fa-check"></i><b>5.3</b> Annexe 5.1 : l’optimisation prématurée n’est pas une bonne idée</a></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="parallélisation-du-code-r.html"><a href="parallélisation-du-code-r.html"><i class="fa fa-check"></i><b>6</b> Parallélisation du code <code>R</code></a>
-<ul>
-<li class="chapter" data-level="6.1" data-path="parallélisation-du-code-r.html"><a href="parallélisation-du-code-r.html#introduction-à-lexecution-parallèle-sous-r"><i class="fa fa-check"></i><b>6.1</b> Introduction à l’execution parallèle sous <code>R</code></a></li>
-<li class="chapter" data-level="6.2" data-path="parallélisation-du-code-r.html"><a href="parallélisation-du-code-r.html#première-fonction-parallèle-en-r"><i class="fa fa-check"></i><b>6.2</b> Première fonction parallèle en <code>R</code></a></li>
-<li class="chapter" data-level="6.3" data-path="parallélisation-du-code-r.html"><a href="parallélisation-du-code-r.html#parallélisation-efficace"><i class="fa fa-check"></i><b>6.3</b> Parallélisation efficace</a>
-<ul>
-<li class="chapter" data-level="6.3.1" data-path="parallélisation-du-code-r.html"><a href="parallélisation-du-code-r.html#les-itérateurs"><i class="fa fa-check"></i><b>6.3.1</b> Les itérateurs</a></li>
-<li class="chapter" data-level="6.3.2" data-path="parallélisation-du-code-r.html"><a href="parallélisation-du-code-r.html#les-autres-plans-de-calculs-parallèle"><i class="fa fa-check"></i><b>6.3.2</b> Les autres “plans” de calculs parallèle</a></li>
-</ul></li>
-<li class="chapter" data-level="6.4" data-path="parallélisation-du-code-r.html"><a href="parallélisation-du-code-r.html#parallélisation-dans-notre-exemple-fil-rouge"><i class="fa fa-check"></i><b>6.4</b> Parallélisation dans notre exemple fil rouge</a></li>
-<li class="chapter" data-level="6.5" data-path="parallélisation-du-code-r.html"><a href="parallélisation-du-code-r.html#conclusion"><i class="fa fa-check"></i><b>6.5</b> Conclusion</a></li>
-</ul></li>
-<li class="chapter" data-level="7" data-path="take-home-message.html"><a href="take-home-message.html"><i class="fa fa-check"></i><b>7</b> <em>Take Home message</em></a></li>
-<li class="chapter" data-level="" data-path="références.html"><a href="références.html"><i class="fa fa-check"></i>Références</a></li>
-<li class="divider"></li>
-<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
-
-</ul>
-
-      </nav>
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="&lt;em&gt;Outils de développement et de performance&lt;/em&gt;">Formation R avancée</a>:
+        <small class="text-muted"><em>Outils de développement et de performance</em></small>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
     </div>
 
-    <div class="book-body">
-      <div class="body-inner">
-        <div class="book-header" role="navigation">
-          <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Formation R avancée</a>
-          </h1>
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="active" href="index.html">Présentation de la formation</a></li>
+<li><a class="" href="construire-un-package.html"><span class="header-section-number">1</span> Construire un package </a></li>
+<li><a class="" href="contr%C3%B4le-de-version-avec-git-et-github-historique-de-changement-d%C3%A9veloppement-collaboratif-et-int%C3%A9gration-continue.html"><span class="header-section-number">2</span> Contrôle de version avec git et GitHub : historique de changement, développement collaboratif et intégration continue</a></li>
+<li><a class="" href="mesurer-et-comparer-des-temps-dex%C3%A9cution.html"><span class="header-section-number">3</span> Mesurer et comparer des temps d’exécution</a></li>
+<li><a class="" href="profiler-son-code.html"><span class="header-section-number">4</span> Profiler son code</a></li>
+<li><a class="" href="rcpp-ou-comment-int%C3%A9grer-facilement-du-code-cdans-un-package-r.html"><span class="header-section-number">5</span> Rcpp ou comment intégrer facilement du code C++dans un package R</a></li>
+<li><a class="" href="parall%C3%A9lisation-du-code-r.html"><span class="header-section-number">6</span> Parallélisation du code R</a></li>
+<li><a class="" href="take-home-message.html"><span class="header-section-number">7</span> Take Home message</a></li>
+<li><a class="" href="r%C3%A9f%C3%A9rences.html">Références</a></li>
+</ul>
+
+        <div class="book-extra">
+          
         </div>
-
-        <div class="page-wrapper" tabindex="-1" role="main">
-          <div class="page-inner">
-
-            <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Formation R avancée</h1>
-<h2 class="subtitle"><em><em>Outils de développement et de performance</em></em></h2>
-<p class="author"><em><a href="https://robin.genuer.fr/">Robin Genuer</a> et <a href="https://borishejblum.science/">Boris Hejblum</a></em></p>
-<p class="date"><em>2023-09-07</em></p>
+      </nav>
 </div>
-<div id="présentation-de-la-formation" class="section level1 unnumbered hasAnchor">
-<h1>Présentation de la formation<a href="index.html#présentation-de-la-formation" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><!--bookdown:title:end--><!--bookdown:title:start--><div id="présentation-de-la-formation" class="section level1 unnumbered">
+<h1>Présentation de la formation<a class="anchor" aria-label="anchor" href="#pr%C3%A9sentation-de-la-formation"><i class="fas fa-link"></i></a>
+</h1>
 <p>Le but principal de cette formation est de vous donner des outils pour
-faciliter le développement de code (performant) avec <code>R</code>. L’aspect “performance”
+faciliter le développement de code (performant) avec <svg aria-hidden="true" role="img" viewbox="0 0 581 512" style="height:1em;width:1.13em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M581 226.6C581 119.1 450.9 32 290.5 32S0 119.1 0 226.6C0 322.4 103.3 402 239.4 418.1V480h99.1v-61.5c24.3-2.7 47.6-7.4 69.4-13.9L448 480h112l-67.4-113.7c54.5-35.4 88.4-84.9 88.4-139.7zm-466.8 14.5c0-73.5 98.9-133 220.8-133s211.9 40.7 211.9 133c0 50.1-26.5 85-70.3 106.4-2.4-1.6-4.7-2.9-6.4-3.7-10.2-5.2-27.8-10.5-27.8-10.5s86.6-6.4 86.6-92.7-90.6-87.9-90.6-87.9h-199V361c-74.1-21.5-125.2-67.1-125.2-119.9zm225.1 38.3v-55.6c57.8 0 87.8-6.8 87.8 27.3 0 36.5-38.2 28.3-87.8 28.3zm-.9 72.5H365c10.8 0 18.9 11.7 24 19.2-16.1 1.9-33 2.8-50.6 2.9v-22.1z"></path></svg>. L’aspect “performance”
 arrivera dans un deuxième temps, et les premiers outils présentés sont
 également très utiles dans des situations ne faisant pas intervenir de temps
 de calculs importants.</p>
 <p>Nous allons centrer la présentation de ces outils de développement autour
 de la notion de package. Vous connaissez déjà cette notion, car vous avez
 déjà installer des packages depuis le CRAN par exemple. Vous savez également
-que c’est le moyen le plus standard dans <code>R</code> pour mettre à disposition du code.
+que c’est le moyen le plus standard dans <svg aria-hidden="true" role="img" viewbox="0 0 581 512" style="height:1em;width:1.13em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M581 226.6C581 119.1 450.9 32 290.5 32S0 119.1 0 226.6C0 322.4 103.3 402 239.4 418.1V480h99.1v-61.5c24.3-2.7 47.6-7.4 69.4-13.9L448 480h112l-67.4-113.7c54.5-35.4 88.4-84.9 88.4-139.7zm-466.8 14.5c0-73.5 98.9-133 220.8-133s211.9 40.7 211.9 133c0 50.1-26.5 85-70.3 106.4-2.4-1.6-4.7-2.9-6.4-3.7-10.2-5.2-27.8-10.5-27.8-10.5s86.6-6.4 86.6-92.7-90.6-87.9-90.6-87.9h-199V361c-74.1-21.5-125.2-67.1-125.2-119.9zm225.1 38.3v-55.6c57.8 0 87.8-6.8 87.8 27.3 0 36.5-38.2 28.3-87.8 28.3zm-.9 72.5H365c10.8 0 18.9 11.7 24 19.2-16.1 1.9-33 2.8-50.6 2.9v-22.1z"></path></svg> pour
+partager et mettre à disposition du code.
 Nous allons vous montrer que le package est également un excellent outil pour
 développer le code.</p>
 <p>Nous allons adopter le plan suivant :</p>
-<ol style="list-style-type: decimal">
-<li><p>Construire un package</p></li>
-<li><p>Tracer les changements, partager son code, développement collaboratif et automatiser les tests dans un package</p></li>
-<li><p>Mesurer le temps de calcul</p></li>
-<li><p><em>Profiler</em> le code</p></li>
-<li><p>Utiliser <em>Rcpp</em> pour optimiser ce qui doit l’être</p></li>
-<li><p>Paralléliser facilement le code</p></li>
+<p>Build an R package as a useful tool for code development</p>
+<ol start="2" style="list-style-type: decimal">
+<li><p>Leverage <code>git</code> for <strong>tracking</strong> changes, and <code>GitHub</code> for <strong>sharing</strong> code, <strong>collaborative</strong> development, automating tests in a package and broadcast a companion website</p></li>
+<li><p>Construire un <strong>package</strong> <svg aria-hidden="true" role="img" viewbox="0 0 581 512" style="height:1em;width:1.13em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M581 226.6C581 119.1 450.9 32 290.5 32S0 119.1 0 226.6C0 322.4 103.3 402 239.4 418.1V480h99.1v-61.5c24.3-2.7 47.6-7.4 69.4-13.9L448 480h112l-67.4-113.7c54.5-35.4 88.4-84.9 88.4-139.7zm-466.8 14.5c0-73.5 98.9-133 220.8-133s211.9 40.7 211.9 133c0 50.1-26.5 85-70.3 106.4-2.4-1.6-4.7-2.9-6.4-3.7-10.2-5.2-27.8-10.5-27.8-10.5s86.6-6.4 86.6-92.7-90.6-87.9-90.6-87.9h-199V361c-74.1-21.5-125.2-67.1-125.2-119.9zm225.1 38.3v-55.6c57.8 0 87.8-6.8 87.8 27.3 0 36.5-38.2 28.3-87.8 28.3zm-.9 72.5H365c10.8 0 18.9 11.7 24 19.2-16.1 1.9-33 2.8-50.6 2.9v-22.1z"></path></svg> comme outils de développement de code</p></li>
+<li><p>Utiliser <code>git</code> pour <strong>tracer</strong> les changements, et <code>GitHub</code> pour <strong>partager</strong> son code, le développement collaboratif, <strong>automatiser</strong> les tests dans un package et <strong>diffuser</strong> un site web d’accompagnement</p></li>
+<li><p><strong>Mesurer</strong> le temps de calcul</p></li>
+<li><p><strong>Profiler</strong> le code</p></li>
+<li><p>Utiliser <code>Rcpp</code> pour <strong>optimiser</strong> ce qui doit l’être</p></li>
+<li><p><strong>Paralléliser</strong> facilement le code</p></li>
 </ol>
-<div id="logiciels-et-librairies-nécessaires-à-la-formation" class="section level2 unnumbered hasAnchor">
-<h2>Logiciels et librairies nécessaires à la formation<a href="index.html#logiciels-et-librairies-nécessaires-à-la-formation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="logiciels-et-librairies-nécessaires-à-la-formation" class="section level2 unnumbered">
+<h2>Logiciels et librairies nécessaires à la formation<a class="anchor" aria-label="anchor" href="#logiciels-et-librairies-n%C3%A9cessaires-%C3%A0-la-formation"><i class="fas fa-link"></i></a>
+</h2>
 <p>Afin de suivre cette formation, il est nécessaire de disposer des logiciels suivants :</p>
 <ul>
-<li><p>la dernière version de <svg aria-hidden="true" role="img" viewBox="0 0 581 512" style="height:1em;width:1.13em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M581 226.6C581 119.1 450.9 32 290.5 32S0 119.1 0 226.6C0 322.4 103.3 402 239.4 418.1V480h99.1v-61.5c24.3-2.7 47.6-7.4 69.4-13.9L448 480h112l-67.4-113.7c54.5-35.4 88.4-84.9 88.4-139.7zm-466.8 14.5c0-73.5 98.9-133 220.8-133s211.9 40.7 211.9 133c0 50.1-26.5 85-70.3 106.4-2.4-1.6-4.7-2.9-6.4-3.7-10.2-5.2-27.8-10.5-27.8-10.5s86.6-6.4 86.6-92.7-90.6-87.9-90.6-87.9h-199V361c-74.1-21.5-125.2-67.1-125.2-119.9zm225.1 38.3v-55.6c57.8 0 87.8-6.8 87.8 27.3 0 36.5-38.2 28.3-87.8 28.3zm-.9 72.5H365c10.8 0 18.9 11.7 24 19.2-16.1 1.9-33 2.8-50.6 2.9v-22.1z"/></svg> (<a href="https://cloud.r-project.org/" class="uri">https://cloud.r-project.org/</a>)</p></li>
-<li><p>la dernière version de <em>RStudio</em> (<a href="https://posit.co/download/rstudio-desktop/#download" class="uri">https://posit.co/download/rstudio-desktop/#download</a>)</p></li>
+<li><p>la dernière version de <svg aria-hidden="true" role="img" viewbox="0 0 581 512" style="height:1em;width:1.13em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M581 226.6C581 119.1 450.9 32 290.5 32S0 119.1 0 226.6C0 322.4 103.3 402 239.4 418.1V480h99.1v-61.5c24.3-2.7 47.6-7.4 69.4-13.9L448 480h112l-67.4-113.7c54.5-35.4 88.4-84.9 88.4-139.7zm-466.8 14.5c0-73.5 98.9-133 220.8-133s211.9 40.7 211.9 133c0 50.1-26.5 85-70.3 106.4-2.4-1.6-4.7-2.9-6.4-3.7-10.2-5.2-27.8-10.5-27.8-10.5s86.6-6.4 86.6-92.7-90.6-87.9-90.6-87.9h-199V361c-74.1-21.5-125.2-67.1-125.2-119.9zm225.1 38.3v-55.6c57.8 0 87.8-6.8 87.8 27.3 0 36.5-38.2 28.3-87.8 28.3zm-.9 72.5H365c10.8 0 18.9 11.7 24 19.2-16.1 1.9-33 2.8-50.6 2.9v-22.1z"></path></svg> (<a href="https://cloud.r-project.org/" class="uri">https://cloud.r-project.org/</a>)</p></li>
+<li><p>la dernière version de <code>RStudio</code> (<a href="https://posit.co/download/rstudio-desktop/#download" class="uri">https://posit.co/download/rstudio-desktop/#download</a>)</p></li>
 <li><p>un <em>compilateur <code>C++</code></em> (tel que <code>gcc</code> ou <code>clang</code> - natif sous les système UNIX,
 pour les utilisateurs Windows nous recommandons l’installation de
 <a href="https://cran.r-project.org/bin/windows/Rtools/">Rtools</a>, pour les
 utilisateurs Mac il peut être nécessaire d’installer les outils de
 développement Apple comme indiqué
 <a href="https://mac.r-project.org/tools/">ici</a>)</p></li>
-<li><p>les packages <svg aria-hidden="true" role="img" viewBox="0 0 581 512" style="height:1em;width:1.13em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M581 226.6C581 119.1 450.9 32 290.5 32S0 119.1 0 226.6C0 322.4 103.3 402 239.4 418.1V480h99.1v-61.5c24.3-2.7 47.6-7.4 69.4-13.9L448 480h112l-67.4-113.7c54.5-35.4 88.4-84.9 88.4-139.7zm-466.8 14.5c0-73.5 98.9-133 220.8-133s211.9 40.7 211.9 133c0 50.1-26.5 85-70.3 106.4-2.4-1.6-4.7-2.9-6.4-3.7-10.2-5.2-27.8-10.5-27.8-10.5s86.6-6.4 86.6-92.7-90.6-87.9-90.6-87.9h-199V361c-74.1-21.5-125.2-67.1-125.2-119.9zm225.1 38.3v-55.6c57.8 0 87.8-6.8 87.8 27.3 0 36.5-38.2 28.3-87.8 28.3zm-.9 72.5H365c10.8 0 18.9 11.7 24 19.2-16.1 1.9-33 2.8-50.6 2.9v-22.1z"/></svg> suivants : <em>devtools</em>, <em>future.apply</em>, <em>itertools</em>, <em>microbenchmark</em>, <em>mvtnorm</em>, <em>profvis</em>, <em>Rcpp</em>, <em>RcppArmadillo</em>, <em>roxygen2</em>, <em>testthat</em>, <em>usethis</em></p></li>
-<li><p>le client <a href="https://desktop.github.com/"><em>GitHub Desktop</em></a></p></li>
+<li><p>les packages <svg aria-hidden="true" role="img" viewbox="0 0 581 512" style="height:1em;width:1.13em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M581 226.6C581 119.1 450.9 32 290.5 32S0 119.1 0 226.6C0 322.4 103.3 402 239.4 418.1V480h99.1v-61.5c24.3-2.7 47.6-7.4 69.4-13.9L448 480h112l-67.4-113.7c54.5-35.4 88.4-84.9 88.4-139.7zm-466.8 14.5c0-73.5 98.9-133 220.8-133s211.9 40.7 211.9 133c0 50.1-26.5 85-70.3 106.4-2.4-1.6-4.7-2.9-6.4-3.7-10.2-5.2-27.8-10.5-27.8-10.5s86.6-6.4 86.6-92.7-90.6-87.9-90.6-87.9h-199V361c-74.1-21.5-125.2-67.1-125.2-119.9zm225.1 38.3v-55.6c57.8 0 87.8-6.8 87.8 27.3 0 36.5-38.2 28.3-87.8 28.3zm-.9 72.5H365c10.8 0 18.9 11.7 24 19.2-16.1 1.9-33 2.8-50.6 2.9v-22.1z"></path></svg> suivants : <code>devtools</code>, <code>future.apply</code>, <code>itertools</code>, <code>microbenchmark</code>, <code>mvtnorm</code>, <code>profvis</code>, <code>Rcpp</code>, <code>RcppArmadillo</code>, <code>roxygen2</code>, <code>testthat</code>, <code>usethis</code></p></li>
 <li><p>le logiciel <a href="https://git-scm.com/"><em>git</em></a></p></li>
+<li><p>le client <a href="https://desktop.github.com/"><em>GitHub Desktop</em></a></p></li>
 </ul>
 </div>
-<div id="pré-requis" class="section level2 unnumbered hasAnchor">
-<h2>Pré-requis<a href="index.html#pré-requis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="pré-requis" class="section level2 unnumbered">
+<h2>Pré-requis<a class="anchor" aria-label="anchor" href="#pr%C3%A9-requis"><i class="fas fa-link"></i></a>
+</h2>
 <p>Afin de pouvoir suivre cette formation correctement vous devez être à l’aise avec les aspects suivants :</p>
 <ul>
-<li>la programation avec <svg aria-hidden="true" role="img" viewBox="0 0 581 512" style="height:1em;width:1.13em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M581 226.6C581 119.1 450.9 32 290.5 32S0 119.1 0 226.6C0 322.4 103.3 402 239.4 418.1V480h99.1v-61.5c24.3-2.7 47.6-7.4 69.4-13.9L448 480h112l-67.4-113.7c54.5-35.4 88.4-84.9 88.4-139.7zm-466.8 14.5c0-73.5 98.9-133 220.8-133s211.9 40.7 211.9 133c0 50.1-26.5 85-70.3 106.4-2.4-1.6-4.7-2.9-6.4-3.7-10.2-5.2-27.8-10.5-27.8-10.5s86.6-6.4 86.6-92.7-90.6-87.9-90.6-87.9h-199V361c-74.1-21.5-125.2-67.1-125.2-119.9zm225.1 38.3v-55.6c57.8 0 87.8-6.8 87.8 27.3 0 36.5-38.2 28.3-87.8 28.3zm-.9 72.5H365c10.8 0 18.9 11.7 24 19.2-16.1 1.9-33 2.8-50.6 2.9v-22.1z"/></svg> dans l’environnement de développement <em>RStudio</em></li>
-<li>écriture de fonctions en <svg aria-hidden="true" role="img" viewBox="0 0 581 512" style="height:1em;width:1.13em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M581 226.6C581 119.1 450.9 32 290.5 32S0 119.1 0 226.6C0 322.4 103.3 402 239.4 418.1V480h99.1v-61.5c24.3-2.7 47.6-7.4 69.4-13.9L448 480h112l-67.4-113.7c54.5-35.4 88.4-84.9 88.4-139.7zm-466.8 14.5c0-73.5 98.9-133 220.8-133s211.9 40.7 211.9 133c0 50.1-26.5 85-70.3 106.4-2.4-1.6-4.7-2.9-6.4-3.7-10.2-5.2-27.8-10.5-27.8-10.5s86.6-6.4 86.6-92.7-90.6-87.9-90.6-87.9h-199V361c-74.1-21.5-125.2-67.1-125.2-119.9zm225.1 38.3v-55.6c57.8 0 87.8-6.8 87.8 27.3 0 36.5-38.2 28.3-87.8 28.3zm-.9 72.5H365c10.8 0 18.9 11.7 24 19.2-16.1 1.9-33 2.8-50.6 2.9v-22.1z"/></svg></li>
-<li>structure de contrôle, en particulier les boucles <em>for</em></li>
+<li>la programation avec <svg aria-hidden="true" role="img" viewbox="0 0 581 512" style="height:1em;width:1.13em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M581 226.6C581 119.1 450.9 32 290.5 32S0 119.1 0 226.6C0 322.4 103.3 402 239.4 418.1V480h99.1v-61.5c24.3-2.7 47.6-7.4 69.4-13.9L448 480h112l-67.4-113.7c54.5-35.4 88.4-84.9 88.4-139.7zm-466.8 14.5c0-73.5 98.9-133 220.8-133s211.9 40.7 211.9 133c0 50.1-26.5 85-70.3 106.4-2.4-1.6-4.7-2.9-6.4-3.7-10.2-5.2-27.8-10.5-27.8-10.5s86.6-6.4 86.6-92.7-90.6-87.9-90.6-87.9h-199V361c-74.1-21.5-125.2-67.1-125.2-119.9zm225.1 38.3v-55.6c57.8 0 87.8-6.8 87.8 27.3 0 36.5-38.2 28.3-87.8 28.3zm-.9 72.5H365c10.8 0 18.9 11.7 24 19.2-16.1 1.9-33 2.8-50.6 2.9v-22.1z"></path></svg> dans l’environnement de développement <code>RStudio</code>
+</li>
+<li>écriture de fonctions en <svg aria-hidden="true" role="img" viewbox="0 0 581 512" style="height:1em;width:1.13em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M581 226.6C581 119.1 450.9 32 290.5 32S0 119.1 0 226.6C0 322.4 103.3 402 239.4 418.1V480h99.1v-61.5c24.3-2.7 47.6-7.4 69.4-13.9L448 480h112l-67.4-113.7c54.5-35.4 88.4-84.9 88.4-139.7zm-466.8 14.5c0-73.5 98.9-133 220.8-133s211.9 40.7 211.9 133c0 50.1-26.5 85-70.3 106.4-2.4-1.6-4.7-2.9-6.4-3.7-10.2-5.2-27.8-10.5-27.8-10.5s86.6-6.4 86.6-92.7-90.6-87.9-90.6-87.9h-199V361c-74.1-21.5-125.2-67.1-125.2-119.9zm225.1 38.3v-55.6c57.8 0 87.8-6.8 87.8 27.3 0 36.5-38.2 28.3-87.8 28.3zm-.9 72.5H365c10.8 0 18.9 11.7 24 19.2-16.1 1.9-33 2.8-50.6 2.9v-22.1z"></path></svg>
+</li>
+<li>structure de contrôle, en particulier les boucles <em>for</em>
+</li>
 <li>le calcul de la densité d’une loi normale multivariée</li>
 </ul>
-
 </div>
 </div>
-            </section>
+  <div class="chapter-nav">
+<div class="empty"></div>
+<div class="next"><a href="construire-un-package.html"><span class="header-section-number">1</span> Construire un package </a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#pr%C3%A9sentation-de-la-formation">Présentation de la formation</a></li>
+<li><a class="nav-link" href="#logiciels-et-librairies-n%C3%A9cessaires-%C3%A0-la-formation">Logiciels et librairies nécessaires à la formation</a></li>
+<li><a class="nav-link" href="#pr%C3%A9-requis">Pré-requis</a></li>
+</ul>
 
-          </div>
-        </div>
-      </div>
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
 
-<a href="construire-un-package.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
-    </div>
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Formation R avancée</strong>: <em>Outils de développement et de performance</em>" was written by <strong><em>Robin Genuer</em></strong> <a href="https://robin.genuer.fr/">🌐</a> &amp; <strong><em>Boris Hejblum</em></strong> <a href="https://borishejblum.science/">🌐</a>. It was last built on 2023-09-18.</p>
   </div>
-<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
-<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
-<script>
-gitbook.require(["gitbook"], function(gitbook) {
-gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"whatsapp": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": "https://github.com/sistm/OutilsDvpmtPerfR/blob/master/index.Rmd",
-"text": "Edit"
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": ["FormationRavancee_dev_perf.pdf", "FormationRavancee_dev_perf.epub"],
-"search": {
-"engine": "fuse",
-"options": null
-},
-"toc": {
-"collapse": "subsection"
-}
-});
-});
-</script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
@@ -369,7 +164,22 @@ gitbook.start({
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
 </script>
 </body>
-
 </html>

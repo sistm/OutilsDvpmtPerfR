@@ -1,10 +1,8 @@
-bookdown::gitbook:
+bookdown::bs4_book:
   css: style.css
   config:
     toc:
       before: |
         <li><a href="./">Formation R avancée : Outils de développement et de performance </a></li>
-      after: |
-        <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
-    edit:
+      edit:
       link: https://github.com/sistm/OutilsDvpmtPerfR/blob/master/%s

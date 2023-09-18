@@ -1,346 +1,182 @@
 <!DOCTYPE html>
-<html lang="" xml:lang="">
+<html lang="en">
 <head>
-
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapitre 1 Construire un package  | Formation R avancée</title>
-  <meta name="description" content="Outils de développement et de performance" />
-  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
-
-  <meta property="og:title" content="Chapitre 1 Construire un package  | Formation R avancée" />
-  <meta property="og:type" content="book" />
-  
-  <meta property="og:description" content="Outils de développement et de performance" />
-  
-
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapitre 1 Construire un package  | Formation R avancée" />
-  
-  <meta name="twitter:description" content="Outils de développement et de performance" />
-  
-
-<meta name="author" content="Robin Genuer et Boris Hejblum" />
-
-
-<meta name="date" content="2023-09-07" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-  
-  
-<link rel="prev" href="index.html"/>
-<link rel="next" href="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html"/>
-<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
-<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
-
-
-
-
-
-
-
-
-<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
-<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-
-
-<style type="text/css">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-</style>
-
-<style type="text/css">
-  
-  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-</style>
-
-<link rel="stylesheet" href="style.css" type="text/css" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapitre 1 Construire un package  | Formation R avancée</title>
+<meta name="author" content="Robin Genuer 🌐 &amp; Boris Hejblum 🌐">
+<meta name="description" content="Nous présentons ici comment construire un package efficacement à l’aide d’outils graphiques présents dans RStudio et du package devtools. Le support de référence sur ce sujet est le livre R...">
+<meta name="generator" content="bookdown 0.35 with bs4_book()">
+<meta property="og:title" content="Chapitre 1 Construire un package  | Formation R avancée">
+<meta property="og:type" content="book">
+<meta property="og:description" content="Nous présentons ici comment construire un package efficacement à l’aide d’outils graphiques présents dans RStudio et du package devtools. Le support de référence sur ce sujet est le livre R...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapitre 1 Construire un package  | Formation R avancée">
+<meta name="twitter:description" content="Nous présentons ici comment construire un package efficacement à l’aide d’outils graphiques présents dans RStudio et du package devtools. Le support de référence sur ce sujet est le livre R...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.5.1/transition.js"></script><script src="libs/bs3compat-0.5.1/tabs.js"></script><script src="libs/bs3compat-0.5.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style.css">
 </head>
+<body data-spy="scroll" data-target="#toc">
 
-<body>
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
 
-
-
-  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
-
-    <div class="book-summary">
-      <nav role="navigation">
-
-<ul class="summary">
-<li><a href="./">Formation R avancée : Outils de développement et de performance </a></li>
-
-<li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Présentation de la formation</a>
-<ul>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#logiciels-et-librairies-nécessaires-à-la-formation"><i class="fa fa-check"></i>Logiciels et librairies nécessaires à la formation</a></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#pré-requis"><i class="fa fa-check"></i>Pré-requis</a></li>
-</ul></li>
-<li class="chapter" data-level="1" data-path="construire-un-package.html"><a href="construire-un-package.html"><i class="fa fa-check"></i><b>1</b> Construire un package <svg aria-hidden="true" role="img" viewBox="0 0 581 512" style="height:1em;width:1.13em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M581 226.6C581 119.1 450.9 32 290.5 32S0 119.1 0 226.6C0 322.4 103.3 402 239.4 418.1V480h99.1v-61.5c24.3-2.7 47.6-7.4 69.4-13.9L448 480h112l-67.4-113.7c54.5-35.4 88.4-84.9 88.4-139.7zm-466.8 14.5c0-73.5 98.9-133 220.8-133s211.9 40.7 211.9 133c0 50.1-26.5 85-70.3 106.4-2.4-1.6-4.7-2.9-6.4-3.7-10.2-5.2-27.8-10.5-27.8-10.5s86.6-6.4 86.6-92.7-90.6-87.9-90.6-87.9h-199V361c-74.1-21.5-125.2-67.1-125.2-119.9zm225.1 38.3v-55.6c57.8 0 87.8-6.8 87.8 27.3 0 36.5-38.2 28.3-87.8 28.3zm-.9 72.5H365c10.8 0 18.9 11.7 24 19.2-16.1 1.9-33 2.8-50.6 2.9v-22.1z"/></svg></a>
-<ul>
-<li class="chapter" data-level="1.1" data-path="construire-un-package.html"><a href="construire-un-package.html#initialiser-un-package"><i class="fa fa-check"></i><b>1.1</b> Initialiser un package</a></li>
-<li class="chapter" data-level="1.2" data-path="construire-un-package.html"><a href="construire-un-package.html#ajouter-une-fonction-exemple-fil-rouge"><i class="fa fa-check"></i><b>1.2</b> Ajouter une fonction : exemple fil rouge</a></li>
-<li class="chapter" data-level="1.3" data-path="construire-un-package.html"><a href="construire-un-package.html#documenter-une-fonction"><i class="fa fa-check"></i><b>1.3</b> Documenter une fonction</a></li>
-<li class="chapter" data-level="1.4" data-path="construire-un-package.html"><a href="construire-un-package.html#tester-le-package-de-manière-intéractive"><i class="fa fa-check"></i><b>1.4</b> Tester le package de manière <em>intéractive</em></a></li>
-<li class="chapter" data-level="1.5" data-path="construire-un-package.html"><a href="construire-un-package.html#tester-le-package-de-manière-automatique"><i class="fa fa-check"></i><b>1.5</b> Tester le package de manière <em>automatique</em></a></li>
-<li class="chapter" data-level="1.6" data-path="construire-un-package.html"><a href="construire-un-package.html#faire-un-check-du-package"><i class="fa fa-check"></i><b>1.6</b> Faire un <em>check</em> du package</a></li>
-<li class="chapter" data-level="1.7" data-path="construire-un-package.html"><a href="construire-un-package.html#installer-le-package"><i class="fa fa-check"></i><b>1.7</b> Installer le package</a></li>
-<li class="chapter" data-level="1.8" data-path="construire-un-package.html"><a href="construire-un-package.html#annexe-1.1-ajouter-une-méthode-s3"><i class="fa fa-check"></i><b>1.8</b> Annexe 1.1 : ajouter une méthode S3</a></li>
-<li class="chapter" data-level="1.9" data-path="construire-un-package.html"><a href="construire-un-package.html#annexe-1.2-soumettre-son-package-au-cran"><i class="fa fa-check"></i><b>1.9</b> Annexe 1.2 : soumettre son package au CRAN</a></li>
-<li class="chapter" data-level="1.10" data-path="construire-un-package.html"><a href="construire-un-package.html#annexe-1.3-construire-un-site-web-pour-accompagner-son-package"><i class="fa fa-check"></i><b>1.10</b> Annexe 1.3 : construire un site web pour accompagner son package</a></li>
-</ul></li>
-<li class="chapter" data-level="2" data-path="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html"><a href="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html"><i class="fa fa-check"></i><b>2</b> Contrôle de version avec <code>git</code> et GitHub : historique de changement, développement collaboratif et intégration continue</a>
-<ul>
-<li class="chapter" data-level="2.1" data-path="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html"><a href="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html#principe-du-contrôle-de-version"><i class="fa fa-check"></i><b>2.1</b> Principe du contrôle de version</a>
-<ul>
-<li class="chapter" data-level="2.1.1" data-path="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html"><a href="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html#git"><i class="fa fa-check"></i><b>2.1.1</b> <code>git</code></a></li>
-<li class="chapter" data-level="2.1.2" data-path="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html"><a href="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html#subversion"><i class="fa fa-check"></i><b>2.1.2</b> <code>subversion</code></a></li>
-</ul></li>
-<li class="chapter" data-level="2.2" data-path="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html"><a href="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html#utiliser-git-localement-depuis-rstudio"><i class="fa fa-check"></i><b>2.2</b> Utiliser <code>git</code> localement depuis RStudio</a>
-<ul>
-<li class="chapter" data-level="2.2.1" data-path="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html"><a href="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html#bonnes-pratiques-du-commit"><i class="fa fa-check"></i><b>2.2.1</b> Bonnes pratiques du <em>commit</em></a></li>
-</ul></li>
-<li class="chapter" data-level="2.3" data-path="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html"><a href="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html#github"><i class="fa fa-check"></i><b>2.3</b> GitHub</a>
-<ul>
-<li class="chapter" data-level="2.3.1" data-path="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html"><a href="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html#mettre-son-package-r-sur-github"><i class="fa fa-check"></i><b>2.3.1</b> Mettre son package <code>R</code> sur GitHub</a></li>
-</ul></li>
-<li class="chapter" data-level="2.4" data-path="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html"><a href="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html#collaboration-pour-la-production-du-code"><i class="fa fa-check"></i><b>2.4</b> Collaboration pour la production du code</a>
-<ul>
-<li class="chapter" data-level="2.4.1" data-path="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html"><a href="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html#branches"><i class="fa fa-check"></i><b>2.4.1</b> <em>Branches</em></a></li>
-<li class="chapter" data-level="2.4.2" data-path="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html"><a href="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html#merge"><i class="fa fa-check"></i><b>2.4.2</b> <em>Merge</em></a></li>
-<li class="chapter" data-level="2.4.3" data-path="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html"><a href="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html#les-conflits"><i class="fa fa-check"></i><b>2.4.3</b> Les conflits</a></li>
-<li class="chapter" data-level="2.4.4" data-path="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html"><a href="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html#fork"><i class="fa fa-check"></i><b>2.4.4</b> <em>Fork</em></a></li>
-<li class="chapter" data-level="2.4.5" data-path="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html"><a href="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html#pull-request"><i class="fa fa-check"></i><b>2.4.5</b> <em>Pull request</em></a></li>
-<li class="chapter" data-level="2.4.6" data-path="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html"><a href="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html#issues"><i class="fa fa-check"></i><b>2.4.6</b> <em>Issues</em></a></li>
-</ul></li>
-<li class="chapter" data-level="2.5" data-path="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html"><a href="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html#intégration-continue"><i class="fa fa-check"></i><b>2.5</b> Intégration continue</a>
-<ul>
-<li class="chapter" data-level="2.5.1" data-path="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html"><a href="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html#github-actions"><i class="fa fa-check"></i><b>2.5.1</b> <em>GitHub Actions</em></a></li>
-<li class="chapter" data-level="2.5.2" data-path="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html"><a href="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html#r-hub"><i class="fa fa-check"></i><b>2.5.2</b> R-hub</a></li>
-</ul></li>
-<li class="chapter" data-level="2.6" data-path="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html"><a href="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html#annexe-2.1-couverture-du-code"><i class="fa fa-check"></i><b>2.6</b> Annexe 2.1 : couverture du code</a></li>
-</ul></li>
-<li class="chapter" data-level="3" data-path="mesurer-et-comparer-des-temps-dexécution.html"><a href="mesurer-et-comparer-des-temps-dexécution.html"><i class="fa fa-check"></i><b>3</b> Mesurer et comparer des temps d’exécution</a>
-<ul>
-<li class="chapter" data-level="3.1" data-path="mesurer-et-comparer-des-temps-dexécution.html"><a href="mesurer-et-comparer-des-temps-dexécution.html#mesurer-des-temps-dexécution-avec-system.time"><i class="fa fa-check"></i><b>3.1</b> Mesurer des temps d’exécution avec <code>system.time()</code></a></li>
-<li class="chapter" data-level="3.2" data-path="mesurer-et-comparer-des-temps-dexécution.html"><a href="mesurer-et-comparer-des-temps-dexécution.html#comparer-des-temps-dexécution-avec-microbenchmark"><i class="fa fa-check"></i><b>3.2</b> Comparer des temps d’exécution avec <code>microbenchmark()</code></a></li>
-</ul></li>
-<li class="chapter" data-level="4" data-path="profiler-son-code.html"><a href="profiler-son-code.html"><i class="fa fa-check"></i><b>4</b> <em>Profiler</em> son code</a>
-<ul>
-<li class="chapter" data-level="4.1" data-path="profiler-son-code.html"><a href="profiler-son-code.html#comparaison-avec-une-version-plus-habile-de-mnvpdf"><i class="fa fa-check"></i><b>4.1</b> Comparaison avec une version plus habile de <code>mnvpdf()</code></a></li>
-<li class="chapter" data-level="4.2" data-path="profiler-son-code.html"><a href="profiler-son-code.html#comparaison-avec-une-version-optimisée-dans-r"><i class="fa fa-check"></i><b>4.2</b> Comparaison avec une version optimisée dans R</a></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="rcpp-ou-comment-intégrer-facilement-du-code-cdans-un-package-r.html"><a href="rcpp-ou-comment-intégrer-facilement-du-code-cdans-un-package-r.html"><i class="fa fa-check"></i><b>5</b> <code>Rcpp</code> ou comment intégrer facilement du code <code>C++</code>dans un package <code>R</code></a>
-<ul>
-<li class="chapter" data-level="5.1" data-path="rcpp-ou-comment-intégrer-facilement-du-code-cdans-un-package-r.html"><a href="rcpp-ou-comment-intégrer-facilement-du-code-cdans-un-package-r.html#première-fonction-en-rcpp"><i class="fa fa-check"></i><b>5.1</b> Première fonction en Rcpp</a></li>
-<li class="chapter" data-level="5.2" data-path="rcpp-ou-comment-intégrer-facilement-du-code-cdans-un-package-r.html"><a href="rcpp-ou-comment-intégrer-facilement-du-code-cdans-un-package-r.html#optimisation-grâce-à-c"><i class="fa fa-check"></i><b>5.2</b> Optimisation grâce à <code>C++</code></a></li>
-<li class="chapter" data-level="5.3" data-path="rcpp-ou-comment-intégrer-facilement-du-code-cdans-un-package-r.html"><a href="rcpp-ou-comment-intégrer-facilement-du-code-cdans-un-package-r.html#annexe-5.1-loptimisation-prématurée-nest-pas-une-bonne-idée"><i class="fa fa-check"></i><b>5.3</b> Annexe 5.1 : l’optimisation prématurée n’est pas une bonne idée</a></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="parallélisation-du-code-r.html"><a href="parallélisation-du-code-r.html"><i class="fa fa-check"></i><b>6</b> Parallélisation du code <code>R</code></a>
-<ul>
-<li class="chapter" data-level="6.1" data-path="parallélisation-du-code-r.html"><a href="parallélisation-du-code-r.html#introduction-à-lexecution-parallèle-sous-r"><i class="fa fa-check"></i><b>6.1</b> Introduction à l’execution parallèle sous <code>R</code></a></li>
-<li class="chapter" data-level="6.2" data-path="parallélisation-du-code-r.html"><a href="parallélisation-du-code-r.html#première-fonction-parallèle-en-r"><i class="fa fa-check"></i><b>6.2</b> Première fonction parallèle en <code>R</code></a></li>
-<li class="chapter" data-level="6.3" data-path="parallélisation-du-code-r.html"><a href="parallélisation-du-code-r.html#parallélisation-efficace"><i class="fa fa-check"></i><b>6.3</b> Parallélisation efficace</a>
-<ul>
-<li class="chapter" data-level="6.3.1" data-path="parallélisation-du-code-r.html"><a href="parallélisation-du-code-r.html#les-itérateurs"><i class="fa fa-check"></i><b>6.3.1</b> Les itérateurs</a></li>
-<li class="chapter" data-level="6.3.2" data-path="parallélisation-du-code-r.html"><a href="parallélisation-du-code-r.html#les-autres-plans-de-calculs-parallèle"><i class="fa fa-check"></i><b>6.3.2</b> Les autres “plans” de calculs parallèle</a></li>
-</ul></li>
-<li class="chapter" data-level="6.4" data-path="parallélisation-du-code-r.html"><a href="parallélisation-du-code-r.html#parallélisation-dans-notre-exemple-fil-rouge"><i class="fa fa-check"></i><b>6.4</b> Parallélisation dans notre exemple fil rouge</a></li>
-<li class="chapter" data-level="6.5" data-path="parallélisation-du-code-r.html"><a href="parallélisation-du-code-r.html#conclusion"><i class="fa fa-check"></i><b>6.5</b> Conclusion</a></li>
-</ul></li>
-<li class="chapter" data-level="7" data-path="take-home-message.html"><a href="take-home-message.html"><i class="fa fa-check"></i><b>7</b> <em>Take Home message</em></a></li>
-<li class="chapter" data-level="" data-path="références.html"><a href="références.html"><i class="fa fa-check"></i>Références</a></li>
-<li class="divider"></li>
-<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
-
-</ul>
-
-      </nav>
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="&lt;em&gt;Outils de développement et de performance&lt;/em&gt;">Formation R avancée</a>:
+        <small class="text-muted"><em>Outils de développement et de performance</em></small>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
     </div>
 
-    <div class="book-body">
-      <div class="body-inner">
-        <div class="book-header" role="navigation">
-          <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Formation R avancée</a>
-          </h1>
-        </div>
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
 
-        <div class="page-wrapper" tabindex="-1" role="main">
-          <div class="page-inner">
-
-            <section class="normal" id="section-">
-<div id="construire-un-package" class="section level1 hasAnchor" number="1">
-<h1><span class="header-section-number">Chapitre 1</span> Construire un package <svg aria-hidden="true" role="img" viewBox="0 0 581 512" style="height:1em;width:1.13em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M581 226.6C581 119.1 450.9 32 290.5 32S0 119.1 0 226.6C0 322.4 103.3 402 239.4 418.1V480h99.1v-61.5c24.3-2.7 47.6-7.4 69.4-13.9L448 480h112l-67.4-113.7c54.5-35.4 88.4-84.9 88.4-139.7zm-466.8 14.5c0-73.5 98.9-133 220.8-133s211.9 40.7 211.9 133c0 50.1-26.5 85-70.3 106.4-2.4-1.6-4.7-2.9-6.4-3.7-10.2-5.2-27.8-10.5-27.8-10.5s86.6-6.4 86.6-92.7-90.6-87.9-90.6-87.9h-199V361c-74.1-21.5-125.2-67.1-125.2-119.9zm225.1 38.3v-55.6c57.8 0 87.8-6.8 87.8 27.3 0 36.5-38.2 28.3-87.8 28.3zm-.9 72.5H365c10.8 0 18.9 11.7 24 19.2-16.1 1.9-33 2.8-50.6 2.9v-22.1z"/></svg><a href="construire-un-package.html#construire-un-package" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Nous présentons ici comment construire un package efficacement à l’aide d’outils
-graphiques présents dans Rstudio et du package <code>devtools</code>.</p>
-<p>Le support de référence sur ce sujet est le livre
-<a href="https://r-pkgs.org/">R packages</a> d’Hadley Wickham.</p>
-<div id="initialiser-un-package" class="section level2 hasAnchor" number="1.1">
-<h2><span class="header-section-number">1.1</span> Initialiser un package<a href="construire-un-package.html#initialiser-un-package" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Une manière simple, et intégrée à Rstudio, pour <strong>initialiser un package</strong> est :</p>
-<ol style="list-style-type: decimal">
-<li><p>de créer un nouveau projet (menu déroulant en haut à droite dans Rstudio)</p></li>
-<li><p>choisir “New Directory”</p></li>
-<li><p>choisir “R package using devtools” (s’il n’est pas disponible, choisir “R
-package”, différence étant qu’avec “R package”, il faudra supprimé des
-fichiers créés automatiquement mais non utiles)</p></li>
-<li><p>donner un nom au package, par exemple <code>mypkgr</code></p></li>
-</ol>
-<p>On récupère la structure <strong>minimale pour un package R</strong>, à savoir :</p>
-<ul>
-<li><p>un fichier <code>DESCRIPTION</code> dont les parties <code>Title</code>, <code>Version</code>, <code>Authors@R</code> et
-<code>Description</code> sont à éditer (d’autres parties pourront être éditer voire
-même ajouter de manière automatique, voir plus loin)</p></li>
-<li><p>un fichier <code>NAMESPACE</code> qui sera éditer automatiquement plus loin</p></li>
-<li><p>un dossier <svg aria-hidden="true" role="img" viewBox="0 0 581 512" style="height:1em;width:1.13em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M581 226.6C581 119.1 450.9 32 290.5 32S0 119.1 0 226.6C0 322.4 103.3 402 239.4 418.1V480h99.1v-61.5c24.3-2.7 47.6-7.4 69.4-13.9L448 480h112l-67.4-113.7c54.5-35.4 88.4-84.9 88.4-139.7zm-466.8 14.5c0-73.5 98.9-133 220.8-133s211.9 40.7 211.9 133c0 50.1-26.5 85-70.3 106.4-2.4-1.6-4.7-2.9-6.4-3.7-10.2-5.2-27.8-10.5-27.8-10.5s86.6-6.4 86.6-92.7-90.6-87.9-90.6-87.9h-199V361c-74.1-21.5-125.2-67.1-125.2-119.9zm225.1 38.3v-55.6c57.8 0 87.8-6.8 87.8 27.3 0 36.5-38.2 28.3-87.8 28.3zm-.9 72.5H365c10.8 0 18.9 11.7 24 19.2-16.1 1.9-33 2.8-50.6 2.9v-22.1z"/></svg> dans lequel on va ajouter des fichiers de scripts R</p></li>
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Présentation de la formation</a></li>
+<li><a class="active" href="construire-un-package.html"><span class="header-section-number">1</span> Construire un package </a></li>
+<li><a class="" href="contr%C3%B4le-de-version-avec-git-et-github-historique-de-changement-d%C3%A9veloppement-collaboratif-et-int%C3%A9gration-continue.html"><span class="header-section-number">2</span> Contrôle de version avec git et GitHub : historique de changement, développement collaboratif et intégration continue</a></li>
+<li><a class="" href="mesurer-et-comparer-des-temps-dex%C3%A9cution.html"><span class="header-section-number">3</span> Mesurer et comparer des temps d’exécution</a></li>
+<li><a class="" href="profiler-son-code.html"><span class="header-section-number">4</span> Profiler son code</a></li>
+<li><a class="" href="rcpp-ou-comment-int%C3%A9grer-facilement-du-code-cdans-un-package-r.html"><span class="header-section-number">5</span> Rcpp ou comment intégrer facilement du code C++dans un package R</a></li>
+<li><a class="" href="parall%C3%A9lisation-du-code-r.html"><span class="header-section-number">6</span> Parallélisation du code R</a></li>
+<li><a class="" href="take-home-message.html"><span class="header-section-number">7</span> Take Home message</a></li>
+<li><a class="" href="r%C3%A9f%C3%A9rences.html">Références</a></li>
 </ul>
-<p>Rstudio ajoute également trois <strong>fichiers facultatifs</strong> :</p>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="construire-un-package" class="section level1" number="1">
+<h1>
+<span class="header-section-number">Chapitre 1</span> Construire un package <svg aria-hidden="true" role="img" viewbox="0 0 581 512" style="height:1em;width:1.13em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M581 226.6C581 119.1 450.9 32 290.5 32S0 119.1 0 226.6C0 322.4 103.3 402 239.4 418.1V480h99.1v-61.5c24.3-2.7 47.6-7.4 69.4-13.9L448 480h112l-67.4-113.7c54.5-35.4 88.4-84.9 88.4-139.7zm-466.8 14.5c0-73.5 98.9-133 220.8-133s211.9 40.7 211.9 133c0 50.1-26.5 85-70.3 106.4-2.4-1.6-4.7-2.9-6.4-3.7-10.2-5.2-27.8-10.5-27.8-10.5s86.6-6.4 86.6-92.7-90.6-87.9-90.6-87.9h-199V361c-74.1-21.5-125.2-67.1-125.2-119.9zm225.1 38.3v-55.6c57.8 0 87.8-6.8 87.8 27.3 0 36.5-38.2 28.3-87.8 28.3zm-.9 72.5H365c10.8 0 18.9 11.7 24 19.2-16.1 1.9-33 2.8-50.6 2.9v-22.1z"></path></svg><a class="anchor" aria-label="anchor" href="#construire-un-package"><i class="fas fa-link"></i></a>
+</h1>
+<p>Nous présentons ici comment construire un package efficacement à l’aide d’outils
+graphiques présents dans <code>RStudio</code> et du package <code>devtools</code>.</p>
+<p>Le support de référence sur ce sujet est le livre
+<a href="https://r-pkgs.org/"><em>R packages</em></a><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;em&gt;R Packages&lt;/em&gt; (2&lt;sup&gt;nd&lt;/sup&gt; Edition) by Hadley Wickham, Jennifer Bryan. O’Reilly, 2023. ISBN: 9781098134945. &lt;a href="https://r-pkgs.org/"&gt;https://r-pkgs.org/&lt;/a&gt;&lt;/p&gt;'><sup>1</sup></a> d’Hadley Wickham &amp; Jennifer Bryan, disponible en ligne.</p>
+<div id="initialiser-un-package" class="section level2" number="1.1">
+<h2>
+<span class="header-section-number">1.1</span> Initialiser un package<a class="anchor" aria-label="anchor" href="#initialiser-un-package"><i class="fas fa-link"></i></a>
+</h2>
+<p>Une manière simple, et intégrée à <code>RStudio</code>, pour <strong>initialiser un package</strong> est d’executer les étapes suivantes :</p>
+<blockquote>
+<p>👉 <strong>À vous de jouer</strong> (déjà)!</p>
+<ol style="list-style-type: decimal">
+<li><p>créer un nouveau projet (menu déroulant en haut à gauche dans <em>RStudio</em>)</p></li>
+<li><p>choisir “<em>New Directory</em>”</p></li>
+<li><p>choisir “<em>R package using devtools</em>” (s’il n’est pas disponible c’est que le package <code>devtools</code> n’est pas installer et dans ce cas on peut alors choisir “<em>R package</em>” – la différence étant qu’avec “<em>R package</em>”, il faudra supprimer des fichiers créés automatiquement mais inutiles)</p></li>
+<li><p>donner un nom au package, par exemple <code>mypkgr</code>.</p></li>
+</ol>
+</blockquote>
+<p>On récupère alors la structure <strong>minimale pour un package <svg aria-hidden="true" role="img" viewbox="0 0 581 512" style="height:1em;width:1.13em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M581 226.6C581 119.1 450.9 32 290.5 32S0 119.1 0 226.6C0 322.4 103.3 402 239.4 418.1V480h99.1v-61.5c24.3-2.7 47.6-7.4 69.4-13.9L448 480h112l-67.4-113.7c54.5-35.4 88.4-84.9 88.4-139.7zm-466.8 14.5c0-73.5 98.9-133 220.8-133s211.9 40.7 211.9 133c0 50.1-26.5 85-70.3 106.4-2.4-1.6-4.7-2.9-6.4-3.7-10.2-5.2-27.8-10.5-27.8-10.5s86.6-6.4 86.6-92.7-90.6-87.9-90.6-87.9h-199V361c-74.1-21.5-125.2-67.1-125.2-119.9zm225.1 38.3v-55.6c57.8 0 87.8-6.8 87.8 27.3 0 36.5-38.2 28.3-87.8 28.3zm-.9 72.5H365c10.8 0 18.9 11.7 24 19.2-16.1 1.9-33 2.8-50.6 2.9v-22.1z"></path></svg></strong>, à savoir :</p>
 <ul>
-<li><p><code>.gitignore</code>, relatif à <code>git</code>, outils de contrôle de version que nous verrons en détails
+<li><p>un fichier <strong>DESCRIPTION</strong> dont les parties <code>Title</code>, <code>Version</code>, <code>Authors@R</code> et
+<code>Description</code> sont à éditer (d’autres parties pourront être éditer voire
+même ajouter de manière automatique, comme nous le verrons plus loin)</p></li>
+<li><p>un fichier <strong>NAMESPACE</strong> qui sera édité automatiquement ultérieurement</p></li>
+<li><p>un dossier <strong>R</strong> dans lequel on va ajouter des fichiers de scripts <svg aria-hidden="true" role="img" viewbox="0 0 581 512" style="height:1em;width:1.13em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M581 226.6C581 119.1 450.9 32 290.5 32S0 119.1 0 226.6C0 322.4 103.3 402 239.4 418.1V480h99.1v-61.5c24.3-2.7 47.6-7.4 69.4-13.9L448 480h112l-67.4-113.7c54.5-35.4 88.4-84.9 88.4-139.7zm-466.8 14.5c0-73.5 98.9-133 220.8-133s211.9 40.7 211.9 133c0 50.1-26.5 85-70.3 106.4-2.4-1.6-4.7-2.9-6.4-3.7-10.2-5.2-27.8-10.5-27.8-10.5s86.6-6.4 86.6-92.7-90.6-87.9-90.6-87.9h-199V361c-74.1-21.5-125.2-67.1-125.2-119.9zm225.1 38.3v-55.6c57.8 0 87.8-6.8 87.8 27.3 0 36.5-38.2 28.3-87.8 28.3zm-.9 72.5H365c10.8 0 18.9 11.7 24 19.2-16.1 1.9-33 2.8-50.6 2.9v-22.1z"></path></svg></p></li>
+</ul>
+<p><code>devtools</code> ajoute également trois <strong>fichiers <em>facultatifs</em></strong> :</p>
+<ul>
+<li><p><strong>.gitignore</strong>, relatif à <code>git</code>, outils de contrôle de version que nous verrons en détails
 dans la partie sur GitHub</p></li>
-<li><p><code>mypkgr.Rproj</code> qui est un fichier spécifique de Rstudio, et permet de définir
+<li><p><strong>mypkgr.Rproj</strong> qui est un fichier spécifique de Rstudio, et permet de définir
 les caractéristiques et préférences du projet que nous venons de créer</p></li>
-<li><p><code>.Rbuildignore</code> qui permet d’ignorer certains fichiers au moment où on
+<li><p><strong>.Rbuildignore</strong> qui permet d’ignorer certains fichiers au moment où on
 construira le package un peu plus loin (par exemple, le fichier <code>mypkgr.Rproj</code>
 ne doit pas être inclus dans le package)</p></li>
 </ul>
 </div>
-<div id="ajouter-une-fonction-exemple-fil-rouge" class="section level2 hasAnchor" number="1.2">
-<h2><span class="header-section-number">1.2</span> Ajouter une fonction : exemple fil rouge<a href="construire-un-package.html#ajouter-une-fonction-exemple-fil-rouge" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="ajouter-une-fonction-exemple-fil-rouge" class="section level2" number="1.2">
+<h2>
+<span class="header-section-number">1.2</span> Ajouter une fonction : exemple fil rouge<a class="anchor" aria-label="anchor" href="#ajouter-une-fonction-exemple-fil-rouge"><i class="fas fa-link"></i></a>
+</h2>
 <p>Nous vous proposons de coder la fonction suivante, que nous reprendrons tout au
 long de la formation :</p>
 <p>Nous souhaitons calculer la valeur de la densité d’une loi normale multivariée
 sur <span class="math inline">\(\mathbb{R}^p\)</span> en <span class="math inline">\(n\)</span> points. Notre fonction doit pouvoir s’appliquer pour
-n’importe quelle loi normale multivariée (vecteur de moyennes dans
-<span class="math inline">\(\mathbb{R}^p\)</span> et matrice de variance-covariance d’ordre de <span class="math inline">\(p\)</span> quelconques),
+n’importe quelle loi normale multivariée (vecteur de moyennes <span class="math inline">\(\boldsymbol \mu\)</span> dans
+<span class="math inline">\(\mathbb{R}^p\)</span> et matrice de variance-covariance <span class="math inline">\(\boldsymbol\Sigma\)</span> d’ordre de <span class="math inline">\(p\)</span> quelconques),
 et on souhaite pouvoir calculer toutes les valeurs de la densité évaluées
-sur les <span class="math inline">\(n\)</span> points en un seul appel de la fonction.</p>
+sur les <span class="math inline">\(n\)</span> points <span class="math inline">\(\boldsymbol \mathbf{x}\)</span> en un seul appel de la fonction.</p>
+<p>Pour rappel, la fonction de densité d’une loi normale multivariée s’écrit :
+<span class="math display">\[\displaystyle (2\pi )^{-p/2}\det({\boldsymbol {\Sigma }})^{-1/2}\,\exp \left(-{\frac {1}{2}}(\mathbf {x} -{\boldsymbol {\mu }})^{\mathsf {T}}{\boldsymbol {\Sigma }}^{-1}(\mathbf {x} -{\boldsymbol {\mu }})\right)\]</span></p>
 <p>Vous devez donc créer une fonction <code>mvnpdf()</code> dans un fichier nommé <code>mvnpdf.R</code>
-dans le dossier <svg aria-hidden="true" role="img" viewBox="0 0 581 512" style="height:1em;width:1.13em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M581 226.6C581 119.1 450.9 32 290.5 32S0 119.1 0 226.6C0 322.4 103.3 402 239.4 418.1V480h99.1v-61.5c24.3-2.7 47.6-7.4 69.4-13.9L448 480h112l-67.4-113.7c54.5-35.4 88.4-84.9 88.4-139.7zm-466.8 14.5c0-73.5 98.9-133 220.8-133s211.9 40.7 211.9 133c0 50.1-26.5 85-70.3 106.4-2.4-1.6-4.7-2.9-6.4-3.7-10.2-5.2-27.8-10.5-27.8-10.5s86.6-6.4 86.6-92.7-90.6-87.9-90.6-87.9h-199V361c-74.1-21.5-125.2-67.1-125.2-119.9zm225.1 38.3v-55.6c57.8 0 87.8-6.8 87.8 27.3 0 36.5-38.2 28.3-87.8 28.3zm-.9 72.5H365c10.8 0 18.9 11.7 24 19.2-16.1 1.9-33 2.8-50.6 2.9v-22.1z"/></svg> du package, qui :</p>
+dans le dossier <svg aria-hidden="true" role="img" viewbox="0 0 581 512" style="height:1em;width:1.13em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M581 226.6C581 119.1 450.9 32 290.5 32S0 119.1 0 226.6C0 322.4 103.3 402 239.4 418.1V480h99.1v-61.5c24.3-2.7 47.6-7.4 69.4-13.9L448 480h112l-67.4-113.7c54.5-35.4 88.4-84.9 88.4-139.7zm-466.8 14.5c0-73.5 98.9-133 220.8-133s211.9 40.7 211.9 133c0 50.1-26.5 85-70.3 106.4-2.4-1.6-4.7-2.9-6.4-3.7-10.2-5.2-27.8-10.5-27.8-10.5s86.6-6.4 86.6-92.7-90.6-87.9-90.6-87.9h-199V361c-74.1-21.5-125.2-67.1-125.2-119.9zm225.1 38.3v-55.6c57.8 0 87.8-6.8 87.8 27.3 0 36.5-38.2 28.3-87.8 28.3zm-.9 72.5H365c10.8 0 18.9 11.7 24 19.2-16.1 1.9-33 2.8-50.6 2.9v-22.1z"></path></svg> du package, qui :</p>
 <ul>
-<li><p>prend en arguments :</p>
+<li>
+<p>prend en arguments :</p>
 <ul>
 <li><p><code>x</code> une matrice, à <span class="math inline">\(n\)</span> colonnes (les observations) et <span class="math inline">\(p\)</span> lignes</p></li>
 <li><p><code>mean</code> un vecteur de moyennes</p></li>
 <li><p><code>varcovM</code> une matrice de variance-covariance</p></li>
 <li><p><code>Log</code> un paramètre logique valant <code>TRUE</code> par défaut</p></li>
-</ul></li>
+</ul>
+</li>
 <li><p>renvoie une liste contenant la matrice <code>x</code> ainsi qu’un vecteur des images
 des points de <code>x</code> par la fonction de densité de la variable aléatoire de loi
 normale multivariée considérée.</p></li>
 </ul>
 <blockquote>
-<p><strong><em>A vous de jouer !</em></strong></p>
+<p><strong><em>👉 À vous de jouer !</em></strong></p>
 </blockquote>
-<p><strong>ATTENTION ! Si vous cliquez trop vite sur le lien ci-dessous, cela
-invalidera votre participation à la formation !</strong></p>
 <p>Voici une proposition de fonction que vous pouvez télécharger
-<a href="https://r-dev-perf.borishejblum.science/FormationRavancee_dev_perf_files/mvnpdfRAW.R">ici</a>.</p>
-<p>Pour des conseils lors de la rédaction de code, voir la page
-<a href="https://r-pkgs.org/r.html">R code</a> du site d’Hadley.</p>
+<a href="https://r-dev-perf.borishejblum.science/FormationRavancee_dev_perf_files/mvnpdfRAW.R">ici</a>. ⚠️ <em>ATTENTION !</em> Si vous cliquez trop vite sur le lien ci-dessous, cela invalidera votre participation à la formation !</p>
+<p>Pour des conseils lors de la rédaction de code, voir le chapitre
+<a href="https://r-pkgs.org/code.html">R code</a> dans <em>R packages</em> (2023) de Wickham &amp; Bryan<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;em&gt;R Packages&lt;/em&gt; (2&lt;sup&gt;nd&lt;/sup&gt; Edition) by Hadley Wickham, Jennifer Bryan. O’Reilly, 2023. ISBN: 9781098134945. &lt;a href="https://r-pkgs.org/"&gt;https://r-pkgs.org/&lt;/a&gt;&lt;/p&gt;'><sup>2</sup></a>.</p>
 </div>
-<div id="documenter-une-fonction" class="section level2 hasAnchor" number="1.3">
-<h2><span class="header-section-number">1.3</span> Documenter une fonction<a href="construire-un-package.html#documenter-une-fonction" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="documenter-une-fonction" class="section level2" number="1.3">
+<h2>
+<span class="header-section-number">1.3</span> Documenter une fonction<a class="anchor" aria-label="anchor" href="#documenter-une-fonction"><i class="fas fa-link"></i></a>
+</h2>
 <p>Il est important de bien documenter votre code. Tout projet a au moins 2
 développeurs :</p>
 <ul>
 <li><p>vous</p></li>
 <li><p>vous dans 6 mois</p></li>
 </ul>
-<p>Par égard à votre futur-vous, soyez sympas et prenez le temps de documenter
-votre code !</p>
+<p>Par égard à votre <em>“futur vous”</em>, soyez sympas et prenez le temps de documenter
+votre code 😉 !</p>
 <p>Nous vous conseillons vivement d’utiliser le package <code>roxygen2</code> pour documenter
 vos packages. L’avantage principal étant d’avoir l’aide d’une fonction dans
 le même fichier que le code définissant cette fonction.</p>
 <blockquote>
-<p><strong><em>A vous de jouer !</em></strong></p>
+<p><strong><em>👉 À vous de jouer !</em></strong></p>
 <ol style="list-style-type: decimal">
 <li><p>Commencer par insérer le squelette de l’aide grâce à “Insert Roxygen
 Skeleton” situé dans le menu “Code” ou le sous-menu <em>Baguette magique</em> dans
 la fenêtre de script.</p></li>
-<li><p>Compléter la documentation en renseignant :</p>
+<li>
+<p>Compléter la documentation en renseignant :</p>
 <ul>
 <li><p>le titre de la fonction (première ligne)</p></li>
 <li><p>la description de ce que fait la fonction (deuxième paragraphe)</p></li>
 <li><p>si vous renseignez un troisième paragraphe, cette partie ira dans la section “Details” de la page d’aide</p></li>
 <li><p>la signification des paramètres</p></li>
 <li><p>la sortie, après la balise <code>@return</code></p></li>
-</ul></li>
-<li><p>Générer la documentation à l’aide de “Document” dans le menu “More” de l’onglet “Build” (ou Ctrl+Shift+D ou <code>devtools::document()</code>). L’effet de cette commande est multiple :</p>
+</ul>
+</li>
+<li>
+<p>Générer la documentation à l’aide de “Document” dans le menu “More” de l’onglet “Build” (ou Ctrl+Shift+D ou <code><a href="https://devtools.r-lib.org/reference/document.html">devtools::document()</a></code>). L’effet de cette commande est multiple :</p>
 <ul>
 <li><p>un dossier <code>man</code> a été créé et à l’intérieur, un fichier <code>mvnpdf.Rd</code> a été créé et contient les informations de l’aide de la fonction</p></li>
 <li><p>le fichier <code>NAMESPACE</code> a été modifié</p></li>
-</ul></li>
+</ul>
+</li>
 </ol>
 </blockquote>
 <p><strong>En cas de bug ou par curiosité ET une fois que vous avez terminé</strong> vous pouvez consulter cette <a href="https://r-dev-perf.borishejblum.science/FormationRavancee_dev_perf_files/mvnpdfRox.R">proposition</a>.</p>
@@ -349,19 +185,24 @@ la fenêtre de script.</p></li>
 <a href="https://r-pkgs.org/man.html">Object documentation</a> du site d’Hadley.</p>
 <p>Finissons par évoquer une fonction du package <code>usethis</code> qui initialise une
 page d’aide pour le package dans son ensemble :</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="construire-un-package.html#cb1-1" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">use_package_doc</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_package_doc.html">use_package_doc</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>La page d’aide générée sera alors accessible, une fois le package installé,
 via :</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="construire-un-package.html#cb2-1" tabindex="-1"></a>?mypkgr</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="op">?</span><span class="va">mypkgr</span></span></code></pre></div>
 </div>
-<div id="tester-le-package-de-manière-intéractive" class="section level2 hasAnchor" number="1.4">
-<h2><span class="header-section-number">1.4</span> Tester le package de manière <em>intéractive</em><a href="construire-un-package.html#tester-le-package-de-manière-intéractive" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="tester-le-package-de-manière-intéractive" class="section level2" number="1.4">
+<h2>
+<span class="header-section-number">1.4</span> Tester le package de manière <em>intéractive</em><a class="anchor" aria-label="anchor" href="#tester-le-package-de-mani%C3%A8re-int%C3%A9ractive"><i class="fas fa-link"></i></a>
+</h2>
 <p>Pour tester le package, vous devez le charger dans R à l’aide de :
 dans l’onglet “Build”, le menu “More” puis “Load All” (ou Ctrl+Shift+L ou
-<code>devtools::load_all()</code>).</p>
+<code><a href="https://devtools.r-lib.org/reference/load_all.html">devtools::load_all()</a></code>).</p>
 <p>Vous pouvez alors utiliser votre package directement dans R : consulter
 l’aide de la fonction avec <code>?mvnpdf</code> et par exemple exécuter les commandes renseignées dans la section exemple de cette page d’aide.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="construire-un-package.html#cb3-1" tabindex="-1"></a>?mvndpf</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="op">?</span><span class="va">mvndpf</span></span></code></pre></div>
 <p>Ainsi, lors du développement, vous pouvez :</p>
 <ul>
 <li><p>Ajouter/Modifier le code R</p></li>
@@ -370,158 +211,154 @@ l’aide de la fonction avec <code>?mvnpdf</code> et par exemple exécuter les c
 <li><p>Et ainsi de suite…</p></li>
 </ul>
 </div>
-<div id="tester-le-package-de-manière-automatique" class="section level2 hasAnchor" number="1.5">
-<h2><span class="header-section-number">1.5</span> Tester le package de manière <em>automatique</em><a href="construire-un-package.html#tester-le-package-de-manière-automatique" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="tester-le-package-de-manière-automatique" class="section level2" number="1.5">
+<h2>
+<span class="header-section-number">1.5</span> Tester le package de manière <em>automatique</em><a class="anchor" aria-label="anchor" href="#tester-le-package-de-mani%C3%A8re-automatique"><i class="fas fa-link"></i></a>
+</h2>
 <p>Pour initialiser la fonctionnalité de tests automatiques dans le package,
 utiliser :</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="construire-un-package.html#cb4-1" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">use_testthat</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_testthat.html">use_testthat</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>Cette commande induit la création d’un dossier <code>tests</code> qui comprend un fichier <code>testthat.R</code> - à ne pas modifier - et un dossier <code>testthat</code> dans lequel on va insérer nos tests. Cet outils s’appuie sur la théorie des <em>tests unitaires</em>.</p>
 <p>Voici par exemple, le contenu d’un fichier qu’on appellera <code>test-univariate.R</code> à mettre dans le dossier <code>testthat</code> :</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="construire-un-package.html#cb5-1" tabindex="-1"></a><span class="fu">test_that</span>(<span class="st">&quot;correct result for univariate gaussian&quot;</span>, {</span>
-<span id="cb5-2"><a href="construire-un-package.html#cb5-2" tabindex="-1"></a>  <span class="fu">expect_equal</span>(<span class="fu">mvnpdf</span>(<span class="at">x=</span><span class="fu">matrix</span>(<span class="fl">1.96</span>), <span class="at">Log=</span><span class="cn">FALSE</span>)<span class="sc">$</span>y, <span class="fu">dnorm</span>(<span class="fl">1.96</span>))</span>
-<span id="cb5-3"><a href="construire-un-package.html#cb5-3" tabindex="-1"></a>  <span class="fu">expect_equal</span>(<span class="fu">mvnpdf</span>(<span class="at">x=</span><span class="fu">matrix</span>(<span class="fu">c</span>(<span class="fl">1.96</span>, <span class="sc">-</span><span class="fl">0.5</span>), <span class="at">ncol =</span> <span class="dv">2</span>), <span class="at">Log=</span><span class="cn">FALSE</span>)<span class="sc">$</span>y,</span>
-<span id="cb5-4"><a href="construire-un-package.html#cb5-4" tabindex="-1"></a>               <span class="fu">dnorm</span>(<span class="fu">c</span>(<span class="fl">1.96</span>, <span class="sc">-</span><span class="fl">0.5</span>)))</span>
-<span id="cb5-5"><a href="construire-un-package.html#cb5-5" tabindex="-1"></a>})</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">test_that</span><span class="op">(</span><span class="st">"correct result for univariate gaussian"</span>, <span class="op">{</span></span>
+<span>  <span class="fu">expect_equal</span><span class="op">(</span><span class="fu">mvnpdf</span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">1.96</span><span class="op">)</span>, Log<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span><span class="op">$</span><span class="va">y</span>, <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="fl">1.96</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu">expect_equal</span><span class="op">(</span><span class="fu">mvnpdf</span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1.96</span>, <span class="op">-</span><span class="fl">0.5</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>, Log<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span><span class="op">$</span><span class="va">y</span>,</span>
+<span>               <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1.96</span>, <span class="op">-</span><span class="fl">0.5</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
 <p>Et un deuxième, appelé <code>test-bivariate.R</code> :</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="construire-un-package.html#cb6-1" tabindex="-1"></a><span class="fu">test_that</span>(<span class="st">&quot;correct results for bivariate gaussian&quot;</span>, {</span>
-<span id="cb6-2"><a href="construire-un-package.html#cb6-2" tabindex="-1"></a>  <span class="fu">expect_equal</span>(<span class="fu">mvnpdf</span>(<span class="at">x=</span><span class="fu">matrix</span>(<span class="fu">rep</span>(<span class="fl">1.96</span>,<span class="dv">2</span>), <span class="at">nrow=</span><span class="dv">2</span>, <span class="at">ncol=</span><span class="dv">1</span>), <span class="at">Log=</span><span class="cn">FALSE</span>)<span class="sc">$</span>y,</span>
-<span id="cb6-3"><a href="construire-un-package.html#cb6-3" tabindex="-1"></a>               mvtnorm<span class="sc">::</span><span class="fu">dmvnorm</span>(<span class="fu">rep</span>(<span class="fl">1.96</span>, <span class="dv">2</span>)))</span>
-<span id="cb6-4"><a href="construire-un-package.html#cb6-4" tabindex="-1"></a>})</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">test_that</span><span class="op">(</span><span class="st">"correct results for bivariate gaussian"</span>, <span class="op">{</span></span>
+<span>  <span class="fu">expect_equal</span><span class="op">(</span><span class="fu">mvnpdf</span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1.96</span>,<span class="fl">2</span><span class="op">)</span>, nrow<span class="op">=</span><span class="fl">2</span>, ncol<span class="op">=</span><span class="fl">1</span><span class="op">)</span>, Log<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span><span class="op">$</span><span class="va">y</span>,</span>
+<span>               <span class="fu">mvtnorm</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/mvtnorm/man/Mvnorm.html">dmvnorm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1.96</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
 <p>Pour exécuter ces tests, on peut utiliser dans l’onglet “Build”, le menu
-“More”, “Test package” (ou <code>devtools::test()</code> ou Ctrl+Shift+T).</p>
+“More”, “Test package” (ou <code><a href="https://devtools.r-lib.org/reference/test.html">devtools::test()</a></code> ou Ctrl+Shift+T).</p>
 <p>L’avantage de ces tests automatiques est qu’ils vont
 s’exécuter à chaque fois qu’on effectuera un <em>check</em> du package.</p>
 <p>Une bonne pratique est d’ajouter un test unitaire à chaque fois qu’un bug est identifier et résolu,
 afin de pouvoir immédiatement identifier et prévenir qu’une erreur identique ne se reproduise dans
 le futur.</p>
 </div>
-<div id="faire-un-check-du-package" class="section level2 hasAnchor" number="1.6">
-<h2><span class="header-section-number">1.6</span> Faire un <em>check</em> du package<a href="construire-un-package.html#faire-un-check-du-package" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="faire-un-check-du-package" class="section level2" number="1.6">
+<h2>
+<span class="header-section-number">1.6</span> Faire un <em>check</em> du package<a class="anchor" aria-label="anchor" href="#faire-un-check-du-package"><i class="fas fa-link"></i></a>
+</h2>
 <p>Faire un <em>check</em> signifie vérifier que tout est correct dans le package.
 Il est <strong>nécessaire</strong> de “passer” le <em>check</em> pour pouvoir déposer le package
 sur le CRAN.</p>
-<p>Pour exécuter celui-ci, utiliser “Check” dans l’onglet “Build” (<code>devtools::check()</code> ou Ctrl+Shift+E).</p>
+<p>Pour exécuter celui-ci, utiliser “Check” dans l’onglet “Build” (<code><a href="https://devtools.r-lib.org/reference/check.html">devtools::check()</a></code> ou Ctrl+Shift+E).</p>
 <p>Lors du <em>check</em>, les tests que nous avons mis au point précédemment sont
 exécutées. C’est justement l’avantage d’avoir fait ces tests, nous n’avons
 plus besoin de s’en préoccuper, mais juste de réagir en cas d’erreurs
 renvoyées.</p>
 </div>
-<div id="installer-le-package" class="section level2 hasAnchor" number="1.7">
-<h2><span class="header-section-number">1.7</span> Installer le package<a href="construire-un-package.html#installer-le-package" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="installer-le-package" class="section level2" number="1.7">
+<h2>
+<span class="header-section-number">1.7</span> Installer le package<a class="anchor" aria-label="anchor" href="#installer-le-package"><i class="fas fa-link"></i></a>
+</h2>
 <p>Pour le moment, le package n’existe que dans l’environnement associé au projet
 Rstudio qu’on a créé. Pour pouvoir l’utiliser dans R de manière générale,
 il faut l’installer (comme un package du CRAN par exemple).</p>
-<p>Pour faire ça, utiliser “Install and Restart” dans l’onglet “Build” (<code>devtools::install()</code> ou Ctrl+Shift+B).</p>
+<p>Pour faire ça, utiliser “Install and Restart” dans l’onglet “Build” (<code><a href="https://devtools.r-lib.org/reference/install.html">devtools::install()</a></code> ou Ctrl+Shift+B).</p>
 <p>Et enfin, vous pouvez configurer le comportement de Rstudio pour qu’au moment
 de l’installation, il documente en même temps le package : aller dans
 l’onglet “Build”, le menu “More” puis “Configure Build Tools”. Cliquer ensuite
 sur “Configure” puis cocher la case en bas “Install and Restart”.</p>
 </div>
-<div id="annexe-1.1-ajouter-une-méthode-s3" class="section level2 hasAnchor" number="1.8">
-<h2><span class="header-section-number">1.8</span> Annexe 1.1 : ajouter une méthode S3<a href="construire-un-package.html#annexe-1.1-ajouter-une-méthode-s3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="annexe-1.1-ajouter-une-méthode-s3" class="section level2" number="1.8">
+<h2>
+<span class="header-section-number">1.8</span> Annexe 1.1 : ajouter une méthode S3<a class="anchor" aria-label="anchor" href="#annexe-1.1-ajouter-une-m%C3%A9thode-s3"><i class="fas fa-link"></i></a>
+</h2>
 <p>Dans la plupart des packages on est amenés à implémenter des méthodes S3,
 très souvent pour qu’à partir d’un objet résultat <code>res</code>, on puisse exécuter
 <code>print(res)</code>, <code>summary(res)</code>, <code>plot(res)</code>…</p>
-<p>Voici un exemple de méthode <code>plot()</code> qu’on peut ajouter dans notre package :</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="construire-un-package.html#cb7-1" tabindex="-1"></a><span class="co">#&#39; Plot of the mvnpdf function</span></span>
-<span id="cb7-2"><a href="construire-un-package.html#cb7-2" tabindex="-1"></a><span class="co">#&#39;</span></span>
-<span id="cb7-3"><a href="construire-un-package.html#cb7-3" tabindex="-1"></a><span class="co">#&#39; @param x an object of class \code{mvnpdf} resulting from a call of</span></span>
-<span id="cb7-4"><a href="construire-un-package.html#cb7-4" tabindex="-1"></a><span class="co">#&#39; \code{mnvpdf()} function.</span></span>
-<span id="cb7-5"><a href="construire-un-package.html#cb7-5" tabindex="-1"></a><span class="co">#&#39; @param ... graphical parameters passed to \code{plot()} function.</span></span>
-<span id="cb7-6"><a href="construire-un-package.html#cb7-6" tabindex="-1"></a><span class="co">#&#39;</span></span>
-<span id="cb7-7"><a href="construire-un-package.html#cb7-7" tabindex="-1"></a><span class="co">#&#39; @return Nothing is returned, only a plot is given.</span></span>
-<span id="cb7-8"><a href="construire-un-package.html#cb7-8" tabindex="-1"></a><span class="co">#&#39; @export</span></span>
-<span id="cb7-9"><a href="construire-un-package.html#cb7-9" tabindex="-1"></a><span class="co">#&#39;</span></span>
-<span id="cb7-10"><a href="construire-un-package.html#cb7-10" tabindex="-1"></a><span class="co">#&#39; @examples</span></span>
-<span id="cb7-11"><a href="construire-un-package.html#cb7-11" tabindex="-1"></a><span class="co">#&#39; pdfvalues &lt;- mvnpdf(x=matrix(seq(-3, 3, by = 0.1), nrow = 1), Log=FALSE)</span></span>
-<span id="cb7-12"><a href="construire-un-package.html#cb7-12" tabindex="-1"></a><span class="co">#&#39; plot(pdfvalues)</span></span>
-<span id="cb7-13"><a href="construire-un-package.html#cb7-13" tabindex="-1"></a>plot.mvnpdf <span class="ot">&lt;-</span> <span class="cf">function</span>(x, ...) {</span>
-<span id="cb7-14"><a href="construire-un-package.html#cb7-14" tabindex="-1"></a>  <span class="fu">plot</span>(x<span class="sc">$</span>x, x<span class="sc">$</span>y, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, ...)</span>
-<span id="cb7-15"><a href="construire-un-package.html#cb7-15" tabindex="-1"></a>}</span></code></pre></div>
+<p>Voici un exemple de méthode <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> qu’on peut ajouter dans notre package :</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#' Plot of the mvnpdf function</span></span>
+<span><span class="co">#'</span></span>
+<span><span class="co">#' @param x an object of class \code{mvnpdf} resulting from a call of</span></span>
+<span><span class="co">#' \code{mnvpdf()} function.</span></span>
+<span><span class="co">#' @param ... graphical parameters passed to \code{plot()} function.</span></span>
+<span><span class="co">#'</span></span>
+<span><span class="co">#' @return Nothing is returned, only a plot is given.</span></span>
+<span><span class="co">#' @export</span></span>
+<span><span class="co">#'</span></span>
+<span><span class="co">#' @examples</span></span>
+<span><span class="co">#' pdfvalues &lt;- mvnpdf(x=matrix(seq(-3, 3, by = 0.1), nrow = 1), Log=FALSE)</span></span>
+<span><span class="co">#' plot(pdfvalues)</span></span>
+<span><span class="va">plot.mvnpdf</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">x</span><span class="op">$</span><span class="va">x</span>, <span class="va">x</span><span class="op">$</span><span class="va">y</span>, type <span class="op">=</span> <span class="st">"l"</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
 <p><em>Attention !</em> Pour que cette méthode fasse bien ce qu’on veut quand on
 l’applique au résultat de notre fonction <code>mvnpdf()</code>, il faut déclarer que
 ce résultat est de classe <code>mvnpdf</code>.</p>
-<p>Tester cette fonction, en exécutant l’exemple.<br />
-<em>N’oubliez pas de réinstaller le package (“Install and Restart” ou Ctrl+Shift+B).</em></p>
+<p>Tester cette fonction, en exécutant l’exemple.<br><em>N’oubliez pas de réinstaller le package (“Install and Restart” ou Ctrl+Shift+B).</em></p>
 <p>Consulter le contenu du dossier <code>man</code> et les modifications qui ont été
 apportées au fichier <code>NAMESPACE</code>.</p>
 <p><em>Voici une proposition de solution</em> : le
 <a href="https://r-dev-perf.borishejblum.science/FormationRavancee_dev_perf_files/mvnpdf.R">fichier</a>
 contient le code complet
-de la fonction <code>mvnpdf()</code> et de la méthode <code>plot()</code> associée.</p>
+de la fonction <code>mvnpdf()</code> et de la méthode <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> associée.</p>
 </div>
-<div id="annexe-1.2-soumettre-son-package-au-cran" class="section level2 hasAnchor" number="1.9">
-<h2><span class="header-section-number">1.9</span> Annexe 1.2 : soumettre son package au CRAN<a href="construire-un-package.html#annexe-1.2-soumettre-son-package-au-cran" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><code>devtools::check()</code> puis <code>devtools::submit_cran()</code></p>
+<div id="annexe-1.2-soumettre-son-package-au-cran" class="section level2" number="1.9">
+<h2>
+<span class="header-section-number">1.9</span> Annexe 1.2 : soumettre son package au CRAN<a class="anchor" aria-label="anchor" href="#annexe-1.2-soumettre-son-package-au-cran"><i class="fas fa-link"></i></a>
+</h2>
+<p><code><a href="https://devtools.r-lib.org/reference/check.html">devtools::check()</a></code> puis <code><a href="https://devtools.r-lib.org/reference/submit_cran.html">devtools::submit_cran()</a></code></p>
 </div>
-<div id="annexe-1.3-construire-un-site-web-pour-accompagner-son-package" class="section level2 hasAnchor" number="1.10">
-<h2><span class="header-section-number">1.10</span> Annexe 1.3 : construire un site web pour accompagner son package<a href="construire-un-package.html#annexe-1.3-construire-un-site-web-pour-accompagner-son-package" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><code>usethis::use_pkgdown()</code></p>
+<div id="annexe-1.3-construire-un-site-web-pour-accompagner-son-package" class="section level2" number="1.10">
+<h2>
+<span class="header-section-number">1.10</span> Annexe 1.3 : construire un site web pour accompagner son package<a class="anchor" aria-label="anchor" href="#annexe-1.3-construire-un-site-web-pour-accompagner-son-package"><i class="fas fa-link"></i></a>
+</h2>
+<p><code><a href="https://usethis.r-lib.org/reference/use_pkgdown.html">usethis::use_pkgdown()</a></code></p>
 
 </div>
 </div>
-            </section>
 
-          </div>
-        </div>
-      </div>
-<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="contrôle-de-version-avec-git-et-github-historique-de-changement-développement-collaboratif-et-intégration-continue.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
-    </div>
+  <div class="chapter-nav">
+<div class="prev"><a href="index.html">Présentation de la formation</a></div>
+<div class="next"><a href="contr%C3%B4le-de-version-avec-git-et-github-historique-de-changement-d%C3%A9veloppement-collaboratif-et-int%C3%A9gration-continue.html"><span class="header-section-number">2</span> Contrôle de version avec git et GitHub : historique de changement, développement collaboratif et intégration continue</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#construire-un-package"><span class="header-section-number">1</span> Construire un package </a></li>
+<li><a class="nav-link" href="#initialiser-un-package"><span class="header-section-number">1.1</span> Initialiser un package</a></li>
+<li><a class="nav-link" href="#ajouter-une-fonction-exemple-fil-rouge"><span class="header-section-number">1.2</span> Ajouter une fonction : exemple fil rouge</a></li>
+<li><a class="nav-link" href="#documenter-une-fonction"><span class="header-section-number">1.3</span> Documenter une fonction</a></li>
+<li><a class="nav-link" href="#tester-le-package-de-mani%C3%A8re-int%C3%A9ractive"><span class="header-section-number">1.4</span> Tester le package de manière intéractive</a></li>
+<li><a class="nav-link" href="#tester-le-package-de-mani%C3%A8re-automatique"><span class="header-section-number">1.5</span> Tester le package de manière automatique</a></li>
+<li><a class="nav-link" href="#faire-un-check-du-package"><span class="header-section-number">1.6</span> Faire un check du package</a></li>
+<li><a class="nav-link" href="#installer-le-package"><span class="header-section-number">1.7</span> Installer le package</a></li>
+<li><a class="nav-link" href="#annexe-1.1-ajouter-une-m%C3%A9thode-s3"><span class="header-section-number">1.8</span> Annexe 1.1 : ajouter une méthode S3</a></li>
+<li><a class="nav-link" href="#annexe-1.2-soumettre-son-package-au-cran"><span class="header-section-number">1.9</span> Annexe 1.2 : soumettre son package au CRAN</a></li>
+<li><a class="nav-link" href="#annexe-1.3-construire-un-site-web-pour-accompagner-son-package"><span class="header-section-number">1.10</span> Annexe 1.3 : construire un site web pour accompagner son package</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Formation R avancée</strong>: <em>Outils de développement et de performance</em>" was written by <strong><em>Robin Genuer</em></strong> <a href="https://robin.genuer.fr/">🌐</a> &amp; <strong><em>Boris Hejblum</em></strong> <a href="https://borishejblum.science/">🌐</a>. It was last built on 2023-09-18.</p>
   </div>
-<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
-<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
-<script>
-gitbook.require(["gitbook"], function(gitbook) {
-gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"whatsapp": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": "https://github.com/sistm/OutilsDvpmtPerfR/blob/master/02-constr_package.Rmd",
-"text": "Edit"
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": ["FormationRavancee_dev_perf.pdf", "FormationRavancee_dev_perf.epub"],
-"search": {
-"engine": "fuse",
-"options": null
-},
-"toc": {
-"collapse": "subsection"
-}
-});
-});
-</script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
@@ -533,7 +370,22 @@ gitbook.start({
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
 </script>
 </body>
-
 </html>

@@ -2,46 +2,48 @@
 # Construire un package `r fontawesome::fa("r-project")`
 
 Nous présentons ici comment construire un package efficacement à l'aide d'outils
-graphiques présents dans Rstudio et du package `devtools`.
+graphiques présents dans `RStudio` et du package `devtools`.
 
 Le support de référence sur ce sujet est le livre
-[R packages](https://r-pkgs.org/) d'Hadley Wickham.
+[*R packages*](https://r-pkgs.org/)[^1] d'Hadley Wickham & Jennifer Bryan, disponible en ligne.
+
+[^1]: *R Packages* (2^nd^ Edition) by Hadley Wickham, Jennifer Bryan. O'Reilly, 2023. ISBN: 9781098134945. [https://r-pkgs.org/](https://r-pkgs.org/)
 
 ## Initialiser un package
 
-Une manière simple, et intégrée à Rstudio, pour **initialiser un package** est :
+Une manière simple, et intégrée à `RStudio`, pour **initialiser un package** est d'executer les étapes suivantes :
 
-  1. de créer un nouveau projet (menu déroulant en haut à droite dans Rstudio)
-  
-  2. choisir "New Directory"
-  
-  3. choisir "R package using devtools" (s'il n'est pas disponible, choisir "R
-  package", différence étant qu'avec "R package", il faudra supprimé des
-  fichiers créés automatiquement mais non utiles)
-  
-  4. donner un nom au package, par exemple `mypkgr`
-  
-  
-On récupère la structure **minimale pour un package R**, à savoir :
+> `r emoji::emoji("point_right")` **À vous de jouer** (déjà)!
+>
+>  1. créer un nouveau projet (menu déroulant en haut à gauche dans  *RStudio*)
+>  
+>  2. choisir "*New Directory*"
+>  
+>  3. choisir "*R package using devtools*" (s'il n'est pas disponible c'est que le package `devtools` n'est pas installer et dans ce cas on peut alors choisir "*R package*" -- la différence étant qu'avec "*R package*", il faudra supprimer des fichiers créés automatiquement mais inutiles)
+>  
+>  4. donner un nom au package, par exemple `mypkgr`.
 
-  - un fichier `DESCRIPTION` dont les parties `Title`, `Version`, `Authors@R` et
+  
+On récupère alors la structure **minimale pour un package `r fontawesome::fa("r-project")`**, à savoir :
+
+  - un fichier **DESCRIPTION** dont les parties `Title`, `Version`, `Authors@R` et
   `Description` sont à éditer (d'autres parties pourront être éditer voire
-  même ajouter de manière automatique, voir plus loin)
+  même ajouter de manière automatique, comme nous le verrons plus loin)
   
-  - un fichier `NAMESPACE` qui sera éditer automatiquement plus loin
+  - un fichier **NAMESPACE** qui sera édité automatiquement ultérieurement
   
-  - un dossier `r fontawesome::fa("r-project")` dans lequel on va ajouter des fichiers de scripts R
+  - un dossier **R** dans lequel on va ajouter des fichiers de scripts `r fontawesome::fa("r-project")`
   
   
-Rstudio ajoute également trois **fichiers facultatifs** :
+`devtools` ajoute également trois **fichiers *facultatifs*** :
 
-  - `.gitignore`, relatif à `git`, outils de contrôle de version que nous verrons en détails 
+  - **.gitignore**, relatif à `git`, outils de contrôle de version que nous verrons en détails 
   dans la partie sur GitHub
   
-  - `mypkgr.Rproj` qui est un fichier spécifique de Rstudio, et permet de définir
+  - **mypkgr.Rproj** qui est un fichier spécifique de Rstudio, et permet de définir
   les caractéristiques et préférences du projet que nous venons de créer
   
-  - `.Rbuildignore` qui permet d'ignorer certains fichiers au moment où on
+  - **.Rbuildignore** qui permet d'ignorer certains fichiers au moment où on
   construira le package un peu plus loin (par exemple, le fichier `mypkgr.Rproj`
   ne doit pas être inclus dans le package)
   
@@ -53,10 +55,13 @@ long de la formation :
 
 Nous souhaitons calculer la valeur de la densité d'une loi normale multivariée
 sur $\mathbb{R}^p$ en $n$ points. Notre fonction doit pouvoir s'appliquer pour
-n'importe quelle loi normale multivariée (vecteur de moyennes dans
-$\mathbb{R}^p$ et matrice de variance-covariance d'ordre de $p$ quelconques),
+n'importe quelle loi normale multivariée (vecteur de moyennes $\boldsymbol \mu$ dans
+$\mathbb{R}^p$ et matrice de variance-covariance $\boldsymbol\Sigma$ d'ordre de $p$ quelconques),
 et on souhaite pouvoir calculer toutes les valeurs de la densité évaluées
-sur les $n$ points en un seul appel de la fonction.
+sur les $n$ points $\boldsymbol \mathbf{x}$ en un seul appel de la fonction.
+
+Pour rappel, la fonction de densité d'une loi normale multivariée s'écrit :
+$$\displaystyle (2\pi )^{-p/2}\det({\boldsymbol {\Sigma }})^{-1/2}\,\exp \left(-{\frac {1}{2}}(\mathbf {x} -{\boldsymbol {\mu }})^{\mathsf {T}}{\boldsymbol {\Sigma }}^{-1}(\mathbf {x} -{\boldsymbol {\mu }})\right)$$
 
 Vous devez donc créer une fonction `mvnpdf()` dans un fichier nommé `mvnpdf.R`
 dans le dossier `r fontawesome::fa("r-project")` du package, qui :
@@ -75,16 +80,15 @@ dans le dossier `r fontawesome::fa("r-project")` du package, qui :
   des points de `x` par la fonction de densité de la variable aléatoire de loi
   normale multivariée considérée.
 
-> ***A vous de jouer !***  
+> ***`r emoji::emoji("point_right")` À vous de jouer !***  
 
-**ATTENTION ! Si vous cliquez trop vite sur le lien ci-dessous, cela
-invalidera votre participation à la formation !**
 
 Voici une proposition de fonction que vous pouvez télécharger
-[ici](https://r-dev-perf.borishejblum.science/FormationRavancee_dev_perf_files/mvnpdfRAW.R).
+[ici](https://r-dev-perf.borishejblum.science/FormationRavancee_dev_perf_files/mvnpdfRAW.R). `r emoji::emoji("warning")` *ATTENTION !* Si vous cliquez trop vite sur le lien ci-dessous, cela invalidera votre participation à la formation !
 
-Pour des conseils lors de la rédaction de code, voir la page 
-[R code](https://r-pkgs.org/r.html) du site d'Hadley.
+
+Pour des conseils lors de la rédaction de code, voir le chapitre 
+[R code](https://r-pkgs.org/code.html) dans *R packages* (2023) de Wickham & Bryan[^1].
 
 
 
@@ -97,15 +101,15 @@ développeurs :
     
   - vous dans 6 mois
   
-Par égard à votre futur-vous, soyez sympas et prenez le temps de documenter 
-votre code !
+Par égard à votre *"futur vous"*, soyez sympas et prenez le temps de documenter 
+votre code `r emoji::emoji("wink")` !
 
 
 Nous vous conseillons vivement d'utiliser le package `roxygen2` pour documenter
 vos packages. L'avantage principal étant d'avoir l'aide d'une fonction dans
 le même fichier que le code définissant cette fonction.
 
-> ***A vous de jouer !***  
+> ***`r emoji::emoji("point_right")` À vous de jouer !***  
 >
   1. Commencer par insérer le squelette de l'aide grâce à "Insert Roxygen
   Skeleton" situé dans le menu "Code" ou le sous-menu *Baguette magique* dans
