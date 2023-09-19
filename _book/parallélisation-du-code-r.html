@@ -129,7 +129,7 @@ vecteur.</p></li>
 sur les 100 premiers entiers, grâce à la commande :<br><code>microbenchmark(log_par(1:100), log_seq(1:100), times=10)</code></p></li>
 </ol>
 </blockquote>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/joshuaulrich/microbenchmark/">microbenchmark</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://future.apply.futureverse.org">future.apply</a></span><span class="op">)</span></span>
 <span></span>
@@ -175,22 +175,22 @@ coeurs.</p>
 ait un grand tableau de données de taille comportant 10 observations pour 100
 000 variables (e.g. des mesures de génomique), et que l’on veuille calculer la
 médiane pour chacune de ces variables.</p>
-<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">1e6</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1]     10 100000</code></pre>
 <p>Pour un utilisateur averti de <code>R</code>, une telle opération se programme facilement
 à l’aide de la fonction <code>apply</code> :</p>
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">colmedian_apply</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">2</span>, <span class="va">median</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span><span class="op">(</span><span class="fu">colmedian_apply</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>##    user  system elapsed 
-##   1.249   0.004   1.257</code></pre>
+##   1.551   0.005   1.559</code></pre>
 <p>En réalité, une boucle <code>for</code> n’est pas plus lente à condition d’être bien
 programmée :</p>
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">colmedian_for</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="va">ans</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> </span>
 <span>  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
@@ -200,7 +200,7 @@ programmée :</p>
 <span><span class="op">}</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span><span class="op">(</span><span class="fu">colmedian_for</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>##    user  system elapsed 
-##   1.178   0.004   1.184</code></pre>
+##   1.486   0.003   1.492</code></pre>
 <blockquote>
 <p><strong><em>À vous de jouer !</em></strong><br>
 Essayez d’améliorer encore ce temps de calcul en parallélisant :</p>
@@ -213,7 +213,7 @@ en autant de groupes que vous avez de coeurs. Comparez à nouveau les temps de
 calcul.</p></li>
 </ol>
 </blockquote>
-<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">colmedian_par</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://future.apply.futureverse.org/reference/future_lapply.html">future_sapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, FUN <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="op">{</span></span>
 <span>          <span class="fu"><a href="https://rdrr.io/r/stats/median.html">median</a></span><span class="op">(</span><span class="va">x</span><span class="op">[</span>, <span class="va">i</span><span class="op">]</span><span class="op">)</span></span>
@@ -224,7 +224,7 @@ calcul.</p></li>
 <span><span class="fu"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span><span class="op">(</span><span class="fu">colmedian_par</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>##    user  system elapsed 
 ##   0.097   0.016   0.712</code></pre>
-<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">colmedian_parIter</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">ncores</span> <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="va">iter</span> <span class="op">&lt;-</span> <span class="fu">itertools</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/itertools/man/isplitIndices.html">isplitIndices</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, chunks <span class="op">=</span> <span class="va">ncores</span><span class="op">)</span></span>
 <span>  <span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://future.apply.futureverse.org/reference/future_lapply.html">future_sapply</a></span><span class="op">(</span><span class="va">iter</span>, FUN <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="op">{</span></span>
@@ -235,7 +235,7 @@ calcul.</p></li>
 <span><span class="fu"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span><span class="op">(</span><span class="fu">colmedian_parIter</span><span class="op">(</span><span class="va">x</span>, ncores <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>##    user  system elapsed 
 ##   0.048   0.014   0.540</code></pre>
-<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mb</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span><span class="fu">colmedian_apply</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, </span>
 <span>                     <span class="fu">colmedian_for</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,</span>
 <span>                     <span class="fu">colmedian_par</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,</span>
@@ -262,21 +262,21 @@ taches (étape 3) tout en minimisant les communications avec les différents
 travailleurs. Il s’appuie sur une implémentation des itérateurs en <code>R</code>.
 Son utilisation nécessite néanmoins de vectoriser le code à l’intérieur de
 <code>future_*apply()</code>. Expérimentez avec le petit code ci-dessous :</p>
-<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">myiter</span> <span class="op">&lt;-</span> <span class="fu">itertools</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/itertools/man/isplitIndices.html">isplitIndices</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">30</span>, chunks <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Une première fois</span></span>
 <span><span class="fu">iterators</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/iterators/man/nextElem.html">nextElem</a></span><span class="op">(</span><span class="va">myiter</span><span class="op">)</span></span></code></pre></div>
 <pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
-<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Une deuxième fois... Oh ?!</span></span>
 <span><span class="fu">iterators</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/iterators/man/nextElem.html">nextElem</a></span><span class="op">(</span><span class="va">myiter</span><span class="op">)</span></span></code></pre></div>
 <pre><code>##  [1] 11 12 13 14 15 16 17 18 19 20</code></pre>
-<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Encore !</span></span>
 <span><span class="fu">iterators</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/iterators/man/nextElem.html">nextElem</a></span><span class="op">(</span><span class="va">myiter</span><span class="op">)</span></span></code></pre></div>
 <pre><code>##  [1] 21 22 23 24 25 26 27 28 29 30</code></pre>
-<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Encore ?</span></span>
 <span><span class="fu">iterators</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/iterators/man/nextElem.html">nextElem</a></span><span class="op">(</span><span class="va">myiter</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## Error: StopIteration</code></pre>
@@ -308,7 +308,7 @@ une implémentation parallélisant les calculs sur les observations (colonnes de
 <li><p>Comparez les temps de calcul sur 10 000 observations</p></li>
 </ol>
 </blockquote>
-<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://future.futureverse.org/reference/plan.html">plan</a></span><span class="op">(</span><span class="fu"><a href="https://future.futureverse.org/reference/multisession.html">multisession</a></span><span class="op">(</span>workers <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">10000</span></span>
 <span><span class="va">mb</span> <span class="op">&lt;-</span> <span class="fu">microbenchmark</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span></span>

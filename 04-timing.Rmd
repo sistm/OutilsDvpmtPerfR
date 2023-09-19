@@ -2,28 +2,31 @@
 # Mesurer et comparer des temps d'exécution
 
 
- La première étape avant d'optimiser un code est de pouvoir mesurer son temps d’exécution,
- afin de pouvoir comparer les temps d’exécution entre différente implémentations.
+La première étape avant d'optimiser un code est de pouvoir mesurer son temps d’exécution, afin de pouvoir comparer les temps d’exécution entre différente implémentations.
  
+ 
+Pour plus de détails à propos du contenu de ce chapitre ainsi que du suivant, nous renvoyons au livre d'Hadley Wickham [*Advanced R*](https://adv-r.hadley.nz/) [^2], librement accessible en ligne.
+
+[^2]: *Advanced R* (2^nd^ Edition) by Hadley Wickham. The R series, CRC press, 2019. ISBN: 9780815384571 [https://adv-r.hadley.nz/](https://adv-r.hadley.nz/)
  
  
 ## Mesurer des temps d'exécution avec `system.time()`
 
-Pour mesure le temps d'exécution d'une commande R, on peut utiliser la
-fonction `system.time()` comme ceci :
+Pour mesurer le temps d'exécution d'une commande `r fontawesome::fa("r-project")`, on peut utiliser la fonction `system.time()` comme ceci :
 
 ```{r, echo=FALSE}
 library(mypkgr)
 ```
 
 ```{r}
-system.time(mvnpdf(x=matrix(rep(1.96, 2), nrow=2, ncol=1), Log=FALSE))
+obs <- matrix(rep(1.96, 2), nrow=2, ncol=1)
+system.time(mvnpdf(x=obs, Log=FALSE))
 ```
 
 Le problème qui apparaît sur cet exemple est que l'exécution est tellement
 rapide que `system.time()` affiche `0` (ou une valeur très proche).
 De plus, on voit qu'il y a une certaine variabilité quand on relance plusieurs
-fois la commande.
+fois la commande. Ceci rend la comparaison avec une autre implémentation (que l'on espère) plus rapide pour le moins délicate.
 
 Ainsi si on souhaite comparer notre code avec la fonction `mvtnorm::dmvnorm()`,
 on ne peut pas utiliser `system.time()` :
@@ -40,7 +43,7 @@ il y a mieux : utiliser le package `microbenchmark` !
 Comme son nom l'indique, ce package permet justement de comparer des temps
 d'exécution même quand ceux-ci sont très faibles. De plus, la fonction
 `microbenchmark()` va répéter un certain nombre de fois l'exécution des
-commandes et donc va stabiliser le résultat.
+commandes, ce qui va stabiliser son résultat.
 
 ```{r}
 library(microbenchmark)
@@ -59,7 +62,7 @@ for(i in rangeTime){
     brk <- c(brk, seq(from = 10^i, to = 10^(i+1), by=10^i))
 }
 ggplot(data2plot) + geom_violin(aes(x=Expression, y=Time, fill=Expression), alpha=0.8) + 
-  scale_fill_manual(guide=FALSE, values=viridis::viridis(6)[1:2]) + 
+  scale_fill_manual(guide="none", values=viridis::viridis(6)[1:2]) + 
   scale_y_log10(minor_breaks=brk) + 
   ylab("Log-temps de calcul (milli-sec)") +
   xlab("Expression valuée") +
@@ -89,7 +92,7 @@ for(i in rangeTime){
     brk <- c(brk, seq(from = 10^i, to = 10^(i+1), by=10^i))
 }
 ggplot(data2plot) + geom_violin(aes(x=Expression, y=Time, fill=Expression), alpha=0.8)  +
-  scale_fill_manual(guide=FALSE, values=viridis::viridis(6)[1:2]) + 
+  scale_fill_manual(guide="none", values=viridis::viridis(6)[1:2]) + 
   scale_y_log10(minor_breaks=brk) + 
   ylab("Log-temps de calcul (milli-sec)") +
   xlab("Expression valuée") +
@@ -97,4 +100,4 @@ ggplot(data2plot) + geom_violin(aes(x=Expression, y=Time, fill=Expression), alph
 ```
 
 
-Il s'est passé un quelque chose... Et on va diagnostiquer ce problème dans la suite.
+Il s'est passé un quelque chose... Et on va diagnostiquer ce problème dans le prochain chapitre.

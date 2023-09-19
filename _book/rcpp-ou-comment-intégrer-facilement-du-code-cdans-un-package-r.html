@@ -85,7 +85,7 @@ Wickham.</p>
 suivante :</li>
 </ol>
 </blockquote>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">use_rcpp</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <blockquote>
 <ol start="2" style="list-style-type: decimal">
@@ -94,7 +94,7 @@ suivante :</li>
 package dans son ensemble :</p></li>
 </ol>
 </blockquote>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#' @useDynLib mypkgr</span></span>
 <span><span class="co">#' @importFrom Rcpp sourceCpp, .registration = TRUE</span></span>
 <span><span class="cn">NULL</span></span></code></pre></div>
@@ -122,7 +122,7 @@ l’utiliser.</p></li>
 <li><p>Evaluer le gain en performance de cette nouvelle implémentation <code>mvnpdf_invC</code>.</p></li>
 </ol>
 </blockquote>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">1000</span></span>
 <span><span class="va">mb</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span><span class="fu">mvtnorm</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/mvtnorm/man/Mvnorm.html">dmvnorm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">1.96</span>, nrow <span class="op">=</span> <span class="va">n</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>                     <span class="fu">mvnpdf</span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">1.96</span>, nrow <span class="op">=</span> <span class="fl">2</span>, ncol <span class="op">=</span> <span class="va">n</span><span class="op">)</span>, Log<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span>,</span>
@@ -133,19 +133,19 @@ l’utiliser.</p></li>
 <span><span class="va">mb</span></span></code></pre></div>
 <pre><code>## Unit: microseconds
 ##                                                            expr      min
-##              mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))   33.948
-##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 2408.914
-##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 1770.134
-##  mvnpdfoptim(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 1331.188
-##  mvnpdf_invC(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 1756.891
-##         lq       mean   median       uq      max neval  cld
-##    43.8905   57.02485   54.202   67.609   96.760   100 a   
-##  2549.4210 2833.88474 2666.865 2780.066 7084.472   100  b  
-##  1821.8145 2026.36473 1865.233 1928.312 8126.569   100   c 
-##  1391.8270 1473.78395 1428.973 1472.228 5135.250   100    d
-##  1824.5000 2010.10413 1861.523 1920.789 5696.540   100   c</code></pre>
+##              mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))   43.952
+##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3139.780
+##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 2292.679
+##  mvnpdfoptim(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 1755.005
+##  mvnpdf_invC(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 2319.370
+##         lq       mean    median        uq       max neval  cld
+##    57.1335   72.75163   73.3695   84.9315   107.953   100 a   
+##  3256.2815 3424.42496 3328.8515 3425.8985  7987.128   100  b  
+##  2352.8465 2652.72870 2382.4075 2416.4785 12071.302   100   c 
+##  1798.8340 1916.51302 1829.9120 1868.6775  6056.069   100    d
+##  2353.8920 2491.90948 2372.6085 2417.8725  5971.896   100   c</code></pre>
 <div class="inline-figure"><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-31-1.png" width="672"></div>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">profvis</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/profvis/man/profvis.html">profvis</a></span><span class="op">(</span><span class="fu">mvnpdfoptim</span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">1.96</span>, </span>
 <span>    nrow <span class="op">=</span> <span class="fl">2</span>, ncol <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span>, Log<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu">profvis</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/profvis/man/profvis.html">profvis</a></span><span class="op">(</span><span class="fu">mvnpdfoptim</span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">1.96</span>, </span>
@@ -168,7 +168,7 @@ de densité de la loi Normale multivariée <code>mvnpdfC()</code>.</p></li>
 </ol>
 </blockquote>
 <p>Vous pouvez télécharger notre proposition de <code>mvnpdfC.cpp</code> <a href="https://r-dev-perf.borishejblum.science/FormationRavancee_dev_perf_files/mvnpdfC.cpp">ici</a>.</p>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">1000</span></span>
 <span><span class="va">mb</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span><span class="fu">mvtnorm</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/mvtnorm/man/Mvnorm.html">dmvnorm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">1.96</span>, nrow <span class="op">=</span> <span class="va">n</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>                     <span class="fu">mvnpdf</span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">1.96</span>, nrow <span class="op">=</span> <span class="fl">2</span>, ncol <span class="op">=</span> <span class="va">n</span><span class="op">)</span>, Log<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span>,</span>
@@ -186,13 +186,13 @@ de densité de la loi Normale multivariée <code>mvnpdfC()</code>.</p></li>
 ##                                        mvnpdfoptim(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE)
 ##                                        mvnpdf_invC(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE)
 ##  mvnpdfC(x = matrix(1.96, nrow = 2, ncol = n), mean = rep(0, 2),      varcovM = diag(2), Log = FALSE)
-##       min       lq       mean   median        uq      max neval   cld
-##    34.563   42.722   53.07737   51.168   61.6845   96.145   100 a    
-##  2428.512 2529.392 2748.91347 2670.104 2757.0450 6306.743   100  b   
-##  1792.889 1828.026 1926.22264 1855.968 1886.6150 5161.449   100   c  
-##  1346.809 1383.709 1441.53130 1402.549 1425.0370 4686.587   100    d 
-##  1787.436 1815.378 2139.70226 1837.476 1881.1620 7039.782   100     e
-##    27.347   30.873   40.29152   32.759   36.1825  639.559   100 a</code></pre>
+##       min        lq       mean    median       uq      max neval  cld
+##    46.781   77.6950   90.03600   89.3185  100.655  159.490   100 a   
+##  3170.407 3318.3555 3457.06629 3359.0480 3494.553 7810.910   100  b  
+##  2322.896 2370.9480 2679.33319 2416.0480 2446.655 6747.206   100   c 
+##  1749.839 1838.3785 1946.05639 1872.5315 1928.784 5488.752   100    d
+##  2317.771 2363.8345 2624.41205 2397.5980 2459.713 8006.193   100   c 
+##    35.342   42.7425   56.27619   48.8925   55.227  729.390   100 a</code></pre>
 <div class="inline-figure"><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-35-1.png" width="672"></div>
 <p>À noter que vous pouvez utiliser des fonctions Rcpp en dehors de l’architecture
 d’un package grâce à la fonction <code><a href="https://rdrr.io/pkg/Rcpp/man/sourceCpp.html">Rcpp::sourceCpp()</a></code>. Mais comme nous avons

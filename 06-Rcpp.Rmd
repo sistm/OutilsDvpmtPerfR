@@ -86,7 +86,7 @@ mb
 data2plot <- cbind.data.frame("Time" = mb$time/10^6, "Expression" = mb$expr)
 levels(data2plot$Expression) <- gsub("mvtnorm::", "", sapply(strsplit(levels(data2plot$Expression), "(", fixed=T), "[", 1))
 ggplot(data2plot) + geom_violin(aes(x=Expression, y=Time, fill=Expression), alpha=0.8)  +
-  scale_fill_manual(guide=FALSE, values=viridis::viridis(6)[1:5]) + 
+  scale_fill_manual(guide="none", values=viridis::viridis(6)[1:5]) + 
   scale_y_log10(minor_breaks=c(seq(from=1, to=10, by=1), seq(from=10, to=100, by=10))) + 
   ylab("Temps de calcul (milli-sec)") +
   xlab("Expression évaluée") +
@@ -188,7 +188,7 @@ for(i in rangeTime){
     brk <- c(brk, seq(from = 10^i, to = 10^(i+1), by=10^i))
 }
 ggplot(data2plot) + geom_violin(aes(x=Expression, y=Time, fill=Expression), alpha=0.8)  +
-  viridis::scale_fill_viridis(guide=FALSE, discrete=TRUE) + 
+  viridis::scale_fill_viridis(guide="none", discrete=TRUE) + 
   scale_y_log10(minor_breaks=brk) + 
   ylab("Log-temps de calcul (milli-sec)") +
   xlab("Expression évaluée") +

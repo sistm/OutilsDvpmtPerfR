@@ -70,7 +70,7 @@ le plus de temps dans l’exécution d’optimiser uniquement cette brique.</p>
 <p>Pour obtenir un <em>profiling</em> du code ci-dessous, sélectionner les lignes de code
 d’intérêt et aller dans le menu “Profile” puis “Profile Selected Lines” (ou
 Ctrl+Alt+Shift P).</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">10e4</span></span>
 <span><span class="va">pdfval</span> <span class="op">&lt;-</span> <span class="fu">mvnpdf</span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">1.96</span>, nrow <span class="op">=</span> <span class="fl">2</span>, ncol <span class="op">=</span> <span class="va">n</span><span class="op">)</span>, Log<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p><em>OK, we get it !</em> Concaténer un vecteur au fur et à mesure dans une boucle
@@ -84,14 +84,14 @@ Télécharger le
 <a href="https://r-dev-perf.borishejblum.science/FormationRavancee_dev_perf_files/mvnpdfsmart.R">fichier</a> puis
 l’inclure dans le package.</p>
 <p>Profiler la commande suivante :</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">10e4</span></span>
 <span><span class="va">pdfval</span> <span class="op">&lt;-</span> <span class="fu">mvnpdfsmart</span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">1.96</span>, nrow <span class="op">=</span> <span class="fl">2</span>, ncol <span class="op">=</span> <span class="va">n</span><span class="op">)</span>, Log<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p>On a effectivement résolu le problème et on apprend maintenant de manière plus
 fine ce qui prend du temps dans notre fonction.</p>
 <p>Pour confirmer que <code>mvnpdfsmart()</code> est effectivement bien plus rapide que
 <code>mvnpdf()</code> on peut re-faire une comparaison avec <code><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark()</a></code> :</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">1000</span></span>
 <span><span class="va">mb</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span><span class="fu">mvnpdf</span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">1.96</span>, nrow <span class="op">=</span> <span class="fl">2</span>, ncol <span class="op">=</span> <span class="va">n</span><span class="op">)</span>, Log<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span>,</span>
 <span>                     <span class="fu">mvnpdfsmart</span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">1.96</span>, nrow <span class="op">=</span> <span class="fl">2</span>, ncol <span class="op">=</span> <span class="va">n</span><span class="op">)</span>, Log<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span>,</span>
@@ -99,14 +99,14 @@ fine ce qui prend du temps dans notre fonction.</p>
 <span><span class="va">mb</span></span></code></pre></div>
 <pre><code>## Unit: milliseconds
 ##                                                            expr      min
-##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 2.499032
-##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 1.780015
+##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3.130637
+##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 2.305881
 ##        lq     mean   median       uq      max neval cld
-##  2.713769 3.163455 2.819365 2.888921 7.781103   100  a 
-##  1.862732 1.910543 1.900616 1.941760 2.208793   100   b</code></pre>
+##  3.326145 3.734999 3.449391 3.523581 8.438661   100  a 
+##  2.370169 2.499585 2.403707 2.439049 6.881153   100   b</code></pre>
 <div class="inline-figure"><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-20-1.png" width="672"></div>
 <p>Et on peut également voir si on devient compétitif avec <code>dmvnorm()</code> :</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">1000</span></span>
 <span><span class="va">mb</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span><span class="fu">mvtnorm</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/mvtnorm/man/Mvnorm.html">dmvnorm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">1.96</span>, nrow <span class="op">=</span> <span class="va">n</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>                     <span class="fu">mvnpdf</span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">1.96</span>, nrow <span class="op">=</span> <span class="fl">2</span>, ncol <span class="op">=</span> <span class="va">n</span><span class="op">)</span>, Log<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span>,</span>
@@ -115,13 +115,13 @@ fine ce qui prend du temps dans notre fonction.</p>
 <span><span class="va">mb</span></span></code></pre></div>
 <pre><code>## Unit: microseconds
 ##                                                            expr      min
-##              mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))   34.932
-##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 2487.347
-##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 1773.824
-##        lq       mean   median       uq      max neval cld
-##    41.574   57.60664   56.006   72.283   87.945   100 a  
-##  2660.572 3097.01208 2730.682 2820.103 9722.740   100  b 
-##  1819.744 1889.39070 1842.068 1866.894 5452.959   100   c</code></pre>
+##              mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))   42.845
+##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3118.214
+##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 2312.810
+##        lq       mean    median        uq      max neval cld
+##    51.250   72.76475   69.4745   92.7215  121.606   100 a  
+##  3295.539 3783.25245 3419.2565 3550.9075 8570.066   100  b 
+##  2361.620 2400.76853 2387.6760 2422.6080 2648.149   100   c</code></pre>
 <div class="inline-figure"><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-22-1.png" width="672"></div>
 <p>Il y a encore du travail…</p>
 </div>
@@ -134,11 +134,11 @@ fine ce qui prend du temps dans notre fonction.</p>
 avec les outils de R.</p>
 <p>Inclure la fonction <code>mvnpdfoptim()</code> dans le package, puis profiler cette
 fonction :</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">10e4</span></span>
 <span><span class="va">pdfval</span> <span class="op">&lt;-</span> <span class="fu">mvnpdfoptim</span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">1.96</span>, nrow <span class="op">=</span> <span class="fl">2</span>, ncol <span class="op">=</span> <span class="va">n</span><span class="op">)</span>, Log<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p>Et un petit <code><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark()</a></code> :</p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">1000</span></span>
 <span><span class="va">mb</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span><span class="fu">mvtnorm</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/mvtnorm/man/Mvnorm.html">dmvnorm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">1.96</span>, nrow <span class="op">=</span> <span class="va">n</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>                     <span class="fu">mvnpdf</span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">1.96</span>, nrow <span class="op">=</span> <span class="fl">2</span>, ncol <span class="op">=</span> <span class="va">n</span><span class="op">)</span>, Log<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span>,</span>
@@ -148,18 +148,18 @@ fonction :</p>
 <span><span class="va">mb</span></span></code></pre></div>
 <pre><code>## Unit: microseconds
 ##                                                            expr      min
-##              mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))   34.850
-##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 2397.229
-##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 1775.464
-##  mvnpdfoptim(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 1336.641
-##        lq      mean   median       uq      max neval  cld
-##    40.057   57.1335   54.899   68.388  108.281   100 a   
-##  2572.689 3002.0881 2671.437 2794.437 9222.089   100  b  
-##  1839.896 1946.9941 1888.890 1951.333 6278.740   100   c 
-##  1404.066 1573.5529 1441.006 1493.589 5849.921   100    d</code></pre>
+##              mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))   43.173
+##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3176.475
+##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 2315.393
+##  mvnpdfoptim(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 1744.632
+##         lq       mean   median        uq       max neval  cld
+##    54.5095   71.22438   71.299   84.1525   117.547   100 a   
+##  3342.4840 3819.38657 3436.189 3526.1435 12111.687   100  b  
+##  2361.4360 2406.06081 2395.097 2434.3135  2643.762   100   c 
+##  1792.5610 1916.08703 1827.841 1875.4425  6061.317   100    d</code></pre>
 <div class="inline-figure"><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-25-1.png" width="672"></div>
 <p>Pour finir on peut profiler la fonction <code>dmvnorm()</code> :</p>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">10e5</span></span>
 <span><span class="va">pdfval</span> <span class="op">&lt;-</span> <span class="fu">mvtnorm</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/mvtnorm/man/Mvnorm.html">dmvnorm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">1.96</span>, nrow <span class="op">=</span> <span class="va">n</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 
