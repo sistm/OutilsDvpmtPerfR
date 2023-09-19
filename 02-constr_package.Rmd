@@ -32,20 +32,16 @@ On récupère alors la structure **minimale pour un package `r fontawesome::fa("
   
   - un fichier **NAMESPACE** qui sera édité automatiquement ultérieurement
   
-  - un dossier **R** dans lequel on va ajouter des fichiers de scripts `r fontawesome::fa("r-project")`
+  - un dossier **R/** dans lequel on va ajouter des fichiers de scripts `.R`
   
   
 `devtools` ajoute également trois **fichiers *facultatifs*** :
 
-  - **.gitignore**, relatif à `git`, outils de contrôle de version que nous verrons en détails 
-  dans la partie sur GitHub
+  - **.gitignore**, relatif à `git`, outils de contrôle de version que nous verrons en détails dans la partie suivante sur `git` & *GitHub*
   
-  - **mypkgr.Rproj** qui est un fichier spécifique de Rstudio, et permet de définir
-  les caractéristiques et préférences du projet que nous venons de créer
+  - **mypkgr.Rproj** qui est un fichier spécifique de *RStudio*, et permet de définirles caractéristiques et préférences du projet que nous venons de créer
   
-  - **.Rbuildignore** qui permet d'ignorer certains fichiers au moment où on
-  construira le package un peu plus loin (par exemple, le fichier `mypkgr.Rproj`
-  ne doit pas être inclus dans le package)
+  - **.Rbuildignore** qui permet d'ignorer certains fichiers au moment où on construira le package un peu plus loin (par exemple, le fichier `mypkgr.Rproj` ne doit pas être inclus dans le package)
   
 
 ## Ajouter une fonction : exemple fil rouge
@@ -58,13 +54,13 @@ sur $\mathbb{R}^p$ en $n$ points. Notre fonction doit pouvoir s'appliquer pour
 n'importe quelle loi normale multivariée (vecteur de moyennes $\boldsymbol \mu$ dans
 $\mathbb{R}^p$ et matrice de variance-covariance $\boldsymbol\Sigma$ d'ordre de $p$ quelconques),
 et on souhaite pouvoir calculer toutes les valeurs de la densité évaluées
-sur les $n$ points $\boldsymbol \mathbf{x}$ en un seul appel de la fonction.
+sur les $n$ points $\mathbf{x}$ en un seul appel de la fonction.
 
 Pour rappel, la fonction de densité d'une loi normale multivariée s'écrit :
 $$\displaystyle (2\pi )^{-p/2}\det({\boldsymbol {\Sigma }})^{-1/2}\,\exp \left(-{\frac {1}{2}}(\mathbf {x} -{\boldsymbol {\mu }})^{\mathsf {T}}{\boldsymbol {\Sigma }}^{-1}(\mathbf {x} -{\boldsymbol {\mu }})\right)$$
 
 Vous devez donc créer une fonction `mvnpdf()` dans un fichier nommé `mvnpdf.R`
-dans le dossier `r fontawesome::fa("r-project")` du package, qui :
+dans le dossier `R/` du package, qui :
 
   - prend en arguments :
   
@@ -153,6 +149,10 @@ via :
 ?mypkgr
 ```
 
+
+
+
+
 ## Tester le package de manière *intéractive*
 
 Pour tester le package, vous devez le charger dans R à l'aide de :
@@ -168,26 +168,25 @@ l'aide de la fonction avec `?mvnpdf` et par exemple exécuter les commandes rens
 
 Ainsi, lors du développement, vous pouvez :
 
-  - Ajouter/Modifier le code R
+  - Ajouter/Modifier le code `r fontawesome::fa("r-project")`
   
-  - Re-charger le package Ctrl+Shift+L
+  - Re-charger le package `Ctrl+Shift+L`
   
-  - Essayer dans la console
+  - L'essayer dans la console
   
   - Et ainsi de suite...
   
 ## Tester le package de manière *automatique*
 
-Pour initialiser la fonctionnalité de tests automatiques dans le package,
-utiliser :
+Pour initialiser la fonctionnalité de tests automatiques dans le package, executer la commande suivante :
 
 ```{r, eval=FALSE}
 usethis::use_testthat()
 ```
 
-Cette commande induit la création d'un dossier `tests` qui comprend un fichier `testthat.R`  - à ne pas modifier  - et un dossier `testthat` dans lequel on va insérer nos tests. Cet outils s'appuie sur la théorie des *tests unitaires*.
+Cette commande induit la création d'un dossier `tests` qui comprend un fichier `testthat.R` -- à ne pas modifier -- et un dossier `testthat/` dans lequel on va insérer nos tests. Cet outils s'appuie sur la théorie des *tests unitaires*.
 
-Voici par exemple, le contenu d'un fichier qu'on appellera `test-univariate.R` à mettre dans le dossier `testthat` :
+Voici par exemple le contenu d'un fichier contenant 2 tests qui devrait s'appeller `test-mvnpdf.R` à mettre dans le dossier `testthat/` (plutôt que de le créer vous-même, vous pouvez simplement utiliser la fonction `usethis::use_test()` qui créera le fichier pour vous en le plaçant directement au bon endroit) :
 
 ```{r, eval=FALSE}
 test_that("correct result for univariate gaussian", {
@@ -195,53 +194,38 @@ test_that("correct result for univariate gaussian", {
   expect_equal(mvnpdf(x=matrix(c(1.96, -0.5), ncol = 2), Log=FALSE)$y,
                dnorm(c(1.96, -0.5)))
 })
-```
 
-Et un deuxième, appelé `test-bivariate.R` :
-
-```{r, eval=FALSE}
 test_that("correct results for bivariate gaussian", {
   expect_equal(mvnpdf(x=matrix(rep(1.96,2), nrow=2, ncol=1), Log=FALSE)$y,
                mvtnorm::dmvnorm(rep(1.96, 2)))
 })
 ```
 
-Pour exécuter ces tests, on peut utiliser dans l'onglet "Build", le menu
-"More", "Test package" (ou `devtools::test()` ou Ctrl+Shift+T).
+Pour exécuter ces tests, on peut utiliser "*Test package*" (`Ctrl+Shift+T`) du menu "*More*" dans l'onglet "*Build*", ou alors executer `devtools::test()` dans la console.
 
 L'avantage de ces tests automatiques est qu'ils vont
 s'exécuter à chaque fois qu'on effectuera un *check* du package.
 
-Une bonne pratique est d'ajouter un test unitaire à chaque fois qu'un bug est identifier et résolu,
+Une bonne pratique est d'ajouter un test unitaire à chaque fois qu'un bug est identifié et résolu,
 afin de pouvoir immédiatement identifier et prévenir qu’une erreur identique ne se reproduise dans 
 le futur.
 
 
 ## Faire un *check* du package
 
-Faire un *check* signifie vérifier que tout est correct dans le package.
-Il est **nécessaire** de "passer" le *check* pour pouvoir déposer le package
-sur le CRAN.
+Faire un *check* signifie vérifier que tout est correct dans le package et fonctionne comme attendu, afin que l package puisse s'installer sans problème sur différents systèmes d'exploitation. Il est **impératif** de "passer" le `R CMD CHECK` pour pouvoir déposer un package sur le CRAN.
 
-Pour exécuter celui-ci, utiliser "Check" dans l'onglet "Build" (`devtools::check()` ou Ctrl+Shift+E).
+Pour exécuter celui-ci, utiliser "*Check*" (`Ctrl+Shift+E`) dans l'onglet "*Build*", ou alors executez `devtools::check()` dans la console.
 
-Lors du *check*, les tests que nous avons mis au point précédemment sont
-exécutées. C'est justement l'avantage d'avoir fait ces tests, nous n'avons
-plus besoin de s'en préoccuper, mais juste de réagir en cas d'erreurs
-renvoyées.
+Lors du `R CMD CHECK`, les tests que nous avons mis au point précédemment sont exécutées. C'est justement l'avantage d'avoir fait ces tests, nous n'avons plus besoin de s'en préoccuper, mais juste de réagir en cas d'erreurs renvoyées.
 
 ## Installer le package
 
-Pour le moment, le package n'existe que dans l'environnement associé au projet
-Rstudio qu'on a créé. Pour pouvoir l'utiliser dans R de manière générale,
-il faut l'installer (comme un package du CRAN par exemple).
+Pour le moment, le package n'existe que dans l'environnement associé au projet Rstudio qu'on a créé. Pour pouvoir l'utiliser dans R de manière générale, il faut l'installer (comme un package du CRAN par exemple).
 
-Pour faire ça, utiliser "Install and Restart" dans l'onglet "Build" (`devtools::install()` ou Ctrl+Shift+B).
+Pour faire ça, utiliser "*Install and Restart*" `Ctrl+Shift+B` dans l'onglet "Build" (`devtools::install()` ou ).
 
-Et enfin, vous pouvez configurer le comportement de Rstudio pour qu'au moment
-de l'installation, il documente en même temps le package : aller dans
-l'onglet "Build", le menu "More" puis "Configure Build Tools". Cliquer ensuite
-sur "Configure" puis cocher la case en bas "Install and Restart".
+Et enfin, vous pouvez configurer le comportement de *RStudio* pour qu'au moment de l'installation, il documente en même temps le package : aller dans l'onglet "*Build*", le menu "*More*" puis "*Configure Build Tools...*". Cliquer ensuite sur "*Configure*" juste à côté de "*Generate documentation with Roxygen*" puis cocher la case "*Install and Restart*".
 
 
 
@@ -288,7 +272,9 @@ contient le code complet
 de la fonction `mvnpdf()` et de la méthode `plot()` associée.
 
 
-## Annexe 1.2 : soumettre son package au CRAN {-}
+## Annexe 1.2 : soumettre son package au [CRAN](https://cran.r-project.org/web/packages/available_packages_by_name.html) {-}
 
-`devtools::check()` puis `devtools::submit_cran()`
+Executer les 2 commandes suivantes : `devtools::check()` puis `devtools::submit_cran()`.
+
+Pour plus de détails, voir la [procédure recommandée](https://r-pkgs.org/release.html#release-process) dans  Wickham & Bryan (2023)[^1]
 

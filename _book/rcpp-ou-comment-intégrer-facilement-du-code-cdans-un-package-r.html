@@ -6,14 +6,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Chapitre 5 Rcpp ou comment intégrer facilement du code C++dans un package R | Formation R avancée</title>
 <meta name="author" content="Robin Genuer 🌐 &amp; Boris Hejblum 🌐">
-<meta name="description" content="Rcpp (R-C-Plus-Plus) est un package qui facilite l’interface entre C++ et R. R est un langage interprété, ce qui facilite un certain nombre de choses (notamment nous donne accès à la console dans...">
+<meta name="description" content="Placeholder  5.1 Première fonction en Rcpp   5.2 Optimisation grâce à C++   5.3 Annexe 5.1 : l’optimisation prématurée n’est pas une bonne idée">
 <meta name="generator" content="bookdown 0.35 with bs4_book()">
 <meta property="og:title" content="Chapitre 5 Rcpp ou comment intégrer facilement du code C++dans un package R | Formation R avancée">
 <meta property="og:type" content="book">
-<meta property="og:description" content="Rcpp (R-C-Plus-Plus) est un package qui facilite l’interface entre C++ et R. R est un langage interprété, ce qui facilite un certain nombre de choses (notamment nous donne accès à la console dans...">
+<meta property="og:description" content="Placeholder  5.1 Première fonction en Rcpp   5.2 Optimisation grâce à C++   5.3 Annexe 5.1 : l’optimisation prématurée n’est pas une bonne idée">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chapitre 5 Rcpp ou comment intégrer facilement du code C++dans un package R | Formation R avancée">
-<meta name="twitter:description" content="Rcpp (R-C-Plus-Plus) est un package qui facilite l’interface entre C++ et R. R est un langage interprété, ce qui facilite un certain nombre de choses (notamment nous donne accès à la console dans...">
+<meta name="twitter:description" content="Placeholder  5.1 Première fonction en Rcpp   5.2 Optimisation grâce à C++   5.3 Annexe 5.1 : l’optimisation prématurée n’est pas une bonne idée">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.5.1/transition.js"></script><script src="libs/bs3compat-0.5.1/tabs.js"></script><script src="libs/bs3compat-0.5.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -64,151 +64,21 @@
 <h1>
 <span class="header-section-number">Chapitre 5</span> <code>Rcpp</code> ou comment intégrer facilement du code <code>C++</code>dans un package <code>R</code><a class="anchor" aria-label="anchor" href="#rcpp-ou-comment-int%C3%A9grer-facilement-du-code-cdans-un-package-r"><i class="fas fa-link"></i></a>
 </h1>
-<p><code>Rcpp</code> (R-C-Plus-Plus) est un package qui facilite l’interface entre <code>C++</code> et <code>R</code>. <code>R</code> est un langage
-interprété, ce qui facilite un certain nombre de choses (notamment nous donne accès à la console
-dans laquelle on peut évaluer du code à la volée). Néanmoins, cette facilité d’utilisation se
-compense entre autre par des temps de calcul supérieurs à ceux de langages de plus bas niveau,
-tels que <code>C</code>, <code>Fortran</code> et <code>C++</code> (mais qui nécessitent eux une compilation).</p>
-<p>On dirigera le lecteur curieux vers le livre en ligne
-<a href="https://teuder.github.io/rcpp4everyone_en/"><em>Rcpp for everyone</em></a> de Masaki E. Tsuda, qui
-constitue une ressource très complète pour comprendre l’utilisation de Rcpp en plus de
-l’introduction que l’on peut trouver dans le livre <a href="http://adv-r.had.co.nz/"><em>Advanced R</em></a> d’Hadley
-Wickham.</p>
+<p>Placeholder</p>
 <div id="première-fonction-en-rcpp" class="section level2" number="5.1">
 <h2>
 <span class="header-section-number">5.1</span> Première fonction en Rcpp<a class="anchor" aria-label="anchor" href="#premi%C3%A8re-fonction-en-rcpp"><i class="fas fa-link"></i></a>
 </h2>
-<blockquote>
-<p><strong><em>A vous de jouer !</em></strong></p>
-<ol style="list-style-type: decimal">
-<li>Afin de rendre votre package prêt pour l’utilisation avec Rcpp, commencez par executer la commande
-suivante :</li>
-</ol>
-</blockquote>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">use_rcpp</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<blockquote>
-<ol start="2" style="list-style-type: decimal">
-<li><p>Constatez les changements apportés</p></li>
-<li><p>il faut également ajouter les 2 commentaires roxygen suivants dans la page d’aide du
-package dans son ensemble :</p></li>
-</ol>
-</blockquote>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">#' @useDynLib mypkgr</span></span>
-<span><span class="co">#' @importFrom Rcpp sourceCpp, .registration = TRUE</span></span>
-<span><span class="cn">NULL</span></span></code></pre></div>
-<p>Nous allons maintenant créer une première fonction en <code>Rcpp</code> permettant d’inverser une matrice.
-Pour cela, nous allons nous appuyer sur la <a href="http://arma.sourceforge.net/docs.html">library C++ <code>Armadillo</code></a>.
-Il s’agit d’une <em>library</em> d’algèbre linéaire moderne et simple, hautement optimisée, et interfacée
-avec <code>R</code> via le package <code>RcppArmadillo</code>.</p>
-<p><code>C++</code> n’est pas un langage très différent de <code>R</code>. Les principales différences qui nous concernent :</p>
-<ul>
-<li><p><code>C++</code>est très efficaces pour le boucles <em>for</em> (y compris les boucles for emboîtées). Attention :
-il y a souvent un sens qui est plus rapide que l’autre (ceci est dû à la manière dont C++ attribue
-et parcours la mémoire).</p></li>
-<li><p>Chaque commande doit se terminer par un point virgule ‘;’</p></li>
-<li><p><code>C++</code>est un langage typé : il faut déclarer le type de chaque variable avant de pouvoir
-l’utiliser.</p></li>
-</ul>
-<blockquote>
-<p><strong><em>A vous de jouer !</em></strong></p>
-<ol style="list-style-type: decimal">
-<li><p>Créez un nouveau fichier <code>C++</code> depuis RStudio (via le menu <code>File</code> &gt; <code>New File</code> &gt; <code>C++ File</code>), et enregistrez le dans le dossier <code>src</code>. Prenez le temps de le lire et essayez de comprendre chaque ligne.</p></li>
-<li><p>Compilez et chargez votre package (via le bouton “Install and Restart”) et essayez d’utiliser la fonction <code>timesTwo()</code> depuis la console.</p></li>
-<li><p>Installez le package RcppArmadillo, et n’oubliez pas de faire les ajouts nécessaires dans <code>DESCRIPTION</code> (cf. <code><a href="https://usethis.r-lib.org/reference/use_rcpp.html">usethis::use_rcpp_armadillo()</a></code>)</p></li>
-<li><p>À l’aide de l’[introduction à <code>Rcpp</code>]](<a href="http://adv-r.had.co.nz/Rcpp.html#rcpp-intro" class="uri">http://adv-r.had.co.nz/Rcpp.html#rcpp-intro</a>) de Hadley Wickham dans son livre <em>Advanced R</em>, ainsi que de la documentation du <a href="http://gallery.rcpp.org/articles/armadillo-eigenvalues/">package <code>RcppArmadillo</code></a> de celle de la library <code>C++</code> <a href="http://arma.sourceforge.net/docs.html">Armadillo</a>, tentez d’écrire une courte fonction <code>invC</code> en <code>C++</code> calculant l’inverse d’une matrice.</p></li>
-<li><p>Lorsque vous avez réussi à compiler votre fonction <code>invC</code> et qu’elle est accessible depuis <svg aria-hidden="true" role="img" viewbox="0 0 581 512" style="height:1em;width:1.13em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M581 226.6C581 119.1 450.9 32 290.5 32S0 119.1 0 226.6C0 322.4 103.3 402 239.4 418.1V480h99.1v-61.5c24.3-2.7 47.6-7.4 69.4-13.9L448 480h112l-67.4-113.7c54.5-35.4 88.4-84.9 88.4-139.7zm-466.8 14.5c0-73.5 98.9-133 220.8-133s211.9 40.7 211.9 133c0 50.1-26.5 85-70.3 106.4-2.4-1.6-4.7-2.9-6.4-3.7-10.2-5.2-27.8-10.5-27.8-10.5s86.6-6.4 86.6-92.7-90.6-87.9-90.6-87.9h-199V361c-74.1-21.5-125.2-67.1-125.2-119.9zm225.1 38.3v-55.6c57.8 0 87.8-6.8 87.8 27.3 0 36.5-38.2 28.3-87.8 28.3zm-.9 72.5H365c10.8 0 18.9 11.7 24 19.2-16.1 1.9-33 2.8-50.6 2.9v-22.1z"></path></svg> créer une fonction <code>mvnpdf_invC()</code> à partir de l’implémentation de <code>mvnpdfsmart</code> en remplaçant uniquement les calculs d’inverse matriciel par un appel à <code>invC</code>.</p></li>
-<li><p>Evaluer le gain en performance de cette nouvelle implémentation <code>mvnpdf_invC</code>.</p></li>
-</ol>
-</blockquote>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">1000</span></span>
-<span><span class="va">mb</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span><span class="fu">mvtnorm</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/mvtnorm/man/Mvnorm.html">dmvnorm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">1.96</span>, nrow <span class="op">=</span> <span class="va">n</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>                     <span class="fu">mvnpdf</span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">1.96</span>, nrow <span class="op">=</span> <span class="fl">2</span>, ncol <span class="op">=</span> <span class="va">n</span><span class="op">)</span>, Log<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span>,</span>
-<span>                     <span class="fu">mvnpdfsmart</span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">1.96</span>, nrow <span class="op">=</span> <span class="fl">2</span>, ncol <span class="op">=</span> <span class="va">n</span><span class="op">)</span>, Log<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span>,</span>
-<span>                     <span class="fu">mvnpdfoptim</span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">1.96</span>, nrow <span class="op">=</span> <span class="fl">2</span>, ncol <span class="op">=</span> <span class="va">n</span><span class="op">)</span>, Log<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span>,</span>
-<span>                     <span class="fu">mvnpdf_invC</span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">1.96</span>, nrow <span class="op">=</span> <span class="fl">2</span>, ncol <span class="op">=</span> <span class="va">n</span><span class="op">)</span>, Log<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span>,</span>
-<span>                     times<span class="op">=</span><span class="fl">100L</span><span class="op">)</span></span>
-<span><span class="va">mb</span></span></code></pre></div>
-<pre><code>## Unit: microseconds
-##                                                            expr      min
-##              mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))   43.911
-##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3145.356
-##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 2320.887
-##  mvnpdfoptim(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 1744.427
-##  mvnpdf_invC(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 2314.368
-##        lq       mean   median        uq       max neval  cld
-##    54.735   68.44335   66.666   79.6835   113.488   100 a   
-##  3281.456 3481.98978 3374.505 3495.5370  7867.613   100  b  
-##  2353.564 2559.27289 2378.615 2438.1470  8375.685   100   c 
-##  1788.113 2102.97897 1817.264 1850.2275 10247.212   100    d
-##  2346.123 2382.13608 2370.271 2403.3790  2666.189   100   c</code></pre>
-<div class="inline-figure"><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-31-1.png" width="672"></div>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">profvis</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/profvis/man/profvis.html">profvis</a></span><span class="op">(</span><span class="fu">mvnpdfoptim</span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">1.96</span>, </span>
-<span>    nrow <span class="op">=</span> <span class="fl">2</span>, ncol <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span>, Log<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu">profvis</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/profvis/man/profvis.html">profvis</a></span><span class="op">(</span><span class="fu">mvnpdfoptim</span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">1.96</span>, </span>
-<span>    nrow <span class="op">=</span> <span class="fl">100</span>, ncol <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span>, Log<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div id="optimisation-grâce-à-c" class="section level2" number="5.2">
 <h2>
 <span class="header-section-number">5.2</span> Optimisation grâce à <code>C++</code><a class="anchor" aria-label="anchor" href="#optimisation-gr%C3%A2ce-%C3%A0-c"><i class="fas fa-link"></i></a>
 </h2>
-<p>En règle générale, on ne gagne pas beaucoup en temps de calcul en remplaçant une fonction <code>R</code>
-optimisée par une fonction en <code>C++</code>. En effet, la plupart des fonctions de base de <code>R</code> s’appuie en
-réalité déjà sur des routines <code>C</code> ou <code>Fortran</code> bien optimisée. Le gain se limite alors simplement
-à la suppression des vérifications des arguments et de la gestion des différents types.</p>
-<blockquote>
-<p><strong><em>A vous de jouer !</em></strong></p>
-<ol style="list-style-type: decimal">
-<li><p>À partir de <code>mvnpdfsmart</code>, proposez une implémentation completement en <code>C++</code> du calcul
-de densité de la loi Normale multivariée <code>mvnpdfC()</code>.</p></li>
-<li><p>Evaluer le gain en performance de cette nouvelle implémentation <code>mvnpdfC</code></p></li>
-</ol>
-</blockquote>
-<p>Vous pouvez télécharger notre proposition de <code>mvnpdfC.cpp</code> <a href="https://r-dev-perf.borishejblum.science/FormationRavancee_dev_perf_files/mvnpdfC.cpp">ici</a>.</p>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">1000</span></span>
-<span><span class="va">mb</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span><span class="fu">mvtnorm</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/mvtnorm/man/Mvnorm.html">dmvnorm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">1.96</span>, nrow <span class="op">=</span> <span class="va">n</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>                     <span class="fu">mvnpdf</span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">1.96</span>, nrow <span class="op">=</span> <span class="fl">2</span>, ncol <span class="op">=</span> <span class="va">n</span><span class="op">)</span>, Log<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span>,</span>
-<span>                     <span class="fu">mvnpdfsmart</span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">1.96</span>, nrow <span class="op">=</span> <span class="fl">2</span>, ncol <span class="op">=</span> <span class="va">n</span><span class="op">)</span>, Log<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span>,</span>
-<span>                     <span class="fu">mvnpdfoptim</span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">1.96</span>, nrow <span class="op">=</span> <span class="fl">2</span>, ncol <span class="op">=</span> <span class="va">n</span><span class="op">)</span>, Log<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span>,</span>
-<span>                     <span class="fu">mvnpdf_invC</span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">1.96</span>, nrow <span class="op">=</span> <span class="fl">2</span>, ncol <span class="op">=</span> <span class="va">n</span><span class="op">)</span>, Log<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span>,</span>
-<span>                     <span class="fu">mvnpdfC</span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">1.96</span>, nrow <span class="op">=</span> <span class="fl">2</span>, ncol <span class="op">=</span> <span class="va">n</span><span class="op">)</span>, mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span><span class="op">)</span>, varcovM <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html">diag</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span>, Log<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span>,</span>
-<span>                     times<span class="op">=</span><span class="fl">100L</span><span class="op">)</span></span>
-<span><span class="va">mb</span></span></code></pre></div>
-<pre><code>## Unit: microseconds
-##                                                                                                  expr
-##                                                    mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))
-##                                             mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE)
-##                                        mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE)
-##                                        mvnpdfoptim(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE)
-##                                        mvnpdf_invC(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE)
-##  mvnpdfC(x = matrix(1.96, nrow = 2, ncol = n), mean = rep(0, 2),      varcovM = diag(2), Log = FALSE)
-##       min        lq       mean    median       uq      max neval  cld
-##    43.706   60.1675   77.65974   75.5220   91.676  138.539   100 a   
-##  3110.178 3288.4460 3522.38175 3370.9995 3478.563 7040.561   100  b  
-##  2312.974 2373.0800 2627.06270 2407.0280 2446.265 6732.897   100   c 
-##  1732.865 1789.0965 1873.19365 1837.6405 1876.324 5023.730   100    d
-##  2307.480 2341.6740 2452.33751 2374.1870 2408.750 6276.157   100   c 
-##    35.301   40.4260   52.91911   45.4075   50.717  676.746   100 a</code></pre>
-<div class="inline-figure"><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-35-1.png" width="672"></div>
-<p>À noter que vous pouvez utiliser des fonctions Rcpp en dehors de l’architecture
-d’un package grâce à la fonction <code><a href="https://rdrr.io/pkg/Rcpp/man/sourceCpp.html">Rcpp::sourceCpp()</a></code>. Mais comme nous avons
-qu’il est préférable de gérer tous ces code sous la forme de package, il est
-peu probable que vous en ayez besoin !</p>
 </div>
 <div id="annexe-5.1-loptimisation-prématurée-nest-pas-une-bonne-idée" class="section level2" number="5.3">
 <h2>
 <span class="header-section-number">5.3</span> Annexe 5.1 : l’optimisation prématurée n’est pas une bonne idée<a class="anchor" aria-label="anchor" href="#annexe-5.1-loptimisation-pr%C3%A9matur%C3%A9e-nest-pas-une-bonne-id%C3%A9e"><i class="fas fa-link"></i></a>
 </h2>
-<p>Chambers, <em>Software for Data Analysis: Programming with R</em>, Springer, 2008 :</p>
-<blockquote>
-<p><em>Including additional C code is a serious step, with <strong>some added dangers</strong>
-and often a <strong>substantial amount of programming and debugging</strong> required.
-<strong>You should have a good reason.</strong></em></p>
-</blockquote>
 
 </div>
 </div>
@@ -238,7 +108,7 @@ and often a <strong>substantial amount of programming and debugging</strong> req
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Formation R avancée</strong>: <em>Outils de développement et de performance</em>" was written by <strong><em>Robin Genuer</em></strong> <a href="https://robin.genuer.fr/">🌐</a> &amp; <strong><em>Boris Hejblum</em></strong> <a href="https://borishejblum.science/">🌐</a>. It was last built on 2023-09-18.</p>
+    <p>"<strong>Formation R avancée</strong>: <em>Outils de développement et de performance</em>" was written by <strong><em>Robin Genuer</em></strong> <a href="https://robin.genuer.fr/">🌐</a> &amp; <strong><em>Boris Hejblum</em></strong> <a href="https://borishejblum.science/">🌐</a>. It was last built on 2023-09-19.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
