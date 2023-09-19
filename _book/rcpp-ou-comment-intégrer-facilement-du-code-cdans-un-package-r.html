@@ -17,7 +17,9 @@
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.5.1/transition.js"></script><script src="libs/bs3compat-0.5.1/tabs.js"></script><script src="libs/bs3compat-0.5.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
-<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script><script src="libs/d3-3.5.6/d3.min.js"></script><link href="libs/profvis-0.3.6.9000/profvis.css" rel="stylesheet">
+<script src="libs/profvis-0.3.6.9000/profvis.js"></script><script src="libs/profvis-0.3.6.9000/scroll.js"></script><link href="libs/highlight-6.2.0/textmate.css" rel="stylesheet">
+<script src="libs/highlight-6.2.0/highlight.js"></script><script src="libs/profvis-binding-0.3.8/profvis.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
     
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   </style>
@@ -133,18 +135,18 @@ l’utiliser.</p></li>
 <span><span class="va">mb</span></span></code></pre></div>
 <pre><code>## Unit: microseconds
 ##                                                            expr      min
-##              mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))   43.952
-##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3139.780
-##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 2292.679
-##  mvnpdfoptim(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 1755.005
-##  mvnpdf_invC(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 2319.370
+##              mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))   44.977
+##       mvnpdf(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 3315.752
+##  mvnpdfsmart(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 2317.976
+##  mvnpdfoptim(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 1749.224
+##  mvnpdf_invC(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE) 2318.017
 ##         lq       mean    median        uq       max neval  cld
-##    57.1335   72.75163   73.3695   84.9315   107.953   100 a   
-##  3256.2815 3424.42496 3328.8515 3425.8985  7987.128   100  b  
-##  2352.8465 2652.72870 2382.4075 2416.4785 12071.302   100   c 
-##  1798.8340 1916.51302 1829.9120 1868.6775  6056.069   100    d
-##  2353.8920 2491.90948 2372.6085 2417.8725  5971.896   100   c</code></pre>
-<div class="inline-figure"><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-31-1.png" width="672"></div>
+##    67.3425   80.78763   79.8065   94.7715   136.284   100 a   
+##  3452.2000 3814.73348 3520.5470 3737.4780 11503.985   100  b  
+##  2375.6835 2546.84825 2398.5820 2443.0670  6170.336   100   c 
+##  1812.3845 1903.67961 1851.9495 1905.3520  5399.454   100    d
+##  2361.3335 2510.35825 2390.5665 2434.7645  6297.723   100   c</code></pre>
+<div class="inline-figure"><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-33-1.png" width="672"></div>
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">profvis</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/profvis/man/profvis.html">profvis</a></span><span class="op">(</span><span class="fu">mvnpdfoptim</span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">1.96</span>, </span>
 <span>    nrow <span class="op">=</span> <span class="fl">2</span>, ncol <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span>, Log<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span>
@@ -186,14 +188,14 @@ de densité de la loi Normale multivariée <code>mvnpdfC()</code>.</p></li>
 ##                                        mvnpdfoptim(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE)
 ##                                        mvnpdf_invC(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE)
 ##  mvnpdfC(x = matrix(1.96, nrow = 2, ncol = n), mean = rep(0, 2),      varcovM = diag(2), Log = FALSE)
-##       min        lq       mean    median       uq      max neval  cld
-##    46.781   77.6950   90.03600   89.3185  100.655  159.490   100 a   
-##  3170.407 3318.3555 3457.06629 3359.0480 3494.553 7810.910   100  b  
-##  2322.896 2370.9480 2679.33319 2416.0480 2446.655 6747.206   100   c 
-##  1749.839 1838.3785 1946.05639 1872.5315 1928.784 5488.752   100    d
-##  2317.771 2363.8345 2624.41205 2397.5980 2459.713 8006.193   100   c 
-##    35.342   42.7425   56.27619   48.8925   55.227  729.390   100 a</code></pre>
-<div class="inline-figure"><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-35-1.png" width="672"></div>
+##       min        lq       mean    median        uq      max neval  cld
+##    44.608   57.5025   78.25465   80.1140   93.7260  123.287   100 a   
+##  3340.475 3477.2920 3745.40330 3543.2405 3661.5665 8599.627   100  b  
+##  2322.199 2375.3350 2482.04570 2407.9505 2439.4385 6698.129   100   c 
+##  1745.903 1823.2085 2027.96824 1863.0400 1915.9505 6711.659   100    d
+##  2317.074 2366.0895 2516.76532 2402.1285 2439.4385 6947.655   100   c 
+##    35.506   43.5625   55.14500   47.0475   53.5255  713.441   100 a</code></pre>
+<div class="inline-figure"><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-37-1.png" width="672"></div>
 <p>À noter que vous pouvez utiliser des fonctions Rcpp en dehors de l’architecture
 d’un package grâce à la fonction <code><a href="https://rdrr.io/pkg/Rcpp/man/sourceCpp.html">Rcpp::sourceCpp()</a></code>. Mais comme nous avons
 qu’il est préférable de gérer tous ces code sous la forme de package, il est

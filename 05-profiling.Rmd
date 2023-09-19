@@ -8,16 +8,20 @@ library(ggplot2)
 ```
 
 On parle de *profiling* en anglais. Il s'agit de déterminer ce qui prend
-du temps dans un code. Le but étant une fois trouvé le bloc de code qui prend
-le plus de temps dans l'exécution d'optimiser uniquement cette brique.
+du temps dans un code. Le but étant, une fois trouvé le bloc de code qui prend
+le plus de temps dans l'exécution, d'optimiser uniquement cette brique.
 
 Pour obtenir un *profiling* du code ci-dessous, sélectionner les lignes de code
-d’intérêt et aller dans le menu "Profile" puis "Profile Selected Lines" (ou
-Ctrl+Alt+Shift P).
+d’intérêt et aller dans le menu "*Profile*" puis "*Profile Selected Lines*". Cela utilise en fait la fonction `profvis()` du package `profvis`.
 
 ```{r, eval=FALSE}
 n <- 10e4
 pdfval <- mvnpdf(x=matrix(1.96, nrow = 2, ncol = n), Log=FALSE)
+```
+
+```{r, echo=FALSE}
+n <- 10e4
+profvis::profvis(mvnpdf(x=matrix(1.96, nrow = 2, ncol = n), Log=FALSE))
 ```
 
 *OK, we get it !* Concaténer un vecteur au fur et à mesure dans une boucle
@@ -25,16 +29,18 @@ n'est vraiment pas une bonne idée.
 
 ## Comparaison avec une version plus habile de `mnvpdf()`
 
-Considérons une nouvelle version de `mvnpdf()`, appelée `mvnpdfsmart()`.
-Télécharger le
-[fichier](https://r-dev-perf.borishejblum.science/FormationRavancee_dev_perf_files/mvnpdfsmart.R) puis
-l'inclure dans le package.
+Considérons une nouvelle version de `mvnpdf()`, appelée `mvnpdfsmart()`. Télécharger le [fichier](https://r-dev-perf.borishejblum.science/FormationRavancee_dev_perf_files/mvnpdfsmart.R) puis l'inclure dans votre package.
 
 Profiler la commande suivante :
 
 ```{r, eval=FALSE}
 n <- 10e4
 pdfval <- mvnpdfsmart(x=matrix(1.96, nrow = 2, ncol = n), Log=FALSE)
+```
+
+```{r, echo=FALSE}
+n <- 10e4
+profvis::profvis(mvnpdfsmart(x=matrix(1.96, nrow = 2, ncol = n), Log=FALSE))
 ```
 
 On a effectivement résolu le problème et on apprend maintenant de manière plus
@@ -64,7 +70,8 @@ ggplot(data2plot) + geom_violin(aes(x=Expression, y=Time, fill=Expression), alph
   scale_y_log10(minor_breaks=brk) +
   ylab("Log-temps de calcul (milli-sec)") +
   xlab("Expression évaluée") +
-  theme_bw()
+  theme_bw() +
+  annotation_logticks(sides="l")
 ```
 
 Et on peut également voir si on devient compétitif avec `dmvnorm()` :
@@ -92,23 +99,23 @@ ggplot(data2plot) + geom_violin(aes(x=Expression, y=Time, fill=Expression), alph
   scale_y_log10(minor_breaks=brk) + 
   ylab("Log-temps de calcul (milli-sec)") +
   xlab("Expression évaluée") +
-  theme_bw()
+  theme_bw() +
+  annotation_logticks(sides="l")
 ```
 
 Il y a encore du travail...
 
-## Comparaison avec une version optimisée dans R
+## Comparaison avec une version optimisée dans `r fontawesome::fa("r-project")`
 
-Boris est arrivée après plusieurs recherches et tests à une
-[version optimisée](https://r-dev-perf.borishejblum.science/FormationRavancee_dev_perf_files/mvnpdfoptim.R)
-avec les outils de R.
+Boris est arrivé, après de longues recherches et plusieurs tests, à une
+[version optimisée](https://r-dev-perf.borishejblum.science/FormationRavancee_dev_perf_files/mvnpdfoptim.R) avec les outils de `r fontawesome::fa("r-project")`.
 
 Inclure la fonction `mvnpdfoptim()` dans le package, puis profiler cette
 fonction :
 
-```{r, eval=FALSE}
+```{r}
 n <- 10e4
-pdfval <- mvnpdfoptim(x=matrix(1.96, nrow = 2, ncol = n), Log=FALSE)
+profvis::profvis(mvnpdfoptim(x=matrix(1.96, nrow = 2, ncol = n), Log=FALSE))
 ```
 
 Et un petit `microbenchmark()` :
@@ -137,13 +144,15 @@ ggplot(data2plot) + geom_violin(aes(x=Expression, y=Time, fill=Expression), alph
   scale_y_log10(minor_breaks=brk) + 
   ylab("Log-temps de calcul (milli-sec)") +
   xlab("Expression évaluée") +
-  theme_bw()
+  theme_bw() +
+  annotation_logticks(sides="l")
 ```
 
 Pour finir on peut profiler la fonction `dmvnorm()` :
 
 ```{r}
 n <- 10e5
-pdfval <- mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))
+library(mvtnorm)
+profvis::profvis(dmvnorm(matrix(1.96, nrow = n, ncol = 2)))
 ```
 

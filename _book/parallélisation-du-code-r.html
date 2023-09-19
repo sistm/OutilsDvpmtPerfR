@@ -17,7 +17,9 @@
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.5.1/transition.js"></script><script src="libs/bs3compat-0.5.1/tabs.js"></script><script src="libs/bs3compat-0.5.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
-<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script><script src="libs/d3-3.5.6/d3.min.js"></script><link href="libs/profvis-0.3.6.9000/profvis.css" rel="stylesheet">
+<script src="libs/profvis-0.3.6.9000/profvis.js"></script><script src="libs/profvis-0.3.6.9000/scroll.js"></script><link href="libs/highlight-6.2.0/textmate.css" rel="stylesheet">
+<script src="libs/highlight-6.2.0/highlight.js"></script><script src="libs/profvis-binding-0.3.8/profvis.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
     
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   </style>
@@ -152,7 +154,7 @@ sur les 100 premiers entiers, grâce à la commande :<br><code>microbenchmark(lo
 <span></span>
 <span><span class="fu"><a href="https://future.futureverse.org/reference/plan.html">plan</a></span><span class="op">(</span><span class="fu"><a href="https://future.futureverse.org/reference/multisession.html">multisession</a></span><span class="op">(</span>workers <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">mb</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span><span class="fu">log_par</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">100</span><span class="op">)</span>, <span class="fu">log_seq</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">100</span><span class="op">)</span>, times <span class="op">=</span> <span class="fl">50</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-38-1.png" width="672"></div>
+<div class="inline-figure"><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-40-1.png" width="672"></div>
 <p>La version parallèle tourne beaucoup plus lentement… Car en fait, si les
 tâches individuelles sont trop rapides, <code>R</code> va passer plus de temps à
 communiquer avec les cœurs, qu’à faire les calculs effectifs.</p>
@@ -187,7 +189,7 @@ médiane pour chacune de ces variables.</p>
 <span><span class="op">}</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span><span class="op">(</span><span class="fu">colmedian_apply</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>##    user  system elapsed 
-##   1.551   0.005   1.559</code></pre>
+##   1.643   0.006   1.686</code></pre>
 <p>En réalité, une boucle <code>for</code> n’est pas plus lente à condition d’être bien
 programmée :</p>
 <div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
@@ -200,7 +202,7 @@ programmée :</p>
 <span><span class="op">}</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span><span class="op">(</span><span class="fu">colmedian_for</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>##    user  system elapsed 
-##   1.486   0.003   1.492</code></pre>
+##   1.490   0.005   1.495</code></pre>
 <blockquote>
 <p><strong><em>À vous de jouer !</em></strong><br>
 Essayez d’améliorer encore ce temps de calcul en parallélisant :</p>
@@ -223,7 +225,7 @@ calcul.</p></li>
 <span><span class="fu"><a href="https://future.futureverse.org/reference/plan.html">plan</a></span><span class="op">(</span><span class="fu"><a href="https://future.futureverse.org/reference/multisession.html">multisession</a></span><span class="op">(</span>workers <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span><span class="op">(</span><span class="fu">colmedian_par</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>##    user  system elapsed 
-##   0.097   0.016   0.712</code></pre>
+##   0.129   0.017   0.905</code></pre>
 <div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">colmedian_parIter</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">ncores</span> <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="va">iter</span> <span class="op">&lt;-</span> <span class="fu">itertools</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/itertools/man/isplitIndices.html">isplitIndices</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, chunks <span class="op">=</span> <span class="va">ncores</span><span class="op">)</span></span>
@@ -234,7 +236,7 @@ calcul.</p></li>
 <span><span class="op">}</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span><span class="op">(</span><span class="fu">colmedian_parIter</span><span class="op">(</span><span class="va">x</span>, ncores <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>##    user  system elapsed 
-##   0.048   0.014   0.540</code></pre>
+##   0.066   0.012   0.696</code></pre>
 <div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mb</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span><span class="fu">colmedian_apply</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, </span>
 <span>                     <span class="fu">colmedian_for</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,</span>
@@ -243,16 +245,16 @@ calcul.</p></li>
 <span><span class="va">mb</span></span></code></pre></div>
 <pre><code>## Unit: milliseconds
 ##                              expr       min        lq      mean    median
-##                colmedian_apply(x) 1146.2693 1173.4495 1194.9441 1189.6657
-##                  colmedian_for(x) 1110.8893 1128.4085 1161.2218 1157.9027
-##                  colmedian_par(x)  552.1889  557.7954  565.7271  563.7149
-##  colmedian_parIter(x, ncores = 3)  492.4648  494.2154  501.4810  500.1446
+##                colmedian_apply(x) 1518.1346 1541.9574 1568.2892 1568.3977
+##                  colmedian_for(x) 1474.2957 1495.8790 1531.8657 1518.1458
+##                  colmedian_par(x)  708.0211  712.8069  731.6481  719.7465
+##  colmedian_parIter(x, ncores = 3)  606.6464  619.0144  639.6004  632.1714
 ##         uq       max neval cld
-##  1207.9525 1263.9378    10 a  
-##  1189.2213 1239.7713    10 a  
-##   576.9173  578.1943    10  b 
-##   502.7662  518.6836    10   c</code></pre>
-<div class="inline-figure"><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-43-1.png" width="672"></div>
+##  1578.2346 1633.0845    10 a  
+##  1548.6421 1648.4490    10 a  
+##   725.2583  854.5031    10  b 
+##   648.3523  724.2790    10   c</code></pre>
+<div class="inline-figure"><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-45-1.png" width="672"></div>
 <div id="les-itérateurs" class="section level3" number="6.3.1">
 <h3>
 <span class="header-section-number">6.3.1</span> Les itérateurs<a class="anchor" aria-label="anchor" href="#les-it%C3%A9rateurs"><i class="fas fa-link"></i></a>
@@ -324,12 +326,12 @@ une implémentation parallélisant les calculs sur les observations (colonnes de
 ##                           mypkgr::mvnpdfoptim(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE)
 ##                  mypkgr::mvnpdfoptim_par(x = matrix(1.96, nrow = 2, ncol = n),      Log = FALSE)
 ##  mypkgr::mvnpdfoptim_parIter(x = matrix(1.96, nrow = 2, ncol = n),      Log = FALSE, ncores = 3)
-##        min        lq       mean     median        uq        max neval cld
-##    175.562   215.578   225.8731   223.5525   233.618    280.071    20 a  
-##  13489.041 13781.801 14633.2772 14273.9655 14796.613  18171.692    20 ab 
-##  32025.018 32836.592 33700.8233 33300.7740 34809.102  35935.680    20  bc
-##  31920.796 32473.722 45188.2894 33096.4300 34667.591 267307.413    20   c</code></pre>
-<div class="inline-figure"><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-46-1.png" width="672"></div>
+##        min         lq       mean    median       uq        max neval cld
+##    231.035   277.0985   298.4574   293.601   309.14    413.239    20  a 
+##  17897.976 18047.4005 19202.7293 18361.993 19917.92  22561.972    20  a 
+##  40055.852 41174.2910 53677.7986 41733.715 43496.14 270043.138    20   b
+##  41021.648 41606.4925 43428.8953 42418.005 44911.07  49199.057    20   b</code></pre>
+<div class="inline-figure"><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-48-1.png" width="672"></div>
 <p>Notre proposition d’implementation pour <code>mvnpdfoptim_par</code> est téléchargeable <a href="https://r-dev-perf.borishejblum.science/FormationRavancee_dev_perf_files/mvnpdfoptim_par.R">ici</a>.</p>
 </div>
 <div id="conclusion" class="section level2" number="6.5">

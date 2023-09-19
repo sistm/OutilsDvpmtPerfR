@@ -30,7 +30,7 @@ mesurer-des-temps-dexécution-avec-system.time
 comparer-des-temps-dexécution-avec-microbenchmark
 profiler-son-code
 comparaison-avec-une-version-plus-habile-de-mnvpdf
-comparaison-avec-une-version-optimisée-dans-r
+comparaison-avec-une-version-optimisée-dans
 rcpp-ou-comment-intégrer-facilement-du-code-cdans-un-package-r
 première-fonction-en-rcpp
 optimisation-grâce-à-c
