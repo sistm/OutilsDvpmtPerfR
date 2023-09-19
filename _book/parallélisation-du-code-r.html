@@ -4,16 +4,16 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Chapitre 6 Parallélisation du code R | Formation R avancée</title>
+<title>Chapitre 6 Parallélisation du code R | Formation  avancée</title>
 <meta name="author" content="Robin Genuer 🌐 &amp; Boris Hejblum 🌐">
-<meta name="description" content="Placeholder  6.1 Introduction à l’execution parallèle sous R   6.2 Première fonction parallèle en R   6.3 Parallélisation efficace  6.3.1 Les itérateurs   6.3.2 Les autres “plans” de calculs...">
+<meta name="description" content="6.1 Introduction à l’execution parallèle sous R En dehors de l’optimisation du code et des algorithmes, une autre façon d’obtenir un code performant est de tirer profit des architectures...">
 <meta name="generator" content="bookdown 0.35 with bs4_book()">
-<meta property="og:title" content="Chapitre 6 Parallélisation du code R | Formation R avancée">
+<meta property="og:title" content="Chapitre 6 Parallélisation du code R | Formation  avancée">
 <meta property="og:type" content="book">
-<meta property="og:description" content="Placeholder  6.1 Introduction à l’execution parallèle sous R   6.2 Première fonction parallèle en R   6.3 Parallélisation efficace  6.3.1 Les itérateurs   6.3.2 Les autres “plans” de calculs...">
+<meta property="og:description" content="6.1 Introduction à l’execution parallèle sous R En dehors de l’optimisation du code et des algorithmes, une autre façon d’obtenir un code performant est de tirer profit des architectures...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chapitre 6 Parallélisation du code R | Formation R avancée">
-<meta name="twitter:description" content="Placeholder  6.1 Introduction à l’execution parallèle sous R   6.2 Première fonction parallèle en R   6.3 Parallélisation efficace  6.3.1 Les itérateurs   6.3.2 Les autres “plans” de calculs...">
+<meta name="twitter:title" content="Chapitre 6 Parallélisation du code R | Formation  avancée">
+<meta name="twitter:description" content="6.1 Introduction à l’execution parallèle sous R En dehors de l’optimisation du code et des algorithmes, une autre façon d’obtenir un code performant est de tirer profit des architectures...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.5.1/transition.js"></script><script src="libs/bs3compat-0.5.1/tabs.js"></script><script src="libs/bs3compat-0.5.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -31,7 +31,7 @@
 
     <div class="d-flex align-items-start justify-content-between">
       <h1>
-        <a href="index.html" title="&lt;em&gt;Outils de développement et de performance&lt;/em&gt;">Formation R avancée</a>:
+        <a href="index.html" title="&lt;em&gt;Outils de développement et de performance&lt;/em&gt;">Formation <svg aria-hidden="true" role="img" viewbox="0 0 581 512" style="height:1em;width:1.13em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M581 226.6C581 119.1 450.9 32 290.5 32S0 119.1 0 226.6C0 322.4 103.3 402 239.4 418.1V480h99.1v-61.5c24.3-2.7 47.6-7.4 69.4-13.9L448 480h112l-67.4-113.7c54.5-35.4 88.4-84.9 88.4-139.7zm-466.8 14.5c0-73.5 98.9-133 220.8-133s211.9 40.7 211.9 133c0 50.1-26.5 85-70.3 106.4-2.4-1.6-4.7-2.9-6.4-3.7-10.2-5.2-27.8-10.5-27.8-10.5s86.6-6.4 86.6-92.7-90.6-87.9-90.6-87.9h-199V361c-74.1-21.5-125.2-67.1-125.2-119.9zm225.1 38.3v-55.6c57.8 0 87.8-6.8 87.8 27.3 0 36.5-38.2 28.3-87.8 28.3zm-.9 72.5H365c10.8 0 18.9 11.7 24 19.2-16.1 1.9-33 2.8-50.6 2.9v-22.1z"></path></svg> avancée</a>:
         <small class="text-muted"><em>Outils de développement et de performance</em></small>
       </h1>
       <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
@@ -64,41 +64,282 @@
 <h1>
 <span class="header-section-number">Chapitre 6</span> Parallélisation du code <code>R</code><a class="anchor" aria-label="anchor" href="#parall%C3%A9lisation-du-code-r"><i class="fas fa-link"></i></a>
 </h1>
-<p>Placeholder</p>
 <div id="introduction-à-lexecution-parallèle-sous-r" class="section level2" number="6.1">
 <h2>
 <span class="header-section-number">6.1</span> Introduction à l’execution parallèle sous <code>R</code><a class="anchor" aria-label="anchor" href="#introduction-%C3%A0-lexecution-parall%C3%A8le-sous-r"><i class="fas fa-link"></i></a>
 </h2>
+<p>En dehors de l’optimisation du code et des algorithmes, une autre façon
+d’obtenir un code performant est de tirer profit des architectures parallèles
+des ordinateurs modernes. Il s’agit alors de <strong>paralléliser</strong> son code afin de
+faire des opérations simultanées sur des parties distinctes d’un même problème,
+en utilisant différent cœurs de calcul. On ne réduit pas le temps de calcul
+total nécessaire, mais l’ensemble des opérations s’exécute plus rapidement.</p>
+<p>Il existe un nombre non négligeable d’algorithmes qui sont d’un “parallélisme
+embarrassant”, c’est-à-dire dont les calculs peuvent se décomposer en plusieurs
+sous-calculs indépendants. En statistique, il est ainsi souvent facile et direct
+de paralléliser selon les différentes observations ou selon les différentes
+dimensions. Typiquement, il s’agit d’opérations que l’on peut écrire sous la
+forme de boucle dont les opérations sont indépendantes d’une itération de la
+boucle à l’autre.</p>
+<p><strong>Les opérations nécessaires pour l’établissement d’un code parallèle sont les suivantes :</strong></p>
+<ol style="list-style-type: decimal">
+<li><p>Démarrer <span class="math inline">\(m\)</span> processus “travailleurs” (i.e. cœurs de calcul) et les initialiser</p></li>
+<li><p>Envoyer les fonctions et données nécessaires pour chaque tache aux travailleurs</p></li>
+<li><p>Séparer les taches en <span class="math inline">\(m\)</span> opérations d’envergure similaire et les envoyer aux travailleurs</p></li>
+<li><p>Attendre que tous les travailleurs aient terminer leurs calculs et obtenir leurs résultats</p></li>
+<li><p>Rassembler les résultats des différents travailleurs</p></li>
+<li><p>Arrêter les processus travailleurs</p></li>
+</ol>
+<p>Selon les plateformes, plusieurs protocoles de communications sont disponibles
+entre les cœurs. Sous les systèmes UNIX, le protocole <em>Fork</em> est le plus
+utilisé, mais il n’est pas disponible sous Windows où on utilise
+préférentiellement le protocole <em>PSOCK</em>. Enfin, pour les architecture de calcul
+distribuée où les cœurs ne se trouvent pas nécessairement sur le même processeur
+physique, on utilise généralement le protocole <em>MPI</em>. L’avantage des packages
+<code>future</code> et <code>future.apply</code> est que le même code pourra être exécuté quelque soit
+la configuration matérielle.</p>
+<p>Il existe un nombre important de packages et d’initiatives permettant de faire
+du calcul en R. Depuis <code>R 2.14.0</code>, le package
+<a href="https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf"><code>parallel</code></a>
+est inclus directement dans <code>R</code> et permet de démarrer et d’arrêter un “cluster”
+de plusieurs processus travailleur (étape 1 et 6). En plus du package
+<code>parallel</code>, on va donc utiliser le package <code>future</code> qui permet de gérer les
+processus travailleurs et la communication et l’articulation avec le package
+<code>future.apply</code>qui permet lui de gérer le dialogue avec les travailleurs (envois,
+réception et rassemblement des résultats - étapes 2, 3, 4 et 5).</p>
 </div>
 <div id="première-fonction-parallèle-en-r" class="section level2" number="6.2">
 <h2>
 <span class="header-section-number">6.2</span> Première fonction parallèle en <code>R</code><a class="anchor" aria-label="anchor" href="#premi%C3%A8re-fonction-parall%C3%A8le-en-r"><i class="fas fa-link"></i></a>
 </h2>
+<blockquote>
+<p><strong><em>À vous de jouer !</em></strong></p>
+<p>Commencez par écrire une fonction simple qui calcule le logarithme de <span class="math inline">\(n\)</span>
+nombres:</p>
+<ol style="list-style-type: decimal">
+<li><p>Déterminez combien de coeurs sont disponibles sur votre marchine grâce à
+la fonction <code><a href="https://parallelly.futureverse.org/reference/availableCores.html">future::availableCores()</a></code>.</p></li>
+<li><p>À l’aide de la fonction <code>future::plan(multisession(workers = XX))</code>,
+déclarez un “plan” de calculs parallèles sur votre ordinateur (en prenant garde
+à <strong>laisser un coeur disponible</strong> pour traiter les autres processus).</p></li>
+<li><p>À l’aide d’une fonction de type apply <code>future.apply::future_*apply()</code>,
+calculez le log des <span class="math inline">\(n\)</span> nombres en parallèle et concaténez les résultats dans un
+vecteur.</p></li>
+<li><p>Comparez le temps d’éxecution avec celui d’une fonction séquentielle
+sur les 100 premiers entiers, grâce à la commande :<br><code>microbenchmark(log_par(1:100), log_seq(1:100), times=10)</code></p></li>
+</ol>
+</blockquote>
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/joshuaulrich/microbenchmark/">microbenchmark</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://future.apply.futureverse.org">future.apply</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">log_seq</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="co"># try this yourself (spoiler alert: it is quite long...):</span></span>
+<span>  <span class="co"># res &lt;- numeric(length(x))</span></span>
+<span>  <span class="co"># for(i in 1:length(x)){</span></span>
+<span>  <span class="co">#   res[i] &lt;- log(x[i])</span></span>
+<span>  <span class="co"># }</span></span>
+<span>  <span class="co"># return(res)</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="va">log_par</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://future.apply.futureverse.org/reference/future_lapply.html">future_sapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, FUN <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="va">x</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu"><a href="https://future.futureverse.org/reference/plan.html">plan</a></span><span class="op">(</span><span class="fu"><a href="https://future.futureverse.org/reference/multisession.html">multisession</a></span><span class="op">(</span>workers <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">mb</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span><span class="fu">log_par</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">100</span><span class="op">)</span>, <span class="fu">log_seq</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">100</span><span class="op">)</span>, times <span class="op">=</span> <span class="fl">50</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-38-1.png" width="672"></div>
+<p>La version parallèle tourne beaucoup plus lentement… Car en fait, si les
+tâches individuelles sont trop rapides, <code>R</code> va passer plus de temps à
+communiquer avec les cœurs, qu’à faire les calculs effectifs.</p>
+<p><strong>Il faut qu’une itération de la boucle soit relativement longue pour que le
+calcul parallèle apporte un gain en temps de calcul !</strong></p>
+<p>En augmentant <span class="math inline">\(n\)</span>, on observe une réduction de la différence entre les 2
+implémentations (le temps de calcul en parallèle augmente très lentement comparé
+à l’augmentation de celui de la fonction séquentielle).</p>
+<p><strong>NB :</strong> les itérateurs d’<code>itertools</code> sont très performants mais ne peuvent
+servir que lorsque le code à l’intérieur de <code>future_*apply()</code> est vectorisé (il
+est toujours possible de vectoriser le code à l’intérieur, par exemple avec une
+fonction de type <code>apply</code>). Ils minimisent le nombre de communication entre les
+coeurs.</p>
 </div>
 <div id="parallélisation-efficace" class="section level2" number="6.3">
 <h2>
 <span class="header-section-number">6.3</span> Parallélisation efficace<a class="anchor" aria-label="anchor" href="#parall%C3%A9lisation-efficace"><i class="fas fa-link"></i></a>
 </h2>
+<p>On va maintenant se pencher sur un autre cas d’utilisation. Imaginons que l’on
+ait un grand tableau de données de taille comportant 10 observations pour 100
+000 variables (e.g. des mesures de génomique), et que l’on veuille calculer la
+médiane pour chacune de ces variables.</p>
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">1e6</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1]     10 100000</code></pre>
+<p>Pour un utilisateur averti de <code>R</code>, une telle opération se programme facilement
+à l’aide de la fonction <code>apply</code> :</p>
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">colmedian_apply</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">2</span>, <span class="va">median</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span><span class="op">(</span><span class="fu">colmedian_apply</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code>##    user  system elapsed 
+##   1.249   0.004   1.257</code></pre>
+<p>En réalité, une boucle <code>for</code> n’est pas plus lente à condition d’être bien
+programmée :</p>
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">colmedian_for</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="va">ans</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> </span>
+<span>  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">ans</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/median.html">median</a></span><span class="op">(</span><span class="va">x</span><span class="op">[</span>, <span class="va">i</span><span class="op">]</span><span class="op">)</span> </span>
+<span>  <span class="op">}</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">ans</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span><span class="op">(</span><span class="fu">colmedian_for</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code>##    user  system elapsed 
+##   1.178   0.004   1.184</code></pre>
+<blockquote>
+<p><strong><em>À vous de jouer !</em></strong><br>
+Essayez d’améliorer encore ce temps de calcul en parallélisant :</p>
+<ol style="list-style-type: decimal">
+<li><p>Parallélisez le calcul de la médiane de chacune des 100 000 variables.
+Observe-t-on un gain en temps de calcul ?</p></li>
+<li><p>Proposez une implémentation alternative grâce à la fonction
+<code><a href="https://rdrr.io/pkg/itertools/man/isplitIndices.html">itertools::isplitIndices()</a></code> qui permet de séparer vos données (les <span class="math inline">\(n\)</span> nombres)
+en autant de groupes que vous avez de coeurs. Comparez à nouveau les temps de
+calcul.</p></li>
+</ol>
+</blockquote>
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">colmedian_par</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://future.apply.futureverse.org/reference/future_lapply.html">future_sapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, FUN <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="op">{</span></span>
+<span>          <span class="fu"><a href="https://rdrr.io/r/stats/median.html">median</a></span><span class="op">(</span><span class="va">x</span><span class="op">[</span>, <span class="va">i</span><span class="op">]</span><span class="op">)</span></span>
+<span>    <span class="op">}</span><span class="op">)</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="fu"><a href="https://future.futureverse.org/reference/plan.html">plan</a></span><span class="op">(</span><span class="fu"><a href="https://future.futureverse.org/reference/multisession.html">multisession</a></span><span class="op">(</span>workers <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span><span class="op">(</span><span class="fu">colmedian_par</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code>##    user  system elapsed 
+##   0.097   0.016   0.712</code></pre>
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">colmedian_parIter</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">ncores</span> <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="va">iter</span> <span class="op">&lt;-</span> <span class="fu">itertools</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/itertools/man/isplitIndices.html">isplitIndices</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, chunks <span class="op">=</span> <span class="va">ncores</span><span class="op">)</span></span>
+<span>  <span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://future.apply.futureverse.org/reference/future_lapply.html">future_sapply</a></span><span class="op">(</span><span class="va">iter</span>, FUN <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="op">{</span></span>
+<span>          <span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span><span class="op">(</span><span class="va">x</span><span class="op">[</span>, <span class="va">i</span><span class="op">]</span>, <span class="fl">2</span>, <span class="va">median</span><span class="op">)</span></span>
+<span>    <span class="op">}</span><span class="op">)</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span><span class="op">(</span><span class="fu">colmedian_parIter</span><span class="op">(</span><span class="va">x</span>, ncores <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code>##    user  system elapsed 
+##   0.048   0.014   0.540</code></pre>
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">mb</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span><span class="fu">colmedian_apply</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, </span>
+<span>                     <span class="fu">colmedian_for</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,</span>
+<span>                     <span class="fu">colmedian_par</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,</span>
+<span>                     <span class="fu">colmedian_parIter</span><span class="op">(</span><span class="va">x</span>, ncores <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>, times <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
+<span><span class="va">mb</span></span></code></pre></div>
+<pre><code>## Unit: milliseconds
+##                              expr       min        lq      mean    median
+##                colmedian_apply(x) 1146.2693 1173.4495 1194.9441 1189.6657
+##                  colmedian_for(x) 1110.8893 1128.4085 1161.2218 1157.9027
+##                  colmedian_par(x)  552.1889  557.7954  565.7271  563.7149
+##  colmedian_parIter(x, ncores = 3)  492.4648  494.2154  501.4810  500.1446
+##         uq       max neval cld
+##  1207.9525 1263.9378    10 a  
+##  1189.2213 1239.7713    10 a  
+##   576.9173  578.1943    10  b 
+##   502.7662  518.6836    10   c</code></pre>
+<div class="inline-figure"><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-43-1.png" width="672"></div>
 <div id="les-itérateurs" class="section level3" number="6.3.1">
 <h3>
 <span class="header-section-number">6.3.1</span> Les itérateurs<a class="anchor" aria-label="anchor" href="#les-it%C3%A9rateurs"><i class="fas fa-link"></i></a>
 </h3>
+<p>Le package <code>itertools</code> permet de séparer facilement des données ou des
+taches (étape 3) tout en minimisant les communications avec les différents
+travailleurs. Il s’appuie sur une implémentation des itérateurs en <code>R</code>.
+Son utilisation nécessite néanmoins de vectoriser le code à l’intérieur de
+<code>future_*apply()</code>. Expérimentez avec le petit code ci-dessous :</p>
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">myiter</span> <span class="op">&lt;-</span> <span class="fu">itertools</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/itertools/man/isplitIndices.html">isplitIndices</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">30</span>, chunks <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Une première fois</span></span>
+<span><span class="fu">iterators</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/iterators/man/nextElem.html">nextElem</a></span><span class="op">(</span><span class="va">myiter</span><span class="op">)</span></span></code></pre></div>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Une deuxième fois... Oh ?!</span></span>
+<span><span class="fu">iterators</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/iterators/man/nextElem.html">nextElem</a></span><span class="op">(</span><span class="va">myiter</span><span class="op">)</span></span></code></pre></div>
+<pre><code>##  [1] 11 12 13 14 15 16 17 18 19 20</code></pre>
+<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Encore !</span></span>
+<span><span class="fu">iterators</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/iterators/man/nextElem.html">nextElem</a></span><span class="op">(</span><span class="va">myiter</span><span class="op">)</span></span></code></pre></div>
+<pre><code>##  [1] 21 22 23 24 25 26 27 28 29 30</code></pre>
+<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Encore ?</span></span>
+<span><span class="fu">iterators</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/iterators/man/nextElem.html">nextElem</a></span><span class="op">(</span><span class="va">myiter</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## Error: StopIteration</code></pre>
 </div>
 <div id="les-autres-plans-de-calculs-parallèle" class="section level3" number="6.3.2">
 <h3>
 <span class="header-section-number">6.3.2</span> Les autres “plans” de calculs parallèle<a class="anchor" aria-label="anchor" href="#les-autres-plans-de-calculs-parall%C3%A8le"><i class="fas fa-link"></i></a>
 </h3>
+<p>Pour exécuter votre code (exactement le même code, c’est un des avantages
+du packages de la famille <code>future*</code>), vous devez régler un “plan” de calculs :</p>
+<ul>
+<li><p>sur un ordinateur (ou un unique serveur de calcul) sous Unix (Linux, Mac OS),
+vous pouvez utiliser <code>plan(multicore(workers = XX))</code> qui est souvent plus
+performant. Le plan multisession fonctionne toujours.</p></li>
+<li><p>sur un cluster de calculs (type Avakas à Bordeaux), nous renvoyons au package
+<a href="https://cran.r-project.org/web/packages/future.batchtools/vignettes/future.batchtools.html"><code>future.batchtools</code></a></p></li>
+</ul>
 </div>
 </div>
 <div id="parallélisation-dans-notre-exemple-fil-rouge" class="section level2" number="6.4">
 <h2>
 <span class="header-section-number">6.4</span> Parallélisation dans notre exemple fil rouge<a class="anchor" aria-label="anchor" href="#parall%C3%A9lisation-dans-notre-exemple-fil-rouge"><i class="fas fa-link"></i></a>
 </h2>
+<blockquote>
+<p><strong><em>À vous de jouer !</em></strong></p>
+<ol style="list-style-type: decimal">
+<li><p>À partir de la fonction <code>mvnpdfoptim()</code> et/ou <code>mvnpdfsmart()</code>, proposez
+une implémentation parallélisant les calculs sur les observations (colonnes de <span class="math inline">\(x\)</span>)</p></li>
+<li><p>Comparez les temps de calcul sur 10 000 observations</p></li>
+</ol>
+</blockquote>
+<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://future.futureverse.org/reference/plan.html">plan</a></span><span class="op">(</span><span class="fu"><a href="https://future.futureverse.org/reference/multisession.html">multisession</a></span><span class="op">(</span>workers <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">10000</span></span>
+<span><span class="va">mb</span> <span class="op">&lt;-</span> <span class="fu">microbenchmark</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span></span>
+<span>  <span class="fu">mvtnorm</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/mvtnorm/man/Mvnorm.html">dmvnorm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">1.96</span>, nrow <span class="op">=</span> <span class="va">n</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fu">mypkgr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/mypkgr/man/mvnpdf.html">mvnpdfoptim</a></span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">1.96</span>, nrow <span class="op">=</span> <span class="fl">2</span>, ncol <span class="op">=</span> <span class="va">n</span><span class="op">)</span>, Log<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span>,</span>
+<span>  <span class="fu">mypkgr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/mypkgr/man/mvnpdf.html">mvnpdfoptim_par</a></span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">1.96</span>, nrow <span class="op">=</span> <span class="fl">2</span>, ncol <span class="op">=</span> <span class="va">n</span><span class="op">)</span>, Log<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span>,</span>
+<span>  <span class="fu">mypkgr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/mypkgr/man/mvnpdf.html">mvnpdfoptim_parIter</a></span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">1.96</span>, nrow <span class="op">=</span> <span class="fl">2</span>, ncol <span class="op">=</span> <span class="va">n</span><span class="op">)</span>, Log<span class="op">=</span><span class="cn">FALSE</span>, ncores <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>,</span>
+<span>  times<span class="op">=</span><span class="fl">20L</span><span class="op">)</span></span>
+<span><span class="va">mb</span></span></code></pre></div>
+<pre><code>## Unit: microseconds
+##                                                                                             expr
+##                                               mvtnorm::dmvnorm(matrix(1.96, nrow = n, ncol = 2))
+##                           mypkgr::mvnpdfoptim(x = matrix(1.96, nrow = 2, ncol = n), Log = FALSE)
+##                  mypkgr::mvnpdfoptim_par(x = matrix(1.96, nrow = 2, ncol = n),      Log = FALSE)
+##  mypkgr::mvnpdfoptim_parIter(x = matrix(1.96, nrow = 2, ncol = n),      Log = FALSE, ncores = 3)
+##        min        lq       mean     median        uq        max neval cld
+##    175.562   215.578   225.8731   223.5525   233.618    280.071    20 a  
+##  13489.041 13781.801 14633.2772 14273.9655 14796.613  18171.692    20 ab 
+##  32025.018 32836.592 33700.8233 33300.7740 34809.102  35935.680    20  bc
+##  31920.796 32473.722 45188.2894 33096.4300 34667.591 267307.413    20   c</code></pre>
+<div class="inline-figure"><img src="FormationRavancee_dev_perf_files/figure-html/unnamed-chunk-46-1.png" width="672"></div>
+<p>Notre proposition d’implementation pour <code>mvnpdfoptim_par</code> est téléchargeable <a href="https://r-dev-perf.borishejblum.science/FormationRavancee_dev_perf_files/mvnpdfoptim_par.R">ici</a>.</p>
 </div>
 <div id="conclusion" class="section level2" number="6.5">
 <h2>
 <span class="header-section-number">6.5</span> Conclusion<a class="anchor" aria-label="anchor" href="#conclusion"><i class="fas fa-link"></i></a>
 </h2>
+<p>La parallélisation permet de gagner du temps, mais il faut d’abord bien
+optimiser son code. Quand on parallélise un code, le gain sur la durée
+d’exécution dépend avant tout du ratio entre le temps de communication et le
+temps de calcul effectif pour chaque tache.</p>
 
 <!--
 # Miscélanées
@@ -151,7 +392,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Formation R avancée</strong>: <em>Outils de développement et de performance</em>" was written by <strong><em>Robin Genuer</em></strong> <a href="https://robin.genuer.fr/">🌐</a> &amp; <strong><em>Boris Hejblum</em></strong> <a href="https://borishejblum.science/">🌐</a>. It was last built on 2023-09-19.</p>
+    <p>"<strong>Formation <svg aria-hidden="true" role="img" viewbox="0 0 581 512" style="height:1em;width:1.13em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M581 226.6C581 119.1 450.9 32 290.5 32S0 119.1 0 226.6C0 322.4 103.3 402 239.4 418.1V480h99.1v-61.5c24.3-2.7 47.6-7.4 69.4-13.9L448 480h112l-67.4-113.7c54.5-35.4 88.4-84.9 88.4-139.7zm-466.8 14.5c0-73.5 98.9-133 220.8-133s211.9 40.7 211.9 133c0 50.1-26.5 85-70.3 106.4-2.4-1.6-4.7-2.9-6.4-3.7-10.2-5.2-27.8-10.5-27.8-10.5s86.6-6.4 86.6-92.7-90.6-87.9-90.6-87.9h-199V361c-74.1-21.5-125.2-67.1-125.2-119.9zm225.1 38.3v-55.6c57.8 0 87.8-6.8 87.8 27.3 0 36.5-38.2 28.3-87.8 28.3zm-.9 72.5H365c10.8 0 18.9 11.7 24 19.2-16.1 1.9-33 2.8-50.6 2.9v-22.1z"></path></svg> avancée</strong>: <em>Outils de développement et de performance</em>" was written by <strong><em>Robin Genuer</em></strong> <a href="https://robin.genuer.fr/">🌐</a> &amp; <strong><em>Boris Hejblum</em></strong> <a href="https://borishejblum.science/">🌐</a>. It was last built on 2023-09-19.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

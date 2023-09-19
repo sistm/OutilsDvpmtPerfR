@@ -1,5 +1,5 @@
 --- 
-title: 'Formation R avancée'
+title: 'Formation `r fontawesome::fa("r-project")` avancée'
 subtitle: '*Outils de développement et de performance*'
 author: "***Robin Genuer*** [`r emoji::emoji('globe_with_meridians')`](https://robin.genuer.fr/) & ***Boris Hejblum*** [`r emoji::emoji('globe_with_meridians')`](https://borishejblum.science/)"
 date: "`r Sys.Date()`"
