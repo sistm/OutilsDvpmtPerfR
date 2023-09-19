@@ -31,10 +31,9 @@ comparer-des-temps-dexécution-avec-microbenchmark
 profiler-son-code
 comparaison-avec-une-version-plus-habile-de-mnvpdf
 comparaison-avec-une-version-optimisée-dans
-rcpp-ou-comment-intégrer-facilement-du-code-cdans-un-package-r
+rcpp-ou-comment-intégrer-facilement-du-code-cdans-un-package
 première-fonction-en-rcpp
 optimisation-grâce-à-c
-annexe-5.1-loptimisation-prématurée-nest-pas-une-bonne-idée
 parallélisation-du-code-r
 introduction-à-lexecution-parallèle-sous-r
 première-fonction-parallèle-en-r
